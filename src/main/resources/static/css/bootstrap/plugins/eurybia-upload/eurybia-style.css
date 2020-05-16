@@ -1,0 +1,111 @@
+.eurybia-upload {
+
+}
+
+.eurybia-upload-button {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    min-width: 60px;
+    border-radius: 2px;
+    overflow: hidden;
+    color: #fff;
+    background-color: #dd514c;
+    font-size: 13px;
+    font-weight: 200;
+    line-height: 1.3;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    margin-right: 5px;
+    border: 0px solid #aeaeae;
+    cursor: pointer;
+}
+
+.eurybia-upload-button:hover {
+    color: #fff;
+    background-color: #FC605E;
+    border-color: #FC605E;
+}
+
+.eurybia-upload-button.clear {
+    background-color: #ff6666
+}
+
+.eurybia-upload-button.clear:hover {
+    background-color: #e33244;
+}
+
+.eurybia-upload-button input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    font-size: 100px;
+    width: 100%;
+    height: 100%;
+    opacity: .01;
+    filter: Alpha(opacity=1);
+    cursor: pointer;
+}
+
+.eurybia-upload-icon {
+    display: block;
+    margin: 0 15px;
+    text-align: center;
+}
+
+.progressParent {
+    display: inline-block;
+    width: 200px;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.eurybia-upload .progress {
+    width: 0%;
+    height: 100%;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    background-color: #428bca;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+    -webkit-transition: width .6s ease;
+    transition: width .6s ease;
+    border-radius: 0px;
+}
+
+.eurybia-upload .progressNum {
+    display: inline-block;
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.eurybia-filename{
+    text-align: center;
+}
+.eurybia-filename span {
+    max-width: 200px;
+    font-size: 12px;
+    color: #666;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.eurybia-hidden {
+    display: none;
+}

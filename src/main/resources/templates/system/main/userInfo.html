@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<div class="layui-form timo-compile user-info-page">
+    <div class="user-info">
+        <div class="user-avatar-box">
+            <img class="user-avatar" th:src="@{'/system/user/picture?p='+${user.picture}}" alt="头像">
+            <span class="edit-avatar" th:attr="data-url=@{/userPicture}">修改头像</span>
+        </div>
+        <ul class="detail-info">
+            <li>账号：<span th:text="${user.username}" th:title="${user.username}"></span></li>
+            <li>昵称：<span th:text="${user.nickname}" th:title="${user.nickname}"></span></li>
+            <li>性别：<span th:text="${#dicts.keyValue('USER_SEX', user.sex)}"
+                         th:title="${#dicts.keyValue('USER_SEX', user.sex)}"></span></li>
+            <li>电话：<span th:text="${user.phone}" th:title="${user.phone}"></span></li>
+            <li>邮箱：<span th:text="${user.email}" th:title="${user.email}"></span></li>
+        </ul>
+    </div>
+    <form class="user-edit" th:action="@{/userInfo}">
+        <input type="hidden" name="username" th:value="${user.username}"/>
+        <input type="hidden" name="dept" th:value="${user.dept?.id}"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户昵称</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="nickname" placeholder="请输入用户昵称" th:value="${user.nickname}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话号码</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="phone" placeholder="请输入电话号码" th:value="${user.phone}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="email" placeholder="请输入邮箱" th:value="${user.email}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择性别</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="sex" value="1" title="男" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>男</div></div>
+                <input type="radio" name="sex" value="2" title="女" th:checked="${user.sex} eq 2"><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>女</div></div>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea" name="remark">[[${user.remark}]]</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item timo-finally">
+            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+            <a class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</a>
+        </div>
+    </form>
+    <!-- 编辑头像面板 -->
+    <div class="canvas-panel">
+        <img class="canvas-bg"/>
+        <div class="canvas-shade"></div>
+        <canvas class="canvas-crop"></canvas>
+    </div>
+    <div class="canvas-group layui-btn-group">
+        <button class="upload-close layui-btn layui-btn-primary layui-btn-sm">取消</button>
+        <button class="upload-btn layui-btn layui-btn-primary layui-btn-sm">保存</button>
+    </div>
+</div>
+<script th:replace="/common/template :: script"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery.mousewheel.min.js}"></script>
+<script>
+    layui.use(['jquery','upload'], function () {
+        var $ = layui.jquery;
+        var upload = layui.upload;
+
+        $(".user-edit").on("mousedown", function () {
+            $(this).css("opacity", 1);
+        });
+
+        /* 修改头像 */
+        var image = new Image();
+        var panel = $(".canvas-panel");
+        var bgImg = $(".canvas-bg");
+        var canvas = $(".canvas-crop");
+
+        // 激活或停止移动
+        var moveEvent = false;
+        var screenX = 0, screenY = 0;
+        var moveTop = 0, moveLeft = 0;
+        panel.on("mousedown",function (e) {
+            screenX = e.screenX;
+            screenY = e.screenY;
+            moveTop = parseFloat(bgImg.css("top"));
+            moveLeft = parseFloat(bgImg.css("left"));
+            moveEvent = true;
+        });
+        panel.on("mouseup",function (e) {
+            moveEvent = false;
+        });
+        panel.on("mousemove", function (e) {
+            if (moveEvent){
+                bgImg.css("left", moveLeft + e.screenX - screenX);
+                bgImg.css("top", moveTop + e.screenY - screenY);
+                renderPanel();
+            }
+        });
+        panel.on("mousewheel", function(event, delta) {
+            var dir = delta > 0 ? 'Up' : 'Down';
+            var width = parseFloat(bgImg.css("width"));
+            var height = parseFloat(bgImg.css("height"));
+            if (dir == 'Up') {
+                delta = 1;
+            } else {
+                delta = -1;
+            }
+            bgImg.css("width", width * (1 + 0.1 * delta));
+            bgImg.css("height", height * (1 + 0.1 * delta));
+            bgImg.css("left", parseFloat(bgImg.css("left")) - (width * 0.1 / 2) * delta);
+            bgImg.css("top", parseFloat(bgImg.css("top")) - (height * 0.1 / 2) * delta);
+            renderPanel();
+            return false;
+        });
+
+        // 渲染画布面板
+        function renderPanel() {
+            canvas[0].width = 256;
+            canvas[0].height = 256;
+            var imgScale = image.width / bgImg.width();
+            var context = canvas[0].getContext('2d');
+            var sx = (bgImg.width() * imgScale / 2 ) - canvas.width() / 2 * imgScale,
+                sy = (bgImg.height() * imgScale / 2) - canvas.height() / 2 * imgScale,
+                sw = canvas.width() * imgScale, sh = canvas.height() * imgScale;
+            var moveX = panel.width() / 2 - parseFloat(bgImg.css("left")) - bgImg.width() / 2;
+            var moveY = panel.height() / 2 - parseFloat(bgImg.css("top")) - bgImg.height() / 2;
+            context.drawImage(image, sx + moveX * imgScale, sy + moveY * imgScale, sw, sh, 0, 0, canvas[0].width, canvas[0].height);
+        }
+
+        var files = [];
+        var uploadInst = upload.render({
+            elem: '.edit-avatar'
+            ,field: 'picture'
+            ,url: $('.edit-avatar').data('url')
+            ,exts: 'jpg|png|gif|jpeg'
+            ,auto: false
+            ,bindAction: ".upload-btn"
+            // 选择文件回调
+            ,choose: function(obj){
+                obj.preview(function(index, file, result){
+                    panel.show();
+                    $(".canvas-group").show();
+                    image.src = result;
+                    image.onload = function(){
+                        bgImg.attr("src", result);
+                        if(bgImg.width() >= bgImg.height()){
+                            bgImg.css("height", canvas.width());
+                        }else {
+                            bgImg.css("width", canvas.height());
+                        }
+                        bgImg.css("top", (panel.height() - bgImg.height()) / 2);
+                        bgImg.css("left", (panel.width() - bgImg.width()) / 2);
+                        renderPanel();
+                    }
+                });
+            }
+            ,before: function(obj){
+                files = obj.pushFile();
+                var index, file;
+                for(index in files) {
+                    file = files[index];
+                }
+                var dataurl = canvas[0].toDataURL(file.type, 0.92);
+                var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+                while(n--){
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                files[index] = new File([u8arr], file.name, {type:mime});
+            }
+            ,done: function(res, index){
+                if(res.code == 200){
+                    panel.hide();
+                    $(".canvas-group").hide();
+                    layer.msg("修改头像成功", {offset: '15px', time: 3000, icon: 1});
+                    $(".user-avatar").attr("src", canvas[0].toDataURL());
+                    delete files[index];
+                }else {
+                    layer.msg(res.msg, {offset: '15px', time: 3000, icon: 2});
+                }
+            }
+        });
+
+        // 关闭裁切面板及清空文件
+        $(".upload-close").on("click", function () {
+            panel.hide();
+            $(".canvas-group").hide();
+        });
+    });
+</script>
+</body>
+</html>

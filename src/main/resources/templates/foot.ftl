@@ -1,0 +1,17 @@
+    <script src="/css/bootstrap/jquery.js"></script>
+    <script src="/css/bootstrap/bootstrap.min.js"></script>
+    <script src="/css/bootstrap/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/css/bootstrap/plugins/layer/layer.js"></script>
+    <script src="/css/bootstrap/plugins/layer/extend/layer.ext.js"></script>
+    <script src="/css/bootstrap/plugins/laydate5/laydate.js"></script>
+    <script src="/css/bootstrap/plugins/bootstrapTable/bootstrap-table.js"></script>
+    <script src="/css/bootstrap/plugins/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+    <script src="/css/bootstrap/plugins/formValidator/jquery.form-validator.js"></script>
+    <script src="/css/bootstrap/plugins/bootstrapSelect/bootstrap-select.js"></script>
+    <script src="/css/bootstrap/plugins/bootstrapDialog/bootstrap-dialog.min.js"></script>
+    <script src="/css/bootstrap/plugins/bootstrapTags/bootstrap-tagsinput.js"></script>
+    <script src="/css/bootstrap/plugins/nprogress/nprogress.js"></script>
+    <script src="/css/bootstrap/plugins/pagination/mricode.pagination.js"></script>
+    <script src="/css/bootstrap/plugins/eurybia-upload/eurybia-upload.js"></script>
+    <script src="/css/bootstrap/plugins/bootstrapSwitch/bootstrap-switch.js"></script>
+    <script src="/js/vue.js"></script>

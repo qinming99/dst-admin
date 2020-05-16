@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+    <title>饥荒后台登录</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+</head>
+<body class="layui-layout-login">
+<div class="login-bg">
+    <div class="cover"></div>
+</div>
+<div class="login-content" th:th:classappend="${isCaptcha} ? 'captcha'">
+    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i>登录</h1>
+    <form class="layui-form" th:action="@{/login}" method="post">
+        <div class="layui-form-item">
+            <label class="layui-icon layui-icon-username" for="username"></label>
+            <input class="layui-input" type="text" name="username" id="username" placeholder="用户名">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-icon layui-icon-password" for="password"></label>
+            <input class="layui-input" type="password" name="password" id="password" placeholder="密码">
+        </div>
+        <div th:if="${isCaptcha}" class="layui-form-item captcha-item">
+            <label class="layui-icon layui-icon-vercode"></label>
+            <input class="layui-input" type="text" name="captcha" autocomplete="off" placeholder="验证码">
+            <img class="captcha-img" th:src="@{/captcha}" />
+        </div>
+        <div class="layui-form-item">
+            <input type="checkbox" name="rememberMe" title="记住我" lay-skin="primary">
+            <a class="layui-layout-right forget-password" href="javascript:alert('请联系超级管理员！')">忘记密码?</a>
+        </div>
+        <button type="submit" class="layui-btn layui-btn-fluid ajax-login"><i class="fa fa-sign-in fa-lg fa-fw"></i> 登录</button>
+    </form>
+    <div class="layui-layer-loading login-page-loading"><div class="layui-layer-content"></div></div>
+</div>
+<script th:replace="/common/template :: script"></script>
+<script th:src="@{/js/login.js}" charset="utf-8"></script>
+</body>
+</html>
