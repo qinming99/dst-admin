@@ -122,7 +122,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">令牌</label>
                     <div class="col-sm-5">
-                        <textarea class="form-control" maxlength="200" id="token" placeholder="管理员令牌" >${token!}</textarea>
+                        <input class="form-control" maxlength="200" id="token" value="${token!}" placeholder="管理员令牌" >
 
                 </div>
 

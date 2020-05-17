@@ -2,14 +2,14 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>存档管理</title>
+    <title>mod和地图配置</title>
     <#include "../header.ftl"/>
 
 
 </head>
 <body >
 
-<h3> 存档</h3>
+<h3> mod和地图配置</h3>
 
 
 <body>
@@ -28,7 +28,7 @@
     new Vue({
         el: '#app',
         data: {
-            message: 'Hello '
+            message: 'Hello !'
         }
     })
 </script>

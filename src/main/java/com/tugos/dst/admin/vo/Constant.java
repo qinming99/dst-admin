@@ -23,6 +23,11 @@ public class Constant {
     public static final String DST_CAVES = "Caves";
 
     /**
+     * 游戏文档
+     */
+    public static final String DST_DOC_PATH = ".klei/DoNotStarveTogether";
+
+    /**
      * 饥荒游戏用户存档位置
      */
     public static final String DST_USER_GAME_CONFG_PATH = "/.klei/DoNotStarveTogether/MyDediServer";

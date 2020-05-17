@@ -37,13 +37,19 @@ public class MainController {
         Menu menu3 = Menu.builder().id(2L).icon("layui-icon layui-icon-log").sort(2).
                 children(new HashMap<>()).title("存档管理").type(1).url("/backup/index").build();
 
-        Menu menu4 = Menu.builder().id(3L).icon("layui-icon layui-icon-form").sort(2).
+        Menu menu4 = Menu.builder().id(2L).icon("layui-icon layui-icon-component").sort(3).
+                children(new HashMap<>()).title("mod和地图配置").type(1).url("/mod/index").build();
+
+        Menu menu5 = Menu.builder().id(3L).icon("layui-icon layui-icon-console").sort(4).
                 children(new HashMap<>()).title("系统状态").type(1).url("/monitor/index").build();
+
+
         Map<Long, Menu> treeMenu = new HashMap<>(16);
         treeMenu.put(0L, menu);
         treeMenu.put(1L, menu2);
         treeMenu.put(2L, menu3);
         treeMenu.put(3L, menu4);
+        treeMenu.put(4L, menu5);
         model.addAttribute("treeMenu", treeMenu);
         return "main";
     }

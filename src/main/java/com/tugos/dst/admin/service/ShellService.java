@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,6 +92,11 @@ public class ShellService {
      * @return
      */
     public List<String> showBackup() {
+        String backupPath = Constant.ROOT_PATH + "/" +Constant.DST_DOC_PATH;
+        File file = new File(backupPath);
+        if (!file.exists()){
+            return new ArrayList<>();
+        }
         StringBuffer command = new StringBuffer();
         command.append("cd $HOME/.klei/DoNotStarveTogether ").append(" ; ");
         command.append("ls");

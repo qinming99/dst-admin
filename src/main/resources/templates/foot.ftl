@@ -18,6 +18,21 @@
 
     <script>
 
+        function encodeParam(v) {
+            let s = encodeURIComponent(v)
+                    .replace( '@',/%40/gi)
+                    .replace( ':',/%3A/gi)
+                    .replace( '$',/%24/gi)
+                    .replace( ',',/%2C/gi)
+                    .replace( ';',/%3B/gi)
+                    .replace( '+',/%2B/gi)
+                    .replace( ';',/%3D/gi)
+                    .replace( '?',/%3F/gi)
+                    .replace( '/',/%2F/gi);
+            console.log(s)
+            return s;
+        }
+
         function ajax(opt) {
             //打开遮罩
             $("#loadingModal").modal('show');
@@ -35,7 +50,7 @@
                 xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
             }var params = [];
             for (var key in opt.data){
-                params.push(key + '=' + opt.data[key]);
+                params.push(key + '=' + encodeParam(opt.data[key]));
             }
             var postData = params.join('&');
             if (opt.method.toUpperCase() === 'POST') {
