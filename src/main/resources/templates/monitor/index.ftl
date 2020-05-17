@@ -12,30 +12,19 @@
 <body>
 
 
-<div>
 
-    服务器状态：
-    <button type="button" class="btn btn-primary">原始按钮</button>
-
-    <button type="button" class="btn btn-warning">警告按钮</button>
-
-
-
-</div>
-
-
-
-
-<div id="app">
-    <input type="text" v-model.trim="msg" @keyup.enter="echo">
-    <button @click="echo">发送</button>
+<div id="app" >
 
     <div>
-        <ol>
-            <li v-for="s in record">
-                {{ s }}
-            </li>
-        </ol>
+        <h3>CPU:</h3>
+        <h3>核心数：{{cpu.cpuNum}}</h3>
+        <h3>CPU当前空闲率：{{cpu.free}}%</h3>
+    </div>
+
+    <div>
+        <h3>内存:</h3>
+        <h3>内存总量:{{mem.total}}GB</h3>
+        <h3>剩余内存:{{mem.free}}GB</h3>
     </div>
 
 </div>
@@ -50,14 +39,13 @@
 
 
 <script>
-    /* global Vue, WebSocket */
     var ws = null
 
     var myapp = new Vue({
         el: '#app',
         data: {
-            msg: '',
-            record:[]
+            cpu:{},
+            mem:{}
         },
         methods: {
             echo: function () {
@@ -73,14 +61,12 @@
                     console.log('WebSocket已经打开: ')
                     console.log(e)
                 }
-                ws.onmessage = function (e) {
-                    // console.log('WebSocket收到消息: ' + e.data)
-                    // let that = this
-                    // debugger
-                    // console.log(that)
-                    // that.record.push(e.data);
-                    // console.log(myapp.record)
-                    myapp.record.push(e.data)
+                ws.onmessage = function (data) {
+                   console.log(data.data)
+                    let parse = JSON.parse(data.data);
+                    myapp.cpu = parse.cpu;
+                   myapp.mem = parse.mem;
+                   console.log(myapp.cpu)
                 }
                 ws.onclose = function (e) {
                     console.log('WebSocket关闭: ')

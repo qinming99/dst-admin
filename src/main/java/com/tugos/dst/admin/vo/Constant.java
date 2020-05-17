@@ -3,14 +3,16 @@ package com.tugos.dst.admin.vo;
 public class Constant {
 
 
-    public static final String START_MASTER = "startMaster.sh";
+    public static final String START_MASTER = "startmaster.sh";
 
 
-    public static final String START_CAVES = "startCaves.sh";
+    public static final String START_CAVES = "startcaves.sh";
 
-    public static final String STOP_MASTER = "stopMaster.sh";
+    public static final String STOP_MASTER = "stopmaster.sh";
 
-    public static final String STOP_CAVES = "stopCaves.sh";
+    public static final String STOP_CAVES = "stopcaves.sh";
+
+    public static final String UPDATE_GAME = "update.sh";
 
 
 

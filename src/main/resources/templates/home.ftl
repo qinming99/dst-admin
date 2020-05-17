@@ -10,6 +10,19 @@
 
         .mt-15 {margin-top: 15px;}
         .mb-15 {margin-bottom: 15px;}
+
+
+
+        .shortselect{
+            background:#fafdfe;
+            height:28px;
+            width:180px;
+            line-height:28px;
+            border:1px solid #9bc0dd;
+            -moz-border-radius:2px;
+            -webkit-border-radius:2px;
+            border-radius:2px;
+        }
     </style>
 
 </head>
@@ -62,15 +75,42 @@
 
     <div class="row mt-15 mb-15">
            <span>停止：
-            <button type="button" @click="stop('0')" class="btn btn-success btn-circle btn-lg">停止地面和洞穴</button>
-            <button type="button" @click="stop('1')" class="btn btn-success btn-circle btn-lg">停止地面</button>
-            <button type="button" @click="stop('2')" class="btn btn-success btn-circle btn-lg">停止洞穴</button>
+            <button type="button" @click="stop('0')" class="btn btn-warning btn-circle btn-lg">停止地面和洞穴</button>
+            <button type="button" @click="stop('1')" class="btn btn-warning btn-circle btn-lg">停止地面</button>
+            <button type="button" @click="stop('2')" class="btn btn-warning btn-circle btn-lg">停止洞穴</button>
         </span>
 
     </div>
 
 
+    <div class="row mt-15 mb-15">
+           <span>更新游戏：
+            <button type="button" @click="updateGame()" class="btn btn-primary btn-circle btn-lg">更新</button>
+        </span>
 
+    </div>
+
+    <div class="row mt-15 mb-15">
+           <span class="col-sm-5">备份游戏：
+               <input class="form-control" v-model="backupName" placeholder="文件名称,非必输">
+            <button type="button"  @click="backup()" class="btn btn-primary btn-circle btn-lg">备份</button>
+        </span>
+
+    </div>
+
+
+    <div class="row mt-15 mb-15">
+       <span>恢复备份：
+           <#if backupList??>
+               <select class="shortselect" id="restore_select">
+                   <#list backupList as back>
+                         <option value ="${back}">${back}</option>
+                   </#list>
+               </select>
+           </#if>
+        </span>
+        <button type="button"  @click="restore()" class="btn btn-primary btn-circle btn-lg">恢复</button>
+    </div>
 
 
 
@@ -100,6 +140,7 @@
         el: '#home',
         data: {
             msg: '',
+            backupName:''
         },
         methods: {
             start: function (type) {
@@ -131,7 +172,49 @@
                     }
                 });
 
-            }
+            },
+            updateGame:function () {
+                ajax({
+                    method: 'GET',
+                    url: '/updateGame',
+                    success: function (response) {
+                        location.reload();
+                        console.log(response);
+                    }
+                });
+            },
+            backup:function () {
+                let backupName = this.backupName;
+                ajax({
+                    method: 'GET',
+                    url: '/backup',
+                    data:{
+                        name: backupName
+                    },
+                    success: function (response) {
+                        location.reload();
+                        console.log(response);
+                    }
+                });
+            },
+            restore:function () {
+                let val = $("#restore_select").val();
+                if (val == null || val == ''|| val == undefined){
+                    alert("请选择存档")
+                }
+                console.log(val)
+                ajax({
+                    method: 'GET',
+                    url: '/restore',
+                    data:{
+                        name: val
+                    },
+                    success: function (response) {
+                        location.reload();
+                        console.log(response);
+                    }
+                });
+            },
         }
     });
 

@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class HomeService {
 
@@ -53,4 +55,19 @@ public class HomeService {
     }
 
 
+    public void updateGame() {
+        shellService.updateGame();
+    }
+
+    public void backup(String name) {
+        shellService.backup(name);
+    }
+
+    public List<String> showBackup() {
+       return shellService.showBackup();
+    }
+
+    public void restore(String name) {
+        shellService.revertBackup(name);
+    }
 }

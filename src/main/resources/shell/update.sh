@@ -1,8 +1,4 @@
-
 #!/bin/bash
-
-master="$HOME/.klei/DoNotStarveTogether/MyDediServer/Master/"
-cave="$HOME/.klei/DoNotStarveTogether/MyDediServer/Caves/"
 
 dst_dir=(${master} ${cave})
 dst_name=("Master" "Caves")
@@ -17,6 +13,7 @@ status(){
         echo -e "\033[31m ${dst_zh[$1]}状态:关闭 \033[0m"
 	fi
 }
+
 
 #　启动
 start(){
@@ -40,60 +37,29 @@ stop(){
 	fi
 }
 
+
 # 重启
 restart(){
 	stop $1
-# 	echo ""
 	start $1
-}
-
-# 重置
-reset(){
-	del $1
-# 	echo ""
-	start $1
-}
-
-#删除存档
-del(){
-	stop $1
-
-	dir=${dst_dir[$1]}
-
-	if test -d ${dir}"save"
-	then
-		# rm -r ${dir}"save"&&rm -r `find ${dir} -name "*.txt"` && rm -r ${dir}"backup"
-		rm -r ${dir}"save"
-		echo -e "\033[32m ##: ${dst_zh[$1]}文件删除完毕~ \033[0m"
-	fi
 }
 
 # 更新游戏版本
 updst(){
-	if [ $1 ];then
-		stop $1
-	else
-		stop 0
-		stop 1
-	fi
+  # 停止游戏
+  stop 0
+  stop 1
 
-	screen -dm ~/steamcmd/steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit
-	if [[ `echo $?` -eq 0 ]]; then
-		echo -e "\033[46;37m ##: 饥荒游戏版本更新成功~ \033[0m"
-	fi
+  # 更新游戏
+  cd ~/steamcmd
+./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit
+
 }
-
-action(){
-    stop 0
-}
-
 
 main(){
-	action
+  #更新游戏并重启
+  updst
 }
 
 main $1
-
-
-
 

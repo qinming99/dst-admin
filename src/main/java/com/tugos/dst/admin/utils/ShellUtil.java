@@ -39,9 +39,7 @@ public class ShellUtil {
         return files;
     }
 
-    public static void main(String[] args) {
-        execShell("/Users/qinming/Documents/shell/test.sh");
-    }
+
 
 
 
@@ -116,8 +114,8 @@ public class ShellUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        log.error("执行 {} ",shStr);
-        log.error("执行结果：{}  ",strList);
+        log.info("执行 {} ",shStr);
+        log.info("执行结果：{}  ",strList);
         log.error("脚本错误信息：{}",errList);
         return strList;
     }

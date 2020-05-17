@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 master="$HOME/.klei/DoNotStarveTogether/MyDediServer/Master/"
@@ -23,7 +22,7 @@ start(){
     cd ~/dst/bin
     # dst=${dst_dir[$1]}
     if [[ -z `ps -ef | grep -v grep |grep -v "dst.sh"|grep ${dst_name[$1]}|sed -n '1P'|awk '{print $2}'` ]]; then
-		screen -dm sh ${dst_sh[$1]}.sh && if [[ `echo $?` -eq 0 ]];
+		screen -dm sh ${dst_sh[$1]}.sh && if [[ `echo $?` -eq 0 ]]; 
 		then
 			echo -e "\033[36m ##: ${dst_zh[$1]}启动成功~ \033[0m"
 		fi
@@ -83,14 +82,11 @@ updst(){
 	fi
 }
 
-action(){
-    stop 0
-    start 0
-}
-
-
 main(){
-	action
+
+	stop 1
+	start 1
+
 }
 
 main $1

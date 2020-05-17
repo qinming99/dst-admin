@@ -1,6 +1,7 @@
 package com.tugos.dst.admin.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.tugos.dst.admin.service.HomeService;
 import com.tugos.dst.admin.utils.ResultVoUtil;
 import com.tugos.dst.admin.vo.ResultVo;
@@ -28,17 +29,24 @@ public class HomeController {
     @RequiresPermissions("home")
     public String index(Model model) {
         log.info("访问首页");
-        model.addAttribute("masterStatus",homeService.getMasterStatus());
-        model.addAttribute("cavesStatus",homeService.getCavesStatus());
+        model.addAttribute("masterStatus", homeService.getMasterStatus());
+        model.addAttribute("cavesStatus", homeService.getCavesStatus());
+        model.addAttribute("backupList", homeService.showBackup());
+        model.addAttribute("backupListJson", JSON.toJSONString(homeService.showBackup()));
         return "home";
     }
 
     @GetMapping("/start")
     @RequiresPermissions("home:start")
     @ResponseBody
-    public ResultVo start(@RequestParam(required = false) Integer type){
-        log.info("启动服务器，type={}",type);
+    public ResultVo start(@RequestParam(required = false) Integer type) {
+        log.info("启动服务器，type={}", type);
         homeService.start(type);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ResultVo success = ResultVoUtil.success();
         success.setData(type);
         return success;
@@ -48,15 +56,46 @@ public class HomeController {
     @GetMapping("/stop")
     @RequiresPermissions("home:stop")
     @ResponseBody
-    public ResultVo stop(@RequestParam(required = false) Integer type){
-        log.info("停止服务器，type={}",type);
+    public ResultVo stop(@RequestParam(required = false) Integer type) {
+        log.info("停止服务器，type={}", type);
         homeService.stop(type);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ResultVo success = ResultVoUtil.success();
         success.setData(type);
         return success;
     }
 
+    @GetMapping("/updateGame")
+    @RequiresPermissions("home:updateGame")
+    @ResponseBody
+    public ResultVo updateGame() {
+        log.info("更新游戏");
+        homeService.updateGame();
+        return ResultVoUtil.success();
+    }
 
+
+    @GetMapping("/backup")
+    @RequiresPermissions("home:backup")
+    @ResponseBody
+    public ResultVo backup(@RequestParam(required = false) String name) {
+        log.info("备份游戏,{}",name);
+        homeService.backup(name);
+        return ResultVoUtil.success();
+    }
+
+    @GetMapping("/restore")
+    @RequiresPermissions("home:restore")
+    @ResponseBody
+    public ResultVo restore(@RequestParam(required = false) String name) {
+        log.info("恢复存档,{}",name);
+        homeService.restore(name);
+        return ResultVoUtil.success();
+    }
 
 
 }

@@ -29,15 +29,18 @@ public class MainController {
         user.setNickname("管理员");
         model.addAttribute("user", user);
         Menu menu = Menu.builder().id(2L).icon("layui-icon layui-icon-home").sort(0).
-                children(new HashMap<>()).title("主页").type(1).url("/index").build();
-        Menu menu2 = Menu.builder().id(2L).icon("layui-icon layui-icon-util").sort(1).
-                children(new HashMap<>()).title("设置").type(1).url("/setting/index").build();
-        Menu menu3 = Menu.builder().id(2L).icon("layui-icon layui-icon-console").sort(2).
+                children(new HashMap<>()).title("控制台").type(1).url("/index").build();
+        Menu menu2 = Menu.builder().id(2L).icon("layui-icon layui-icon-set").sort(1).
+                children(new HashMap<>()).title("游戏配置").type(1).url("/setting/index").build();
+        Menu menu3 = Menu.builder().id(2L).icon("layui-icon layui-icon-set").sort(2).
+                children(new HashMap<>()).title("存档管理").type(1).url("/backup/index").build();
+        Menu menu4 = Menu.builder().id(3L).icon("layui-icon layui-icon-form").sort(2).
                 children(new HashMap<>()).title("系统状态").type(1).url("/monitor/index").build();
         Map<Long, Menu> treeMenu = new HashMap<>(16);
         treeMenu.put(0L, menu);
         treeMenu.put(1L, menu2);
         treeMenu.put(2L, menu3);
+        treeMenu.put(3L, menu4);
         model.addAttribute("treeMenu", treeMenu);
         return "main";
     }

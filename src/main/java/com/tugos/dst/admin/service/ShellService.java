@@ -6,6 +6,7 @@ import com.tugos.dst.admin.vo.Constant;
 import com.tugos.dst.admin.vo.ModFileUtil;
 import com.tugos.dst.admin.utils.ShellUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -51,14 +52,19 @@ public class ShellService {
      *
      * @return
      */
-    public String backup() {
-        String format = DateUtil.format(new Date(), "yyyy-MM-dd_HH_mm_ss");
+    public String backup(String name) {
+        String format;
+        if (StringUtils.isNoneBlank(name)){
+            format = name;
+        }else {
+            format = DateUtil.format(new Date(), "yyyy_MM_dd_HH_mm_ss");
+        }
+
         String fileName = format + "_bak.tar";
         StringBuilder command = new StringBuilder();
         command.append("cd $HOME/.klei/DoNotStarveTogether ").append(" ; ");
         command.append("tar zcvf ").append(fileName).append(" MyDediServer/");
         List<String> result = ShellUtil.runShell(command.toString());
-        log.info("执行结果：{}", JSONUtil.toJsonStr(result));
         return fileName;
     }
 
@@ -75,7 +81,6 @@ public class ShellService {
         command.append("tar -zxvf ").append(fileName);
         List<String> result = ShellUtil.runShell(command.toString());
         String json = JSONUtil.toJsonStr(result);
-        log.info("执行结果：{}", json);
         return json;
     }
 
@@ -137,6 +142,16 @@ public class ShellService {
         return "success";
     }
 
+    /**
+     * 更新游戏
+     * @return
+     */
+    public String updateGame() {
+        execShell(Constant.UPDATE_GAME);
+        log.info("更新游戏.....");
+        return "success";
+    }
+
 
     /**
      * 执行shell脚本
@@ -160,6 +175,7 @@ public class ShellService {
         ModFileUtil.writeModConfigFile(modConfig, serverModPath);
         return "success";
     }
+
 
 
 }
