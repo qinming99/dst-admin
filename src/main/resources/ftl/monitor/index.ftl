@@ -66,9 +66,8 @@
                 ws.send(this.msg)
             },
             initWebSocket: function (params) {
-                let basePath = "ws://" + window.location.host +"/websocket";
-                console.log(basePath);
-                ws = new WebSocket(basePath);
+                // ws = new WebSocket('wss://echo.websocket.org/')
+                ws = new WebSocket("ws://127.0.0.1:8081/websocket");
                 ws.onopen = function (e) {
                     console.log('WebSocket已经打开: ')
                     console.log(e)

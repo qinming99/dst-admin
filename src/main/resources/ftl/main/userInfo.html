@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/template :: header(~{::title},~{::link},~{::style})">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
 </head>
 <body>
 <div class="layui-form timo-compile user-info-page">
@@ -68,7 +68,7 @@
         <button class="upload-btn layui-btn layui-btn-primary layui-btn-sm">保存</button>
     </div>
 </div>
-<script th:replace="common/template :: script"></script>
+<script th:replace="/common/template :: script"></script>
 <script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/plugins/jquery.mousewheel.min.js}"></script>
 <script>

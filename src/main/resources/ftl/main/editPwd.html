@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/template :: header(~{::title},~{::link},~{::style})">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
 </head>
 <body>
 <div class="layui-form timo-compile">
@@ -29,6 +29,6 @@
         </div>
     </form>
 </div>
-<script th:replace="common/template :: script"></script>
+<script th:replace="/common/template :: script"></script>
 </body>
 </html>

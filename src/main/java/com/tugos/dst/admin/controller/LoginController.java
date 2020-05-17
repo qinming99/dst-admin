@@ -2,7 +2,7 @@ package com.tugos.dst.admin.controller;
 
 
 import com.tugos.dst.admin.enums.ResultEnum;
-import com.tugos.dst.admin.shiro.exception.ResultException;
+import com.tugos.dst.admin.config.shiro.exception.ResultException;
 import com.tugos.dst.admin.utils.CaptchaUtil;
 import com.tugos.dst.admin.utils.ResultVoUtil;
 import com.tugos.dst.admin.utils.URL;
@@ -41,7 +41,7 @@ public class LoginController implements ErrorController {
     @GetMapping("/login")
     public String toLogin(Model model) {
         model.addAttribute("isCaptcha", isCaptcha);
-        return "/login";
+        return "login";
     }
 
 
@@ -120,7 +120,7 @@ public class LoginController implements ErrorController {
      */
     @GetMapping("/noAuth")
     public String noAuth() {
-        return "/system/main/noAuth";
+        return "system/main/noAuth";
     }
 
     /**
@@ -128,7 +128,7 @@ public class LoginController implements ErrorController {
      */
     @Override
     public String getErrorPath() {
-        return "/error";
+        return "error";
     }
 
     /**
@@ -143,6 +143,6 @@ public class LoginController implements ErrorController {
         }
         model.addAttribute("statusCode", statusCode);
         model.addAttribute("msg", errorMsg);
-        return "/system/main/error";
+        return "system/main/error";
     }
 }

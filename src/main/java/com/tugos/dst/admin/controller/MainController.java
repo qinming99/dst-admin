@@ -39,7 +39,7 @@ public class MainController {
         treeMenu.put(1L, menu2);
         treeMenu.put(2L, menu3);
         model.addAttribute("treeMenu", treeMenu);
-        return "/main";
+        return "main";
     }
 
 
@@ -49,7 +49,7 @@ public class MainController {
     @GetMapping("/userInfo")
     @RequiresPermissions("index")
     public String toUserInfo(Model model) {
-        return "/system/main/userInfo";
+        return "system/main/userInfo";
     }
 
 
@@ -72,7 +72,7 @@ public class MainController {
     @GetMapping("/editPwd")
     @RequiresPermissions("index")
     public String toEditPwd() {
-        return "/system/main/editPwd";
+        return "system/main/editPwd";
     }
 
     /**

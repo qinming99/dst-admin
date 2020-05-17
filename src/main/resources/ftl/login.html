@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/template :: header(~{::title},~{::link},~{::style})">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
     <title>饥荒后台登录</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </head>
@@ -32,7 +32,7 @@
     </form>
     <div class="layui-layer-loading login-page-loading"><div class="layui-layer-content"></div></div>
 </div>
-<script th:replace="common/template :: script"></script>
+<script th:replace="/common/template :: script"></script>
 <script th:src="@{/js/login.js}" charset="utf-8"></script>
 </body>
 </html>

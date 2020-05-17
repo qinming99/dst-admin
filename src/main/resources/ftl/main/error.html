@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/template :: header(~{::title},~{::link},~{::style})">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
     <style>
         .page-error {
             display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
             -webkit-box-align: center;
+            -ms-flex-align: center;
             align-items: center;
             -webkit-box-pack: center;
+            -ms-flex-pack: center;
             justify-content: center;
             -webkit-box-orient: vertical;
             -webkit-box-direction: normal;
+            -ms-flex-direction: column;
             flex-direction: column;
             min-height: calc(100vh - 110px);
             margin-bottom: 0;
@@ -18,9 +22,9 @@
     </style>
 </head>
 <body>
-    <div class="page-error" style="color: #009688">
-        <i class="fa fa-exclamation-circle" style="font-size: 100px"></i>
-        <div style="font-size: 24px; margin-top: 14px">您的权限不足，无法访问本页面！</div>
-    </div>
+<div class="page-error" style="color: #009688">
+    <div style="font-size: 120px" th:text="${statusCode}"></div>
+    <div style="font-size: 24px" th:text="${msg}"></div>
+</div>
 </body>
 </html>
