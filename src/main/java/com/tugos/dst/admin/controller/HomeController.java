@@ -83,7 +83,7 @@ public class HomeController {
     @RequiresPermissions("home:backup")
     @ResponseBody
     public ResultVo backup(@RequestParam(required = false) String name) {
-        log.info("备份游戏,{}",name);
+        log.info("备份游戏,{}", name);
         homeService.backup(name);
         return ResultVoUtil.success();
     }
@@ -92,8 +92,17 @@ public class HomeController {
     @RequiresPermissions("home:restore")
     @ResponseBody
     public ResultVo restore(@RequestParam(required = false) String name) {
-        log.info("恢复存档,{}",name);
+        log.info("恢复存档,{}", name);
         homeService.restore(name);
+        return ResultVoUtil.success();
+    }
+
+    @GetMapping("/delRecord")
+    @RequiresPermissions("home:delRecord")
+    @ResponseBody
+    public ResultVo delRecord() {
+        log.info("清理游戏记录,{}");
+        homeService.delRecord();
         return ResultVoUtil.success();
     }
 

@@ -32,6 +32,7 @@ public class ShellConfig {
         copyAndChmod(Constant.STOP_MASTER);
         copyAndChmod(Constant.STOP_CAVES);
         copyAndChmod(Constant.UPDATE_GAME);
+        copyAndChmod(Constant.DEL_RECORD);
     }
 
     /**

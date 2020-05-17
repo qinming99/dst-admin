@@ -30,10 +30,13 @@ public class MainController {
         model.addAttribute("user", user);
         Menu menu = Menu.builder().id(2L).icon("layui-icon layui-icon-home").sort(0).
                 children(new HashMap<>()).title("控制台").type(1).url("/index").build();
+
         Menu menu2 = Menu.builder().id(2L).icon("layui-icon layui-icon-set").sort(1).
                 children(new HashMap<>()).title("游戏配置").type(1).url("/setting/index").build();
-        Menu menu3 = Menu.builder().id(2L).icon("layui-icon layui-icon-set").sort(2).
+
+        Menu menu3 = Menu.builder().id(2L).icon("layui-icon layui-icon-log").sort(2).
                 children(new HashMap<>()).title("存档管理").type(1).url("/backup/index").build();
+
         Menu menu4 = Menu.builder().id(3L).icon("layui-icon layui-icon-form").sort(2).
                 children(new HashMap<>()).title("系统状态").type(1).url("/monitor/index").build();
         Map<Long, Menu> treeMenu = new HashMap<>(16);

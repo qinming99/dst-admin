@@ -113,6 +113,13 @@
     </div>
 
 
+    <div class="row mt-15 mb-15">
+       <span>清除游戏记录：
+           <button type="button" @click="delRecord()" class="btn btn-danger btn-circle btn-lg">清理</button>
+        </span>
+    </div>
+
+
 
 
 <#--<button type="button" class="btn btn-primary">原始按钮</button>-->
@@ -209,6 +216,16 @@
                     data:{
                         name: val
                     },
+                    success: function (response) {
+                        location.reload();
+                        console.log(response);
+                    }
+                });
+            },
+            delRecord:function () {
+                ajax({
+                    method: 'GET',
+                    url: '/delRecord',
                     success: function (response) {
                         location.reload();
                         console.log(response);

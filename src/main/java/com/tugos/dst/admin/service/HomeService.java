@@ -70,4 +70,8 @@ public class HomeService {
     public void restore(String name) {
         shellService.revertBackup(name);
     }
+
+    public void delRecord() {
+        shellService.delRecord();
+    }
 }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -99,11 +100,12 @@ public class ShellService {
 
 
     /**
-     * 重启地面,先停止在启动
+     * 重启地面,需要按照mod，先停止在启动
      *
      * @return
      */
     public String startMaster() {
+        installModToServer();
         execShell(Constant.START_MASTER);
         log.info("重启地面.....");
         return "success";
@@ -154,6 +156,18 @@ public class ShellService {
 
 
     /**
+     * 清空游戏记录
+     * @return
+     */
+    public String delRecord() {
+        execShell(Constant.DEL_RECORD);
+        log.info("清空游戏记录.....");
+        return "success";
+    }
+
+
+
+    /**
      * 执行shell脚本
      *
      * @param fileName
@@ -164,16 +178,28 @@ public class ShellService {
     }
 
 
-
-    public String installModToServer() throws Exception {
-        log.info("安装mod到服务器.....");
-        List<String> userPathList = ShellUtil.runShell("echo ~");
-        String userPath = userPathList.get(0);
-        String myGameModPath = userPath + "/" + ".klei/DoNotStarveTogether/MyDediServer/Master/modoverrides.lua";
-        List<String> modConfig = ModFileUtil.readModConfigFile(myGameModPath);
-        String serverModPath = userPath + "/" + "dst/mods/dedicated_server_mods_setup.lua";
-        ModFileUtil.writeModConfigFile(modConfig, serverModPath);
-        return "success";
+    /**
+     * 将配置的mod按照到游戏中
+     * @return
+     * @throws Exception
+     */
+    public String installModToServer() {
+        try {
+            log.info("安装mod到服务器.....");
+            String myGameModPath = Constant.ROOT_PATH + "/" + ".klei/DoNotStarveTogether/MyDediServer/Master/modoverrides.lua";
+            File file = new File(myGameModPath);
+            if (!file.exists()){
+                //不存在
+                return "mod文件不存在";
+            }
+            List<String> modConfig = ModFileUtil.readModConfigFile(myGameModPath);
+            String serverModPath = Constant.ROOT_PATH + "/" + "dst/mods/dedicated_server_mods_setup.lua";
+            ModFileUtil.writeModConfigFile(modConfig, serverModPath);
+            return "success";
+        } catch (Exception e){
+            log.error("将配置的mod按照到游戏中失败：",e);
+        }
+        return "错误";
     }
 
 
