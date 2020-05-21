@@ -57,6 +57,7 @@ public class SettingService {
         while ((len = (inputStream.read(buf))) != -1) {
             sb.append(new String(buf, 0, len));
         }
+        inputStream.close();
         return sb.toString();
     }
 
@@ -64,7 +65,7 @@ public class SettingService {
     /**
      * 生成地面 server.ini
      */
-    private static void writeMasterServer() throws Exception{
+    public void writeMasterServer() throws Exception{
         String fileName = "/"+"server.ini";
         String filePath = Constant.ROOT_PATH + Constant.DST_USER_GAME_CONFG_PATH +"/"+Constant.DST_MASTER;
         //创建目录
@@ -83,7 +84,7 @@ public class SettingService {
      * 生成洞穴 server.ini
      * @throws Exception
      */
-    private void writeCavesServer() throws Exception{
+    public void writeCavesServer() throws Exception{
         String fileName = "/"+"server.ini";
         String filePath = Constant.ROOT_PATH + Constant.DST_USER_GAME_CONFG_PATH +"/"+Constant.DST_CAVES;
         //创建目录

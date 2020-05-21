@@ -32,6 +32,21 @@ public class Constant {
      */
     public static final String DST_USER_GAME_CONFG_PATH = "/.klei/DoNotStarveTogether/MyDediServer";
 
+    /**
+     * mod保存地址
+     */
+    public static final String DST_USER_GAME_MOD_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/modoverrides.lua";
+
+    /**
+     * 地面地图配置地址
+     */
+    public static final String DST_USER_GAME_MASTER_MAP_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/leveldataoverride.lua";
+
+    /**
+     * 洞穴地图配置地址
+     */
+    public static final String DST_USER_GAME_CAVES_MAP_PATH = ".klei/DoNotStarveTogether/MyDediServer/Caves/leveldataoverride.lua";
+
 
     /**
      * 脚本目录名称 shell

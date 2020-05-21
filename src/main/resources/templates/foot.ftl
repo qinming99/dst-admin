@@ -29,7 +29,6 @@
                     .replace( ';',/%3D/gi)
                     .replace( '?',/%3F/gi)
                     .replace( '/',/%2F/gi);
-            console.log(s)
             return s;
         }
 
