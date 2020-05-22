@@ -1,7 +1,7 @@
 package com.tugos.dst.admin.controller;
 
 
-import com.alibaba.fastjson.JSON;
+import cn.hutool.json.JSONUtil;
 import com.tugos.dst.admin.service.HomeService;
 import com.tugos.dst.admin.utils.ResultVoUtil;
 import com.tugos.dst.admin.vo.ResultVo;
@@ -32,7 +32,7 @@ public class HomeController {
         model.addAttribute("masterStatus", homeService.getMasterStatus());
         model.addAttribute("cavesStatus", homeService.getCavesStatus());
         model.addAttribute("backupList", homeService.showBackup());
-        model.addAttribute("backupListJson", JSON.toJSONString(homeService.showBackup()));
+        model.addAttribute("backupListJson", JSONUtil.toJsonStr(homeService.showBackup()));
         return "home";
     }
 

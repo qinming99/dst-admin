@@ -1,15 +1,15 @@
 package com.tugos.dst.admin.service;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONUtil;
+import com.tugos.dst.admin.utils.Constant;
+import com.tugos.dst.admin.utils.ModFileUtil;
 import com.tugos.dst.admin.utils.ShellUtil;
-import com.tugos.dst.admin.vo.Constant;
-import com.tugos.dst.admin.vo.ModFileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +48,6 @@ public class ShellService {
     }
 
 
-
     /**
      * 备份游戏存档
      *
@@ -59,7 +58,8 @@ public class ShellService {
         if (StringUtils.isNoneBlank(name)){
             format = name;
         }else {
-            format = DateUtil.format(new Date(), "yyyyMMddHHmmss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            format = sdf.format(new Date());
         }
         String fileName = format + "_bak.tar";
         StringBuilder command = new StringBuilder();

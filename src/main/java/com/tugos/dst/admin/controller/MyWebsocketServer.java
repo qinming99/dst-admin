@@ -1,7 +1,6 @@
 package com.tugos.dst.admin.controller;
 
-import cn.hutool.core.util.RandomUtil;
-import com.alibaba.fastjson.JSON;
+import cn.hutool.json.JSONUtil;
 import com.tugos.dst.admin.entity.Server;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -74,13 +73,12 @@ public class MyWebsocketServer {
     }
 
     @Scheduled(cron = "0/1 * * * * ?")
-    public void sendTestMsg() throws Exception{
+    public void sendSysMsg() throws Exception{
 //        log.info("执行定时任务");
         Server server = new Server();
         server.copyTo();
-        String string = RandomUtil.randomString(100);
         for (Map.Entry<String, Session> sessionEntry : clients.entrySet()) {
-            sessionEntry.getValue().getAsyncRemote().sendText(JSON.toJSONString(server));
+            sessionEntry.getValue().getAsyncRemote().sendText(JSONUtil.toJsonStr(server));
         }
     }
 

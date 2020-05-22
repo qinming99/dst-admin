@@ -1,4 +1,4 @@
-package com.tugos.dst.admin.vo;
+package com.tugos.dst.admin.utils;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.tugos.dst.admin.config;
 
 
-import com.tugos.dst.admin.vo.Constant;
+import com.tugos.dst.admin.utils.Constant;
 import com.tugos.dst.admin.utils.ShellUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;

@@ -1,6 +1,6 @@
 package com.tugos.dst.admin.service;
 
-import com.tugos.dst.admin.vo.Constant;
+import com.tugos.dst.admin.utils.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

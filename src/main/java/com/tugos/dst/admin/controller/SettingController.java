@@ -1,7 +1,6 @@
 package com.tugos.dst.admin.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.tugos.dst.admin.service.SettingService;
 import com.tugos.dst.admin.utils.ResultVoUtil;
 import com.tugos.dst.admin.vo.GameConfigVO;
@@ -39,7 +38,7 @@ public class SettingController {
     @RequiresPermissions("setting:saveConfig")
     @ResponseBody
     public ResultVo saveConfig(GameConfigVO vo) throws Exception{
-        log.info("保存游戏配置，{}", JSON.toJSONString(vo));
+        log.info("保存游戏配置，{}", vo);
         settingService.saveConfig(vo);
         return ResultVoUtil.success();
     }

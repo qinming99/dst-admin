@@ -1,11 +1,10 @@
 package com.tugos.dst.admin.service;
 
 
-import cn.hutool.core.collection.CollectionUtil;
-import com.alibaba.fastjson.JSON;
-import com.tugos.dst.admin.vo.Constant;
+import com.tugos.dst.admin.utils.Constant;
 import com.tugos.dst.admin.vo.GameConfigVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +42,7 @@ public class SettingService {
         GameConfigVO vo = new GameConfigVO();
         vo.setToken(readToken());
         List<String> clusterData = getClusterData();
-        if (CollectionUtil.isNotEmpty(clusterData)) {
+        if (CollectionUtils.isNotEmpty(clusterData)) {
             for (String e : clusterData) {
                 if (StringUtils.isBlank(e)) {
                     continue;
@@ -92,7 +91,6 @@ public class SettingService {
                 }
             }
         }
-        System.out.println(JSON.toJSONString(vo));
         return vo;
     }
 

@@ -1,6 +1,4 @@
-package com.tugos.dst.admin.vo;
-
-import com.tugos.dst.admin.utils.ShellUtil;
+package com.tugos.dst.admin.utils;
 
 public class Constant {
 
