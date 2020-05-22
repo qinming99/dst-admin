@@ -47,6 +47,11 @@ public class Constant {
      */
     public static final String DST_USER_GAME_CAVES_MAP_PATH = ".klei/DoNotStarveTogether/MyDediServer/Caves/leveldataoverride.lua";
 
+    /**
+     * 游戏配置文件
+     */
+    public static final String DST_USER_GAME_CONFIG_PATH = ".klei/DoNotStarveTogether/MyDediServer/cluster.ini";
+
 
     /**
      * 脚本目录名称 shell

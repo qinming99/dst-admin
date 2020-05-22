@@ -44,13 +44,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">房间名称</label>
                     <div class="col-sm-5">
-                        <input class="form-control" id="clusterName" name="clusterName" maxlength="30"  placeholder="房间名称" >
+                        <input class="form-control" id="clusterName" name="clusterName" maxlength="30" value="${config.clusterName!}" placeholder="房间名称" >
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">描述</label>
                     <div class="col-sm-5">
-                        <input class="form-control" id="clusterDescription" name="clusterDescription" maxlength="100"  placeholder="描述"  >
+                        <input class="form-control" id="clusterDescription" name="clusterDescription" value="${config.clusterDescription!}" maxlength="100"  placeholder="描述"  >
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">房间密码</label>
                     <div class="col-sm-5">
-                        <input class="form-control" maxlength="10" name="clusterPassword" id="clusterPassword" placeholder="房间密码" >
+                        <input class="form-control" value="${config.clusterPassword!}" maxlength="10" name="clusterPassword" id="clusterPassword" placeholder="房间密码" >
                     </div>
                 </div>
 
@@ -122,7 +122,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">令牌</label>
                     <div class="col-sm-5">
-                        <input class="form-control" maxlength="200" id="token" value="${token!}" placeholder="管理员令牌" >
+                        <input class="form-control" maxlength="200" id="token" value="${config.token!}" placeholder="管理员令牌" >
 
                 </div>
 

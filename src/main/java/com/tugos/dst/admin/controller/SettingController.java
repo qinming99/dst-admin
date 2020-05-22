@@ -29,8 +29,8 @@ public class SettingController {
     @GetMapping("/index")
     @RequiresPermissions("setting:index")
     public String index(Model model) throws Exception{
-        String token = settingService.getToken();
-        model.addAttribute("token",token);
+        GameConfigVO config = settingService.getConfig();
+        model.addAttribute("config",config);
         return "/setting/index";
     }
 

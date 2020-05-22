@@ -1,6 +1,8 @@
 package com.tugos.dst.admin.service;
 
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.alibaba.fastjson.JSON;
 import com.tugos.dst.admin.vo.Constant;
 import com.tugos.dst.admin.vo.GameConfigVO;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -29,17 +33,88 @@ public class SettingService {
         }
     }
 
+
     /**
-     * 读取配置的token
+     * 读取游戏配置
      * @return
+     * @throws Exception
      */
-    public String getToken(){
-        try {
-            return readToken();
-        } catch (Exception e) {
-            log.error("读取token失败：",e);
+    public GameConfigVO getConfig() throws Exception {
+        GameConfigVO vo = new GameConfigVO();
+        vo.setToken(readToken());
+        List<String> clusterData = getClusterData();
+        if (CollectionUtil.isNotEmpty(clusterData)) {
+            for (String e : clusterData) {
+                if (StringUtils.isBlank(e)) {
+                    continue;
+                }
+                if (e.contains("game_mode")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        vo.setGameMode(split[1]);
+                    }
+                }
+                if (e.contains("max_players")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        vo.setMaxPlayers(split[1]);
+                    }
+                }
+                if (e.contains("pvp")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        vo.setPvp(split[1]);
+                    }
+                }
+                if (e.contains("cluster_intention")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        vo.setClusterIntention(split[1]);
+                    }
+                }
+                if (e.contains("cluster_password")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        vo.setClusterPassword(split[1].trim());
+                    }
+                }
+                if (e.contains("cluster_description")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        vo.setClusterDescription(split[1]);
+                    }
+                }
+                if (e.contains("cluster_name")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        vo.setClusterName(split[1]);
+                    }
+                }
+            }
         }
-        return null;
+        System.out.println(JSON.toJSONString(vo));
+        return vo;
+    }
+
+
+
+
+    public static List<String> getClusterData() throws Exception {
+        String filePath = Constant.ROOT_PATH + "/" + Constant.DST_USER_GAME_CONFIG_PATH;
+        List<String> configList = new ArrayList<>();
+        File file = new File(filePath);
+        if (!file.exists()) {
+            //不存在不管它
+            return null;
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+        String tmp;
+        //使用readLine方法，一次读一行
+        while ((tmp = br.readLine()) != null) {
+            configList.add(tmp);
+        }
+        br.close();
+        return configList;
     }
 
 

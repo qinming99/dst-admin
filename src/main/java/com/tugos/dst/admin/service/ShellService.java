@@ -59,9 +59,8 @@ public class ShellService {
         if (StringUtils.isNoneBlank(name)){
             format = name;
         }else {
-            format = DateUtil.format(new Date(), "yyyy_MM_dd_HH_mm_ss");
+            format = DateUtil.format(new Date(), "yyyyMMddHHmmss");
         }
-
         String fileName = format + "_bak.tar";
         StringBuilder command = new StringBuilder();
         command.append("cd $HOME/.klei/DoNotStarveTogether ").append(" ; ");

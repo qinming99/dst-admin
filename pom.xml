@@ -11,8 +11,8 @@
 
     <groupId>com.tugos.dst</groupId>
     <artifactId>admin</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>admin</name>
+    <version>0.0.1</version>
+    <name>dst-admin</name>
     <description>Demo project for Spring Boot</description>
 
 
@@ -172,7 +172,7 @@
             </resource>
         </resources>
 
-        <finalName>${name}</finalName>
+        <finalName>${name}-${version}</finalName>
         <plugins>
             <!--打包时跳过单元测试-->
             <plugin>
