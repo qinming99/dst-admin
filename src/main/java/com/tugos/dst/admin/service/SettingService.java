@@ -50,25 +50,25 @@ public class SettingService {
                 if (e.contains("game_mode")) {
                     String[] split = e.split("=");
                     if (StringUtils.isNotBlank(split[1])) {
-                        vo.setGameMode(split[1]);
+                        vo.setGameMode(split[1].trim());
                     }
                 }
                 if (e.contains("max_players")) {
                     String[] split = e.split("=");
                     if (StringUtils.isNotBlank(split[1])) {
-                        vo.setMaxPlayers(split[1]);
+                        vo.setMaxPlayers(split[1].trim());
                     }
                 }
                 if (e.contains("pvp")) {
                     String[] split = e.split("=");
                     if (StringUtils.isNotBlank(split[1])) {
-                        vo.setPvp(split[1]);
+                        vo.setPvp(split[1].trim());
                     }
                 }
                 if (e.contains("cluster_intention")) {
                     String[] split = e.split("=");
                     if (StringUtils.isNotBlank(split[1])) {
-                        vo.setClusterIntention(split[1]);
+                        vo.setClusterIntention(split[1].trim());
                     }
                 }
                 if (e.contains("cluster_password")) {
@@ -80,13 +80,13 @@ public class SettingService {
                 if (e.contains("cluster_description")) {
                     String[] split = e.split("=");
                     if (StringUtils.isNotBlank(split[1])) {
-                        vo.setClusterDescription(split[1]);
+                        vo.setClusterDescription(split[1].trim());
                     }
                 }
                 if (e.contains("cluster_name")) {
                     String[] split = e.split("=");
                     if (StringUtils.isNotBlank(split[1])) {
-                        vo.setClusterName(split[1]);
+                        vo.setClusterName(split[1].trim());
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.tugos.dst.admin.service;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONUtil;
 import com.tugos.dst.admin.utils.Constant;
 import com.tugos.dst.admin.utils.ModFileUtil;
@@ -54,12 +55,14 @@ public class ShellService {
      * @return
      */
     public String backup(String name) {
+        String weekStr = DateUtil.thisDayOfWeekEnum().toChinese();
         String format;
         if (StringUtils.isNoneBlank(name)){
             format = name;
         }else {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
             format = sdf.format(new Date());
+            format += weekStr;
         }
         String fileName = format + "_bak.tar";
         StringBuilder command = new StringBuilder();

@@ -2,7 +2,6 @@ package com.tugos.dst.admin.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.File;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
@@ -10,37 +9,6 @@ import java.util.List;
 
 @Slf4j
 public class ShellUtil {
-
-    public static void main2(String[] args) {
-//        File file = new File("/User/qinming");
-//        file.
-//        System.out.println(getFiles("/User/qinming/"));
-
-        List<String> strings = runShell("ps -ef | grep java");
-
-
-    }
-
-    public static List<String> getFiles(String path) {
-        List<String> files = new ArrayList<String>();
-        File file = new File(path);
-        File[] tempList = file.listFiles();
-
-        for (int i = 0; i < tempList.length; i++) {
-            if (tempList[i].isFile()) {
-                files.add(tempList[i].toString());
-                //文件名，不包含路径
-                //String fileName = tempList[i].getName();
-            }
-            if (tempList[i].isDirectory()) {
-                //这里就不递归了，
-            }
-        }
-        return files;
-    }
-
-
-
 
 
     /**
@@ -119,13 +87,6 @@ public class ShellUtil {
         log.error("脚本错误信息：{}",errList);
         return strList;
     }
-
-//    public static void main(String[] args) {
-//        List<String> strings = ShellUtil.runShell("ps -ef | grep -v grep |grep 'shell'|sed -n '1P'|awk '{print $2}'");
-//        System.out.println(strings);
-////        System.out.println(runShell("ls "));
-//    }
-
 
 
 }

@@ -28,13 +28,7 @@
 </head>
 <body>
 
-<h3></h3>
-
-
-<body>
-
-
-
+<div style="height: 20%"></div>
 
 <div class="container" id="home">
     <div class="row">
@@ -91,10 +85,9 @@
     </div>
 
     <div class="row mt-15 mb-15">
-           <span class="col-sm-5">备份游戏：
-               <input class="form-control" v-model="backupName" placeholder="文件名称,非必输">
-            <button type="button"  @click="backup()" class="btn btn-primary btn-circle btn-lg">备份</button>
-        </span>
+           <span class="col-sm-1">备份游戏：</span>
+            <span class="col-sm-5"><input class="form-control" v-model="backupName" placeholder="文件名称,非必输"></span>
+        <button type="button"  @click="backup()" class="btn btn-primary btn-circle btn-lg">备份</button>
 
     </div>
 
