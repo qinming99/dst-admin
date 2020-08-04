@@ -5,16 +5,6 @@ dst_name=("Master" "Caves")
 dst_zh=("地上" "洞穴")
 dst_sh=("overworld" "cave")
 
-# 查看状态
-status(){
-	if [[ -n `ps -ef | grep -v grep |grep -v "dst.sh"|grep ${dst_name[$1]}|sed -n '1P'|awk '{print $2}'` ]]; then
-		echo -e "\033[36m ##: ${dst_zh[$1]}正常运行中~ \033[0m"
-    else
-        echo -e "\033[31m ${dst_zh[$1]}状态:关闭 \033[0m"
-	fi
-}
-
-
 #　启动
 start(){
     cd ~/dst/bin
@@ -37,12 +27,6 @@ stop(){
 	fi
 }
 
-
-# 重启
-restart(){
-	stop $1
-	start $1
-}
 
 # 更新游戏版本
 updst(){

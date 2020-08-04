@@ -17,7 +17,7 @@ public class ModMapService {
 
 
     public String getModData() throws Exception {
-        String filePath = Constant.ROOT_PATH + "/" + Constant.DST_USER_GAME_MOD_PATH;
+        String filePath = Constant.ROOT_PATH + "/" + Constant.DST_USER_GAME_MASTER_MOD_PATH;
         return readFile(filePath);
     }
 
@@ -36,8 +36,10 @@ public class ModMapService {
     public String saveMod(String data) throws Exception {
         //写入基础配置文件
         settingService.writeMasterServer();
-        String filePath = Constant.ROOT_PATH + "/" + Constant.DST_USER_GAME_MOD_PATH;
-        writeFile(filePath,data);
+        String masterModeFile = Constant.ROOT_PATH + "/" + Constant.DST_USER_GAME_MASTER_MOD_PATH;
+        writeFile(masterModeFile,data);
+        String CavesModeFile = Constant.ROOT_PATH + "/" + Constant.DST_USER_GAME_CAVES_MOD_PATH;
+        writeFile(CavesModeFile,data);
         return "success";
     }
 

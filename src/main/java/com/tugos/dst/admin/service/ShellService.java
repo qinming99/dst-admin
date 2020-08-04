@@ -194,7 +194,7 @@ public class ShellService {
     public String installModToServer() {
         try {
             log.info("安装mod到服务器.....");
-            String myGameModPath = Constant.ROOT_PATH + "/" + ".klei/DoNotStarveTogether/MyDediServer/Master/modoverrides.lua";
+            String myGameModPath = Constant.ROOT_PATH + "/" + Constant.DST_USER_GAME_MASTER_MOD_PATH;
             File file = new File(myGameModPath);
             if (!file.exists()){
                 //不存在

@@ -8,10 +8,16 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+@Component
 public class AuthRealm extends AuthorizingRealm {
+
+    @Value("${dst.password}")
+    private String dstPassword;
 
     /**
      * 授权逻辑
@@ -50,7 +56,7 @@ public class AuthRealm extends AuthorizingRealm {
                 // 获取明文密码及密码盐
                 String password = String.valueOf(token.getPassword());
                 String username = token.getUsername();
-                if ("dst".equals(password)){
+                if (dstPassword.equals(password)){
                     return true;
                 }
                 return false;

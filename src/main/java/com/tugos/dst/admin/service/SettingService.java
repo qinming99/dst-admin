@@ -99,6 +99,7 @@ public class SettingService {
 
     public static List<String> getClusterData() throws Exception {
         String filePath = Constant.ROOT_PATH + "/" + Constant.DST_USER_GAME_CONFIG_PATH;
+//        String filePath = "/Users/qinming/Documents/Klei/DoNotStarveTogether/474624371/Cluster_1/cluster.ini";
         List<String> configList = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {

@@ -59,15 +59,15 @@
                     <label class="col-sm-2 control-label">游戏模式</label>
                     <div class="col-sm-5">
                         <div class="radio  radio-primary col-sm-3">
-                            <input value='survival' name="gameMode"  checked="true" id="models1" type="radio">
+                            <input value='survival' name="gameMode"  <#if config.gameMode = 'survival'>checked="true"</#if> id="models1" type="radio">
                             <label for="models1">生存</label>
                         </div>
                         <div class="radio  radio-primary col-sm-3">
-                            <input value='wilderness' name="gameMode" id="models2" type="radio">
+                            <input value='wilderness' name="gameMode" <#if config.gameMode = 'wilderness'>checked="true"</#if> id="models2" type="radio">
                             <label for="models2">荒野</label>
                         </div>
                         <div class="radio  radio-primeary col-sm-3">
-                            <input value='endless' name="gameMode" id="models3" type="radio">
+                            <input value='endless' name="gameMode" <#if config.gameMode = 'endless'>checked="true"</#if> id="models3" type="radio">
                             <label for="models3">无尽</label>
                         </div>
                     </div>
@@ -77,11 +77,11 @@
                     <label class="col-sm-2 control-label">PVP</label>
                     <div class="col-sm-10">
                         <div class="radio  radio-primary col-sm-3">
-                            <input value='false' name="pvp" id="pvp1" checked="true" type="radio">
+                            <input value='false' name="pvp" id="pvp1" <#if config.pvp = 'false'>checked="true"</#if> type="radio">
                             <label for="pvp1">关</label>
                         </div>
                         <div class="radio  radio-primary col-sm-3">
-                            <input value='true' name="pvp" id="pvp2" type="radio">
+                            <input value='true' name="pvp" id="pvp2" <#if config.pvp = 'true'>checked="true"</#if> type="radio">
                             <label for="pvp2">开</label>
                         </div>
 
@@ -92,21 +92,21 @@
                     <label class="col-sm-2 control-label">玩家数量</label>
                     <div class="col-sm-10">
                         <select id="maxPlayers" class="shortselect">
-                            <option value="1">   1   </option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option selected="true" value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
+                            <option <#if config.maxPlayers == '1'>selected="true"</#if> value="1">1</option>
+                            <option <#if config.maxPlayers == '2'>selected="true"</#if> value="2">2</option>
+                            <option <#if config.maxPlayers == '3'>selected="true"</#if> value="3">3</option>
+                            <option <#if config.maxPlayers == '4'>selected="true"</#if> value="4">4</option>
+                            <option <#if config.maxPlayers == '5'>selected="true"</#if> value="5">5</option>
+                            <option <#if config.maxPlayers == '6'>selected="true"</#if> value="6">6</option>
+                            <option <#if config.maxPlayers == '7'>selected="true"</#if> value="7">7</option>
+                            <option <#if config.maxPlayers == '8'>selected="true"</#if> value="8">8</option>
+                            <option <#if config.maxPlayers == '9'>selected="true"</#if> value="9">9</option>
+                            <option <#if config.maxPlayers == '10'>selected="true"</#if> value="10">10</option>
+                            <option <#if config.maxPlayers == '11'>selected="true"</#if> value="11">11</option>
+                            <option <#if config.maxPlayers == '12'>selected="true"</#if> value="12">12</option>
+                            <option <#if config.maxPlayers == '13'>selected="true"</#if> value="13">13</option>
+                            <option <#if config.maxPlayers == '14'>selected="true"</#if> value="14">14</option>
+                            <option <#if config.maxPlayers == '15'>selected="true"</#if> value="15">15</option>
                         </select>
                     </div>
                 </div>
