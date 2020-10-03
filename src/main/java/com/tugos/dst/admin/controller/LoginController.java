@@ -1,12 +1,11 @@
 package com.tugos.dst.admin.controller;
 
 
-import com.tugos.dst.admin.enums.ResultEnum;
-import com.tugos.dst.admin.config.shiro.exception.ResultException;
+import com.tugos.dst.admin.common.ResultCodeEnum;
+import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.exception.ResultException;
 import com.tugos.dst.admin.utils.CaptchaUtil;
-import com.tugos.dst.admin.utils.ResultVoUtil;
 import com.tugos.dst.admin.utils.URL;
-import com.tugos.dst.admin.vo.ResultVo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,12 +13,10 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
@@ -29,7 +26,7 @@ import java.io.IOException;
 
 
 @Controller
-public class LoginController implements ErrorController {
+public class LoginController {
 
 
     @Value("${project.captcha-open:false}")
@@ -50,10 +47,10 @@ public class LoginController implements ErrorController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public ResultVo login(String username, String password, String captcha, String rememberMe) {
+    public ResultVO login(String username, String password, String captcha, String rememberMe) {
         // 判断账号密码是否为空
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
-            throw new ResultException(ResultEnum.USER_NAME_PWD_NULL);
+            throw new ResultException(ResultCodeEnum.USER_NAME_PWD_NULL);
         }
         // 判断验证码是否正确
         if (isCaptcha) {
@@ -61,7 +58,7 @@ public class LoginController implements ErrorController {
             String sessionCaptcha = (String) session.getAttribute("captcha");
             if (StringUtils.isEmpty(captcha) || StringUtils.isEmpty(sessionCaptcha)
                     || !captcha.toUpperCase().equals(sessionCaptcha.toUpperCase())) {
-                throw new ResultException(ResultEnum.USER_CAPTCHA_ERROR);
+                throw new ResultException(ResultCodeEnum.USER_CAPTCHA_ERROR);
             }
             session.removeAttribute("captcha");
         }
@@ -80,11 +77,13 @@ public class LoginController implements ErrorController {
             //登录
             subject.login(token);
             //登录成功，跳转至首页
-            return ResultVoUtil.success("登录成功", new URL("/"));
+            ResultVO<URL> data = ResultVO.data(new URL("/"));
+            data.setMessage("登陆成功");
+            return data;
         } catch (AuthenticationException e) {
-            return ResultVoUtil.error("用户名或密码错误");
+            return ResultVO.fail("用户名或密码错误");
         } catch (Exception e) {
-            return ResultVoUtil.error("该账号已被冻结");
+            return ResultVO.fail("该账号已被冻结");
         }
     }
 
@@ -123,26 +122,4 @@ public class LoginController implements ErrorController {
         return "system/main/noAuth";
     }
 
-    /**
-     * 自定义错误页面
-     */
-    @Override
-    public String getErrorPath() {
-        return "error";
-    }
-
-    /**
-     * 处理错误页面
-     */
-    @RequestMapping("/error")
-    public String handleError(Model model, HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        String errorMsg = "好像出错了呢！";
-        if (statusCode == 404) {
-            errorMsg = "页面找不到了！好像是去火星了~";
-        }
-        model.addAttribute("statusCode", statusCode);
-        model.addAttribute("msg", errorMsg);
-        return "system/main/error";
-    }
 }

@@ -1,19 +1,14 @@
 package com.tugos.dst.admin.controller;
 
 
+import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.service.SettingService;
-import com.tugos.dst.admin.utils.ResultVoUtil;
 import com.tugos.dst.admin.vo.GameConfigVO;
-import com.tugos.dst.admin.vo.ResultVo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -21,29 +16,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class SettingController {
 
-    @Autowired
     private SettingService settingService;
 
-
     @GetMapping("/index")
-    @RequiresPermissions("setting:index")
-    public String index(Model model) throws Exception{
-        GameConfigVO config = settingService.getConfig();
-        model.addAttribute("config",config);
+    @RequiresAuthentication
+    public String index() {
+        log.info("进入游戏设置页");
         return "/setting/index";
     }
 
-
     @PostMapping("/saveConfig")
-    @RequiresPermissions("setting:saveConfig")
+    @RequiresAuthentication
     @ResponseBody
-    public ResultVo saveConfig(GameConfigVO vo) throws Exception{
-        log.info("保存游戏配置，{}", vo);
-        settingService.saveConfig(vo);
-        return ResultVoUtil.success();
+    public ResultVO<String> saveConfig(@RequestBody GameConfigVO model) throws Exception {
+        log.info("保存游戏配置，{}", model);
+        return settingService.saveConfig(model);
     }
 
+    @GetMapping("/getConfig")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<GameConfigVO> getConfig() throws Exception {
+        log.info("读取游戏配置");
+        if (true){
+            throw new Exception("hhhhh");
+        }
+        GameConfigVO config = settingService.getConfig();
+        return ResultVO.data(config);
+    }
 
-
-
+    @Autowired
+    public void setSettingService(SettingService settingService) {
+        this.settingService = settingService;
+    }
 }

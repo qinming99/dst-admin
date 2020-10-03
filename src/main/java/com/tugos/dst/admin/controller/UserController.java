@@ -1,9 +1,8 @@
 package com.tugos.dst.admin.controller;
 
 
+import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.entity.User;
-import com.tugos.dst.admin.utils.ResultVoUtil;
-import com.tugos.dst.admin.vo.ResultVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -49,10 +48,10 @@ public class UserController {
     @PostMapping("/save")
     @RequiresPermissions({"system:user:add", "system:user:edit"})
     @ResponseBody
-    public ResultVo save( User user) {
+    public ResultVO save( User user) {
 
 
-        return ResultVoUtil.SAVE_SUCCESS;
+        return ResultVO.success();
     }
 
     /**
@@ -81,12 +80,12 @@ public class UserController {
     @PostMapping("/pwd")
     @RequiresPermissions("system:user:pwd")
     @ResponseBody
-    public ResultVo editPassword(String password, String confirm,
+    public ResultVO editPassword(String password, String confirm,
                                  @RequestParam(value = "ids", required = false) List<Long> ids,
                                  @RequestParam(value = "ids", required = false) List<User> users) {
 
 
-        return ResultVoUtil.success("修改成功");
+        return ResultVO.success("修改成功");
     }
 
 

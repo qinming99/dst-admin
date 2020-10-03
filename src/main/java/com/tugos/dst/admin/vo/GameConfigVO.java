@@ -3,6 +3,9 @@ package com.tugos.dst.admin.vo;
 
 import lombok.Data;
 
+/**
+ * 游戏设置信息
+ */
 @Data
 public class GameConfigVO {
 
@@ -14,12 +17,23 @@ public class GameConfigVO {
 
     private String gameMode;
 
-    private String pvp;
+    private Boolean pvp;
 
-    private String maxPlayers;
+    private Integer maxPlayers;
 
     private String clusterPassword;
 
     private String token;
+
+    private String masterMapData;
+
+    private String cavesMapData;
+
+    private String modData;
+    /**
+     * 1 进保存 2 启动新游戏
+     */
+    private Integer type;
+
 
 }

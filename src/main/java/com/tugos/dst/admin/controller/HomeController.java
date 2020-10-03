@@ -1,24 +1,23 @@
 package com.tugos.dst.admin.controller;
 
 
-import cn.hutool.json.JSONUtil;
+import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.service.HomeService;
-import com.tugos.dst.admin.utils.ResultVoUtil;
-import com.tugos.dst.admin.vo.ResultVo;
+import com.tugos.dst.admin.vo.DstServerInfoVO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Slf4j
+@RequestMapping("/home")
 public class HomeController {
 
-    @Autowired
     private HomeService homeService;
 
 
@@ -26,85 +25,87 @@ public class HomeController {
      * 首页
      */
     @GetMapping("/index")
-    @RequiresPermissions("home")
-    public String index(Model model) {
+    @RequiresAuthentication
+    public String index() {
         log.info("访问首页");
-        model.addAttribute("masterStatus", homeService.getMasterStatus());
-        model.addAttribute("cavesStatus", homeService.getCavesStatus());
-        model.addAttribute("backupList", homeService.showBackup());
-        model.addAttribute("backupListJson", JSONUtil.toJsonStr(homeService.showBackup()));
-        return "home";
+        return "/home/index";
+    }
+
+
+    /**
+     * 获取服务器的信息
+     * 包括饥荒状态和硬件信息
+     */
+    @GetMapping("/getSystemInfo")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<DstServerInfoVO> getSystemInfo() throws Exception {
+        log.info("获取服务器的信息");
+        return ResultVO.data(homeService.getSystemInfo());
     }
 
     @GetMapping("/start")
-    @RequiresPermissions("home:start")
+    @RequiresAuthentication
     @ResponseBody
-    public ResultVo start(@RequestParam(required = false) Integer type) {
+    public ResultVO<String> start(@RequestParam Integer type) throws Exception {
         log.info("启动服务器，type={}", type);
-        homeService.start(type);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ResultVo success = ResultVoUtil.success();
-        success.setData(type);
-        return success;
+        ResultVO<String> resultVO = homeService.start(type);
+        Thread.sleep(2000);
+        return resultVO;
     }
 
 
     @GetMapping("/stop")
-    @RequiresPermissions("home:stop")
+    @RequiresAuthentication
     @ResponseBody
-    public ResultVo stop(@RequestParam(required = false) Integer type) {
+    public ResultVO<String> stop(@RequestParam Integer type) throws Exception {
         log.info("停止服务器，type={}", type);
-        homeService.stop(type);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ResultVo success = ResultVoUtil.success();
-        success.setData(type);
-        return success;
+        ResultVO<String> resultVO = homeService.stop(type);
+        Thread.sleep(2000);
+        return resultVO;
     }
 
     @GetMapping("/updateGame")
-    @RequiresPermissions("home:updateGame")
+    @RequiresAuthentication
     @ResponseBody
-    public ResultVo updateGame() {
+    public ResultVO<String> updateGame() {
         log.info("更新游戏");
-        homeService.updateGame();
-        return ResultVoUtil.success();
+        return homeService.updateGame();
     }
 
 
     @GetMapping("/backup")
-    @RequiresPermissions("home:backup")
+    @RequiresAuthentication
     @ResponseBody
-    public ResultVo backup(@RequestParam(required = false) String name) {
+    public ResultVO<String> backup(@RequestParam(required = false) String name) throws Exception {
         log.info("备份游戏,{}", name);
-        homeService.backup(name);
-        return ResultVoUtil.success();
+        ResultVO<String> resultVO = homeService.backup(name);
+        Thread.sleep(2000);
+        return resultVO;
     }
 
     @GetMapping("/restore")
-    @RequiresPermissions("home:restore")
+    @RequiresAuthentication
     @ResponseBody
-    public ResultVo restore(@RequestParam(required = false) String name) {
+    public ResultVO<String> restore(@RequestParam String name) throws Exception {
         log.info("恢复存档,{}", name);
-        homeService.restore(name);
-        return ResultVoUtil.success();
+        ResultVO<String> resultVO = homeService.restore(name);
+        Thread.sleep(2000);
+        return resultVO;
     }
 
     @GetMapping("/delRecord")
-    @RequiresPermissions("home:delRecord")
+    @RequiresAuthentication
     @ResponseBody
-    public ResultVo delRecord() {
-        log.info("清理游戏记录,{}");
+    public ResultVO<String> delRecord() throws Exception{
+        log.info("清理游戏记录");
         homeService.delRecord();
-        return ResultVoUtil.success();
+        Thread.sleep(2000);
+        return ResultVO.success();
     }
 
-
+    @Autowired
+    public void setHomeService(HomeService homeService) {
+        this.homeService = homeService;
+    }
 }

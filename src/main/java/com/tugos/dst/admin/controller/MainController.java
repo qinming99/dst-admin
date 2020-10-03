@@ -1,10 +1,9 @@
 package com.tugos.dst.admin.controller;
 
+import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.entity.Menu;
 import com.tugos.dst.admin.entity.User;
-import com.tugos.dst.admin.utils.ResultVoUtil;
 import com.tugos.dst.admin.utils.URL;
-import com.tugos.dst.admin.vo.ResultVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,27 +28,18 @@ public class MainController {
         user.setNickname("管理员");
         model.addAttribute("user", user);
         Menu menu = Menu.builder().id(2L).icon("layui-icon layui-icon-home").sort(0).
-                children(new HashMap<>()).title("控制台").type(1).url("/index").build();
+                children(new HashMap<>()).title("控制台").type(1).url("/home/index").build();
 
         Menu menu2 = Menu.builder().id(2L).icon("layui-icon layui-icon-set").sort(1).
-                children(new HashMap<>()).title("游戏配置").type(1).url("/setting/index").build();
+                children(new HashMap<>()).title("房间设置").type(1).url("/setting/index").build();
 
         Menu menu3 = Menu.builder().id(2L).icon("layui-icon layui-icon-log").sort(2).
-                children(new HashMap<>()).title("存档管理").type(1).url("/backup/index").build();
+                children(new HashMap<>()).title("备份管理").type(1).url("/backup/index").build();
 
-        Menu menu4 = Menu.builder().id(2L).icon("layui-icon layui-icon-component").sort(3).
-                children(new HashMap<>()).title("mod和地图配置").type(1).url("/mod/index").build();
-
-        Menu menu5 = Menu.builder().id(3L).icon("layui-icon layui-icon-console").sort(4).
-                children(new HashMap<>()).title("系统状态").type(1).url("/monitor/index").build();
-
-
-        Map<Long, Menu> treeMenu = new HashMap<>(16);
-        treeMenu.put(0L, menu);
-        treeMenu.put(1L, menu2);
-        treeMenu.put(2L, menu3);
-        treeMenu.put(3L, menu4);
-        treeMenu.put(4L, menu5);
+        Map<String, Menu> treeMenu = new HashMap<>(16);
+        treeMenu.put("0", menu);
+        treeMenu.put("1", menu2);
+        treeMenu.put("2", menu3);
         model.addAttribute("treeMenu", treeMenu);
         return "main";
     }
@@ -71,11 +61,12 @@ public class MainController {
     @PostMapping("/userInfo")
     @RequiresPermissions("index")
     @ResponseBody
-    public ResultVo userInfo(User user) {
+    public ResultVO userInfo(User user) {
 
         // 复制保留无需修改的数据
-
-        return ResultVoUtil.success("保存成功", new URL("/userInfo"));
+        ResultVO<URL> data = ResultVO.data(new URL("/userInfo"));
+        data.setMessage("保存成功");
+        return data;
     }
 
     /**
@@ -93,9 +84,9 @@ public class MainController {
     @PostMapping("/editPwd")
     @RequiresPermissions("index")
     @ResponseBody
-    public ResultVo editPwd(String original, String password, String confirm) {
+    public ResultVO editPwd(String original, String password, String confirm) {
         // 判断原来密码是否有误
 
-        return ResultVoUtil.success("修改成功");
+        return ResultVO.success();
     }
 }

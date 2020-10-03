@@ -2,184 +2,257 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>游戏配置</title>
-    <#include "../header.ftl"/>
-
-    <style>
-        .shortselect{
-            background:#fafdfe;
-            height:28px;
-            width:180px;
-            line-height:28px;
-            border:1px solid #9bc0dd;
-            -moz-border-radius:2px;
-            -webkit-border-radius:2px;
-            border-radius:2px;
-        }
-
-    </style>
-
-
+    <title>配置页</title>
+    <#include "../common/header.ftl"/>
+    <script src="/js/httpUtil.js"></script>
 </head>
 <body>
 
-<body>
-<div class="opt-wrapper" id="game_config">
-    <div class="opt-content">
-        <div class="form-split"></div>
-        <h4 class="form-title">游戏配置</h4>
-        <div class="form-split"></div>
-        <form id="form" class="form-horizontal" >
-            <div class="form-group">
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">服务器游戏风格</label>
-                    <div class="col-sm-10">
-                        <div class="radio  radio-primary col-sm-3">
-                            <input value='social' name="clusterIntention" id="clusterIntention1" checked="true" type="radio">
-                            <label for="clusterIntention1">社交</label>
-                        </div>
-                    </div>
+<div id="setting_index_app">
+    <el-row>
+        <el-col :span="4" style="margin-left: 10px">
+            <el-card>
+                <div style="height: 550px;">
+                    <el-steps direction="vertical" :active="active">
+                        <el-step title="房间基本信息"></el-step>
+                        <el-step title="地面世界设置"></el-step>
+                        <el-step title="洞穴世界设置"></el-step>
+                        <el-step title="mod设置"></el-step>
+                        <el-step title="完成"></el-step>
+                    </el-steps>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">房间名称</label>
-                    <div class="col-sm-5">
-                        <input class="form-control" id="clusterName" name="clusterName" maxlength="30" value="${config.clusterName!}" placeholder="房间名称" >
-                    </div>
+            </el-card>
+        </el-col>
+
+        <el-col :span="18" style="margin-left: 10px">
+            <el-card v-if="active ===0">
+                <div slot="header" class="clearfix">
+                    <span>房间基本信息</span>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">描述</label>
-                    <div class="col-sm-5">
-                        <input class="form-control" id="clusterDescription" name="clusterDescription" value="${config.clusterDescription!}" maxlength="100"  placeholder="描述"  >
-                    </div>
+                <el-form :model="model" ref="form1" label-width="100px" label-position="left">
+                    <el-row>
+                        <el-col :span="15">
+                            <el-form-item prop="region" label="服务器风格">
+                                <el-radio-group v-model="model.clusterIntention">
+                                    <el-radio-button label="social">社交</el-radio-button>
+                                </el-radio-group>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="15">
+                            <el-form-item prop="clusterName" label="房间名称"
+                                          :rules="[{ required: true, message: '请输入房间名称', trigger: 'blur' }]">
+                                <el-input v-model="model.clusterName" clearable maxlength="100"
+                                          show-word-limit></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="15">
+                            <el-form-item prop="email" label="房间描述">
+                                <el-input v-model="model.clusterDescription" clearable maxlength="200" show-word-limit
+                                          type="textarea" :rows="2"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="15">
+                            <el-form-item prop="region" label="游戏模式">
+                                <el-radio-group v-model="model.gameMode">
+                                    <el-radio-button label="survival">生存</el-radio-button>
+                                    <el-radio-button label="wilderness">荒野</el-radio-button>
+                                    <el-radio-button label="endless">无尽</el-radio-button>
+                                </el-radio-group>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="15">
+                            <el-form-item prop="ss" label="PVP">
+                                <el-switch v-model="model.pvp" active-text="启动" inactive-text="关闭"></el-switch>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="15">
+                            <el-form-item prop="slider" label="最大玩家数量">
+                                <el-slider v-model="model.maxPlayers" :min="1" :max="max" show-input></el-slider>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="15">
+                            <el-form-item prop="email" label="房间密码">
+                                <el-input v-model="model.clusterPassword" clearable maxlength="20"
+                                          show-word-limit></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                    <el-row>
+                        <el-col :span="15">
+                            <el-form-item prop="token" label="令牌Token"
+                                          :rules="[{ required: true, message: '请输入令牌Token', trigger: 'blur' }]">
+                                <el-input v-model="model.token" :rows="3" clearable maxlength="100" show-word-limit
+                                          type="textarea"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                </el-form>
+            </el-card>
+
+            <el-card v-if="active ===1" style="height: 500px;">
+                <div slot="header" class="clearfix">
+                    <span>地面世界设置</span>
                 </div>
+                <el-form :model="model" ref="form2" label-width="100px" label-position="left">
+                    <el-form-item label="地面设置">
+                        <el-input type="textarea" :rows="15" v-model="model.masterMapData"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-card>
 
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">游戏模式</label>
-                    <div class="col-sm-5">
-                        <div class="radio  radio-primary col-sm-3">
-                            <input value='survival' name="gameMode"  <#if config.gameMode = 'survival'>checked="true"</#if> id="models1" type="radio">
-                            <label for="models1">生存</label>
-                        </div>
-                        <div class="radio  radio-primary col-sm-3">
-                            <input value='wilderness' name="gameMode" <#if config.gameMode = 'wilderness'>checked="true"</#if> id="models2" type="radio">
-                            <label for="models2">荒野</label>
-                        </div>
-                        <div class="radio  radio-primeary col-sm-3">
-                            <input value='endless' name="gameMode" <#if config.gameMode = 'endless'>checked="true"</#if> id="models3" type="radio">
-                            <label for="models3">无尽</label>
-                        </div>
-                    </div>
+            <el-card v-if="active ===2" style="height: 500px;">
+                <div slot="header" class="clearfix">
+                    <span>洞穴世界设置</span>
                 </div>
+                <el-form :model="model" ref="form3" label-width="100px" label-position="left">
+                    <el-form-item label="洞穴设置">
+                        <el-input type="textarea" :rows="15" v-model="model.cavesMapData"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-card>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">PVP</label>
-                    <div class="col-sm-10">
-                        <div class="radio  radio-primary col-sm-3">
-                            <input value='false' name="pvp" id="pvp1" <#if config.pvp = 'false'>checked="true"</#if> type="radio">
-                            <label for="pvp1">关</label>
-                        </div>
-                        <div class="radio  radio-primary col-sm-3">
-                            <input value='true' name="pvp" id="pvp2" <#if config.pvp = 'true'>checked="true"</#if> type="radio">
-                            <label for="pvp2">开</label>
-                        </div>
-
-                    </div>
+            <el-card v-if="active ===3" style="height: 500px;">
+                <div slot="header" class="clearfix">
+                    <span>mod设置</span>
                 </div>
+                <el-form :model="model" ref="form4" label-width="100px" label-position="left">
+                    <el-form-item prop="ss" label="mod设置">
+                        <el-input type="textarea" :rows="15" v-model="model.modData"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-card>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">玩家数量</label>
-                    <div class="col-sm-10">
-                        <select id="maxPlayers" class="shortselect">
-                            <option <#if config.maxPlayers == '1'>selected="true"</#if> value="1">1</option>
-                            <option <#if config.maxPlayers == '2'>selected="true"</#if> value="2">2</option>
-                            <option <#if config.maxPlayers == '3'>selected="true"</#if> value="3">3</option>
-                            <option <#if config.maxPlayers == '4'>selected="true"</#if> value="4">4</option>
-                            <option <#if config.maxPlayers == '5'>selected="true"</#if> value="5">5</option>
-                            <option <#if config.maxPlayers == '6'>selected="true"</#if> value="6">6</option>
-                            <option <#if config.maxPlayers == '7'>selected="true"</#if> value="7">7</option>
-                            <option <#if config.maxPlayers == '8'>selected="true"</#if> value="8">8</option>
-                            <option <#if config.maxPlayers == '9'>selected="true"</#if> value="9">9</option>
-                            <option <#if config.maxPlayers == '10'>selected="true"</#if> value="10">10</option>
-                            <option <#if config.maxPlayers == '11'>selected="true"</#if> value="11">11</option>
-                            <option <#if config.maxPlayers == '12'>selected="true"</#if> value="12">12</option>
-                            <option <#if config.maxPlayers == '13'>selected="true"</#if> value="13">13</option>
-                            <option <#if config.maxPlayers == '14'>selected="true"</#if> value="14">14</option>
-                            <option <#if config.maxPlayers == '15'>selected="true"</#if> value="15">15</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">房间密码</label>
-                    <div class="col-sm-5">
-                        <input class="form-control" value="${config.clusterPassword!}" maxlength="10" name="clusterPassword" id="clusterPassword" placeholder="房间密码" >
-                    </div>
-                </div>
+            <el-card style="margin-top: 10px;">
+                <el-button v-show="active != 0" @click="previous()">上一步</el-button>
+                <el-button icon="el-icon-refresh-left" v-show="active === 0" @click="clearSetting()" type="warning">重置</el-button>
+                <el-button v-show="active != 3" type="primary" @click="next(active)">下一步</el-button>
+                <el-button v-show="active == 3" type="primary" @click="save(1)">仅保存设置</el-button>
+                <el-button v-show="active == 3" type="primary" @click="save(2)">生成新游戏</el-button>
+            </el-card>
+        </el-col>
+    </el-row>
 
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">令牌</label>
-                    <div class="col-sm-5">
-                        <input class="form-control" maxlength="200" id="token" value="${config.token!}" placeholder="管理员令牌" >
-
-                </div>
-
-            </div>
-        </form>
-        <div class="form-split"></div>
-        <a id="btnSave" class="btn btn-primary" onclick="saveConfig()" style="margin-left: 200px;" href="javascript:;" role="button"><i class="fa fa-save"></i> 生成游戏配置 </a>
-    </div>
 </div>
 
-
 </body>
-<#include '../foot.ftl'/>
 
 <script>
 
-    function saveConfig() {
-        let clusterIntention = $("input[name='clusterIntention']:checked").val();
-        let clusterName = $('#clusterName').val();
-        let clusterDescription = $('#clusterDescription').val();
-        let gameMode = $("input[name='gameMode']:checked").val();
-        let pvp = $("input[name='pvp']:checked").val();
-        let maxPlayers = $("#maxPlayers").val();
-        let clusterPassword = $("#clusterPassword").val();
-        let token = $("#token").val();
-        if (!notNull(clusterName)){
-            alert("房间名称不能为空");
-            return;
-        }
+    new Vue({
+        el: '#setting_index_app',
+        data: {
+            active: 0,
+            max: 32,
+            model: {
+                clusterIntention: 'social',
+                clusterName: undefined,
+                clusterDescription: undefined,
+                gameMode: 'survival',
+                pvp: false,
+                maxPlayers: 6,
+                clusterPassword: undefined,
+                token: undefined,
+                masterMapData: undefined,
+                cavesMapData: undefined,
+                modData: undefined,
+                type:1,
+            },
+        },
+        created() {
+            //拉取服务器信息
+            this.getConfig();
+        },
+        methods: {
+            save(type) {
+                this.model.type = type;
+                post("/setting/saveConfig", this.model).then((data) => {
+                    if (data != undefined && data.code != 0) {
+                        this.warningMessage(data.message);
+                    }else {
+                        this.successMessage("成功");
+                        this.active = 0;
+                        this.getConfig();
+                    }
+                })
+            },
+            getConfig() {
+                get("/setting/getConfig").then((data) => {
+                    if (data) {
+                        this.model = data;
+                    }
+                })
+            },
+            clearSetting(){
+                let tmp = {
+                    clusterIntention: 'social',
+                        clusterName: undefined,
+                        clusterDescription: undefined,
+                        gameMode: 'survival',
+                        pvp: false,
+                        maxPlayers: 6,
+                        clusterPassword: undefined,
+                        token: undefined,
+                        masterMapData: undefined,
+                        cavesMapData: undefined,
+                        modData: undefined,
+                        type:1,
+                };
+                this.model = tmp;
+            },
+            next(val) {
+                if (val === 0) {
+                    //校验基础信息
+                    this.$refs['form1'].validate((valid) => {
+                        if (valid) {
+                            this.active++;
+                        } else {
+                            return false;
+                        }
+                    });
+                } else {
+                    this.active++;
+                }
 
-        if (!notNull(token)){
-            alert("令牌不能为空");
-            return;
+            },
+            previous() {
+                this.active--;
+            },
+            successMessage(message) {
+                this.$message({
+                    message: message,
+                    type: 'success'
+                });
+            },
+            warningMessage(message) {
+                this.$message({
+                    message: message,
+                    type: 'warning'
+                });
+            },
         }
-        let obj = {clusterIntention:clusterIntention,clusterName:clusterName,
-            clusterDescription:clusterDescription,gameMode:gameMode,pvp:pvp,
-            maxPlayers:maxPlayers,clusterPassword:clusterPassword,token:token
-        };
-        console.log(obj)
-        ajax({
-            method: 'post',
-            url: '/setting/saveConfig',
-            data:obj,
-            success: function (response) {
-                location.reload();
-                alert("保存成功，重启游戏生效")
-            }
-        });
-    }
+    });
 
-    function notNull(val) {
-        if (val == null || val == '' || val == undefined){
-            return false;
-        } else {
-            return true;
-        }
-    }
 
 </script>
 

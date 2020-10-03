@@ -2,85 +2,93 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>存档管理</title>
-    <#include "../header.ftl"/>
-    <style>
-        th {
-            text-align: center;
-            color: white;
-            font-size: 30px;
-        }
-
-        td {
-            text-align: center;
-            font-size: 25px;
-        }
-    </style>
-
-
+    <title>配置页</title>
+    <#include "../common/header.ftl"/>
+    <script src="/js/httpUtil.js"></script>
 </head>
 <body>
-<div id="backup_table">
-    <table class="table table-striped" style="width: 95%;text-align: center">
-        <thead style="background: #1b6d85;">
-        <tr>
-            <th>文件名称</th>
-            <th>大小（MB）</th>
-            <th>创建时间</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-                    <#if fileList??>
-                       <#list fileList as file>
-                           <tr>
-                               <td>${file.fileName}</td>
-                               <td>${file.fileSize} MB</td>
-                               <td>${file.createTime}</td>
-                               <td>
-                                   <button @click="del('${file.fileName}')" class="btn btn-danger btn-circle btn-lg">
-                                       删除
-                                   </button>
-                               </td>
-                           </tr>
-                       </#list>
-                    <#else >
-                        <tr>
-                            <td colspan="4">暂无数据</td>
-                        </tr>
-                    </#if>
-        </tbody>
-    </table>
+
+<div id="backup_index_app">
+    <el-card>
+        <div slot="header" class="clearfix">
+            <span>所有存档</span>
+        </div>
+        <el-table :data="tableData"  stripe style="width: 100%">
+            <el-table-column prop="fileName" label="存档名称" ></el-table-column>
+            <el-table-column prop="fileSize" label="文件大小(MB)" ></el-table-column>
+            <el-table-column prop="createTime" label="创建时间" ></el-table-column>
+            <el-table-column label="操作" width="100">
+                <template slot-scope="scope">
+                    <el-button type="text" @click="rename(scope.row)" size="small">重命名</el-button>
+                    <el-button type="text" @click="deleteBackup(scope.row)" style="color:red" size="small">删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </el-card>
 </div>
+
 </body>
 
-
-<#include '../foot.ftl'/>
-
 <script>
+
     new Vue({
-        el: '#backup_table',
+        el: '#backup_index_app',
         data: {
-            message: 'Hello '
+            tableData: {},
+        },
+        created() {
+            this.getBackupList();
         },
         methods: {
-            del: function (fileName) {
-                console.log(fileName)
-                ajax({
-                    method: 'GET',
-                    url: '/backup/del',
-                    data: {
-                        fileName: fileName,
-                    },
-                    success: function (response) {
-                        location.reload();
-                        console.log(response);
-                    }
-                });
+            getBackupList() {
+                get("/backup/getBackupList").then((data) => {
+                    this.tableData = data;
+                })
+            },
+            rename(val) {
+                console.log(val)
+                this.$prompt('新名称', '修改名称', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                }).then(({value}) => {
+                    get("/backup/rename", {fileName: val.fileName,newFileName:value}).then((data) => {
+                        this.successMessage("修改成功");
+                        this.getBackupList();
+                    })
+                }).catch(() => {
 
+                });
+            },
+            deleteBackup(val){
+                this.$confirm('确认删除:'+val.fileName+', 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    get("/backup/deleteBackup", {fileName: val.fileName}).then((data) => {
+                        this.successMessage("删除成功");
+                        this.getBackupList();
+                    })
+                }).catch(() => {
+
+                });
+            },
+            successMessage(message) {
+                this.$message({
+                    message: message,
+                    type: 'success'
+                });
+            },
+            warningMessage(message) {
+                this.$message({
+                    message: message,
+                    type: 'warning'
+                });
             },
         }
-    })
+    });
+
+
 </script>
 
 </html>

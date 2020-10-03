@@ -112,8 +112,8 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
 
     /*  漂浮消息 */
     $.fn.Messager = function (result) {
-        if (result.code === 200) {
-            layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
+        if (result.code === 0) {
+            layer.msg(result.message, {offset: '15px', time: 3000, icon: 1});
             setTimeout(function () {
                 if (result.data === 'submit[refresh]') {
                     parent.location.reload();
@@ -126,7 +126,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
                 }
             }, 2000);
         } else {
-            layer.msg(result.msg, {offset: '15px', time: 3000, icon: 2});
+            layer.msg(result.message, {offset: '15px', time: 3000, icon: 2});
         }
     };
 
@@ -352,7 +352,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
                 var hide = $("#"+index);
                 if(hide.length > 0){
                     var item = hide.parent('.upload-item');
-                    if (res.code === 200) {
+                    if (res.code === 0) {
                         hide.val(res.data[field]);
                         item.addClass('succeed');
                     }else {

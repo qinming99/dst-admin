@@ -3,11 +3,12 @@ package com.tugos.dst.admin.service;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
-import com.tugos.dst.admin.utils.Constant;
+import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
 import com.tugos.dst.admin.vo.BackupFileVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -22,10 +23,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BackupService {
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private static DecimalFormat decimalFormat = new DecimalFormat(".00");
-
+    private final static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
 
 
     /**
@@ -33,13 +33,15 @@ public class BackupService {
      *
      * @return 信息列表
      */
-    public static List<BackupFileVO> getBackupFileInfo() throws Exception{
+    public List<BackupFileVO> getBackupFileInfo() {
         List<BackupFileVO> result = new ArrayList<>();
-        String backupPath = Constant.ROOT_PATH + "/" +Constant.DST_DOC_PATH;
+        String backupPath = DstConstant.ROOT_PATH + "/" + DstConstant.DST_DOC_PATH;
         List<String> allFileList = FileUtils.getFiles(backupPath);
         //过滤出所有备份文件压缩包
         List<String> backupFileList = allFileList.stream()
-                .filter(e -> e.contains(".tar")).collect(Collectors.toList());
+                .filter(e -> e.contains(DstConstant.BACKUP_FILE_EXTENSION)).collect(Collectors.toList());
+        //总文件大小
+        double totalSize = 0L;
         if (CollectionUtils.isNotEmpty(backupFileList)) {
             for (String e : backupFileList) {
                 BackupFileVO vo = new BackupFileVO();
@@ -47,35 +49,59 @@ public class BackupService {
                 String name = file.getName();
                 //文件大小 MB
                 float fileSize = file.length() / 1024F / 1024F;
+                totalSize += fileSize;
                 long lastModified = file.lastModified();
-                String time = dateFormat.format(lastModified);
+                String time = DATE_FORMAT.format(lastModified);
                 vo.setCreateTime(time);
-                vo.setFileSize(decimalFormat.format(fileSize));
+                vo.setFileSize(DECIMAL_FORMAT.format(fileSize));
                 vo.setFileName(name);
                 vo.setTime(DateUtil.parse(vo.getCreateTime(), DatePattern.NORM_DATETIME_FORMAT));
                 result.add(vo);
             }
         }
-        if (CollectionUtils.isNotEmpty(result)){
+        if (CollectionUtils.isNotEmpty(result)) {
             //排序，降序
-            result.sort((o1,o2)-> DateUtil.compare(o1.getTime(),o2.getTime()));
+            result.sort((o1, o2) -> DateUtil.compare(o1.getTime(), o2.getTime()));
             Collections.reverse(result);
-
         }
         return result;
     }
 
     /**
      * 删除备份
+     *
      * @param fileName 文件名字
      */
-    public boolean del(String fileName) {
-        String basePath = Constant.ROOT_PATH + "/" +Constant.DST_DOC_PATH;
-        String filePath = basePath + "/" + fileName;
-        File file = new File(filePath);
-        if (file.exists()){
-            //删除
-            return file.delete();
+    public boolean deleteBackup(String fileName) {
+        if (StringUtils.isNotBlank(fileName)) {
+            String basePath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_DOC_PATH;
+            String filePath = basePath + "/" + fileName;
+            File file = new File(filePath);
+            if (file.exists()) {
+                //删除
+                return file.delete();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 重命名
+     *
+     * @param fileName    老名字
+     * @param newFileName 新名字
+     * @return true 成功
+     */
+    public boolean rename(String fileName, String newFileName) {
+        if (StringUtils.isNoneBlank(fileName, newFileName)) {
+            String basePath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_DOC_PATH;
+            String filePath = basePath + DstConstant.SINGLE_SLASH + fileName;
+            String newFilePath = basePath + DstConstant.SINGLE_SLASH + newFileName +".tar";
+            File file = new File(filePath);
+            if (file.exists()) {
+                //删除
+                return file.renameTo(new File(newFilePath));
+            }
         }
         return false;
     }
