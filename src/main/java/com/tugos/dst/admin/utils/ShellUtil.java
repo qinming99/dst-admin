@@ -35,7 +35,7 @@ public class ShellUtil {
                 errList.add(line);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("运行shell脚本失败:",e);
         }
         log.debug("执行 {} ", shell);
         log.debug("执行结果：{}  ", strList);
@@ -51,7 +51,7 @@ public class ShellUtil {
         try {
             Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", shell}, null, null);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("运行shell脚本失败:",e);
         }
     }
 
@@ -66,7 +66,6 @@ public class ShellUtil {
         List<String> errList = new ArrayList<>();
         try {
             Process process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", shStr}, null, null);
-            int i = process.waitFor();
             InputStreamReader ir = new InputStreamReader(process.getInputStream());
             InputStreamReader err = new InputStreamReader(process.getErrorStream());
             LineNumberReader input = new LineNumberReader(ir);
@@ -80,7 +79,7 @@ public class ShellUtil {
                 errList.add(line);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("运行shell脚本失败:",e);
         }
         log.debug("执行 {} ", shStr);
         log.debug("执行结果：{}  ", strList);

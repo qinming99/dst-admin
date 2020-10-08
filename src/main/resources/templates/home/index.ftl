@@ -36,7 +36,7 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <el-form-item label="启动服务：">
+                    <el-form-item label="启动地面和洞穴：">
                         <el-switch v-model="runStatus" active-text="启动" inactive-text="关闭" :width="50"
                                    @change="controlDst(runStatus,0)"></el-switch>
                     </el-form-item>
@@ -57,7 +57,7 @@
                             </div>
                             <el-button slot="reference" icon="el-icon-s-promotion">更新游戏</el-button>
                         </el-popover>
-                        <el-button icon="el-icon-refresh" @click="backupGame()">备份存档</el-button>
+                        <el-button icon="el-icon-refresh" @click="backupGame()">创建备份</el-button>
                     </el-form-item>
                     <el-form-item label="清理游戏存档：">
                         <el-popover placement="top" width="160" v-model="visible">
@@ -69,7 +69,7 @@
                             <el-button slot="reference" type="danger" icon="el-icon-delete">清理</el-button>
                         </el-popover>
                     </el-form-item>
-                    <el-form-item label="回复存档：">
+                    <el-form-item label="恢复备份：">
                         <el-select v-model="backupName" filterable placeholder="请选择">
                             <el-option
                                     v-for="item in backupList"

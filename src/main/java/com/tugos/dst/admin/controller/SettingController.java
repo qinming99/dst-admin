@@ -38,9 +38,6 @@ public class SettingController {
     @ResponseBody
     public ResultVO<GameConfigVO> getConfig() throws Exception {
         log.info("读取游戏配置");
-        if (true){
-            throw new Exception("hhhhh");
-        }
         GameConfigVO config = settingService.getConfig();
         return ResultVO.data(config);
     }

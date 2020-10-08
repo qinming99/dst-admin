@@ -11,7 +11,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -34,7 +33,6 @@ public class GlobalExceptionHandler {
      * 拦截访问权限异常
      */
     @ExceptionHandler(AuthorizationException.class)
-    @ResponseBody
     public ResultVO<String> authorizationException(AuthorizationException exception,
                                                    HttpServletRequest request, HttpServletResponse response) {
         // 获取异常信息

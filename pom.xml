@@ -53,12 +53,6 @@
             <version>${shiro.version}</version>
         </dependency>
 
-        <!--thymeleaf视图模板框架-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
