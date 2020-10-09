@@ -31,13 +31,13 @@ a{
 /* 导航栏样式 */
 .layui-layout-admin .layui-header{
 	height: 50px;
-	background-color: #009688;
+	background-color: #3c8dbc;
 }
 .layui-layout-admin .layui-header .layui-logo{
 	width: 220px;
 	color: #ffffff;
 	line-height: 50px;
-	background-color: #007d71;
+	background-color: #367fa9;
 	overflow: hidden;
 	-webkit-transition: left 0.3s ease, width 0.3s ease;
 	-o-transition: left 0.3s ease, width 0.3s ease;
@@ -55,7 +55,7 @@ a{
 	transition: left 0.3s ease, width 0.3s ease;
 }
 .layui-layout-admin .layui-header .side-toggle:hover{
-	background-color: #00635a;
+	background-color: #1890ff;
 }
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item{
 	line-height: 50px;
@@ -68,7 +68,7 @@ a{
 	transition: all 0.2s;
 }
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item>a:hover{
-	background-color: #038478;
+	background-color: #1890ff;
 }
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item>a>.fa{
 	font-size: 18px;
@@ -290,7 +290,7 @@ a{
 	display:inline-block;
 	width: 10px;
 	height: 10px;
-	background-color: #5FB878;
+	background-color: #1890ff;
 	border-radius: 50%;
 	margin-right: 2px;
 }
@@ -347,11 +347,11 @@ a{
     background-color: #f8f8f8;
 }
 .layui-layout-admin .layui-body .layui-tab-title .layui-this{
-    color: #009688;
+    color: #1890ff;
     background-color: #f8f8f8;
 }
 .layui-layout-admin .layui-body .layui-tab-title .layui-this:after{
-    border-bottom: 2px solid #009688;
+    border-bottom: 2px solid #1890ff;
 }
 .layui-layout-admin .layui-body .layui-tab-title .layui-icon-home{
 	text-align: left;
@@ -418,8 +418,8 @@ a{
     background-color: #fff;
 }
 .timo-checkbox input[type="checkbox"]:checked + .layui-icon:before{
-    border-color: #009688;
-    background-color: #009688;
+    border-color: #1890ff;
+    background-color: #1890ff;
 }
 
 /* 收起侧边栏 */
@@ -546,18 +546,18 @@ a{
 .timo-layout-page .layui-form-pane .layui-form-label{
 	width: auto;
 	background-color: #fff;
-	border-color: #009688;
-	color: #009688;
+	border-color: #1890ff;
+	color: #1890ff;
 	font-weight: bold;
 }
 .timo-layout-page .layui-form-pane input,
 .timo-layout-page .layui-form-pane select{
-	border-color: #009688;
+	border-color: #1890ff;
 	border-radius: 0 2px 2px 0;
 }
 .timo-layout-page .layui-form-pane input:hover,
 .timo-layout-page .layui-form-pane input:focus{
-	border-color: #009688 !important;
+	border-color: #1890ff !important;
 	outline: 0;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 150, 136, 0.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 150, 136, 0.6);
@@ -581,7 +581,7 @@ a{
     table-layout: fixed;
 }
 .timo-layout-page .timo-table a{
-	color: #009688;
+	color: #1890ff;
 }
 .timo-layout-page .timo-table a:hover {
 	color: #004a43;
@@ -697,7 +697,7 @@ a{
 	padding: 8px 14px;
 	margin-left: -1px;
 	line-height: 1.25;
-	color: #009688;
+	color: #1890ff;
 	background-color: #FFF;
 	border: 1px solid #dee2e6;
 }
@@ -716,8 +716,8 @@ a{
 .page-item.active .page-link {
 	z-index: 1;
 	color: #FFF;
-	background-color: #009688;
-	border-color: #009688;
+	background-color: #1890ff;
+	border-color: #1890ff;
 }
 .page-item .breviary{
 	font-weight: bold;
@@ -734,7 +734,7 @@ a{
 .timo-compile .layui-input-block input:hover,
 .timo-compile .layui-input-inline textarea:hover,
 .timo-compile .layui-input-block textarea:hover{
-    border-color: #009688!important;
+    border-color: #1890ff!important;
 }
 .timo-compile .layui-input-info{
     float: left;
@@ -900,5 +900,5 @@ a{
     cursor: pointer;
 }
 .upload-show .upload-item .upload-item-close:hover{
-    background-color: #009688;
+    background-color: #1890ff;
 }

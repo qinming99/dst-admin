@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="饥荒联机版服务器管理系统"/>
     <meta name="keywords" content="饥荒联机版服务器管理系统"/>
-    <link rel="shortcut icon" href="/mo-favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/plugins/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <link rel="stylesheet" href="/lib/layui-v2.3.0/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/main.css" media="all">

@@ -3,5 +3,6 @@
 <script src="/js/vue.js"></script>
 <script src="/css/ele/index.js"></script>
 <script src="/js/axios.min.js"></script>
+<script src="/js/httpUtil.js"></script>
 
 

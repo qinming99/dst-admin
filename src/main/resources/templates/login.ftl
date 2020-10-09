@@ -6,7 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="/mo-favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/plugins/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <link rel="stylesheet" href="/lib/layui-v2.3.0/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/main.css" media="all">
@@ -18,7 +18,7 @@
     <div class="cover"></div>
 </div>
 <div class="login-content">
-    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i>登录</h1>
+    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i>登陆</h1>
     <form class="layui-form" action="/login" method="post">
         <div class="layui-form-item">
             <label class="layui-icon layui-icon-username" for="username"></label>

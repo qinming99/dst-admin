@@ -16,7 +16,11 @@ import javax.annotation.PostConstruct;
 @Component
 public class AuthRealm extends AuthorizingRealm {
 
-    @Value("${dst.password}")
+
+    @Value("${dst.username:admin}")
+    private String dstUser;
+
+    @Value("${dst.password:123456}")
     private String dstPassword;
 
     /**
@@ -56,7 +60,7 @@ public class AuthRealm extends AuthorizingRealm {
                 // 获取明文密码及密码盐
                 String password = String.valueOf(token.getPassword());
                 String username = token.getUsername();
-                if (dstPassword.equals(password)){
+                if (dstUser.equals(username) && dstPassword.equals(password)) {
                     return true;
                 }
                 return false;

@@ -6,7 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="/mo-favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/plugins/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <link rel="stylesheet" href="/lib/layui-v2.3.0/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/main.css" media="all">
@@ -19,7 +19,7 @@
     <div class="layui-header">
         <a href="#" class="layui-logo">
             <span class="layui-logo-mini">饥荒</span>
-            <span class="layui-logo-lg">饥荒 后台</span>
+            <span class="layui-logo-lg">饥荒后台</span>
         </a>
         <a class="side-toggle layui-layout-left" href="#">
             <i class="layui-icon layui-icon-shrink-right"></i>
@@ -100,10 +100,7 @@
         <div class="layui-tab-content"></div>
     </div>
 </div>
-<!--引入vue-->
-<script src="/js/vue.js" charset="utf-8"></script>
 <script>
-    // window.main = 111;
 </script>
 </body>
 </html>

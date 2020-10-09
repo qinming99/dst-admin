@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>主页</title>
     <#include "../common/header.ftl"/>
-    <script src="/js/httpUtil.js"></script>
 </head>
 <body>
 
