@@ -51,13 +51,9 @@ public class ScheduleService {
 
     @PostConstruct
     public void initShell() throws Exception {
-        File file = new File(DstConstant.SHELL_PROJECT_PATH);
-        if (!file.exists()) {
-            //创建存放脚本的目录
-            file.mkdir();
-        }
         //释放脚本并授权
         copyAndChmod(DstConstant.INSTALL_DST);
+        copyAndChmod(DstConstant.DST_START);
     }
 
     /**
@@ -86,16 +82,15 @@ public class ScheduleService {
      * 将项目资源下的脚本拷贝到磁盘
      */
     public static boolean fileShellCopy(String fileName) throws Exception {
-        String filePath = DstConstant.SHELL_PROJECT_PATH + fileName;
-        ClassPathResource classPathResource = new ClassPathResource(filePath);
-        InputStream inputStream = classPathResource.getInputStream();
         //创建新的脚本文件
-        File file = new File(filePath);
+        File file = new File(fileName);
         if (file.exists()) {
             //存在不管它
             log.info("脚本已经存在,{}", fileName);
             return false;
         }
+        ClassPathResource classPathResource = new ClassPathResource(DstConstant.SHELL_PROJECT_PATH + fileName);
+        InputStream inputStream = classPathResource.getInputStream();
         OutputStream outputStream = new FileOutputStream(file);
         byte[] buf = new byte[1024];
         int len;

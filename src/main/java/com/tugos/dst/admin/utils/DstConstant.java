@@ -8,6 +8,7 @@ import org.apache.commons.lang3.SystemUtils;
 public final class DstConstant {
 
     public static final String INSTALL_DST = "install.sh";
+    public static final String DST_START = "dstStart.sh";
 
     /**
      * 启动脚本的存放路径 ~/dst/bin
