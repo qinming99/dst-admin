@@ -33,29 +33,38 @@ stop() {
 }
 
 main() {
-  echo -e "\033[42;30m ###[ 控制台 ]### \033[0m"
-  echo -e "\033[32m 0. \033[0m 启动服务"
-  echo -e "\033[32m 1. \033[0m 停止服务"
-  echo -e "\033[32m 2. \033[0m 查看服务状态"
 
-  read -p "请输入数字0-2的选项,回车确认: " choose
-  case $choose in
-  0)
-    start
-    ;;
-  1)
-    stop
-    ;;
-  2)
-    status
-    ;;
-  *)
-    echo -e "\033[31m 请输入合法的数字 \033[0m"
-    ;;
-  esac
+  if [ ! -f ${server_name}".jar" ]; then
+    echo -e "\033[31m 当前目录不存在  ${server_name}.jar  文件 \033[0m"
+  else
+#    存在文件
+    echo -e "\033[42;30m ###[ 控制台 ]### \033[0m"
+    echo -e "\033[32m 0. \033[0m 启动服务"
+    echo -e "\033[32m 1. \033[0m 停止服务"
+    echo -e "\033[32m 2. \033[0m 查看服务状态"
+    echo -e "\033[32m 3. \033[0m 重启服务"
+
+    read -p "请输入数字0-2的选项,回车确认: " choose
+    case $choose in
+    0)
+      start
+      ;;
+    1)
+      stop
+      ;;
+    2)
+      status
+      ;;
+    3)
+      stop
+      start
+      ;;
+    *)
+      echo -e "\033[31m 请输入合法的数字 \033[0m"
+      ;;
+    esac
+  fi
+
 }
 
 main
-
-
-

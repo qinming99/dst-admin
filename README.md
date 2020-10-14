@@ -55,7 +55,7 @@ nohup java -jar dst-admin.jar &
 ```
 ###  使用dstStart.sh脚本管理dst-admin
 ```
-#执行dst-admin按照指示进行
+#执行dstStart脚本按照指示进行
 ./dstStart.sh
 ```
 
