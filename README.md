@@ -9,9 +9,9 @@
 18点自动备份两次
 6.  支持自动更新游戏，每天凌晨6点自动更新
 
-## 要求
-1.  环境要求**Ubuntu** 16.04 64位或32位（已测试，其他版本Ubuntu未测试）
-2.  Ubuntu上需要安装**JDK 1.8**
+## 环境要求
+1.  系统需**Ubuntu** 16.04 64位或32位（已测试，其他版本Ubuntu未测试）
+2.  Java环境需要**JDK 1.8**
 
 ## 注意事项
 1.  服务默认监听端口8080
@@ -42,23 +42,26 @@ wget https://github.com/qinming99/dst-admin/releases/download/v1.0.1/dst-admin-1
 
 ###  启动dst-admin
 ```
-#前台启动
+#启动
 java -jar dst-admin.jar 
-#后台启动
-nohup java -jar dst-admin.jar &
 ```
 ###  执行饥荒安装脚本，安装饥荒客户端
 ```
-#启动完成将释放一个用于安装饥荒steam服务器的脚本
+#启动完成将释放install.sh脚本，用于安装steam饥荒客户端
 #执行脚本，期间可能需要输入密码
 ./install.sh
 ```
-###  使用dstStart.sh脚本管理dst-admin
+###  使用dstStart.sh脚本管理dst-admin服务
 ```
-#执行dstStart脚本按照指示进行
+#执行dstStart.sh脚本按照指示进行
 ./dstStart.sh
 ```
 
 ## 饥荒交流群
 
 QQ群： **1005887957**
+
+
+## END
+
+- 如果有任何建议或者 Bug:sob: 可以提 issue ，或者可以直接加群联系
