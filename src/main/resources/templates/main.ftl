@@ -27,11 +27,6 @@
         </a>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="#">
-                    <i class="fa fa-bell-o fa-lg"></i>
-                </a>
-            </li>
-            <li class="layui-nav-item">
                 <a class="timo-screen-full" href="#">
                     <i class="fa layui-icon layui-icon-screen-full"></i>
                 </a>

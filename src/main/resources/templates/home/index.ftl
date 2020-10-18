@@ -12,7 +12,7 @@
             element-loading-text="拼命加载中"
             element-loading-spinner="el-icon-loading"
             element-loading-background="rgba(0, 0, 0, 0.8)">
-        <el-col :span="14">
+        <el-col :span="16">
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span>游戏状态</span>

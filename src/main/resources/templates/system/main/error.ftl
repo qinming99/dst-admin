@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-<div class="page-error" style="color: #009688">
+<div class="page-error" style="color: #3c8dbc">
     <div style="font-size: 120px" >${statusCode!'500'}</div>
     <div style="font-size: 24px" >${msg!'系统异常'}</div>
 </div>
