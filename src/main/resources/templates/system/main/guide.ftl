@@ -25,7 +25,7 @@
             <span>饥荒联机版管理平台使用向导</span>
         </div>
         <el-collapse>
-            <el-collapse-item title="获取Token令牌" name="1">
+            <el-collapse-item title="如何获取Token令牌？" name="1">
                 <div class="context">饥荒联机版服务器必须设置token，
                     是房主管理员标识，设置了token就可以对房间进行各种操作
                 </div>
@@ -42,7 +42,7 @@
                 <div style="font-size: 20px">我的token:<span style="margin-left: 10px">pds-g^KU_qE7e8rv1^rMv54Ftk2Ur8OLSDh3KrbMU3TMi2T7BnfPOOl7OwHeQ=</span>
                 </div>
             </el-collapse-item>
-            <el-collapse-item title="获取地面设置" name="2">
+            <el-collapse-item title="如何获取地面设置？" name="2">
                 <div class="context">该需要从现成的本地游戏服务器设置中获取</div>
                 <ul class="step">
                     <li>打开游戏，创建一个本地服务器，设置需要的地面、洞穴、MOD</li>
@@ -54,7 +54,7 @@
                     <img src="/images/step2-2.png"/>
                 </ul>
             </el-collapse-item>
-            <el-collapse-item title="获取洞穴设置" name="3">
+            <el-collapse-item title="如何获取洞穴设置？" name="3">
                 <div class="context">该需要从现成的本地游戏服务器设置中获取</div>
                 <ul class="step">
                     <li>打开游戏，创建一个本地服务器，设置需要的地面、洞穴、MOD</li>
@@ -66,7 +66,7 @@
                     <img src="/images/step2-2.png"/>
                 </ul>
             </el-collapse-item>
-            <el-collapse-item title="获取MOD设置" name="4">
+            <el-collapse-item title="如何获取MOD设置？" name="4">
                 <div class="context">该需要从现成的本地游戏服务器设置中获取</div>
                 <ul class="step">
                     <li>打开游戏，创建一个本地服务器，设置需要的地面、洞穴、MOD</li>
