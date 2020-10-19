@@ -16,6 +16,7 @@
 ## 注意事项
 1.  服务默认监听端口8080
 2.  默认用户名/密码 admin/123456
+3.  地面端口：10999，洞穴端口：10998
 
 ## 快速开始
 ###  在Ubuntu服务器中安装jdk1.8 
@@ -56,6 +57,13 @@ java -jar dst-admin.jar
 #执行dstStart.sh脚本按照指示进行
 ./dstStart.sh
 ```
+
+
+## 预览图
+
+![img](https://github.com/qinming99/dst-admin/blob/master/images/image1.png)
+![img](https://github.com/qinming99/dst-admin/blob/master/images/image2.png)
+![img](https://github.com/qinming99/dst-admin/blob/master/images/image3.png)
 
 ## 饥荒交流群
 
