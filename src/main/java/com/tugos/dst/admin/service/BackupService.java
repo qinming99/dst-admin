@@ -19,6 +19,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author qinming
+ * @date 2020-05-17
+ * <p> 存档管理服务，游戏的存档保存在 ~/.klei/DoNotStarveTogether 目录 </p>
+ */
 @Service
 @Slf4j
 public class BackupService {
@@ -96,7 +101,7 @@ public class BackupService {
         if (StringUtils.isNoneBlank(fileName, newFileName)) {
             String basePath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_DOC_PATH;
             String filePath = basePath + DstConstant.SINGLE_SLASH + fileName;
-            String newFilePath = basePath + DstConstant.SINGLE_SLASH + newFileName +".tar";
+            String newFilePath = basePath + DstConstant.SINGLE_SLASH + newFileName +DstConstant.BACKUP_FILE_EXTENSION;
             File file = new File(filePath);
             if (file.exists()) {
                 //删除

@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * @author qinming
+ * @date 2020-05-17
+ * <p> 存档管理，游戏的存档保存在 ~/.klei/DoNotStarveTogether 目录 </p>
+ */
 @Controller
 @RequestMapping("/backup")
 @Slf4j

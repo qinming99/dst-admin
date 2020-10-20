@@ -1,7 +1,7 @@
 package com.tugos.dst.admin.enums;
 
 /**
- * @author wuminghui
+ * @author qinming
  * @date 2020-10-02 15:50:52
  * <p> 设置房间的启动类型 </p>
  */

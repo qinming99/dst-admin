@@ -4,7 +4,11 @@ package com.tugos.dst.admin.vo;
 import lombok.Data;
 
 import java.util.Date;
-
+/**
+ * @author qinming
+ * @date 2020-05-27
+ * <p> 存档信息VO </p>
+ */
 @Data
 public class BackupFileVO {
 

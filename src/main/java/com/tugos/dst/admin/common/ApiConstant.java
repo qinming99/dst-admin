@@ -1,7 +1,7 @@
 package com.tugos.dst.admin.common;
 
 /**
- * @author wuminghui
+ * @author qinming
  * @date 2020-09-27 19:45:15
  * <p> Api常量 </p>
  */

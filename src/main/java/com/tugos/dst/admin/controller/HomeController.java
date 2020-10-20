@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @author qinming
+ * @date 2020-05-17
+ * <p> 游戏管理器 </p>
+ */
 @Controller
 @Slf4j
 @RequestMapping("/home")

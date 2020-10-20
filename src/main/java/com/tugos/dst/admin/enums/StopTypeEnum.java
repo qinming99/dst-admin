@@ -1,7 +1,7 @@
 package com.tugos.dst.admin.enums;
 
 /**
- * @author wuminghui
+ * @author qinming
  * @date 2020-10-01 21:54:50
  * <p> 停止服务器类型枚举 </p>
  */

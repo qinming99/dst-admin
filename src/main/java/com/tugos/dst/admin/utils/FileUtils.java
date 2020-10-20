@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 文件功能
+ * @author qinming
+ * @date 2020-05-27
+ * <p> 文件工具类 </p>
  */
 public class FileUtils {
 

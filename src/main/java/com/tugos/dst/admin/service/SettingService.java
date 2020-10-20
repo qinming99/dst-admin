@@ -22,6 +22,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author qinming
+ * @date 2020-05-16
+ * <p> 房间设置服务 </p>
+ */
 @Service
 @Slf4j
 public class SettingService {

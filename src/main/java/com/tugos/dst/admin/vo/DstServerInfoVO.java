@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author wuminghui
+ * @author qinming
  * @date 2020-09-29 21:14:24
  * <p> 饥荒服务器监控信息 </p>
  */

@@ -15,7 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
+/**
+ * @author qinming
+ * @date 2020-05-16
+ * <p> 用户管理控制器 </p>
+ */
 @Controller
 @RequestMapping("/system/user")
 public class UserController {

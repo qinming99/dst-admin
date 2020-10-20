@@ -19,6 +19,11 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author qinming
+ * @date 2020-05-21
+ * <p> 定时任务服务 </p>
+ */
 @Service
 @Slf4j
 public class ScheduleService {
@@ -49,6 +54,9 @@ public class ScheduleService {
     }
 
 
+    /**
+     * 启动时释放安装dst游戏脚本
+     */
     @PostConstruct
     public void initShell() throws Exception {
         //释放脚本并授权

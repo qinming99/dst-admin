@@ -4,7 +4,9 @@ package com.tugos.dst.admin.vo;
 import lombok.Data;
 
 /**
- * 游戏设置信息
+ * @author qinming
+ * @date 2020-05-17
+ * <p> 游戏房间信息vo </p>
  */
 @Data
 public class GameConfigVO {

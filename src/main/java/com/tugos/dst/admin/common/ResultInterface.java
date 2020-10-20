@@ -1,7 +1,7 @@
 package com.tugos.dst.admin.common;
 
 /**
- * @author wuminghui
+ * @author qinming
  * @date 2020-10-03 20:13:48
  * <p> 无 </p>
  */

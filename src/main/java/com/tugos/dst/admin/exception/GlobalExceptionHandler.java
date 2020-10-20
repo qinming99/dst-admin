@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author wuminghui
+ * @author qinming
  * @date 2020-10-03 20:41:51
  * <p> 自定义全局异常处理 </p>
  */

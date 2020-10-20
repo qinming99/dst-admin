@@ -21,6 +21,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author qinming
+ * @date 2020-05-17
+ * <p> 管理游戏服务 </p>
+ */
 @Service
 public class HomeService {
 
@@ -59,7 +64,6 @@ public class HomeService {
                 shellService.startCaves();
                 break;
             default:
-                ;
         }
         return ResultVO.success();
     }
@@ -95,13 +99,12 @@ public class HomeService {
                 shellService.stopCaves();
                 break;
             default:
-                ;
         }
         return ResultVO.success();
     }
 
     /**
-     * 校验服务器是否已经按照了服务器
+     * 校验服务器是否已经安装了dst，检查启动脚本是否存在
      *
      * @return true 安装了
      */

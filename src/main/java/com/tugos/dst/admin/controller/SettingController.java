@@ -10,7 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * @author qinming
+ * @date 2020-05-16
+ * <p> 房间设置服务 </p>
+ */
 @Controller
 @RequestMapping("/setting")
 @Slf4j

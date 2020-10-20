@@ -24,7 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * @author qinming
+ * @date 2020-05-16
+ * <p> 登陆器 </p>
+ */
 @Controller
 public class LoginController {
 

@@ -3,7 +3,7 @@ package com.tugos.dst.admin.common;
 import lombok.Getter;
 
 /**
- * @author wuminghui
+ * @author qinming
  * @date 2020-09-27 14:17:04
  * <p> 返回状态集枚举 </p>
  */

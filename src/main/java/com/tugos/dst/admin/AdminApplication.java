@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * 注意事项：shell脚本第一份必须是：#!/bin/bash
- * 脚本名称用全小写字母
+ * 饥荒管理平台
  */
 @SpringBootApplication
 @EnableScheduling

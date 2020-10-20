@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author qinming
+ * @date 2020-05-17
+ * <p> dst控制脚本服务</p>
+ */
 @Service
 @Slf4j
 public class ShellService {

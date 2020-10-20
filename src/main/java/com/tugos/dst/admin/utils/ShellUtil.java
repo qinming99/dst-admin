@@ -6,7 +6,11 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author qinming
+ * @date 2020-05-17
+ * <p> shell脚本执行工具类 </p>
+ */
 @Slf4j
 public class ShellUtil {
 
