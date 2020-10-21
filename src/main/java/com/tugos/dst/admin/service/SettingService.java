@@ -336,11 +336,15 @@ public class SettingService {
      * @param data mod设置
      */
     public void createMod(String data) throws Exception {
-        if (StringUtils.isNotBlank(data)){
-            String masterModeFile = DstConstant.ROOT_PATH + "/" + DstConstant.DST_USER_GAME_MASTER_MOD_PATH;
+        String masterModeFile = DstConstant.ROOT_PATH + "/" + DstConstant.DST_USER_GAME_MASTER_MOD_PATH;
+        String cavesModeFile = DstConstant.ROOT_PATH + "/" + DstConstant.DST_USER_GAME_CAVES_MOD_PATH;
+        if (StringUtils.isNotBlank(data)) {
             FileUtils.writeFile(masterModeFile, data);
-            String cavesModeFile = DstConstant.ROOT_PATH + "/" + DstConstant.DST_USER_GAME_CAVES_MOD_PATH;
             FileUtils.writeFile(cavesModeFile, data);
+        } else {
+            //置空
+            FileUtils.writeFile(masterModeFile, "");
+            FileUtils.writeFile(cavesModeFile, "");
         }
     }
 
@@ -351,8 +355,11 @@ public class SettingService {
      */
     public void createMasterMap(String data) throws Exception {
         String filePath = DstConstant.ROOT_PATH + "/" + DstConstant.DST_USER_GAME_MASTER_MAP_PATH;
-        if (StringUtils.isNotBlank(data)){
+        if (StringUtils.isNotBlank(data)) {
             FileUtils.writeFile(filePath, data);
+        } else {
+            //置空
+            FileUtils.writeFile(filePath, "");
         }
     }
 
@@ -363,8 +370,11 @@ public class SettingService {
      */
     public void createCavesMap(String data) throws Exception {
         String filePath = DstConstant.ROOT_PATH + "/" + DstConstant.DST_USER_GAME_CAVES_MAP_PATH;
-        if (StringUtils.isNotBlank(data)){
+        if (StringUtils.isNotBlank(data)) {
             FileUtils.writeFile(filePath, data);
+        } else {
+            //置空
+            FileUtils.writeFile(filePath, "");
         }
     }
 

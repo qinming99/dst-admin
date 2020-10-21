@@ -204,14 +204,17 @@ public class HomeService {
     }
 
     /**
-     * 恢复存档
+     * 恢复存档 需要暂停游戏，清空之前的记录
      * @param name 备份的文件名称全称
      */
     public ResultVO<String> restore(String name) {
         if (!this.checkBackupIsExists(name)) {
             //未安装dst
-            return ResultVO.fail("游戏备份文件不存在"+name);
+            return ResultVO.fail("游戏备份文件不存在" + name);
         }
+        //清空在恢复
+        this.delRecord();
+        //释放打包好的存档文件
         shellService.revertBackup(name);
         return ResultVO.success();
     }
