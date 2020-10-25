@@ -128,6 +128,10 @@ public final class DstConstant {
      */
     public static final String DST_USER_GAME_CONFIG_PATH = ".klei/DoNotStarveTogether/MyDediServer/cluster.ini";
 
+    /**
+     * 游戏mod设置
+     */
+    public static final String DST_MOD_SETTING_PATH = "dst/mods/dedicated_server_mods_setup.lua";
 
     /**
      * 脚本目录名称 shell

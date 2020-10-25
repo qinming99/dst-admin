@@ -1,7 +1,9 @@
 package com.tugos.dst.admin.service;
 
+import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
+import com.tugos.dst.admin.utils.ModFileUtil;
 import com.tugos.dst.admin.utils.ShellUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -110,15 +112,20 @@ public class ShellService {
 
     /**
      * 启动地面进程
+     *
      * @return 执行信息
      */
-    public List<String> startMaster(){
+    public List<String> startMaster() {
+        //开始游戏是安装mod
+        ResultVO<String> stringResultVO = this.installModToServer();
+        log.info("安装mod：{}",stringResultVO);
         return ShellUtil.runShell(DstConstant.START_MASTER_CMD);
     }
 
 
     /**
      * 启动洞穴进程
+     *
      * @return 执行信息
      */
     public List<String> startCaves() {
@@ -127,6 +134,7 @@ public class ShellService {
 
     /**
      * 停止地面进程
+     *
      * @return 执行信息
      */
     public List<String> stopMaster() {
@@ -136,6 +144,7 @@ public class ShellService {
 
     /**
      * 停止洞穴进程
+     *
      * @return 执行信息
      */
     public List<String> stopCaves() {
@@ -144,6 +153,7 @@ public class ShellService {
 
     /**
      * 更新游戏 需要停止地面和洞穴进程
+     *
      * @return 执行信息
      */
     public List<String> updateGame() {
@@ -155,6 +165,7 @@ public class ShellService {
 
     /**
      * 清理地面游戏进度 需要停止服务
+     *
      * @return 信息
      */
     public List<String> delMasterRecord() {
@@ -164,11 +175,33 @@ public class ShellService {
 
     /**
      * 清理洞穴游戏进度 需要停止服务
+     *
      * @return 信息
      */
     public List<String> delCavesRecord() {
         this.stopCaves();
         return ShellUtil.runShell(DstConstant.DEL_RECORD_CAVES_CMD);
+    }
+
+    /**
+     * 将用户配置的mod安装到游戏中
+     * 先读取配置，在写入游戏安装目录的dedicated_server_mods_setup文件中
+     */
+    public ResultVO<String> installModToServer() {
+        log.info("安装mod到服务器.....");
+        String myGameModPath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_USER_GAME_MASTER_MOD_PATH;
+        File file = new File(myGameModPath);
+        if (!file.exists()) {
+            return ResultVO.fail("mod文件不存在");
+        }
+        List<String> modConfig = ModFileUtil.readModConfigFile(myGameModPath);
+        String serverModPath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_MOD_SETTING_PATH;
+        boolean flag = ModFileUtil.writeModConfigFile(modConfig, serverModPath);
+        if (flag) {
+            return ResultVO.success();
+        } else {
+            return ResultVO.fail("安装mod失败");
+        }
     }
 
 }
