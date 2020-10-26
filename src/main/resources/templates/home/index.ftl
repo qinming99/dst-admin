@@ -253,7 +253,6 @@
             },
             getSystemInfo() {
                 get("/home/getSystemInfo").then((data) => {
-                    console.log(data)
                     if (data) {
                         this.menInfo = data.mem.usage;
                         this.cpuInfo = data.cpu.used;

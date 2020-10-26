@@ -6,7 +6,6 @@ import com.tugos.dst.admin.service.BackupService;
 import com.tugos.dst.admin.vo.BackupFileVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +28,6 @@ public class BackupController {
 
 
     @GetMapping("/index")
-    @RequiresPermissions("backup:index")
     @RequiresAuthentication
     public String index() {
         return "/backup/index";

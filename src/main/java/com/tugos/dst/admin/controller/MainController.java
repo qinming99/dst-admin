@@ -41,13 +41,17 @@ public class MainController {
                 children(new HashMap<>()).title("备份管理").type(1).url("/backup/index").build();
 
         Menu menu4 = Menu.builder().id(3L).icon("layui-icon layui-icon-survey").sort(3).
-                children(new HashMap<>()).title("向导").type(1).url("/system/main/guide").build();
+                children(new HashMap<>()).title("向导").type(1).url("/system/guide").build();
+
+        Menu menu5 = Menu.builder().id(4L).icon("layui-icon layui-icon-util").sort(4).
+                children(new HashMap<>()).title("系统设置").type(1).url("/system/index").build();
 
         Map<String, Menu> treeMenu = new HashMap<>(16);
         treeMenu.put("0", menu);
         treeMenu.put("1", menu2);
         treeMenu.put("2", menu3);
         treeMenu.put("3", menu4);
+        treeMenu.put("4", menu5);
         model.addAttribute("treeMenu", treeMenu);
         return "main";
     }
@@ -60,15 +64,6 @@ public class MainController {
     @RequiresPermissions("index")
     public String toUserInfo(Model model) {
         return "system/main/userInfo";
-    }
-
-
-    /**
-     * 向导页面
-     */
-    @GetMapping("/system/main/guide")
-    public String toGuide() {
-        return "system/main/guide";
     }
 
 

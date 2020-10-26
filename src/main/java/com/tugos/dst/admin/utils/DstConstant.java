@@ -129,6 +129,16 @@ public final class DstConstant {
     public static final String DST_USER_GAME_CONFIG_PATH = ".klei/DoNotStarveTogether/MyDediServer/cluster.ini";
 
     /**
+     * 地面游戏运行日志位置
+     */
+    public static final String DST_MASTER_SERVER_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/server_log.txt";
+
+    /**
+     * 洞穴游戏运行日志位置
+     */
+    public static final String DST_CAVES_SERVER_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/Caves/server_log.txt";
+
+    /**
      * 游戏mod设置
      */
     public static final String DST_MOD_SETTING_PATH = "dst/mods/dedicated_server_mods_setup.lua";

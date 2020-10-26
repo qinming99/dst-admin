@@ -45,7 +45,6 @@
                 })
             },
             rename(val) {
-                console.log(val)
                 this.$prompt('新名称', '修改名称', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

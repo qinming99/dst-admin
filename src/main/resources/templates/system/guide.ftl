@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>饥荒管理平台向导</title>
-    <#include "../../common/header.ftl"/>
+    <#include "../common/header.ftl"/>
 </head>
 <style>
     .context {
