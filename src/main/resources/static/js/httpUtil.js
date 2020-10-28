@@ -23,6 +23,7 @@ http.interceptors.response.use(
     },
     error => {
         //Toast.clear();
+        alert('系统异常');
         return Promise.reject(error.response);
     }
 );

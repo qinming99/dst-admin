@@ -2,14 +2,12 @@ package com.tugos.dst.admin.controller;
 
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.service.SystemService;
+import com.tugos.dst.admin.vo.ScheduleVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,10 +42,29 @@ public class SystemController {
 
     @GetMapping("/getDstLog")
     @ResponseBody
+    @RequiresAuthentication
     public ResultVO<List<String>> getDstLog(@RequestParam(required = false, defaultValue = "0") Integer type,
                                             @RequestParam(required = false, defaultValue = "100") Integer rowNum) {
         log.info("拉取饥荒的日志：type={},rowNum={}", type, rowNum);
         return ResultVO.data(systemService.getDstLog(type, rowNum));
+    }
+
+    /**
+     * 获取任务时间列表
+     */
+    @GetMapping("/getScheduleList")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<ScheduleVO> getScheduleList(){
+        return ResultVO.data(systemService.getScheduleList());
+    }
+
+    @PostMapping("/saveSchedule")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<String> saveSchedule(@RequestBody ScheduleVO vo){
+        systemService.saveSchedule(vo);
+        return ResultVO.success();
     }
 
     @Autowired

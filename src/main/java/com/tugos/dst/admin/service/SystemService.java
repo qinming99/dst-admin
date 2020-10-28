@@ -1,13 +1,21 @@
 package com.tugos.dst.admin.service;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.google.common.collect.Lists;
+import com.tugos.dst.admin.utils.DstConfigData;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
+import com.tugos.dst.admin.vo.ScheduleVO;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author qinming
@@ -39,4 +47,62 @@ public class SystemService {
         return result;
     }
 
+    /**
+     * 获取任务时间列表
+     * @return 数据
+     */
+    public ScheduleVO getScheduleList() {
+        ScheduleVO data = new ScheduleVO();
+        Set<String> updateSet = DstConfigData.SCHEDULE_UPDATE_MAP.keySet();
+        if (CollectionUtils.isNotEmpty(updateSet)){
+            List<ScheduleVO.InnerData> updateTimeList = new ArrayList<>();
+            updateSet.forEach(e->{
+                ScheduleVO.InnerData innerData = new ScheduleVO.InnerData();
+                innerData.setTime(e);
+                innerData.setCount(DstConfigData.SCHEDULE_UPDATE_MAP.get(e));
+                updateTimeList.add(innerData);
+            });
+            data.setUpdateTimeList(updateTimeList);
+        }
+        Set<String> backupSet = DstConfigData.SCHEDULE_BACKUP_MAP.keySet();
+        if (CollectionUtils.isNotEmpty(backupSet)){
+            List<ScheduleVO.InnerData> backupTimeList = new ArrayList<>();
+            backupSet.forEach(e->{
+                ScheduleVO.InnerData innerData = new ScheduleVO.InnerData();
+                innerData.setTime(e);
+                innerData.setCount(DstConfigData.SCHEDULE_BACKUP_MAP.get(e));
+                backupTimeList.add(innerData);
+            });
+            data.setBackupTimeList(backupTimeList);
+        }
+        return data;
+    }
+
+    /**
+     * 将任务时间写入缓存中
+     * @param vo 提交的数据
+     */
+    public void saveSchedule(ScheduleVO vo) {
+        DstConfigData.clearAllData();
+        if (CollectionUtils.isNotEmpty(vo.getBackupTimeList())){
+            //写入缓存
+            vo.getBackupTimeList().forEach(e->{
+                if (StringUtils.isNotBlank(e.getTime())){
+                    DateTime parse = DateUtil.parse(e.getTime(), DatePattern.NORM_DATETIME_MINUTE_PATTERN);
+                    String format = DateUtil.format(parse, DatePattern.NORM_TIME_PATTERN);
+                    DstConfigData.SCHEDULE_BACKUP_MAP.put(format,e.getCount());
+                }
+            });
+        }
+        if (CollectionUtils.isNotEmpty(vo.getUpdateTimeList())){
+            //写入缓存
+            vo.getUpdateTimeList().forEach(e->{
+                if (StringUtils.isNotBlank(e.getTime())) {
+                    DateTime parse = DateUtil.parse(e.getTime(), DatePattern.NORM_DATETIME_MINUTE_PATTERN);
+                    String format = DateUtil.format(parse, DatePattern.NORM_TIME_PATTERN);
+                    DstConfigData.SCHEDULE_UPDATE_MAP.put(format, e.getCount());
+                }
+            });
+        }
+    }
 }

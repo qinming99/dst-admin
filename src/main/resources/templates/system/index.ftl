@@ -15,7 +15,63 @@
 <div id="sys_index">
     <el-tabs v-model="activeName">
         <el-tab-pane label="定时任务设置" name="first">
-            <h5>定时任务</h5>
+            <el-card class="card">
+                <div slot="header" class="clearfix">
+                    <span>定时备份任务</span>
+                </div>
+                <ul>
+                    <li v-for="item in scheduleVO.backupTimeList">执行时间：{{item.time}}, 执行状态：
+                        <strong style="color: green" v-if="item.count > 0">
+                            已经执行</strong><strong style="color: orange" v-if="item.count === 0">
+                            未执行</strong>
+                    </li>
+                </ul>
+                <el-row style="margin: 5px">
+                    <el-col :span="5">
+                        <el-button type="primary" @click="addBackupTime()">添加执行时间</el-button>
+                    </el-col>
+                </el-row>
+
+                <tempate v-for="(item,key) in backupTimeList">
+                    <el-row style="margin: 5px">
+                        <el-col :span="5">
+                            <el-time-picker placeholder="选择执行时间" v-model="item.time" clearable></el-time-picker>
+                        </el-col>
+                        <el-button type="warning" style="margin-left: 5px" @click="delBackupTime(key)">删除</el-button>
+                    </el-row>
+                </tempate>
+            </el-card>
+
+            <el-card class="card">
+                <div slot="header" class="clearfix">
+                    <span>定时更新任务</span>
+                </div>
+                <ul>
+                    <li v-for="item in scheduleVO.updateTimeList">执行时间：{{item.time}}, 执行状态：
+                        <strong style="color: green" v-if="item.count > 0">
+                            已经执行</strong><strong style="color: orange" v-if="item.count === 0">
+                            未执行</strong>
+                    </li>
+                </ul>
+                <el-row style="margin: 5px">
+                    <el-col :span="5">
+                        <el-button type="primary" @click="addUpdateTime()">添加执行时间</el-button>
+                    </el-col>
+                </el-row>
+
+                <tempate v-for="(item,key) in updateTimeList">
+                    <el-row style="margin: 5px">
+                        <el-col :span="5">
+                            <el-time-picker placeholder="选择执行时间" v-model="item.time" clearable></el-time-picker>
+                        </el-col>
+                        <el-button type="warning" style="margin-left: 5px" @click="delUpdateTime(key)">删除</el-button>
+                    </el-row>
+                </tempate>
+            </el-card>
+
+            <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
+                <el-button type="primary" @click="saveSchedule()">保存</el-button>
+            </el-card>
         </el-tab-pane>
         <el-tab-pane label="地面程序运行日志" name="second">
             <el-card class="card">
@@ -23,7 +79,7 @@
                     <el-col :span="5">
                         <el-input placeholder="请输入需要拉取的日志行数" v-model="num1" type="number" clearable></el-input>
                     </el-col>
-                    <el-button @click="getDstLog(0,num1)">拉取</el-button>
+                    <el-button type="primary" @click="getDstLog(0,num1)">拉取</el-button>
                 </el-row>
             </el-card>
             <el-card class="card">
@@ -38,7 +94,7 @@
                     <el-col :span="5">
                         <el-input placeholder="请输入需要拉取的日志行数" v-model="num2" type="number" clearable></el-input>
                     </el-col>
-                    <el-button @click="getDstLog(1,num2)">拉取</el-button>
+                    <el-button type="primary" @click="getDstLog(1,num2)">拉取</el-button>
                 </el-row>
             </el-card>
             <el-card class="card">
@@ -61,9 +117,106 @@
             num1: 100,
             num2: 100,
             masterLog: [],
-            cavesLog: []
+            cavesLog: [],
+            scheduleVO: undefined,
+            updateTimeList: [],
+            backupTimeList: [],
+            model: {
+                backupTimeList: [],
+                updateTimeList: [],
+            },
+        },
+        created() {
+            this.getScheduleList();
         },
         methods: {
+            getScheduleList() {
+                get("/system/getScheduleList").then((data) => {
+                    this.scheduleVO = data;
+                    //初始化
+                    this.updateTimeList = [];
+                    this.backupTimeList = [];
+                    if (this.scheduleVO.updateTimeList) {
+                        this.scheduleVO.updateTimeList.forEach(e => {
+                            let obj = {};
+                            obj.time = "2020-10-23 " + e.time;
+                            obj.count = e.count;
+                            this.updateTimeList.push(obj);
+                        })
+                    }
+                    if (this.scheduleVO.backupTimeList) {
+                        this.scheduleVO.backupTimeList.forEach(e => {
+                            let obj = {};
+                            obj.time = "2020-10-23 " + e.time;
+                            obj.count = e.count;
+                            this.backupTimeList.push(obj);
+                        })
+                    }
+                })
+            },
+            addUpdateTime() {
+                this.updateTimeList.push({count: 0, time: '2020-10-23 06:00:00'});
+            },
+            delUpdateTime(key) {
+                this.updateTimeList.splice(key, 1);
+            },
+            addBackupTime() {
+                this.backupTimeList.push({count: 0, time: '2020-10-23 06:00:00'});
+            },
+            delBackupTime(key) {
+                this.backupTimeList.splice(key, 1);
+            },
+            //格式化时间
+            formatTime(date, fmt) {
+                if (date == null || date == undefined || date == '') {
+                    return null;
+                }
+                var date = new Date(date);
+                if (/(y+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+                }
+                var o = {
+                    'M+': date.getMonth() + 1,
+                    'd+': date.getDate(),
+                    'h+': date.getHours(),
+                    'm+': date.getMinutes(),
+                    's+': date.getSeconds()
+                };
+                for (var k in o) {
+                    if (new RegExp('(' + k + ')').test(fmt)) {
+                        var str = o[k] + '';
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : ('00' + str).substr(str.length));
+                    }
+                }
+                return fmt;
+            },
+            saveSchedule() {
+                let params = {};
+                params.backupTimeList = [];
+                params.updateTimeList = [];
+                if (this.backupTimeList.length > 0) {
+                    this.backupTimeList.forEach(e => {
+                        let formatTime = this.formatTime(e.time, "yyyy-MM-dd hh:mm:ss");
+                        let obj = {time: formatTime, count: e.count};
+                        params.backupTimeList.push(obj);
+                    })
+                }
+                if (this.updateTimeList.length > 0) {
+                    this.updateTimeList.forEach(e => {
+                        let formatTime = this.formatTime(e.time, "yyyy-MM-dd hh:mm:ss");
+                        let obj = {time: formatTime, count: e.count};
+                        params.updateTimeList.push(obj);
+                    })
+                }
+                post("/system/saveSchedule", params).then((data) => {
+                    if (data) {
+                        this.$message({message: data.message, type: 'success'});
+                    } else {
+                        this.$message({message: '保存成功！', type: 'success'});
+                        this.getScheduleList()
+                    }
+                })
+            },
             getDstLog(type, rowNum) {
                 let params = {type: type, rowNum: rowNum}
                 get("/system/getDstLog", params).then((data) => {

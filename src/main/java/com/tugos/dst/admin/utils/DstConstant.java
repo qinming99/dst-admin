@@ -159,6 +159,11 @@ public final class DstConstant {
     public static final String SHELL_PROJECT_PATH = "shell/";
 
     /**
+     * 项目的数据
+     */
+    public static final String DST_ADMIN_DB = ".dstAdmin.db";
+
+    /**
      * 系统根目录mac:/Users/qinming , ubuntu: /home/ubuntu ,游戏将按照在该目录下
      */
     public static final String ROOT_PATH;
