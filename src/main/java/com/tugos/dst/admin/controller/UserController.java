@@ -3,17 +3,19 @@ package com.tugos.dst.admin.controller;
 
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.entity.User;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.tugos.dst.admin.utils.DstConfigData;
+import com.tugos.dst.admin.vo.UpdatePwdVO;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author qinming
@@ -24,71 +26,41 @@ import java.util.List;
 @RequestMapping("/system/user")
 public class UserController {
 
-
-
     /**
-     * 跳转到添加页面
+     * 用户信息页
      */
-    @GetMapping("/add")
-    @RequiresPermissions("system:user:add")
-    public String toAdd() {
-        return "/system/user/add";
-    }
-
-    /**
-     * 跳转到编辑页面
-     */
-    @GetMapping("/edit/{id}")
-    @RequiresPermissions("system:user:edit")
-    public String toEdit(@PathVariable("id") User user, Model model) {
-        model.addAttribute("user", user);
-        return "/system/user/add";
-    }
-
-    /**
-     * 保存添加/修改的数据
-     * @param user 实体对象
-     */
-    @PostMapping("/save")
-    @RequiresPermissions({"system:user:add", "system:user:edit"})
-    @ResponseBody
-    public ResultVO save( User user) {
-
-
-        return ResultVO.success();
-    }
-
-    /**
-     * 跳转到详细页面
-     */
-    @GetMapping("/detail/{id}")
-    @RequiresPermissions("system:user:detail")
-    public String toDetail(@PathVariable("id") User user, Model model) {
-        model.addAttribute("user", user);
+    @GetMapping("/detail")
+    @RequiresAuthentication
+    public String detail() {
         return "/system/user/detail";
     }
 
     /**
-     * 跳转到修改密码页面
+     * 修改密码页
      */
-    @GetMapping("/pwd")
-    @RequiresPermissions("system:user:pwd")
-    public String toEditPassword(Model model, @RequestParam(value = "ids", required = false) List<Long> ids) {
-        model.addAttribute("idList", ids);
-        return "/system/user/pwd";
+    @GetMapping("/updatePwd")
+    @RequiresAuthentication
+    public String updatePwd() {
+        return "/system/user/updatePwd";
     }
 
-    /**
-     * 修改密码
-     */
-    @PostMapping("/pwd")
-    @RequiresPermissions("system:user:pwd")
+    @PostMapping("/setNewPwd")
+    @RequiresAuthentication
     @ResponseBody
-    public ResultVO editPassword(String password, String confirm,
-                                 @RequestParam(value = "ids", required = false) List<Long> ids,
-                                 @RequestParam(value = "ids", required = false) List<User> users) {
-
-
+    public ResultVO setNewPwd(@RequestBody UpdatePwdVO vo) {
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        if (StringUtils.isAnyBlank(vo.getOldPwd(),vo.getNewPwd(),vo.getConfirmPwd())){
+            return ResultVO.fail("密码不能为空");
+        }
+        if (!userInfo.getPassword().equals(vo.getOldPwd())){
+            return ResultVO.fail("旧密码错误");
+        }
+        if (!vo.getNewPwd().equals(vo.getConfirmPwd())){
+            return ResultVO.fail("两次密码不一致");
+        }
+        DstConfigData.USER_INFO.setPassword(vo.getNewPwd());
+        //退出登录
+        SecurityUtils.getSubject().logout();
         return ResultVO.success("修改成功");
     }
 
@@ -97,7 +69,7 @@ public class UserController {
      * 获取用户头像
      */
     @GetMapping("/picture")
-    public void picture(String p, HttpServletResponse response) throws IOException {
+    public void picture(String userName, HttpServletResponse response) throws IOException {
         String defaultPath = "/images/user-picture.jpg";
         Resource resource = new ClassPathResource("static" + defaultPath);
         FileCopyUtils.copy(resource.getInputStream(), response.getOutputStream());

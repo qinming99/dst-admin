@@ -3,6 +3,7 @@ package com.tugos.dst.admin.utils;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 
 import java.io.*;
 
@@ -62,9 +63,11 @@ public class SystemDataUtils {
                 DstConfigData.clearAllData();
                 DstConfigData.SCHEDULE_BACKUP_MAP.putAll(table.getSCHEDULE_BACKUP_MAP());
                 DstConfigData.SCHEDULE_UPDATE_MAP.putAll(table.getSCHEDULE_UPDATE_MAP());
+                BeanUtils.copyProperties(table.getUSER_INFO(),DstConfigData.USER_INFO);
+                log.info("读取文件中的数据到缓存中成功：{}",data);
             }
         } catch (Exception e) {
-            log.error("读取文件中存储的数据写入到缓存中失败：", e);
+            log.error("读取文件中的数据到缓存中失败：", e);
         }
     }
 
@@ -77,6 +80,7 @@ public class SystemDataUtils {
             DstConfigDataTable table = new DstConfigDataTable();
             table.setSCHEDULE_BACKUP_MAP(DstConfigData.SCHEDULE_BACKUP_MAP);
             table.setSCHEDULE_UPDATE_MAP(DstConfigData.SCHEDULE_UPDATE_MAP);
+            table.setUSER_INFO(DstConfigData.USER_INFO);
             String data = JSONUtil.toJsonStr(table);
             writeProjectData(DstConstant.DST_ADMIN_DB, data);
         } catch (Exception e) {

@@ -36,11 +36,11 @@
                 <div class="layui-nav-child">
                     <div class="timo-nav-child-box">
                         <div><a class="open-popup" data-title="个人信息"
-                                attr="data-url=/userInfo" data-size="680,464">
+                                data-url='system/user/detail' data-size="680,464">
                                 <i class="fa fa-user-o"></i>个人信息</a>
                         </div>
                         <div><a class="open-popup" data-title="修改密码"
-                                attr="data-url=/editPwd" data-size="456,296">
+                                data-url='system/user/updatePwd' data-size="456,296">
                                 <i class="fa fa-lock" style="font-size:17px;width:12px;"></i>修改密码</a>
                         </div>
                         <div><a href="/logout"><i class="fa fa-power-off"></i>退出登录</a>
@@ -55,7 +55,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <div class="layui-side-user">
-                <img class="layui-side-user-avatar open-popup" attr="data-url=/userInfo" data-size="680,464"
+                <img class="layui-side-user-avatar open-popup" data-url='system/user/detail' data-size="680,464"
                      src="/system/user/picture?p=${user.picture!}" alt="头像">
                 <div>
                     <p class="layui-side-user-name">${user.nickname!}</p>

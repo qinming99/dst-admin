@@ -1,6 +1,7 @@
 package com.tugos.dst.admin.utils;
 
 import com.google.common.collect.Maps;
+import com.tugos.dst.admin.entity.User;
 
 import java.util.Map;
 
@@ -20,6 +21,8 @@ public class DstConfigData {
      * 定时备份游戏任务
      */
     public static final Map<String, Integer> SCHEDULE_BACKUP_MAP = Maps.newHashMap();
+
+    public static final User USER_INFO = new User();
 
     /**
      * 清理所有数据

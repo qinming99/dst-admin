@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,23 @@ import java.util.Set;
 /**
  * @author qinming
  * @date 2020-05-21
- * <p> 定时任务服务 </p>
+ * <p>
+ *     核心定时器服务，定时执行更新，备份任务
+ *     启动释放管理脚本
+ *     启动读取存储的数据
+ *     定时将缓存写入文件
+ * </p>
  */
 @Service
 @Slf4j
-public class ScheduleService {
+public class CoreScheduleService {
+
+    @Value("${dst.username:admin}")
+    private String dstUser;
+
+    @Value("${dst.password:123456}")
+    private String dstPassword;
+
 
     private HomeService homeService;
 
@@ -145,6 +158,8 @@ public class ScheduleService {
             //每天6点，18点备份
             DstConfigData.SCHEDULE_BACKUP_MAP.put("06:00:00", 0);
             DstConfigData.SCHEDULE_BACKUP_MAP.put("18:00:00", 0);
+            DstConfigData.USER_INFO.setUsername(dstUser);
+            DstConfigData.USER_INFO.setPassword(dstPassword);
         }
         //释放脚本并授权
         copyAndChmod(DstConstant.INSTALL_DST);

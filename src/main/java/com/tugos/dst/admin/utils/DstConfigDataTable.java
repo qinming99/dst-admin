@@ -1,5 +1,6 @@
 package com.tugos.dst.admin.utils;
 
+import com.tugos.dst.admin.entity.User;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -24,5 +25,7 @@ public class DstConfigDataTable implements Serializable {
      * 定时备份游戏任务
      */
     private Map<String, Integer> SCHEDULE_BACKUP_MAP;
+
+    private User USER_INFO;
 
 }
