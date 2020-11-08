@@ -32,13 +32,13 @@ java -version
 ###  下载最新版dst-admin安装包
 
 ```bash
-curl -L https://github.com/qinming99/dst-admin/releases/download/v1.0.2/dst-admin-1.0.2.jar --output dst-admin.jar
+curl -L https://github.com/qinming99/dst-admin/releases/download/v1.0.3/dst-admin-1.0.3.jar --output dst-admin.jar
 ```
 
 或者
 
 ```bash
-wget https://github.com/qinming99/dst-admin/releases/download/v1.0.2/dst-admin-1.0.2.jar  -O dst-admin.jar
+wget https://github.com/qinming99/dst-admin/releases/download/v1.0.3/dst-admin-1.0.3.jar  -O dst-admin.jar
 ```
 
 ###  启动dst-admin
