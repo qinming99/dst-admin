@@ -82,7 +82,7 @@ public class SystemDataUtils {
             table.setSCHEDULE_UPDATE_MAP(DstConfigData.SCHEDULE_UPDATE_MAP);
             table.setUSER_INFO(DstConfigData.USER_INFO);
             String data = JSONUtil.toJsonStr(table);
-            writeProjectData(DstConstant.DST_ADMIN_DB, data);
+            writeProjectData(DstConstant.DST_ADMIN_JSON, data);
         } catch (Exception e) {
             log.error("将缓存中的数据保存到本地文件中失败：", e);
         }

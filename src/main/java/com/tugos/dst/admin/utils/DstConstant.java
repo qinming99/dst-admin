@@ -161,7 +161,7 @@ public final class DstConstant {
     /**
      * 项目的数据
      */
-    public static final String DST_ADMIN_DB = ".dstAdmin.db";
+    public static final String DST_ADMIN_JSON = ".dst_admin_db.json";
 
     /**
      * 系统根目录mac:/Users/qinming , ubuntu: /home/ubuntu ,游戏将按照在该目录下

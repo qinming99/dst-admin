@@ -148,7 +148,7 @@ public class CoreScheduleService {
      */
     @PostConstruct
     public void initSystem() throws Exception {
-        String data = SystemDataUtils.readProjectData(DstConstant.DST_ADMIN_DB);
+        String data = SystemDataUtils.readProjectData(DstConstant.DST_ADMIN_JSON);
         if (StringUtils.isNotBlank(data)) {
             //本地有数据读取到缓存中
             SystemDataUtils.readDataToCache(data);
