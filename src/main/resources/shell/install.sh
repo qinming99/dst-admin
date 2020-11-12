@@ -7,7 +7,7 @@ machine=$(uname -m)     # 架构版本
 darwin_steamcmd_link="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_osx.tar.gz"
 linux_steamcmd_link="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
 
-# 创建服务器环境
+# 创建Linux服务器环境
 create() {
     ./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit
     cp ~/steamcmd/linux32/libstdc++.so.6 ~/dst/bin/lib32/
@@ -27,10 +27,19 @@ main() {
     # mac
     if (( "$sys" == "Darwin" )); then
         echo "${project} - 操作系统：MacOS"
-        mkdir ~/steamcmd
-        cd ~/steamcmd
-        curl -sqL ${darwin_steamcmd_link} | tar zxvf -
-        create
+        mkdir ~/steamcmd && cd ~/steamcmd
+        wget ${darwin_steamcmd_link}
+        tar -zxvf steamcmd_osx.tar.gz
+        ./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit
+        mkdir ~/dst/bin
+        echo ~/dst/dontstarve_dedicated_server_nullrenderer.app/Contents/MacOS/dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master > ~/dst/bin/overworld.sh
+        echo ~/dst/dontstarve_dedicated_server_nullrenderer.app/Contents/MacOS/dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Caves > ~/dst/bin/cave.sh
+        chmod +x ~/dst/bin/overworld.sh
+        chmod +x ~/dst/bin/cave.sh
+        mkdir -p ~/.klei/DoNotStarveTogether/MyDediServer
+        cd ~
+        echo -e "${project} - 初始化完成\n${project} - 执行dstStart.sh脚本按照指示进行\n${project} - ./dstStart.sh"
+        exit 0
     fi
 
     # linux
@@ -68,7 +77,6 @@ main() {
                     git clone https://aur.archlinux.org/steamcmd.git
                     cd steamcmd
                     makepkg -darwin_steamcmd_link
-                    # ./steamcmd
                     ./steamcmd +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit
                     cp ~/steamcmd/linux32/libstdc++.so.6 ~/dst/bin/lib32/
                     cd ~/dst/bin
