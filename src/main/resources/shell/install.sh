@@ -1,6 +1,6 @@
 #!/bin/bash
 
-project="dst-server"    # 项目名称
+project="dst-admin"    # 项目名称
 sys=$(uname -s)         # 操作系统
 machine=$(uname -m)     # 架构版本
 
@@ -9,6 +9,7 @@ linux_steamcmd_link="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_l
 
 # 创建Linux服务器环境
 create() {
+    echo "正在安装steamcmd..."
     res=`./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit`
     res=$res | grep "0x202"
     if [ -z "$res" ]; then
@@ -17,7 +18,7 @@ create() {
         rm -rf ~/Steam
         rm -rf ~/dst
         rm -rf ~/steamcmd
-        exit -1;
+        exit 1;
     fi
     cp ~/steamcmd/linux32/libstdc++.so.6 ~/dst/bin/lib32/
     cd ~/dst/bin
@@ -28,7 +29,7 @@ create() {
     mkdir -p ~/.klei/DoNotStarveTogether/MyDediServer
     cd ~
     echo -e "${project} - 初始化完成\n${project} - 执行dstStart.sh脚本按照指示进行\n${project} - ./dstStart.sh"
-    exit 0
+    exit 1
 }
 
 # 配置环境
@@ -49,7 +50,7 @@ main() {
         mkdir -p ~/.klei/DoNotStarveTogether/MyDediServer
         cd ~
         echo -e "${project} - 初始化完成\n${project} - 执行dstStart.sh脚本按照指示进行\n${project} - ./dstStart.sh"
-        exit 0
+        exit 1
     fi
 
     # linux
@@ -61,8 +62,7 @@ main() {
             case $distribution in
                 CentOS)
                     echo "${project} - 安装CentOS依赖环境"
-                    mkdir ~/steamcmd
-                    cd ~/steamcmd
+                    mkdir ~/steamcmd && cd ~/steamcmd
                     wget ${linux_steamcmd_link}
                     tar -xvzf steamcmd_linux.tar.gz
                     sudo yum install -y glibc.i686 libstdc++.i686 ncurses-libs.i686 screen libcurl.i686
@@ -73,30 +73,13 @@ main() {
                 ;;
                 Ubuntu)
                     echo "${project} - 安装Ubuntu依赖环境"
-                    mkdir ~/steamcmd
-                    cd ~/steamcmd
+                    mkdir ~/steamcmd && cd ~/steamcmd
                     wget ${linux_steamcmd_link}
                     tar -xvzf steamcmd_linux.tar.gz
                     sudo apt-get update
                     sudo apt-get install -y lib32gcc1 libcurl4-gnutls-dev:i386 libsdl2-2.0 libsdl2-dev screen
                     sudo apt-get install -y libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl-gfx1.2-dev
                     create
-                ;;
-                ManjaroLinux)
-                    echo "${project} - 安装Manjaro依赖环境，请根据提示安装"
-                    sudo pacman -Sy base-devel
-                    git clone https://aur.archlinux.org/steamcmd.git
-                    cd steamcmd
-                    makepkg -si
-                    ./steamcmd +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit
-                    cp ~/steamcmd/linux32/libstdc++.so.6 ~/dst/bin/lib32/
-                    cd ~/dst/bin
-                    echo ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master > overworld.sh
-                    echo ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Caves > cave.sh
-                    chmod +x overworld.sh
-                    chmod +x cave.sh
-                    mkdir -p ~/.klei/DoNotStarveTogether/MyDediServer
-                    cd ~
                 ;;
                 *)
                     echo "${project} - 暂不支持该Linux发行版 ${distribution}"
