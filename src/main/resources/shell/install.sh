@@ -9,7 +9,16 @@ linux_steamcmd_link="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_l
 
 # 创建Linux服务器环境
 create() {
-    ./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit
+    res=`./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit`
+    res=$res | grep "0x202"
+    if [ -z "$res" ]; then
+        echo "${project} - 0x202错误 请检查可用空间是否 > 24GB"
+        echo "${project} - 删除可能的 ~/steamcmd ~/Steam ~/dst 目录后重试 ./install.sh"
+        rm -rf ~/Steam
+        rm -rf ~/dst
+        rm -rf ~/steamcmd
+        exit -1;
+    fi
     cp ~/steamcmd/linux32/libstdc++.so.6 ~/dst/bin/lib32/
     cd ~/dst/bin
     echo ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master > overworld.sh
@@ -69,17 +78,16 @@ main() {
                     wget ${linux_steamcmd_link}
                     tar -xvzf steamcmd_linux.tar.gz
                     sudo apt-get update
-                    sudo apt-get install -y lib32gcc1
-                    sudo apt-get install -y libcurl4-gnutls-dev:i386
-                    sudo apt-get install -y screen
+                    sudo apt-get install -y lib32gcc1 libcurl4-gnutls-dev:i386 libsdl2-2.0 libsdl2-dev screen
+                    sudo apt-get install -y libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl-gfx1.2-dev
                     create
                 ;;
                 ManjaroLinux)
                     echo "${project} - 安装Manjaro依赖环境，请根据提示安装"
-                    pacman -Sy base-devel
+                    sudo pacman -Sy base-devel
                     git clone https://aur.archlinux.org/steamcmd.git
                     cd steamcmd
-                    makepkg -darwin_steamcmd_link
+                    makepkg -si
                     ./steamcmd +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit
                     cp ~/steamcmd/linux32/libstdc++.so.6 ~/dst/bin/lib32/
                     cd ~/dst/bin
