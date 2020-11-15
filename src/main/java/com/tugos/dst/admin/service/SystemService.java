@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.google.common.collect.Lists;
+import com.tugos.dst.admin.enums.DstLogTypeEnum;
 import com.tugos.dst.admin.utils.DstConfigData;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -27,17 +29,24 @@ public class SystemService {
 
     /**
      * 拉取dst游戏日志
-     * @param type 0地面日志 ，1 洞穴日志
+     * @param type 0地面日志 ，1 洞穴日志 2 玩家聊天记录
      * @param rowNum 日志的行数，从后开始取
      * @return 日志
      */
     public List<String> getDstLog(Integer type, Integer rowNum) {
         String path;
-        if (type == 1) {
-            //洞穴日志存放位置
-            path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_CAVES_SERVER_LOG_PATH;
-        } else {
-            path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_MASTER_SERVER_LOG_PATH;
+        switch (Objects.requireNonNull(DstLogTypeEnum.get(type))){
+            case CAVES_LOG:
+                //洞穴
+                path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_CAVES_SERVER_LOG_PATH;
+                break;
+            case CHAT_LOG:
+                //聊天
+                path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_MASTER_SERVER_CHAT_LOG_PATH;
+                break;
+            default:
+                //地面
+                path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_MASTER_SERVER_LOG_PATH;
         }
         File file = new File(path);
         List<String> result = FileUtils.readLastNLine(file, rowNum);

@@ -103,6 +103,21 @@
                 </ul>
             </el-card>
         </el-tab-pane>
+        <el-tab-pane label="玩家聊天日志" name="fourth">
+            <el-card class="card">
+                <el-row>
+                    <el-col :span="5">
+                        <el-input placeholder="请输入需要拉取的日志行数" v-model="num3" type="number" clearable></el-input>
+                    </el-col>
+                    <el-button type="primary" @click="getDstLog(2,num3)">拉取</el-button>
+                </el-row>
+            </el-card>
+            <el-card class="card">
+                <ul>
+                    <li v-for="log in chatLog">{{ log }}</li>
+                </ul>
+            </el-card>
+        </el-tab-pane>
     </el-tabs>
 </div>
 
@@ -116,8 +131,10 @@
             activeName: 'first',
             num1: 100,
             num2: 100,
+            num3: 100,
             masterLog: [],
             cavesLog: [],
+            chatLog: [],
             scheduleVO: undefined,
             updateTimeList: [],
             backupTimeList: [],
@@ -220,10 +237,16 @@
             getDstLog(type, rowNum) {
                 let params = {type: type, rowNum: rowNum}
                 get("/system/getDstLog", params).then((data) => {
-                    if (type === 1) {
-                        this.cavesLog = data;
-                    } else {
-                        this.masterLog = data;
+                    switch (type){
+                        case 0:
+                            this.masterLog = data;
+                            break;
+                        case 1:
+                            this.cavesLog = data;
+                            break;
+                        case 2:
+                            this.chatLog = data;
+                            break;
                     }
                 })
             },

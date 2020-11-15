@@ -134,6 +134,11 @@ public final class DstConstant {
     public static final String DST_MASTER_SERVER_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/server_log.txt";
 
     /**
+     * 地面用户聊天信息
+     */
+    public static final String DST_MASTER_SERVER_CHAT_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/server_chat_log.txt";
+
+    /**
      * 洞穴游戏运行日志位置
      */
     public static final String DST_CAVES_SERVER_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/Caves/server_log.txt";

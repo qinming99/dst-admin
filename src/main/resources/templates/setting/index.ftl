@@ -35,6 +35,15 @@
                                     <el-radio-group v-model="model.clusterIntention">
                                         <el-radio-button label="social">社交</el-radio-button>
                                     </el-radio-group>
+                                    <el-radio-group v-model="model.clusterIntention">
+                                        <el-radio-button label="cooperative">合作</el-radio-button>
+                                    </el-radio-group>
+                                    <el-radio-group v-model="model.clusterIntention">
+                                        <el-radio-button label="competitive">竞争</el-radio-button>
+                                    </el-radio-group>
+                                    <el-radio-group v-model="model.clusterIntention">
+                                        <el-radio-button label="madness">疯狂</el-radio-button>
+                                    </el-radio-group>
                                 </el-form-item>
                             </el-col>
                         </el-row>
