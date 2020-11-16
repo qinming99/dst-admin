@@ -79,6 +79,7 @@
                             }else {
                                 alert('修改成功，请重新登录')
                                 this.closeWindows();
+                                window.location.href="/logout"
                             }
                         })
                     } else {
