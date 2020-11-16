@@ -38,6 +38,11 @@ public class ShellUtil {
             while ((line = errInput.readLine()) != null) {
                 errList.add(line);
             }
+            process.destroy();
+            ir.close();
+            err.close();
+            input.close();
+            errInput.close();
         } catch (Exception e) {
             log.error("运行shell脚本失败:",e);
         }
@@ -82,6 +87,11 @@ public class ShellUtil {
             while ((line = errInput.readLine()) != null) {
                 errList.add(line);
             }
+            process.destroy();
+            ir.close();
+            err.close();
+            input.close();
+            errInput.close();
         } catch (Exception e) {
             log.error("运行shell脚本失败:",e);
         }
