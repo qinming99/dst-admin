@@ -78,6 +78,26 @@
                     <img src="/images/step2-2.png"/>
                 </ul>
             </el-collapse-item>
+            <el-collapse-item title="如何获取玩家ID？" name="5">
+                <div class="context">玩家ID可以用于设置<strong>管理员、黑名单</strong>
+                </div>
+                <ul class="step">
+                    <li>点击<strong>系统设置</strong>菜单</li>
+                    <img src="/images/step5-1.png"/>
+                    <li>查看聊天日志，这里可以拿到玩家ID，也可以从运行日志中查找</li>
+                    <img src="/images/step5-2.png"/>
+                    <li>玩家ID是以<strong>KU</strong>打头的一串字符串</li>
+                </ul>
+            </el-collapse-item>
+            <el-collapse-item title="定时任务的作用？" name="6">
+                <div class="context">可以设置两种定时任务：自动更新、自动备份
+                </div>
+                <ul class="step">
+                    <li><strong>自动更新</strong>可以达到无人守候时自动更新游戏，不影响游戏更新之后未及时更新服务器，玩家找不到房间
+                        （为什么要更新？服务器不更新搜索不到房间）</li>
+                    <li><strong>自动备份</strong>可以在留存跟多的存档，必要时恢复存档</li>
+                </ul>
+            </el-collapse-item>
         </el-collapse>
     </el-card>
 
