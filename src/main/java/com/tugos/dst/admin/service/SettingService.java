@@ -6,11 +6,13 @@ import com.tugos.dst.admin.enums.SettingTypeEnum;
 import com.tugos.dst.admin.enums.StartTypeEnum;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
+import com.tugos.dst.admin.utils.filter.SensitiveFilter;
 import com.tugos.dst.admin.vo.GameConfigVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -33,12 +35,15 @@ public class SettingService {
 
     private HomeService homeService;
 
+    @Value("${dst.filter.sensitive:true}")
+    private Boolean filterFlag;
     /**
      * 保存戏设置 如果type为2 会启动新游戏
      *
      * @param vo 信息
      */
     public ResultVO<String> saveConfig(GameConfigVO vo) throws Exception {
+        this.filterSensitiveWords(vo);
         if (!this.checkConfigIsExists()) {
             return ResultVO.fail("游戏配置文件夹不存在");
         }
@@ -342,6 +347,31 @@ public class SettingService {
         StringBuffer sb = new StringBuffer();
         list.forEach(e -> sb.append(e).append("\n"));
         FileUtils.writeFile(filePath, sb.toString());
+    }
+
+    /**
+     * 过滤敏感词
+     */
+    private GameConfigVO filterSensitiveWords(GameConfigVO vo) {
+        if (!filterFlag) {
+            return vo;
+        }
+        try {
+            SensitiveFilter sensitiveFilter = SensitiveFilter.DEFAULT;
+            if (StringUtils.isNotBlank(vo.getClusterName())) {
+                String filter = sensitiveFilter.filter(vo.getClusterName(), '*');
+                vo.setClusterName(filter);
+            }
+            if (StringUtils.isNotBlank(vo.getClusterDescription())) {
+                String filter = sensitiveFilter.filter(vo.getClusterDescription(), '*');
+                vo.setClusterDescription(filter);
+            }
+        } catch (Exception e) {
+            log.error("过滤敏感词错误：", e);
+            vo.setClusterName("饥荒世界");
+            vo.setClusterDescription("");
+        }
+        return vo;
     }
 
 
