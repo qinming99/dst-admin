@@ -16,9 +16,10 @@
             <el-table-column prop="fileName" label="存档名称" ></el-table-column>
             <el-table-column prop="fileSize" label="文件大小(MB)" ></el-table-column>
             <el-table-column prop="createTime" label="创建时间" ></el-table-column>
-            <el-table-column label="操作" width="100">
+            <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
                     <el-button type="text" @click="rename(scope.row)" size="small">重命名</el-button>
+                    <el-button type="text" @click="download(scope.row)" size="small">下载</el-button>
                     <el-button type="text" @click="deleteBackup(scope.row)" style="color:red" size="small">删除</el-button>
                 </template>
             </el-table-column>
@@ -56,6 +57,9 @@
                 }).catch(() => {
 
                 });
+            },
+            download(val){
+                window.location.href="/backup/download?fileName="+val.fileName;
             },
             deleteBackup(val){
                 this.$confirm('确认删除:'+val.fileName+', 是否继续?', '提示', {

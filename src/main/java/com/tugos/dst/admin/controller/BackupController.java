@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -38,6 +39,13 @@ public class BackupController {
     @RequiresAuthentication
     public ResultVO<List<BackupFileVO>> getBackupList() {
         return ResultVO.data(backupService.getBackupFileInfo());
+    }
+
+    @GetMapping(value = "/download")
+    @RequiresAuthentication
+    public void download(String fileName, HttpServletResponse response) throws Exception {
+        log.info("下载文件：" + fileName);
+        backupService.download(fileName, response);
     }
 
     @GetMapping("/deleteBackup")
