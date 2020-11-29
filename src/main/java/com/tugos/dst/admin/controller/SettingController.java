@@ -5,6 +5,7 @@ import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.service.SettingService;
 import com.tugos.dst.admin.vo.GameConfigVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class SettingController {
     @RequiresAuthentication
     @ResponseBody
     public ResultVO<String> saveConfig(@RequestBody GameConfigVO model) throws Exception {
-        log.info("保存游戏配置，{}", model);
+        log.info("保存游戏配置，{}", StringUtils.deleteWhitespace(model.toString()));
         return settingService.saveConfig(model);
     }
 
