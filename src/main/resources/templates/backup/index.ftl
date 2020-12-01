@@ -11,7 +11,30 @@
     <el-card>
         <div slot="header" class="clearfix">
             <span>所有存档</span>
+            <el-button @click="getBackupList()" style="margin-left: 20px">刷新</el-button>
+            <el-button style="margin-left: 20px" @click="drawer = true">上传存档</el-button>
         </div>
+        <el-drawer title="上传存档"
+                   :visible.sync="drawer"
+                   :with-header="false" size="50%"
+                   :before-close="handleClose">
+            <el-card>
+                <el-upload
+                        class="upload-demo"
+                        action="/backup/upload"
+                        :before-remove="beforeRemove"
+                        :on-success="handleSuccess"
+                        multiple
+                        :limit="3"
+                        accept=".tar"
+                        :on-exceed="handleExceed"
+                        :file-list="fileList">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div slot="tip" class="el-upload__tip">只能上传tar压缩文件,最大文件100MB</div>
+                </el-upload>
+            </el-card>
+
+        </el-drawer>
         <el-table :data="tableData"  stripe style="width: 100%">
             <el-table-column prop="fileName" label="存档名称" ></el-table-column>
             <el-table-column prop="fileSize" label="文件大小(MB)" ></el-table-column>
@@ -35,6 +58,8 @@
         el: '#backup_index_app',
         data: {
             tableData: {},
+            drawer: false,
+            fileList: []
         },
         created() {
             this.getBackupList();
@@ -60,6 +85,26 @@
             },
             download(val){
                 window.location.href="/backup/download?fileName="+val.fileName;
+            },
+            handleClose(done) {
+                this.$confirm('确认存档上传关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {});
+            },
+            handleSuccess(response, file, fileList) {
+                if (response.code === 0){
+
+                }else {
+                    this.warningMessage(response.message);
+                }
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning('当前限制选择 3 个文件，本次选择了 '+files.length +' 个文件');
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm('确定移除 '+file.name+' ？');
             },
             deleteBackup(val){
                 this.$confirm('确认删除:'+val.fileName+', 是否继续?', '提示', {

@@ -28,9 +28,9 @@
             <label class="layui-icon layui-icon-password" for="password"></label>
             <input class="layui-input" type="password" name="password" id="password" placeholder="密码">
         </div>
-        <div class="layui-form-item">
-            <input type="checkbox" name="rememberMe" title="记住我" lay-skin="primary">
-        </div>
+<#--        <div class="layui-form-item">-->
+<#--            <input type="checkbox" name="rememberMe" title="记住我" lay-skin="primary">-->
+<#--        </div>-->
         <button type="submit" class="layui-btn layui-btn-fluid ajax-login"><i class="fa fa-sign-in fa-lg fa-fw"></i> 登录
         </button>
     </form>

@@ -3,6 +3,7 @@ package com.tugos.dst.admin.service;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
+import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
 import com.tugos.dst.admin.vo.BackupFileVO;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
@@ -152,5 +154,19 @@ public class BackupService {
             response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("文件不存在.txt", "UTF-8"));
             response.getOutputStream().flush();
         }
+    }
+
+    /**
+     * 上传存档
+     */
+    public ResultVO<String> upload(MultipartFile file) throws Exception {
+        String filepath = DstConstant.ROOT_PATH + "/" + DstConstant.DST_DOC_PATH + "/" + file.getOriginalFilename();
+        File dest = new File(filepath);
+        if (!dest.exists()) {
+            file.transferTo(dest);
+        }else {
+            return ResultVO.fail("文件已经存在了");
+        }
+        return ResultVO.success();
     }
 }
