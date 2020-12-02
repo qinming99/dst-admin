@@ -38,6 +38,11 @@
         <div class="layui-layer-content"></div>
     </div>
 </div>
+<#--<div>-->
+<#--    <a href="https://club.tugos.cn/" target="_blank" >-->
+<#--        <img style="position: absolute;bottom: 10px;left: 25%" width="800px" height="100px" src="/images/ad-tencent.jpg">-->
+<#--    </a>-->
+<#--</div>-->
 <script src="/js/login.js" charset="utf-8"></script>
 </body>
 </html>
