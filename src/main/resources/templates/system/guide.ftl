@@ -102,7 +102,7 @@
                 <ul class="step">
                     <li><strong>9折</strong>腾讯云服务器租赁，是在官网定价的折扣上<strong>折上折</strong>，
                         <br/>例如11期间官方1核2GB需要88元/年，我这只需要80元/年，每人可以注册三个新用户，<strong>续费也是9折</strong>
-                        需要可以联系Q：2339732369<br/>你的支持我前进的最好动力</li>
+                        需要可以联系Q：2339732369<br/>你的支持是我前进的最好动力</li>
                     <img width="800px" height="100px" src="/images/ad-tencent.jpg"/>
                 </ul>
             </el-collapse-item>
