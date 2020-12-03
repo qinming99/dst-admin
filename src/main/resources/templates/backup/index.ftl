@@ -30,7 +30,7 @@
                         :on-exceed="handleExceed"
                         :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">只能上传tar压缩文件,最大文件100MB</div>
+                    <div slot="tip" class="el-upload__tip">只能上传tar压缩文件,最大文件100MB,存档文件如何制作请查看向导</div>
                 </el-upload>
             </el-card>
 
