@@ -31,7 +31,7 @@ sudo apt-get install -y openjdk-8-jdk
 java -version
 显示 "openjdk version "1.8.0_252"就表示安装完成
 ```      
-###  下载最新版dst-admin安装包
+###  下载最新版dst-admin安装包(下载较慢，可以加群下载上传到服务器)
 
 ```bash
 curl -L https://github.com/qinming99/dst-admin/releases/download/v1.0.5/dst-admin-1.0.5.jar --output dst-admin.jar
