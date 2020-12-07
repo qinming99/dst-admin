@@ -150,7 +150,7 @@ public class FileUtils {
                 }
                 if (pos == 0) {
                     fileRead.seek(0);
-                    result.add(fileRead.readLine());
+                    result.add(new String(fileRead.readLine().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
                 }
             }
         } catch (Exception e) {
