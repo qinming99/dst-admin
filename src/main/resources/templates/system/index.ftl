@@ -17,7 +17,7 @@
         <el-tab-pane label="定时任务设置" name="first">
             <el-card class="card">
                 <div slot="header" class="clearfix">
-                    <span>定时备份任务</span>
+                    <span>定时生成存档备份任务</span>
                 </div>
                 <ul>
                     <li v-for="item in scheduleVO.backupTimeList">执行时间：{{item.time}}, 执行状态：
@@ -44,7 +44,10 @@
 
             <el-card class="card">
                 <div slot="header" class="clearfix">
-                    <span>定时更新任务</span>
+                    <span>定时更新游戏任务</span>
+                    <span style="color: red;margin-left: 40px">更新时不启动：</span>
+                        <el-checkbox v-model="notStartMaster">地面</el-checkbox>
+                        <el-checkbox v-model="notStartCaves">洞穴</el-checkbox>
                 </div>
                 <ul>
                     <li v-for="item in scheduleVO.updateTimeList">执行时间：{{item.time}}, 执行状态：
@@ -138,6 +141,8 @@
             scheduleVO: undefined,
             updateTimeList: [],
             backupTimeList: [],
+            notStartMaster:false,
+            notStartCaves:false,
             model: {
                 backupTimeList: [],
                 updateTimeList: [],
@@ -169,6 +174,8 @@
                             this.backupTimeList.push(obj);
                         })
                     }
+                    this.notStartMaster = data.notStartMaster ? data.notStartMaster : false;
+                    this.notStartCaves = data.notStartCaves ? data.notStartCaves : false;
                 })
             },
             addUpdateTime() {
@@ -225,6 +232,8 @@
                         params.updateTimeList.push(obj);
                     })
                 }
+                params.notStartMaster = this.notStartMaster;
+                params.notStartCaves = this.notStartCaves;
                 post("/system/saveSchedule", params).then((data) => {
                     if (data) {
                         this.$message({message: data.message, type: 'success'});

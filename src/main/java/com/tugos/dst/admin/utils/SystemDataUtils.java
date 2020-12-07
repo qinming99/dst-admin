@@ -64,6 +64,8 @@ public class SystemDataUtils {
                 DstConfigData.SCHEDULE_BACKUP_MAP.putAll(table.getSCHEDULE_BACKUP_MAP());
                 DstConfigData.SCHEDULE_UPDATE_MAP.putAll(table.getSCHEDULE_UPDATE_MAP());
                 BeanUtils.copyProperties(table.getUSER_INFO(),DstConfigData.USER_INFO);
+                DstConfigData.notStartMaster = table.getNotStartMaster();
+                DstConfigData.notStartCaves = table.getNotStartCaves();
                 log.info("读取文件中的数据到缓存中成功：{}",data);
             }
         } catch (Exception e) {
@@ -81,6 +83,8 @@ public class SystemDataUtils {
             table.setSCHEDULE_BACKUP_MAP(DstConfigData.SCHEDULE_BACKUP_MAP);
             table.setSCHEDULE_UPDATE_MAP(DstConfigData.SCHEDULE_UPDATE_MAP);
             table.setUSER_INFO(DstConfigData.USER_INFO);
+            table.setNotStartMaster(DstConfigData.notStartMaster);
+            table.setNotStartCaves(DstConfigData.notStartCaves);
             String data = JSONUtil.toJsonStr(table);
             writeProjectData(DstConstant.DST_ADMIN_JSON, data);
         } catch (Exception e) {

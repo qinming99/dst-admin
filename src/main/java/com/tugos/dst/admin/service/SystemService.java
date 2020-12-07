@@ -84,6 +84,8 @@ public class SystemService {
             });
             data.setBackupTimeList(backupTimeList);
         }
+        data.setNotStartMaster(DstConfigData.notStartMaster);
+        data.setNotStartCaves(DstConfigData.notStartCaves);
         return data;
     }
 
@@ -112,6 +114,16 @@ public class SystemService {
                     DstConfigData.SCHEDULE_UPDATE_MAP.put(format, e.getCount());
                 }
             });
+        }
+        if (vo.getNotStartCaves() != null) {
+            DstConfigData.notStartMaster = vo.getNotStartMaster();
+        }else {
+            DstConfigData.notStartMaster = false;
+        }
+        if (vo.getNotStartCaves() != null) {
+            DstConfigData.notStartCaves = vo.getNotStartCaves();
+        }else {
+            DstConfigData.notStartCaves = false;
         }
     }
 }

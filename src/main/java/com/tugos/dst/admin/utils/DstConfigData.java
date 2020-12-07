@@ -24,6 +24,17 @@ public class DstConfigData {
 
     public static final User USER_INFO = new User();
 
+
+    /**
+     * 不启动地面标志
+     */
+    public static Boolean notStartMaster;
+
+    /**
+     * 不启动洞穴标志
+     */
+    public static Boolean notStartCaves;
+
     /**
      * 清理所有数据
      */
