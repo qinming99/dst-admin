@@ -10,7 +10,7 @@
 <div id="backup_index_app">
     <el-card>
         <div slot="header" class="clearfix">
-            <span>所有存档</span>
+            <span>所有存档 总大小：{{formatFileSize(totalSize)}}</span>
             <el-button @click="getBackupList()" style="margin-left: 20px">刷新</el-button>
             <el-button style="margin-left: 20px" @click="drawer = true">上传存档</el-button>
         </div>
@@ -37,7 +37,9 @@
         </el-drawer>
         <el-table :data="tableData"  stripe style="width: 100%">
             <el-table-column prop="fileName" label="存档名称" ></el-table-column>
-            <el-table-column prop="fileSize" label="文件大小(MB)" ></el-table-column>
+            <el-table-column prop="fileSize" label="文件大小" >
+                <template slot-scope="scope">{{formatFileSize(scope.row.fileSize)}}</template>
+            </el-table-column>
             <el-table-column prop="createTime" label="创建时间" ></el-table-column>
             <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
@@ -59,7 +61,8 @@
         data: {
             tableData: {},
             drawer: false,
-            fileList: []
+            fileList: [],
+            totalSize:0,
         },
         created() {
             this.getBackupList();
@@ -67,7 +70,14 @@
         methods: {
             getBackupList() {
                 get("/backup/getBackupList").then((data) => {
-                    this.tableData = data;
+                    this.tableData = data ? data : [];
+                    if (this.tableData.length > 0) {
+                        let total = 0;
+                        this.tableData.forEach(e => {
+                            total += e.fileSize;
+                        })
+                        this.totalSize = total;
+                    }
                 })
             },
             rename(val) {
@@ -119,6 +129,18 @@
                 }).catch(() => {
 
                 });
+            },
+            formatFileSize(value) {
+                if (null == value || value == '') {
+                    return "0 Bytes";
+                }
+                let unitArr = new Array("Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
+                let index = 0;
+                let srcSize = parseFloat(value);
+                index = Math.floor(Math.log(srcSize) / Math.log(1024));
+                let size = srcSize / Math.pow(1024, index);
+                size = size.toFixed(2);//保留的小数位数
+                return size + unitArr[index];
             },
             successMessage(message) {
                 this.$message({

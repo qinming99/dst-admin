@@ -18,9 +18,9 @@ public class BackupFileVO {
     private String fileName;
 
     /**
-     * 文件大小 单位MB
+     * 文件大小 byte
      */
-    private String fileSize;
+    private Long fileSize;
 
     /**
      * 创建时间
@@ -28,5 +28,6 @@ public class BackupFileVO {
     private String createTime;
 
     private Date time;
+
 
 }

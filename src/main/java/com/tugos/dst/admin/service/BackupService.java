@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,11 +34,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BackupService {
 
-    private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    private final static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
-
-
     /**
      * 获取备份文件信息
      *
@@ -52,20 +46,16 @@ public class BackupService {
         //过滤出所有备份文件压缩包
         List<String> backupFileList = allFileList.stream()
                 .filter(e -> e.contains(DstConstant.BACKUP_FILE_EXTENSION)).collect(Collectors.toList());
-        //总文件大小
-        double totalSize = 0L;
         if (CollectionUtils.isNotEmpty(backupFileList)) {
+            SimpleDateFormat sdf = new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
             for (String e : backupFileList) {
                 BackupFileVO vo = new BackupFileVO();
                 File file = new File(e);
                 String name = file.getName();
-                //文件大小 MB
-                float fileSize = file.length() / 1024F / 1024F;
-                totalSize += fileSize;
                 long lastModified = file.lastModified();
-                String time = DATE_FORMAT.format(lastModified);
+                String time = sdf.format(lastModified);
                 vo.setCreateTime(time);
-                vo.setFileSize(DECIMAL_FORMAT.format(fileSize));
+                vo.setFileSize(file.length());
                 vo.setFileName(name);
                 vo.setTime(DateUtil.parse(vo.getCreateTime(), DatePattern.NORM_DATETIME_FORMAT));
                 result.add(vo);
