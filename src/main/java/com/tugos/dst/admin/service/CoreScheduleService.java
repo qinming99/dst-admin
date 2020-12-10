@@ -98,6 +98,13 @@ public class CoreScheduleService {
                     long subTime = currentDateTime - execTime;
                     if (Range.open(0, upper).contains((int) subTime)) {
                         log.info("定时更新并重启游戏");
+                        shellService.sendBroadcast("服务器将马上进行更新，你将与服务器断开连接");
+                        shellService.sendBroadcast("请稍后在进入房间");
+                        try {
+                            Thread.sleep(1000*10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         homeService.updateGame();
                         boolean notStartMaster = DstConfigData.notStartMaster != null ? DstConfigData.notStartMaster : false;
                         boolean notStartCaves = DstConfigData.notStartCaves != null ? DstConfigData.notStartCaves : false;

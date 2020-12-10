@@ -210,4 +210,24 @@ public class ShellService {
         }
     }
 
+    /**
+     * 发送广播
+     *
+     * @param message 内容
+     */
+    public void sendBroadcast(String message) {
+        StringBuilder masterBroadcast = new StringBuilder();
+        masterBroadcast.append("screen -S \"DST_MASTER\" -p 0 -X stuff \"c_announce(\\\"");
+        masterBroadcast.append(message);
+        masterBroadcast.append("\\\")\\n\"");
+        //发送地面广播
+        ShellUtil.execShellBin(masterBroadcast.toString());
+        StringBuilder CavesBroadcast = new StringBuilder();
+        CavesBroadcast.append("screen -S \"DST_CAVES\" -p 0 -X stuff \"c_announce(\\\"");
+        CavesBroadcast.append(message);
+        CavesBroadcast.append("\\\")\\n\"");
+        //发送洞穴广播
+        ShellUtil.execShellBin(CavesBroadcast.toString());
+    }
+
 }
