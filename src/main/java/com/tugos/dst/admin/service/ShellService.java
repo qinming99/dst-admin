@@ -162,6 +162,12 @@ public class ShellService {
         return ShellUtil.runShell(DstConstant.UPDATE_GAME_CMD);
     }
 
+    /**
+     * 检查目前所有的screen作业，并删除已经无法使用的screen作业
+     */
+    public void clearScreen(){
+        ShellUtil.runShell(DstConstant.CLEAR_SCREEN_CMD);
+    }
 
     /**
      * 清理地面游戏进度 需要停止服务

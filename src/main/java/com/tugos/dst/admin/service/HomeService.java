@@ -67,6 +67,8 @@ public class HomeService {
                 break;
             default:
         }
+        //清理screen的无效作业
+        shellService.clearScreen();
         return ResultVO.success();
     }
 

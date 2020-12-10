@@ -25,14 +25,19 @@ public final class DstConstant {
     public static final String START_CAVES_SHELL_NAME = "cave.sh";
 
     /**
-     * 启动地面进程命令
+     * 启动地面进程命令 设置名称为 DST_MASTER
      */
-    public static final String START_MASTER_CMD = "cd ~/dst/bin/ ; screen -dm sh overworld.sh ;";
+    public static final String START_MASTER_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"DST_MASTER\"  sh overworld.sh ;";
 
     /**
-     * 启动洞穴进程命令
+     * 启动洞穴进程命令 设置名称为 DST_CAVES
      */
-    public static final String START_CAVES_CMD = "cd ~/dst/bin/ ; screen -dm sh cave.sh ;";
+    public static final String START_CAVES_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"DST_CAVES\"  sh cave.sh ;";
+
+    /**
+     * 检查目前所有的screen作业，并删除已经无法使用的screen作业
+     */
+    public static final String CLEAR_SCREEN_CMD = "screen -wipe ";
 
     /**
      * 杀死地面进程命令
