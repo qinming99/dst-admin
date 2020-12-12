@@ -63,7 +63,7 @@
                             <el-col :span="15">
                                 <el-form-item prop="email" label="房间描述">
                                     <el-input v-model="model.clusterDescription" clearable maxlength="200" show-word-limit
-                                              type="textarea" :rows="2"></el-input>
+                                              type="textarea" :rows="4"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
