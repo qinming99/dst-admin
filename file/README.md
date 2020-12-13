@@ -33,15 +33,8 @@ $ docker run --name dst-admin -d -p8080:8080 -p10888:10888 -p10998-10999:10998-1
 首先准备构建镜像需要的两个文件：打包好的项目jar，项目初始化脚本install.sh
 
 1. 将打包好的项目jar包复制到`file`目录下，例如`dst-admin-1.0.5.jar`，然后重命名为`dst-admin.jar`
-2. 将项目的初始化脚本install.sh复制到`file`目录下，重命名为`install.sh`
-3. 修改[Dockerfile](./Dockerfile)中第7行jar包名称`${jar_name}`为相应名称
-
-    ```shell script
-    # 把打包好的jar包放到该目录下以生成docker
-    ADD dst-admin-1.0.5.jar dst-admin.jar
-    ADD install.sh install.sh
-    ```
-4. 在file目录下执行如下指令，构建本地docker镜像，构建速度依据网速和机器性能决定，约5min
+2. 将项目的初始化脚本install.sh复制到`file`目录下，然后重命名为`install.sh`
+3. 在file目录下执行如下指令，构建本地docker镜像，构建速度依据网速和机器性能决定，约5min
     
     ${your_name}为你的docker hub账户名
 
@@ -49,14 +42,14 @@ $ docker run --name dst-admin -d -p8080:8080 -p10888:10888 -p10998-10999:10998-1
     $ docker build -t ${your_name}/dst-admin:v1.0.5 .
     ```
 
-5. 构建成功后，查看构建的docker镜像
+4. 构建成功后，查看构建的docker镜像
     ```shell script
     $ docker images
     REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
     dzzhyk/dst-admin                   v1.0.5              563c8a774366        2 weeks ago         3.05GB
     ```
 
-6. 创建本地docker实例并运行
+5. 创建本地docker实例并运行
     ```shell script
     $ docker run --name dst-admin -d -p8080:8080 -p10888:10888 -p10998-10999:10998-10999 ${your_name}/dst-admin:v1.0.5
     ```
