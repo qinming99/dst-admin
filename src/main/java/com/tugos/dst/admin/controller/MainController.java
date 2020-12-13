@@ -34,24 +34,28 @@ public class MainController {
         Menu menu = Menu.builder().id(2L).icon("layui-icon layui-icon-home").sort(0).
                 children(new HashMap<>()).title("控制台").type(1).url("/home/index").build();
 
-        Menu menu2 = Menu.builder().id(2L).icon("layui-icon layui-icon-set").sort(1).
+        Menu menu1 = Menu.builder().id(2L).icon("layui-icon layui-icon-set").sort(1).
                 children(new HashMap<>()).title("房间设置").type(1).url("/setting/index").build();
 
-        Menu menu3 = Menu.builder().id(2L).icon("layui-icon layui-icon-log").sort(2).
+        Menu menu2 = Menu.builder().id(4L).icon("layui-icon layui-icon-group").sort(2).
+                children(new HashMap<>()).title("玩家设置").type(1).url("/player/index").build();
+
+        Menu menu3 = Menu.builder().id(2L).icon("layui-icon layui-icon-log").sort(3).
                 children(new HashMap<>()).title("备份管理").type(1).url("/backup/index").build();
 
-        Menu menu4 = Menu.builder().id(3L).icon("layui-icon layui-icon-survey").sort(3).
+        Menu menu4 = Menu.builder().id(3L).icon("layui-icon layui-icon-survey").sort(4).
                 children(new HashMap<>()).title("向导").type(1).url("/system/guide").build();
 
-        Menu menu5 = Menu.builder().id(4L).icon("layui-icon layui-icon-util").sort(4).
+        Menu menu5 = Menu.builder().id(4L).icon("layui-icon layui-icon-util").sort(5).
                 children(new HashMap<>()).title("系统设置").type(1).url("/system/index").build();
 
         Map<String, Menu> treeMenu = new HashMap<>(16);
         treeMenu.put("0", menu);
-        treeMenu.put("1", menu2);
-        treeMenu.put("2", menu3);
-        treeMenu.put("3", menu4);
-        treeMenu.put("4", menu5);
+        treeMenu.put("1", menu1);
+        treeMenu.put("2", menu2);
+        treeMenu.put("3", menu3);
+        treeMenu.put("4", menu4);
+        treeMenu.put("5", menu5);
         model.addAttribute("treeMenu", treeMenu);
         return "main";
     }

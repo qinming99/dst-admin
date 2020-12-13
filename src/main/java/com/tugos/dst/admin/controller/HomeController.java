@@ -45,7 +45,7 @@ public class HomeController {
     @ResponseBody
     @RequiresAuthentication
     public ResultVO<DstServerInfoVO> getSystemInfo() throws Exception {
-        log.info("获取服务器的信息");
+        log.debug("获取服务器的信息");
         return ResultVO.data(homeService.getSystemInfo());
     }
 

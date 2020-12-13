@@ -10,8 +10,8 @@
     </parent>
 
     <groupId>com.tugos.dst</groupId>
-    <artifactId>admin</artifactId>
-    <version>1.0.3</version>
+    <artifactId>dst-admin</artifactId>
+    <version>1.0.5</version>
     <name>dst-admin</name>
     <description>Demo project for Spring Boot</description>
 
@@ -22,9 +22,6 @@
         <java.version>1.8</java.version>
         <!--shiro权限管理框架版本：component.shiro-->
         <shiro.version>1.4.0</shiro.version>
-        <!--shiro模板视图权限标签扩展：component.thymeleaf-->
-        <thymeleaf-shiro.version>2.0.0</thymeleaf-shiro.version>
-        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>

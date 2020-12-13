@@ -1,6 +1,7 @@
 package com.tugos.dst.admin.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
@@ -40,6 +41,7 @@ public class FileUtils {
 
     /**
      * 获取指定路径下所有文件名称
+     *
      * @param path 路径
      * @return 文件名称
      */
@@ -56,6 +58,7 @@ public class FileUtils {
 
     /**
      * 创建目录
+     *
      * @param path 如 /home/ubuntu/.klei/DoNotStarveTogether/MyDediServer/Master
      * @return true 创建成功
      */
@@ -92,10 +95,11 @@ public class FileUtils {
 
     /**
      * 写入文件到指定位置
+     *
      * @param filePath 文件路径
-     * @param context 内容
+     * @param context  内容
      */
-    public static void writeFile(String filePath,String context) throws Exception{
+    public static void writeFile(String filePath, String context) throws Exception {
         File file = new File(filePath);
         OutputStream outputStream = new FileOutputStream(file);
         outputStream.write(context.getBytes());
@@ -146,7 +150,7 @@ public class FileUtils {
                 }
                 if (pos == 0) {
                     fileRead.seek(0);
-                    result.add(fileRead.readLine());
+                    result.add(new String(fileRead.readLine().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
                 }
             }
         } catch (Exception e) {
@@ -195,6 +199,44 @@ public class FileUtils {
         sb.append("chmod +x ./").append(fileName);
         ShellUtil.runShell(sb.toString());
         log.info("给{}目录下的{}文件授权成功", DstConstant.SHELL_FILE_PATH, fileName);
+    }
+
+
+    /**
+     * 一行行的写文件
+     */
+    public static void writeLineFile(String path, List<String> data) throws Exception {
+        if (CollectionUtils.isEmpty(data)) {
+            data = new ArrayList<>();
+        }
+        StringBuilder content = new StringBuilder();
+        data.forEach(e -> content.append(e).append("\n"));
+        writeFile(path, content.toString());
+    }
+
+    /**
+     * 一行行的读取文件
+     *
+     * @param path 路径
+     * @return 文件内容
+     */
+    public static List<String> readLineFile(String path) {
+        List<String> result = new ArrayList<>();
+        File file = new File(path);
+        if (!file.exists()) {
+            return result;
+        }
+        try (FileInputStream fis = new FileInputStream(path);
+             InputStreamReader isr = new InputStreamReader(fis);
+             BufferedReader br = new BufferedReader(isr)) {
+            String str;
+            while ((str = br.readLine()) != null) {
+                result.add(str);
+            }
+        } catch (Exception e) {
+            log.error("一行行的读取文件失败：", e);
+        }
+        return result;
     }
 
 }

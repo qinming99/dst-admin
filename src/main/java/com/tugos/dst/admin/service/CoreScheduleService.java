@@ -96,12 +96,35 @@ public class CoreScheduleService {
                     long execTime = parse.getTime();
                     long currentDateTime = currentDate.getTime();
                     long subTime = currentDateTime - execTime;
-                    if (Range.open(0, upper).contains((int) subTime)){
+                    if (Range.open(0, upper).contains((int) subTime)) {
                         log.info("定时更新并重启游戏");
+                        shellService.sendBroadcast("服务器将马上进行更新，你将与服务器断开连接");
+                        shellService.sendBroadcast("请稍后在进入房间");
+                        try {
+                            Thread.sleep(1000*10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         homeService.updateGame();
-                        homeService.start(StartTypeEnum.START_ALL.type);
+                        boolean notStartMaster = DstConfigData.notStartMaster != null ? DstConfigData.notStartMaster : false;
+                        boolean notStartCaves = DstConfigData.notStartCaves != null ? DstConfigData.notStartCaves : false;
+                        if (!notStartMaster && !notStartCaves) {
+                            //全启动
+                            homeService.start(StartTypeEnum.START_ALL.type);
+                        }
+                        if (notStartMaster && !notStartCaves) {
+                            //不启动地面
+                            homeService.start(StartTypeEnum.START_CAVES.type);
+                        }
+                        if (!notStartMaster && notStartCaves) {
+                            //不启动洞穴
+                            homeService.start(StartTypeEnum.START_MASTER.type);
+                        }
+                        if (notStartMaster && notStartCaves) {
+                            //都不启动
+                        }
                         //记录执行次数
-                        DstConfigData.SCHEDULE_UPDATE_MAP.put(time,1);
+                        DstConfigData.SCHEDULE_UPDATE_MAP.put(time, 1);
                     }
                 }
             });

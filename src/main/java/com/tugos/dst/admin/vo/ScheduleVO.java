@@ -23,6 +23,16 @@ public class ScheduleVO {
      */
     private List<InnerData> updateTimeList;
 
+    /**
+     * 不启动地面标志
+     */
+    private Boolean notStartMaster;
+
+    /**
+     * 不启动洞穴标志
+     */
+    private Boolean notStartCaves;
+
 
     @Data
     public static class InnerData{

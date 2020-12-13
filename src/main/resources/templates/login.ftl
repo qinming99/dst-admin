@@ -28,9 +28,9 @@
             <label class="layui-icon layui-icon-password" for="password"></label>
             <input class="layui-input" type="password" name="password" id="password" placeholder="密码">
         </div>
-        <div class="layui-form-item">
-            <input type="checkbox" name="rememberMe" title="记住我" lay-skin="primary">
-        </div>
+<#--        <div class="layui-form-item">-->
+<#--            <input type="checkbox" name="rememberMe" title="记住我" lay-skin="primary">-->
+<#--        </div>-->
         <button type="submit" class="layui-btn layui-btn-fluid ajax-login"><i class="fa fa-sign-in fa-lg fa-fw"></i> 登录
         </button>
     </form>
@@ -38,6 +38,11 @@
         <div class="layui-layer-content"></div>
     </div>
 </div>
+<#--<div>-->
+<#--    <a href="https://club.tugos.cn/" target="_blank" >-->
+<#--        <img style="position: absolute;bottom: 10px;left: 25%" width="800px" height="100px" src="/images/ad-tencent.jpg">-->
+<#--    </a>-->
+<#--</div>-->
 <script src="/js/login.js" charset="utf-8"></script>
 </body>
 </html>

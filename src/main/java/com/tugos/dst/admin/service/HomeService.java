@@ -9,6 +9,7 @@ import com.tugos.dst.admin.enums.StopTypeEnum;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.vo.BackupFileVO;
 import com.tugos.dst.admin.vo.DstServerInfoVO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import java.util.Objects;
  * <p> 管理游戏服务 </p>
  */
 @Service
+@Slf4j
 public class HomeService {
 
     private ShellService shellService;
@@ -65,6 +67,8 @@ public class HomeService {
                 break;
             default:
         }
+        //清理screen的无效作业
+        shellService.clearScreen();
         return ResultVO.success();
     }
 
@@ -116,6 +120,8 @@ public class HomeService {
         File cavesFile = new File(cavesPath);
         if (masterFile.exists() && cavesFile.exists()) {
             flag = true;
+        }else {
+            log.warn("未找到启动脚本：{}和{}",masterFile,cavesFile);
         }
         return flag;
     }
