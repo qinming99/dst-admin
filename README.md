@@ -20,17 +20,6 @@
 2.  默认用户名/密码 admin/123456
 3.  饥荒监听端口**10888，10999，10998**（建议开放所有端口，避免一些问题）
 
-
-
-## docker版本部署请参考：[点击查看](https://github.com/qinming99/dst-admin/blob/master/file/README.md)
-
-```
-#docker部署快速开始
-docker pull dzzhyk/dst-admin:v1.0.5
-docker run --name dst-admin -d -p8080:8080 -p10888:10888 -p10998-10999:10998-10999 dzzhyk/dst-admin:v1.0.5
-```
-
-
 ## 快速开始
 ###  在Ubuntu服务器中安装jdk1.8 
 ```
@@ -76,14 +65,20 @@ java -jar dst-admin.jar
 #执行dstStart.sh脚本按照指示进行
 ./dstStart.sh
 ```
+## docker版本部署请参考：[点击查看](https://github.com/qinming99/dst-admin/blob/master/file/README.md)
+
+```
+#docker版本部署快速开始
+docker pull dzzhyk/dst-admin:v1.0.5
+docker run --name dst-admin -d -p8080:8080 -p10888:10888 -p10998-10999:10998-10999 dzzhyk/dst-admin:v1.0.5
+```
 
 
 ## 预览图
 
 ![img](https://github.com/qinming99/dst-admin/blob/master/images/image1.png)
 ![img](https://github.com/qinming99/dst-admin/blob/master/images/image2.png)
-![img](https://github.com/qinming99/dst-admin/blob/master/images/image3.png)
-
+![img](https://github.com/qinming99/dst-admin/blob/master/images/yanshi.gif)
 ## 饥荒交流群
 
 QQ群： **1005887957**
