@@ -20,6 +20,17 @@
 2.  默认用户名/密码 admin/123456
 3.  饥荒监听端口**10888，10999，10998**（建议开放所有端口，避免一些问题）
 
+
+
+## docker版本部署请参考：[点击查看](https://github.com/qinming99/dst-admin/blob/master/file/README.md)
+
+```
+#docker部署快速开始
+docker pull dzzhyk/dst-admin:v1.0.5
+docker run --name dst-admin -d -p8080:8080 -p10888:10888 -p10998-10999:10998-10999 dzzhyk/dst-admin:v1.0.5
+```
+
+
 ## 快速开始
 ###  在Ubuntu服务器中安装jdk1.8 
 ```
@@ -81,3 +92,5 @@ QQ群： **1005887957**
 ## END
 
 - 如果有任何建议或者 Bug:sob: 可以提 issue ，或者可以直接加群联系
+
+
