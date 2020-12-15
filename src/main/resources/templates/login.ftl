@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<head>
-    <title>饥荒管理后台登录</title>
+<#import "spring.ftl" as spring>
+<head xmlns="http://www.w3.org/1999/html">
+    <title><@spring.message code='login.title'/></title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -18,25 +19,30 @@
     <div class="cover"></div>
 </div>
 <div class="login-content">
-    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i>登陆</h1>
+    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i><@spring.message code='login.sign'/></h1>
     <form class="layui-form" action="/login" method="post">
         <div class="layui-form-item">
             <label class="layui-icon layui-icon-username" for="username"></label>
-            <input class="layui-input" type="text" name="username" id="username" placeholder="用户名">
+            <input class="layui-input" type="text" name="username" id="username" placeholder="login.username">
         </div>
         <div class="layui-form-item">
             <label class="layui-icon layui-icon-password" for="password"></label>
-            <input class="layui-input" type="password" name="password" id="password" placeholder="密码">
+            <input class="layui-input" type="password" name="password" id="password" placeholder="login.password">
         </div>
 <#--        <div class="layui-form-item">-->
 <#--            <input type="checkbox" name="rememberMe" title="记住我" lay-skin="primary">-->
 <#--        </div>-->
-        <button type="submit" class="layui-btn layui-btn-fluid ajax-login"><i class="fa fa-sign-in fa-lg fa-fw"></i> 登录
+        <button type="submit" class="layui-btn layui-btn-fluid ajax-login"><i class="fa fa-sign-in fa-lg fa-fw"></i> <@spring.message code='login.sign'/>
         </button>
+        <br><br><br><br>
+        &nbsp;&nbsp;
+        <a class="zhCn" href="@{/login.ftl(locale='zh_CN')}">中文</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;<a class="enUs" href="@{/login.ftl(locale='en_US')}">English</a>
     </form>
     <div class="layui-layer-loading login-page-loading">
         <div class="layui-layer-content"></div>
     </div>
+
 </div>
 <#--<div>-->
 <#--    <a href="https://club.tugos.cn/" target="_blank" >-->
