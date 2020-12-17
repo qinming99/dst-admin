@@ -3,6 +3,7 @@ package com.tugos.dst.admin.controller;
 
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.service.HomeService;
+import com.tugos.dst.admin.service.ShellService;
 import com.tugos.dst.admin.vo.DstServerInfoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
 
     private HomeService homeService;
+
+    private ShellService shellService;
 
 
     /**
@@ -109,8 +112,50 @@ public class HomeController {
         return ResultVO.success();
     }
 
+    @GetMapping("/sendBroadcast")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<String> sendBroadcast(@RequestParam String message){
+        log.info("发送公告："+message);
+        shellService.sendBroadcast(message);
+        return ResultVO.success();
+    }
+
+    @GetMapping("/kickPlayer")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<String> kickPlayer(@RequestParam String userId){
+        log.info("踢出玩家："+userId);
+        shellService.kickPlayer(userId);
+        return ResultVO.success();
+    }
+
+    @GetMapping("/rollback")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<String> rollback(@RequestParam Integer dayNum){
+        log.info("回滚指定的天数："+dayNum);
+        shellService.rollback(dayNum);
+        return ResultVO.success();
+    }
+
+    @GetMapping("/regenerate")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<String> regenerate(){
+        log.info("重置世界...");
+        shellService.regenerate();
+        return ResultVO.success();
+    }
+
+
     @Autowired
     public void setHomeService(HomeService homeService) {
         this.homeService = homeService;
+    }
+
+    @Autowired
+    public void setShellService(ShellService shellService) {
+        this.shellService = shellService;
     }
 }

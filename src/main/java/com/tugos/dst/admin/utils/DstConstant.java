@@ -25,6 +25,16 @@ public final class DstConstant {
     public static final String START_CAVES_SHELL_NAME = "cave.sh";
 
     /**
+     * 地面的screen任务的名称 DST_MASTER
+     */
+    public static final String SCREEN_WORK_MASTER_NAME = "DST_MASTER";
+
+    /**
+     * 洞穴的screen任务的名称 DST_CAVES
+     */
+    public static final String SCREEN_WORK_CAVES_NAME = "DST_CAVES";
+
+    /**
      * 启动地面进程命令 设置名称为 DST_MASTER
      */
     public static final String START_MASTER_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"DST_MASTER\"  sh overworld.sh ;";

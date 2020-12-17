@@ -508,7 +508,7 @@
             save(type) {
                 this.model.type = type;
                 post("/setting/saveConfig", this.model).then((data) => {
-                    if (data != undefined && data.code != 0) {
+                    if (data) {
                         this.warningMessage(data.message);
                     } else {
                         this.successMessage("成功");

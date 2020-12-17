@@ -217,17 +217,51 @@ public class ShellService {
      */
     public void sendBroadcast(String message) {
         StringBuilder masterBroadcast = new StringBuilder();
-        masterBroadcast.append("screen -S \"DST_MASTER\" -p 0 -X stuff \"c_announce(\\\"");
+        masterBroadcast.append("screen -S \""+DstConstant.SCREEN_WORK_MASTER_NAME+"\" -p 0 -X stuff \"c_announce(\"");
         masterBroadcast.append(message);
         masterBroadcast.append("\\\")\\n\"");
         //发送地面广播
         ShellUtil.execShellBin(masterBroadcast.toString());
         StringBuilder CavesBroadcast = new StringBuilder();
-        CavesBroadcast.append("screen -S \"DST_CAVES\" -p 0 -X stuff \"c_announce(\\\"");
+        CavesBroadcast.append("screen -S \""+DstConstant.SCREEN_WORK_CAVES_NAME+"\" -p 0 -X stuff \"c_announce(\"");
         CavesBroadcast.append(message);
         CavesBroadcast.append("\\\")\\n\"");
         //发送洞穴广播
         ShellUtil.execShellBin(CavesBroadcast.toString());
+    }
+
+    /**
+     * 踢出玩家
+     * @param userId klei的userId
+     */
+    public void kickPlayer(String userId) {
+        String masterCMD = "screen -S \"" + DstConstant.SCREEN_WORK_MASTER_NAME + "\" -p 0 -X stuff \"TheNet:Kick(\"" + userId + "\")\\n\"";
+        String cavesCMD = "screen -S \"" + DstConstant.SCREEN_WORK_CAVES_NAME + "\" -p 0 -X stuff \"TheNet:Kick(\"" + userId + "\")\\n\"";
+        ShellUtil.execShellBin(masterCMD);
+        ShellUtil.execShellBin(cavesCMD);
+    }
+
+
+    /**
+     * 回滚指定的天数
+     * @param dayNum 1-5天
+     */
+    public void rollback(int dayNum){
+        String masterCMD = "screen -S \"" + DstConstant.SCREEN_WORK_MASTER_NAME + "\" -p 0 -X stuff \"c_rollback(" + dayNum + ")\\n\"";
+        String cavesCMD = "screen -S \"" + DstConstant.SCREEN_WORK_CAVES_NAME + "\" -p 0 -X stuff \"c_rollback(" + dayNum + ")\\n\"";
+        ShellUtil.execShellBin(masterCMD);
+        ShellUtil.execShellBin(cavesCMD);
+    }
+
+
+    /**
+     * 重置世界
+     */
+    public void regenerate(){
+        String masterCMD = "screen -S \"" + DstConstant.SCREEN_WORK_MASTER_NAME + "\" -p 0 -X stuff \"c_regenerateworld()\\n\"";
+        String cavesCMD = "screen -S \"" + DstConstant.SCREEN_WORK_CAVES_NAME + "\" -p 0 -X stuff \"c_regenerateworld()\\n\"";
+        ShellUtil.execShellBin(masterCMD);
+        ShellUtil.execShellBin(cavesCMD);
     }
 
 }

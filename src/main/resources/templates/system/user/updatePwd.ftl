@@ -74,7 +74,7 @@
                     this.checkIsNotNull(this.model.confirmPwd)) {
                     if (this.model.newPwd === this.model.confirmPwd) {
                         post("/system/user/setNewPwd", this.model).then((data) => {
-                            if (data != undefined && data.code != 0) {
+                            if (data) {
                                 alert(data.message)
                             }else {
                                 alert('修改成功，请重新登录')
