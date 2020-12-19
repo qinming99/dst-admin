@@ -10,6 +10,7 @@
 6.  支持设置额外管理员或玩家黑名单
 7.  支持饥荒运行日志查看
 8.  支持上传本地存档
+9.  支持远程控制台，可在管理后台踢人、回滚、重置世界
 
 ## 环境要求
 1.  系统需**Ubuntu** （16.04,18.04已测试，其他版本Ubuntu未测试,其他发行版Linux的搭建可以加群交流）
@@ -37,19 +38,19 @@ java -version
 ###  下载最新版dst-admin安装包
 
 ```bash
-wget http://clouddn.tugos.cn/release/dst-admin-1.0.5.jar -O dst-admin.jar
+wget http://clouddn.tugos.cn/release/dst-admin-1.0.6.jar -O dst-admin.jar
 ```
 
 或者
 
 ```bash
-curl -L https://github.com/qinming99/dst-admin/releases/download/v1.0.5/dst-admin-1.0.5.jar --output dst-admin.jar
+curl -L https://github.com/qinming99/dst-admin/releases/download/v1.0.6/dst-admin-1.0.6.jar --output dst-admin.jar
 ```
 
 或者
 
 ```bash
-wget https://github.com/qinming99/dst-admin/releases/download/v1.0.5/dst-admin-1.0.5.jar  -O dst-admin.jar
+wget https://github.com/qinming99/dst-admin/releases/download/v1.0.6/dst-admin-1.0.6.jar  -O dst-admin.jar
 ```
 
 ###  启动dst-admin
