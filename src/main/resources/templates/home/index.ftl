@@ -148,7 +148,15 @@
                                         <el-col :span="10">
                                             <el-input  maxlength="15" placeholder="请输入玩家id" show-word-limit v-model="kickUserId"></el-input>
                                         </el-col>
-                                        <el-col :span="5"> <el-button @click="kickPlayer()" style="margin-left: 10px" >踢出</el-button></el-col>
+                                        <el-col :span="5">
+                                            <el-popover placement="top" width="200" v-model="visible3">
+                                                <p>确认踢出该玩家吗？</p>
+                                                <div style="text-align: right; margin: 0">
+                                                    <el-button size="mini" type="text" @click="visible3 = false">取消</el-button>
+                                                    <el-button type="primary" size="mini" @click="kickPlayer()">确定</el-button>
+                                                </div>
+                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left">踢出</el-button>
+                                            </el-popover>
                                     </el-row>
                                 </el-form-item>
 
@@ -157,13 +165,31 @@
                                         <el-col :span="10">
                                             <el-input type="number"  maxlength="1" placeholder="请输入天数" show-word-limit v-model="dayNum"></el-input>
                                         </el-col>
-                                        <el-col :span="5"> <el-button @click="rollback()" style="margin-left: 10px" >回滚</el-button></el-col>
+                                        <el-col :span="5">
+                                            <el-popover placement="top" width="200" v-model="visible4">
+                                                <p>确认回滚吗？</p>
+                                                <div style="text-align: right; margin: 0">
+                                                    <el-button size="mini" type="text" @click="visible4 = false">取消</el-button>
+                                                    <el-button type="primary" size="mini" @click="rollback()">确定</el-button>
+                                                </div>
+                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left">回滚</el-button>
+                                            </el-popover>
+                                        </el-col>
                                     </el-row>
                                 </el-form-item>
 
                                 <el-form-item label="重置世界：">
                                     <el-row>
-                                        <el-col :span="10"> <el-button type="danger" icon="el-icon-delete" @click="regenerate()"  >重置</el-button></el-col>
+                                        <el-col :span="10">
+                                            <el-popover placement="top" width="200" v-model="visible5">
+                                                <p>确认重置吗？</p>
+                                                <div style="text-align: right; margin: 0">
+                                                    <el-button size="mini" type="text" @click="visible5 = false">取消</el-button>
+                                                    <el-button type="primary" size="mini" @click="regenerate()">确定</el-button>
+                                                </div>
+                                                <el-button slot="reference" icon="el-icon-refresh-left">重置</el-button>
+                                            </el-popover>
+                                        </el-col>
                                     </el-row>
                                 </el-form-item>
 
@@ -197,6 +223,9 @@
             visible: false,
             visible1: false,
             visible2: false,
+            visible3: false,
+            visible4: false,
+            visible5: false,
             cpuInfo: 0,
             cpuNum: 0,
             menInfo: 0,
