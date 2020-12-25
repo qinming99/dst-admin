@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
-    <title>饥荒管理后台登录</title>
+    <#import "spring.ftl" as spring>
+    <title><@spring.message code="dst.admin.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -18,31 +19,42 @@
     <div class="cover"></div>
 </div>
 <div class="login-content">
-    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i>登陆</h1>
+    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i><@spring.message code="login.login.name"/></h1>
     <form class="layui-form" action="/login" method="post">
         <div class="layui-form-item">
             <label class="layui-icon layui-icon-username" for="username"></label>
-            <input class="layui-input" type="text" name="username" id="username" placeholder="用户名">
+            <input class="layui-input" type="text" name="username" id="username" placeholder="<@spring.message code="login.login.userName"/>">
         </div>
         <div class="layui-form-item">
             <label class="layui-icon layui-icon-password" for="password"></label>
-            <input class="layui-input" type="password" name="password" id="password" placeholder="密码">
+            <input class="layui-input" type="password" name="password" id="password" placeholder="<@spring.message code="login.login.password"/>">
         </div>
-<#--        <div class="layui-form-item">-->
-<#--            <input type="checkbox" name="rememberMe" title="记住我" lay-skin="primary">-->
-<#--        </div>-->
-        <button type="submit" class="layui-btn layui-btn-fluid ajax-login"><i class="fa fa-sign-in fa-lg fa-fw"></i> 登录
+        <button type="submit" class="layui-btn layui-btn-fluid ajax-login"><i class="fa fa-sign-in fa-lg fa-fw"></i> <@spring.message code="login.login.name"/>
         </button>
     </form>
+    <div style="margin-top: 20px;text-align: center">
+        <a style="font-size: 1.2em;color: #1E9FFF" class="changeLang" href="javascript:void(0);">中文</a>
+        <a style="font-size: 1.2em;color: #1E9FFF;margin-left: 10px" class="changeLang" href="javascript:void(0);">English</a><br/>
+    </div>
     <div class="layui-layer-loading login-page-loading">
         <div class="layui-layer-content"></div>
     </div>
 </div>
-<#--<div>-->
-<#--    <a href="https://club.tugos.cn/" target="_blank" >-->
-<#--        <img style="position: absolute;bottom: 10px;left: 25%" width="800px" height="100px" src="/images/ad-tencent.jpg">-->
-<#--    </a>-->
-<#--</div>-->
 <script src="/js/login.js" charset="utf-8"></script>
+<script src="/js/plugins/jquery-3.3.1.min.js"></script>
+<script>
+    $(".changeLang").on("click", function () {
+        switch ($(this).text()) {
+            case "中文": {
+                window.location.href = "login?_lang=zh_CN";
+                break;
+            }
+            case "English": {
+                window.location.href = "login?_lang=en_US";
+                break;
+            }
+        }
+    })
+</script>
 </body>
 </html>

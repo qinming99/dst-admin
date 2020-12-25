@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
-    <title>饥荒后台主页</title>
+    <#import "spring.ftl" as spring>
+    <title><@spring.message code="dst.admin.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -18,8 +19,8 @@
     <!-- 导航栏 -->
     <div class="layui-header">
         <a href="#" class="layui-logo">
-            <span class="layui-logo-mini">饥荒</span>
-            <span class="layui-logo-lg">饥荒后台</span>
+            <span class="layui-logo-mini"><@spring.message code="main.logo.mini"/></span>
+            <span class="layui-logo-lg"><@spring.message code="main.logo.lg"/></span>
         </a>
         <a class="side-toggle layui-layout-left" href="#">
             <i class="layui-icon layui-icon-shrink-right"></i>
@@ -35,15 +36,15 @@
                 <a class="timo-header-nickname">${user.nickname!}</a>
                 <div class="layui-nav-child">
                     <div class="timo-nav-child-box">
-                        <div><a class="open-popup" data-title="个人信息"
+                        <div><a class="open-popup" data-title="<@spring.message code="main.logo.user.info"/>"
                                 data-url='system/user/detail' data-size="680,464">
-                                <i class="fa fa-user-o"></i>个人信息</a>
+                                <i class="fa fa-user-o"></i><@spring.message code="main.logo.user.info"/></a>
                         </div>
-                        <div><a class="open-popup" data-title="修改密码"
+                        <div><a class="open-popup" data-title="<@spring.message code="main.logo.editPwd"/>"
                                 data-url='system/user/updatePwd' data-size="456,296">
-                                <i class="fa fa-lock" style="font-size:17px;width:12px;"></i>修改密码</a>
+                                <i class="fa fa-lock" style="font-size:17px;width:12px;"></i><@spring.message code="main.logo.editPwd"/></a>
                         </div>
-                        <div><a href="/logout"><i class="fa fa-power-off"></i>退出登录</a>
+                        <div><a href="/logout"><i class="fa fa-power-off"></i><@spring.message code="main.logo.logout"/></a>
                         </div>
                     </div>
                 </div>
