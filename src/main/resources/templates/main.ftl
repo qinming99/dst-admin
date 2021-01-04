@@ -60,7 +60,7 @@
                      src="/system/user/picture?p=${user.picture!}" alt="头像">
                 <div>
                     <p class="layui-side-user-name">${user.nickname!}</p>
-                    <p class="layui-side-user-designation">在线</p>
+                    <p class="layui-side-user-designation"><@spring.message code="main.logo.status"/></p>
                 </div>
             </div>
             <!-- 导航区域 -->

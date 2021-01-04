@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="cn">
 <head>
+    <#import "../spring.ftl" as spring>
     <meta charset="UTF-8">
-    <title>主页</title>
+    <title><@spring.message code="home.title"/></title>
     <#include "../common/header.ftl"/>
 </head>
 <body>
@@ -11,45 +12,48 @@
 
     <template>
         <el-tabs v-model="activeName">
-            <el-tab-pane label="服务器面板" name="first">
+            <el-tab-pane label="<@spring.message code="home.tab-pane1"/>" name="first">
 
                 <el-row v-loading="loading"
-                        element-loading-text="拼命加载中"
+                        element-loading-text="<@spring.message code="home.loading-text"/>"
                         element-loading-spinner="el-icon-loading"
                         element-loading-background="rgba(0, 0, 0, 0.8)">
                     <el-col :span="16">
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
-                                <span>游戏状态</span>
+                                <span><@spring.message code="home.pane1.card1.title1"/></span>
                             </div>
                             <el-form ref="form" label-position="left" label-width="150px">
                                 <el-row>
                                     <el-col :span="6">
-                                        <el-form-item label="饥荒状态：">
-                                            <el-button v-if="masterStatus" icon="el-icon-video-play" type="primary">地面运行中
+                                        <el-form-item label="<@spring.message code="home.pane1.card1.dst.status"/>：">
+                                            <el-button v-if="masterStatus" icon="el-icon-video-play" type="primary"><@spring.message code="home.pane1.card1.dst.master.running"/>
                                             </el-button>
-                                            <el-button v-if="!masterStatus" icon="el-icon-video-play" type="warning">地面未运行
+                                            <el-button v-if="!masterStatus" icon="el-icon-video-play" type="warning"><@spring.message code="home.pane1.card1.dst.master.not"/>
                                             </el-button>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="6">
                                         <el-form-item>
-                                            <el-button v-if="cavesStatus" icon="el-icon-video-play" type="primary">洞穴运行中</el-button>
-                                            <el-button v-if="!cavesStatus" icon="el-icon-video-play" type="warning">洞穴未运行
+                                            <el-button v-if="cavesStatus" icon="el-icon-video-play" type="primary">
+                                                <@spring.message code="home.pane1.card1.dst.caves.running"/></el-button>
+                                            <el-button v-if="!cavesStatus" icon="el-icon-video-play" type="warning">
+                                                <@spring.message code="home.pane1.card1.dst.caves.not"/>
                                             </el-button>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
-                                <el-form-item label="启动地面和洞穴：">
-                                    <el-switch v-model="runStatus" active-text="启动" inactive-text="关闭" :width="50"
+                                <el-form-item label="<@spring.message code="home.pane1.card1.dst.start.masterCaves"/>：">
+                                    <el-switch v-model="runStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>"
+                                               inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
                                                @change="controlDst(runStatus,0)"></el-switch>
                                 </el-form-item>
-                                <el-form-item label="启动地面：">
-                                    <el-switch v-model="masterStatus" active-text="启动" inactive-text="关闭" :width="50"
+                                <el-form-item label="<@spring.message code="home.pane1.card1.dst.start.master"/>：">
+                                    <el-switch v-model="masterStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
                                                @change="controlDst(masterStatus,1)"></el-switch>
                                 </el-form-item>
-                                <el-form-item label="启动洞穴：">
-                                    <el-switch v-model="cavesStatus" active-text="启动" inactive-text="关闭" :width="50"
+                                <el-form-item label="<@spring.message code="home.pane1.card1.dst.start.caves"/>：">
+                                    <el-switch v-model="cavesStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
                                                @change="controlDst(cavesStatus,2)"></el-switch>
                                 </el-form-item>
                                 <el-form-item label="快捷操作：">
@@ -122,16 +126,16 @@
                 </el-row>
 
             </el-tab-pane>
-            <el-tab-pane label="远程控制面板" name="second">
+            <el-tab-pane label="<@spring.message code="home.tab-pane2"/>" name="second">
 
                 <el-row v-loading="loading"
-                        element-loading-text="拼命加载中"
+                        element-loading-text="<@spring.message code="home.loading-text"/>"
                         element-loading-spinner="el-icon-loading"
                         element-loading-background="rgba(0, 0, 0, 0.8)">
                     <el-col :span="23">
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
-                                <span>后台控制</span>
+                                <span><@spring.message code="home.card.title2"/></span>
                             </div>
                             <el-form ref="form" label-position="left" label-width="180px">
                                 <el-form-item label="发送公告通知：">
