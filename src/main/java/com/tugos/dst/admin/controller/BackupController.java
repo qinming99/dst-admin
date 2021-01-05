@@ -2,6 +2,7 @@ package com.tugos.dst.admin.controller;
 
 
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.service.BackupService;
 import com.tugos.dst.admin.vo.BackupFileVO;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ public class BackupController {
     public ResultVO<String> upload(@RequestParam("file") MultipartFile file) throws Exception {
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
         if (!"tar".equalsIgnoreCase(suffix)) {
-            return ResultVO.fail("请上传tar文件");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.backup.tarfile"));
         }
         return backupService.upload(file);
     }

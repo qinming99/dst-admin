@@ -1,5 +1,6 @@
 package com.tugos.dst.admin.common;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Getter;
  * <p> 返回状态集枚举 </p>
  */
 @Getter
+@AllArgsConstructor
 public enum ResultCodeEnum implements ResultInterface {
 
     /**
@@ -29,13 +31,20 @@ public enum ResultCodeEnum implements ResultInterface {
     PARAM_ERR(12000,"请求参数异常"),
     ;
 
-    ResultCodeEnum(int code, String message) {
-        this.code = code;
-        this.message = message;
+    final int code;
+
+    final String message;
+
+
+    @Override
+    public String getMessage() {
+        return this.message;
     }
 
-    public final int code;
+    @Override
+    public int getCode() {
+        return this.code;
+    }
 
-    public final String message;
 
 }

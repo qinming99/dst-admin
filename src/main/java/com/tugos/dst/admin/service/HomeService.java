@@ -3,6 +3,7 @@ package com.tugos.dst.admin.service;
 
 import cn.hutool.core.date.DateUtil;
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.entity.Server;
 import com.tugos.dst.admin.enums.StartTypeEnum;
 import com.tugos.dst.admin.enums.StopTypeEnum;
@@ -43,7 +44,7 @@ public class HomeService {
     public ResultVO<String> start(Integer type) {
         if (!this.checkIsInstallDst()) {
             //未安装dst
-            return ResultVO.fail("未检测到启动脚本,请先执行安装脚本");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.start.error"));
         }
         StartTypeEnum typeEnum = StartTypeEnum.get(type);
         Objects.requireNonNull(typeEnum);
@@ -81,10 +82,10 @@ public class HomeService {
     public ResultVO<String> stop(Integer type) {
         if (!this.checkIsInstallDst()) {
             //未安装dst
-            return ResultVO.fail("未检测到启动脚本,请先执行安装脚本");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.start.error"));
         }
         if (!this.checkTokenIsExists()) {
-            return ResultVO.fail("未检测到token配置，请先设置房间");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.stop.error"));
         }
         StopTypeEnum typeEnum = StopTypeEnum.get(type);
         Objects.requireNonNull(typeEnum);
@@ -168,7 +169,7 @@ public class HomeService {
     public ResultVO<String> updateGame() {
         if (!this.checkIsInstallDst()) {
             //未安装dst
-            return ResultVO.fail("未检测到启动脚本,请先执行安装脚本");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.start.error"));
         }
         shellService.updateGame();
         return ResultVO.success();
@@ -182,7 +183,7 @@ public class HomeService {
     public ResultVO<String> backup(String name) {
         if (!this.checkGameFileIsExists()) {
             //未安装dst
-            return ResultVO.fail("游戏存档文件不存在");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.backup.error"));
         }
         String weekStr = DateUtil.thisDayOfWeekEnum().toChinese();
         String fileName;
@@ -216,7 +217,7 @@ public class HomeService {
     public ResultVO<String> restore(String name) {
         if (!this.checkBackupIsExists(name)) {
             //未安装dst
-            return ResultVO.fail("游戏备份文件不存在" + name);
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.backup.error2")+name);
         }
         //清空在恢复
         this.delRecord();

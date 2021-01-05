@@ -3,6 +3,7 @@ package com.tugos.dst.admin.controller;
 
 import com.tugos.dst.admin.common.ResultCodeEnum;
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.exception.ResultException;
 import com.tugos.dst.admin.utils.CaptchaUtil;
 import com.tugos.dst.admin.utils.URL;
@@ -82,12 +83,12 @@ public class LoginController {
             subject.login(token);
             //登录成功，跳转至首页
             ResultVO<URL> data = ResultVO.data(new URL("/"));
-            data.setMessage("登陆成功");
+            data.setMessage(I18nResourcesConfig.getMessage("tip.login.success"));
             return data;
         } catch (AuthenticationException e) {
-            return ResultVO.fail("用户名或密码错误");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.login.fail"));
         } catch (Exception e) {
-            return ResultVO.fail("该账号已被冻结");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.login.error"));
         }
     }
 
