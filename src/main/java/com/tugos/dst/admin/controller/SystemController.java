@@ -6,10 +6,12 @@ import com.tugos.dst.admin.vo.ScheduleVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author qinming
@@ -37,7 +39,13 @@ public class SystemController {
      */
     @GetMapping("/guide")
     public String toGuide() {
-        return "system/guide";
+        Locale locale = LocaleContextHolder.getLocale();
+        if (Locale.CHINA.getLanguage().equals(locale.getLanguage())) {
+            //中文语言
+            return "system/guide";
+        }else {
+            return "system/guide_en";
+        }
     }
 
     @GetMapping("/getDstLog")
