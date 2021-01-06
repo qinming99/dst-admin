@@ -293,7 +293,7 @@
                 get("/home/delRecord").then((data) => {
                     this.loading = false;
                     this.getSystemInfo();
-                    this.successMessage('清理成功');
+                    this.successMessage('<@spring.message code="home.pane1.card2.clean.success.message"/>');
                 })
             },
             //更新

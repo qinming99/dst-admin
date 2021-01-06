@@ -1,5 +1,6 @@
 package com.tugos.dst.admin.common;
 
+import com.tugos.dst.admin.config.I18nResourcesConfig;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -33,12 +34,13 @@ public enum ResultCodeEnum implements ResultInterface {
 
     final int code;
 
-    final String message;
+    private final String message;
 
 
     @Override
     public String getMessage() {
-        return this.message;
+        //获取当前语言环境
+        return I18nResourcesConfig.getMessage("tip.code.message."+this.code);
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.tugos.dst.admin.controller;
 
 
 import com.tugos.dst.admin.common.ResultVO;
-import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.service.HomeService;
 import com.tugos.dst.admin.service.ShellService;
 import com.tugos.dst.admin.vo.DstServerInfoVO;
@@ -110,7 +109,7 @@ public class HomeController {
         log.info("清理游戏记录");
         homeService.delRecord();
         Thread.sleep(2000);
-        return ResultVO.success(I18nResourcesConfig.getMessage("tips.home.pane1.card2.clean.success.message"));
+        return ResultVO.success();
     }
 
     @GetMapping("/sendBroadcast")
