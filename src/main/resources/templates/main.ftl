@@ -32,6 +32,18 @@
                     <i class="fa layui-icon layui-icon-screen-full"></i>
                 </a>
             </li>
+            <li class="layui-nav-item">
+                <a class="timo-header-lang"><@spring.message code="main.lang"/></a>
+                <div class="layui-nav-child">
+                    <div class="timo-nav-child-box">
+                        <div style="margin-top: 20px;text-align: center">
+                            <a style="font-size: 1em;color: #444444" class="changeLang" href="javascript:void(0);">中文</a>
+                            <a style="font-size: 1em;color: #444444" class="changeLang" href="javascript:void(0);">English</a><br/>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
             <li class="layui-nav-item timo-nav-user">
                 <a class="timo-header-nickname">${user.nickname!}</a>
                 <div class="layui-nav-child">
@@ -96,7 +108,23 @@
         <div class="layui-tab-content"></div>
     </div>
 </div>
+<script src="/js/login.js" charset="utf-8"></script>
+<script src="/js/plugins/jquery-3.3.1.min.js"></script>
 <script>
+
+    $(".changeLang").on("click", function () {
+        switch ($(this).text()) {
+            case "中文": {
+                window.location.href = "/?_lang=zh_CN";
+                break;
+            }
+            case "English": {
+                window.location.href = "/?_lang=en_US";
+                break;
+            }
+        }
+    })
+
 </script>
 </body>
 </html>

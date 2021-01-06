@@ -56,29 +56,29 @@
                                     <el-switch v-model="cavesStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
                                                @change="controlDst(cavesStatus,2)"></el-switch>
                                 </el-form-item>
-                                <el-form-item label="快捷操作：">
+                                <el-form-item label="<@spring.message code="home.pane1.card1.dst.quickOperation"/>：">
                                     <el-popover placement="top" width="200" v-model="visible2">
-                                        <p>搜索不到服务器时可以尝试更新游戏，更新时将停止服务器哦！</p>
+                                        <p><@spring.message code="home.pane1.card1.dst.search.suggestions"/></p>
                                         <div style="text-align: right; margin: 0">
-                                            <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
-                                            <el-button type="primary" size="mini" @click="updateGame()">确定</el-button>
+                                            <el-button size="mini" type="text" @click="visible2 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                            <el-button type="primary" size="mini" @click="updateGame()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                         </div>
-                                        <el-button slot="reference" icon="el-icon-s-promotion">更新游戏</el-button>
+                                        <el-button slot="reference" icon="el-icon-s-promotion"><@spring.message code="home.pane1.card1.dst.updateGame"/></el-button>
                                     </el-popover>
-                                    <el-button icon="el-icon-refresh" @click="backupGame()">创建备份</el-button>
+                                    <el-button icon="el-icon-refresh" @click="backupGame()"><@spring.message code="home.pane1.card1.dst.createBackup"/></el-button>
                                 </el-form-item>
-                                <el-form-item label="清理游戏存档：">
+                                <el-form-item label="<@spring.message code="home.pane1.card1.dst.cleanGameArchive"/>：">
                                     <el-popover placement="top" width="160" v-model="visible">
-                                        <p>确认清理吗？清理之后将停止服务器,删除游戏进度哦！</p>
+                                        <p><@spring.message code="home.pane1.card1.dst.clean.suggestions"/></p>
                                         <div style="text-align: right; margin: 0">
-                                            <el-button size="mini" type="text" @click="visible = false">取消</el-button>
-                                            <el-button type="warning" size="mini" @click="clearGame()">确定</el-button>
+                                            <el-button size="mini" type="text" @click="visible = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                            <el-button type="warning" size="mini" @click="clearGame()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                         </div>
-                                        <el-button slot="reference" type="danger" icon="el-icon-delete">清理</el-button>
+                                        <el-button slot="reference" type="danger" icon="el-icon-delete"><@spring.message code="home.pane1.card1.dst.clean"/></el-button>
                                     </el-popover>
                                 </el-form-item>
-                                <el-form-item label="恢复备份：">
-                                    <el-select v-model="backupName" filterable placeholder="请选择">
+                                <el-form-item label="<@spring.message code="home.pane1.card1.dst.restoreBackup"/>：">
+                                    <el-select v-model="backupName" filterable placeholder="<@spring.message code="home.pane1.card1.dst.please.choose"/>">
                                         <el-option
                                                 v-for="item in backupList"
                                                 :key="item"
@@ -87,12 +87,12 @@
                                         </el-option>
                                     </el-select>
                                     <el-popover placement="top" width="200" v-model="visible1">
-                                        <p>确认恢复该存档吗？恢复存档将停止服务器，同时当前游戏进度会被清理哦！</p>
+                                        <p><@spring.message code="home.pane1.card1.dst.restore.suggestions"/></p>
                                         <div style="text-align: right; margin: 0">
-                                            <el-button size="mini" type="text" @click="visible1 = false">取消</el-button>
-                                            <el-button type="primary" size="mini" @click="restoreBackup()">确定</el-button>
+                                            <el-button size="mini" type="text" @click="visible1 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                            <el-button type="primary" size="mini" @click="restoreBackup()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                         </div>
-                                        <el-button slot="reference" icon="el-icon-refresh-left">恢复</el-button>
+                                        <el-button slot="reference" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card1.dst.restore"/></el-button>
                                     </el-popover>
                                 </el-form-item>
                             </el-form>
@@ -101,14 +101,14 @@
                     <el-col :span="7">
                         <el-card class="box-card" style="margin-left: 10px">
                             <div slot="header" class="clearfix">
-                                <span>服务器状况</span>
+                                <span><@spring.message code="header.server.situation"/></span>
                             </div>
                             <el-row>
                                 <el-col>
                                     <el-progress type="dashboard" :stroke-width="10" :percentage="cpuInfo"
                                                  :color="colors"></el-progress>
                                     <div>
-                                        <span>CPU核心数：{{cpuNum}}  使用率：{{cpuInfo}}%</span>
+                                        <span><@spring.message code="header.server.cpu.cores.num"/>：{{cpuNum}} , <@spring.message code="header.server.usage.rate"/>：{{cpuInfo}}%</span>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -117,7 +117,7 @@
                                     <el-progress type="dashboard" :stroke-width="10" :percentage="menInfo"
                                                  :color="colors"></el-progress>
                                     <div>
-                                        <span>总内存：{{menTotal}}GB  使用率：{{menInfo}}%</span>
+                                        <span><@spring.message code="header.server.memory"/>：{{menTotal}}GB , <@spring.message code="header.server.usage.rate"/>：{{menInfo}}%</span>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -138,60 +138,61 @@
                                 <span><@spring.message code="home.card.title2"/></span>
                             </div>
                             <el-form ref="form" label-position="left" label-width="180px">
-                                <el-form-item label="发送公告通知：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.send.announcement.notice"/>：">
                                     <el-row>
                                         <el-col :span="10">
-                                            <el-input type="textarea" :rows="3" maxlength="50" placeholder="请输入内容" show-word-limit v-model="broadcastContent"></el-input>
+                                            <el-input type="textarea" :rows="3" maxlength="50" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.content"/>" show-word-limit v-model="broadcastContent"></el-input>
                                         </el-col>
-                                        <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" >发送</el-button></el-col>
+                                        <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" ><@spring.message code="home.pane1.card2.dst.send"/></el-button></el-col>
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="踢出玩家：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：">
                                     <el-row>
                                         <el-col :span="10">
-                                            <el-input  maxlength="15" placeholder="请输入玩家id" show-word-limit v-model="kickUserId"></el-input>
+                                            <el-input  maxlength="15" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.player.id"/>" show-word-limit v-model="kickUserId"></el-input>
                                         </el-col>
                                         <el-col :span="5">
                                             <el-popover placement="top" width="200" v-model="visible3">
-                                                <p>确认踢出该玩家吗？</p>
+                                                <p><@spring.message code="home.pane1.card2.dst.please.confirm.kickOut.the.player"/>？</p>
                                                 <div style="text-align: right; margin: 0">
-                                                    <el-button size="mini" type="text" @click="visible3 = false">取消</el-button>
-                                                    <el-button type="primary" size="mini" @click="kickPlayer()">确定</el-button>
+                                                    <el-button size="mini" type="text" @click="visible3 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                                    <el-button type="primary" size="mini" @click="kickPlayer()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                 </div>
-                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left">踢出</el-button>
+                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card2.dst.kickOut"/></el-button>
                                             </el-popover>
+                                        </el-col>
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="回滚指定的天数1-5天：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.rollback.rules"/>：">
                                     <el-row>
                                         <el-col :span="10">
-                                            <el-input type="number"  maxlength="1" placeholder="请输入天数" show-word-limit v-model="dayNum"></el-input>
+                                            <el-input type="number"  maxlength="1" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.the.number.of.days"/>" show-word-limit v-model="dayNum"></el-input>
                                         </el-col>
                                         <el-col :span="5">
                                             <el-popover placement="top" width="200" v-model="visible4">
-                                                <p>确认回滚吗？</p>
+                                                <p><@spring.message code="home.pane1.card2.dst.rollback.confirm"/>?</p>
                                                 <div style="text-align: right; margin: 0">
-                                                    <el-button size="mini" type="text" @click="visible4 = false">取消</el-button>
-                                                    <el-button type="primary" size="mini" @click="rollback()">确定</el-button>
+                                                    <el-button size="mini" type="text" @click="visible4 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                                    <el-button type="primary" size="mini" @click="rollback()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                 </div>
-                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left">回滚</el-button>
+                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card2.dst.rollback"/></el-button>
                                             </el-popover>
                                         </el-col>
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="重置世界：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.reset.world"/>：">
                                     <el-row>
                                         <el-col :span="10">
                                             <el-popover placement="top" width="200" v-model="visible5">
-                                                <p>确认重置吗？</p>
+                                                <p><@spring.message code="home.pane1.card2.dst.reset.confirm"/>?</p>
                                                 <div style="text-align: right; margin: 0">
-                                                    <el-button size="mini" type="text" @click="visible5 = false">取消</el-button>
-                                                    <el-button type="primary" size="mini" @click="regenerate()">确定</el-button>
+                                                    <el-button size="mini" type="text" @click="visible5 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                                    <el-button type="primary" size="mini" @click="regenerate()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                 </div>
-                                                <el-button slot="reference" icon="el-icon-refresh-left">重置</el-button>
+                                                <el-button slot="reference" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card2.dst.reset"/></el-button>
                                             </el-popover>
                                         </el-col>
                                     </el-row>
@@ -292,7 +293,7 @@
                 get("/home/delRecord").then((data) => {
                     this.loading = false;
                     this.getSystemInfo();
-                    this.successMessage("清理成功");
+                    this.successMessage('清理成功');
                 })
             },
             //更新
