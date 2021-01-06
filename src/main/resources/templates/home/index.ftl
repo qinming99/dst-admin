@@ -67,8 +67,8 @@
                                     </el-popover>
                                     <el-button icon="el-icon-refresh" @click="backupGame()"><@spring.message code="home.pane1.card1.dst.createBackup"/></el-button>
                                 </el-form-item>
-                                <el-form-item label="<@spring.message code="home.pane1.card1.dst.cleanGameArchive"/>：">
-                                    <el-popover placement="top" width="160" v-model="visible">
+                                <el-form-item  label="<@spring.message code="home.pane1.card1.dst.cleanGameArchive"/>：" label-width="180px" >
+                                    <el-popover placement="top" width="200" v-model="visible">
                                         <p><@spring.message code="home.pane1.card1.dst.clean.suggestions"/></p>
                                         <div style="text-align: right; margin: 0">
                                             <el-button size="mini" type="text" @click="visible = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
@@ -138,7 +138,7 @@
                                 <span><@spring.message code="home.card.title2"/></span>
                             </div>
                             <el-form ref="form" label-position="left" label-width="180px">
-                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.send.announcement.notice"/>：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.send.announcement.notice"/>：" label-width="230px">
                                     <el-row>
                                         <el-col :span="10">
                                             <el-input type="textarea" :rows="3" maxlength="50" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.content"/>" show-word-limit v-model="broadcastContent"></el-input>
@@ -147,7 +147,7 @@
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：" label-width="230px">
                                     <el-row>
                                         <el-col :span="10">
                                             <el-input  maxlength="15" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.player.id"/>" show-word-limit v-model="kickUserId"></el-input>
@@ -165,7 +165,7 @@
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.rollback.rules"/>：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.rollback.rules"/>：" label-width="230px">
                                     <el-row>
                                         <el-col :span="10">
                                             <el-input type="number"  maxlength="1" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.the.number.of.days"/>" show-word-limit v-model="dayNum"></el-input>
