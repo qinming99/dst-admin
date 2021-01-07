@@ -8,11 +8,15 @@ import com.tugos.dst.admin.vo.DstServerInfoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 /**
  * @author qinming
@@ -34,7 +38,13 @@ public class HomeController {
      */
     @GetMapping("/index")
     @RequiresAuthentication
-    public String index() {
+    public String index(HttpServletRequest request) {
+        Locale locale = LocaleContextHolder.getLocale();
+        if (Locale.CHINA.getLanguage().equals(locale.getLanguage())) {
+            request.setAttribute("lang", "zh");
+        } else {
+            request.setAttribute("lang", "en");
+        }
         log.info("访问首页");
         return "/home/index";
     }
