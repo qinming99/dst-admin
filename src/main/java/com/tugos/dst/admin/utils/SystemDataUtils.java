@@ -66,6 +66,7 @@ public class SystemDataUtils {
                 BeanUtils.copyProperties(table.getUSER_INFO(),DstConfigData.USER_INFO);
                 DstConfigData.notStartMaster = table.getNotStartMaster();
                 DstConfigData.notStartCaves = table.getNotStartCaves();
+                DstConfigData.smartUpdate = table.getSmartUpdate();
                 log.info("读取文件中的数据到缓存中成功：{}",data);
             }
         } catch (Exception e) {
@@ -85,6 +86,7 @@ public class SystemDataUtils {
             table.setUSER_INFO(DstConfigData.USER_INFO);
             table.setNotStartMaster(DstConfigData.notStartMaster);
             table.setNotStartCaves(DstConfigData.notStartCaves);
+            table.setSmartUpdate(DstConfigData.smartUpdate);
             String data = JSONUtil.toJsonStr(table);
             writeProjectData(DstConstant.DST_ADMIN_JSON, data);
         } catch (Exception e) {

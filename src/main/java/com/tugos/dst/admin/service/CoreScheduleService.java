@@ -6,10 +6,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.google.common.collect.Range;
 import com.tugos.dst.admin.enums.StartTypeEnum;
-import com.tugos.dst.admin.utils.DstConfigData;
-import com.tugos.dst.admin.utils.DstConstant;
-import com.tugos.dst.admin.utils.FileUtils;
-import com.tugos.dst.admin.utils.SystemDataUtils;
+import com.tugos.dst.admin.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +19,7 @@ import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author qinming
@@ -70,6 +68,25 @@ public class CoreScheduleService {
     }
 
     /**
+     * 智能更新，每30分钟检查一下最新版本
+     */
+    @Scheduled(fixedDelay = 1000 * 60 * 30, initialDelay = 1000 * 60 * 30)
+    public void smartUpdateGame() {
+        String steamVersion = DstVersionUtils.getSteamVersion();
+        String localVersion = DstVersionUtils.getLocalVersion();
+        Boolean smartUpdate = DstConfigData.smartUpdate;
+        log.info("智能更新启动：steamVersion={},localVersion={},smartUpdate={}", steamVersion, localVersion, smartUpdate);
+        if (StringUtils.isNoneBlank(steamVersion, localVersion) && smartUpdate) {
+            long sv = Long.parseLong(steamVersion);
+            long lv = Long.parseLong(localVersion);
+            if (sv > lv) {
+                log.info("智能更新进行...");
+                onlyUpdateGame();
+            }
+        }
+    }
+
+    /**
      * 定时任务每5秒执行一次,第一次延长10秒
      */
     @Scheduled(fixedDelay = 5*1000, initialDelay = 10*1000)
@@ -98,36 +115,40 @@ public class CoreScheduleService {
                     long subTime = currentDateTime - execTime;
                     if (Range.open(0, upper).contains((int) subTime)) {
                         log.info("定时更新并重启游戏");
-                        shellService.sendBroadcast("服务器将马上进行更新，你将与服务器断开连接");
-                        shellService.sendBroadcast("请稍后在进入房间");
-                        try {
-                            Thread.sleep(1000*10);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        homeService.updateGame();
-                        boolean notStartMaster = DstConfigData.notStartMaster != null ? DstConfigData.notStartMaster : false;
-                        boolean notStartCaves = DstConfigData.notStartCaves != null ? DstConfigData.notStartCaves : false;
-                        if (!notStartMaster && !notStartCaves) {
-                            //全启动
-                            homeService.start(StartTypeEnum.START_ALL.type);
-                        }
-                        if (notStartMaster && !notStartCaves) {
-                            //不启动地面
-                            homeService.start(StartTypeEnum.START_CAVES.type);
-                        }
-                        if (!notStartMaster && notStartCaves) {
-                            //不启动洞穴
-                            homeService.start(StartTypeEnum.START_MASTER.type);
-                        }
-                        if (notStartMaster && notStartCaves) {
-                            //都不启动
-                        }
+                        this.onlyUpdateGame();
                         //记录执行次数
                         DstConfigData.SCHEDULE_UPDATE_MAP.put(time, 1);
                     }
                 }
             });
+        }
+    }
+
+    private void onlyUpdateGame(){
+        shellService.sendBroadcast("服务器将马上进行更新，你将与服务器断开连接");
+        shellService.sendBroadcast("请稍后再进入房间");
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        homeService.updateGame();
+        boolean notStartMaster = DstConfigData.notStartMaster != null ? DstConfigData.notStartMaster : false;
+        boolean notStartCaves = DstConfigData.notStartCaves != null ? DstConfigData.notStartCaves : false;
+        if (!notStartMaster && !notStartCaves) {
+            //全启动
+            homeService.start(StartTypeEnum.START_ALL.type);
+        }
+        if (notStartMaster && !notStartCaves) {
+            //不启动地面
+            homeService.start(StartTypeEnum.START_CAVES.type);
+        }
+        if (!notStartMaster && notStartCaves) {
+            //不启动洞穴
+            homeService.start(StartTypeEnum.START_MASTER.type);
+        }
+        if (notStartMaster && notStartCaves) {
+            //都不启动
         }
     }
 

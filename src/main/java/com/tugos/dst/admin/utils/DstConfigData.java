@@ -36,6 +36,11 @@ public class DstConfigData {
     public static Boolean notStartCaves;
 
     /**
+     * 智能更新标志
+     */
+    public static Boolean smartUpdate;
+
+    /**
      * 清理所有数据
      */
     public static void clearAllData(){

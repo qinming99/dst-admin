@@ -33,6 +33,11 @@ public class ScheduleVO {
      */
     private Boolean notStartCaves;
 
+    /**
+     * 智能更新标志
+     */
+    private Boolean smartUpdate;
+
 
     @Data
     public static class InnerData{
