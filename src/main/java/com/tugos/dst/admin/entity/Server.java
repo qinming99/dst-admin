@@ -104,7 +104,7 @@ public class Server {
 
         setJvmInfo();
 
-        setSysFiles(si.getOperatingSystem());
+//        setSysFiles(si.getOperatingSystem());
     }
 
 
@@ -171,7 +171,7 @@ public class Server {
      */
     private void setSysFiles(OperatingSystem os) {
         FileSystem fileSystem = os.getFileSystem();
-        OSFileStore[] fsArray = fileSystem.getFileStores();
+        OSFileStore[] fsArray = fileSystem.getFileStores().toArray(new OSFileStore[0]);
         for (OSFileStore fs : fsArray) {
             long free = fs.getUsableSpace();
             long total = fs.getTotalSpace();
