@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.tugos.dst.admin.enums.DstLogTypeEnum;
 import com.tugos.dst.admin.utils.DstConfigData;
 import com.tugos.dst.admin.utils.DstConstant;
+import com.tugos.dst.admin.utils.DstVersionUtils;
 import com.tugos.dst.admin.utils.FileUtils;
 import com.tugos.dst.admin.vo.ScheduleVO;
 import org.apache.commons.collections.CollectionUtils;
@@ -14,10 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author qinming
@@ -86,6 +84,7 @@ public class SystemService {
         }
         data.setNotStartMaster(DstConfigData.notStartMaster);
         data.setNotStartCaves(DstConfigData.notStartCaves);
+        data.setSmartUpdate(DstConfigData.smartUpdate);
         return data;
     }
 
@@ -125,5 +124,23 @@ public class SystemService {
         }else {
             DstConfigData.notStartCaves = false;
         }
+        if (vo.getSmartUpdate() != null) {
+            DstConfigData.smartUpdate = vo.getSmartUpdate();
+        }else {
+            DstConfigData.smartUpdate = false;
+        }
+    }
+
+    /**
+     * 获取服务器的版本号
+     * @return 版本号
+     */
+    public Map<String,String> getVersion() {
+        String steamVersion = DstVersionUtils.getSteamVersion();
+        String localVersion = DstVersionUtils.getLocalVersion();
+        Map<String,String> map = new HashMap<>(16);
+        map.put("steamVersion",steamVersion);
+        map.put("localVersion",localVersion);
+        return map;
     }
 }

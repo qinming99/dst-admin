@@ -48,6 +48,9 @@
                     <span style="color: red;margin-left: 40px">更新时不启动：</span>
                         <el-checkbox v-model="notStartMaster">地面</el-checkbox>
                         <el-checkbox v-model="notStartCaves">洞穴</el-checkbox>
+
+                    <span style="color: red;margin-left: 40px">智能更新：</span>
+                    <el-switch v-model="smartUpdate" active-text="开" inactive-text="关"></el-switch>
                 </div>
                 <ul>
                     <li v-for="item in scheduleVO.updateTimeList">执行时间：{{item.time}}, 执行状态：
@@ -121,6 +124,21 @@
                 </ul>
             </el-card>
         </el-tab-pane>
+        <el-tab-pane label="实验室" name="fifth">
+            <el-card class="card">
+                <div slot="header" class="clearfix">
+                    <span>智能更新</span>
+                </div>
+                <ul>
+                    <li>Klei饥荒最新版本号：
+                        <strong style="color: green">{{versionMap.steamVersion}}</strong>
+                    </li>
+                    <li>当前服务器的版本号：
+                        <strong style="color: green">{{versionMap.localVersion}}</strong>
+                    </li>
+                </ul>
+            </el-card>
+        </el-tab-pane>
     </el-tabs>
 </div>
 
@@ -143,6 +161,8 @@
             backupTimeList: [],
             notStartMaster:false,
             notStartCaves:false,
+            smartUpdate:false,
+            versionMap: {},
             model: {
                 backupTimeList: [],
                 updateTimeList: [],
@@ -150,6 +170,7 @@
         },
         created() {
             this.getScheduleList();
+            this.getVersion();
         },
         methods: {
             getScheduleList() {
@@ -176,7 +197,13 @@
                     }
                     this.notStartMaster = data.notStartMaster ? data.notStartMaster : false;
                     this.notStartCaves = data.notStartCaves ? data.notStartCaves : false;
+                    this.smartUpdate = data.smartUpdate ? data.smartUpdate : false;
                 })
+            },
+            getVersion(){
+                get("/system/getVersion").then((data) => {
+                    this.versionMap = data;
+                });
             },
             addUpdateTime() {
                 this.updateTimeList.push({count: 0, time: '2020-10-23 06:00:00'});
@@ -234,6 +261,7 @@
                 }
                 params.notStartMaster = this.notStartMaster;
                 params.notStartCaves = this.notStartCaves;
+                params.smartUpdate = this.smartUpdate;
                 post("/system/saveSchedule", params).then((data) => {
                     if (data) {
                         this.$message({message: data.message, type: 'success'});

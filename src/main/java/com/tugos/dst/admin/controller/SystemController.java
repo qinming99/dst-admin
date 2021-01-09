@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author qinming
@@ -65,6 +66,14 @@ public class SystemController {
     public ResultVO<String> saveSchedule(@RequestBody ScheduleVO vo){
         systemService.saveSchedule(vo);
         return ResultVO.success();
+    }
+
+
+    @GetMapping("/getVersion")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<Map<String,String>> getVersion(){
+        return ResultVO.data(systemService.getVersion());
     }
 
     @Autowired
