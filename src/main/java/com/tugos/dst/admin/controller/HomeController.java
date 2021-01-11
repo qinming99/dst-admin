@@ -68,9 +68,7 @@ public class HomeController {
     @ResponseBody
     public ResultVO<String> stop(@RequestParam Integer type) throws Exception {
         log.info("停止服务器，type={}", type);
-        ResultVO<String> resultVO = homeService.stop(type);
-        Thread.sleep(2000);
-        return resultVO;
+        return homeService.stop(type);
     }
 
     @GetMapping("/updateGame")
