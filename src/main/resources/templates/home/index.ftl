@@ -139,7 +139,7 @@
                                         <el-col :span="10">
                                             <el-input type="textarea" :rows="3" maxlength="50" placeholder="请输入内容" show-word-limit v-model="broadcastContent"></el-input>
                                         </el-col>
-                                        <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" >发送</el-button></el-col>
+                                        <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" icon="el-icon-s-comment" >发送</el-button></el-col>
                                     </el-row>
                                 </el-form-item>
 
@@ -155,7 +155,7 @@
                                                     <el-button size="mini" type="text" @click="visible3 = false">取消</el-button>
                                                     <el-button type="primary" size="mini" @click="kickPlayer()">确定</el-button>
                                                 </div>
-                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left">踢出</el-button>
+                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-position">踢出</el-button>
                                             </el-popover>
                                     </el-row>
                                 </el-form-item>
@@ -187,7 +187,7 @@
                                                     <el-button size="mini" type="text" @click="visible5 = false">取消</el-button>
                                                     <el-button type="primary" size="mini" @click="regenerate()">确定</el-button>
                                                 </div>
-                                                <el-button slot="reference" icon="el-icon-refresh-left">重置</el-button>
+                                                <el-button slot="reference" icon="el-icon-refresh">重置</el-button>
                                             </el-popover>
                                         </el-col>
                                     </el-row>
@@ -349,6 +349,7 @@
                 }
             },
             kickPlayer(){
+                this.visible3 = false;
                 if (this.kickUserId) {
                     get("/home/kickPlayer", {userId: this.kickUserId}).then((data) => {
                         if (data) {
@@ -365,6 +366,7 @@
             },
             //重置世界
             regenerate(){
+                this.visible5 = false;
                 get("/home/regenerate").then((data) => {
                     if (data) {
                         this.warningMessage(data.message);
@@ -374,6 +376,7 @@
             },
             //回滚世界
             rollback(){
+                this.visible4 = false;
                 if (this.dayNum) {
                     get("/home/rollback", {dayNum: this.dayNum}).then((data) => {
                         if (data) {
