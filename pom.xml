@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.4.RELEASE</version>
+        <version>2.1.18.RELEASE</version>
         <relativePath/>
     </parent>
 
     <groupId>com.tugos.dst</groupId>
     <artifactId>dst-admin</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <name>dst-admin</name>
     <description>Demo project for Spring Boot</description>
 
