@@ -143,8 +143,7 @@
                                         <el-col :span="10">
                                             <el-input type="textarea" :rows="3" maxlength="50" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.content"/>" show-word-limit v-model="broadcastContent"></el-input>
                                         </el-col>
-                                        <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" ><@spring.message code="home.pane1.card2.dst.send"/></el-button></el-col>
-                                        <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" icon="el-icon-s-comment" >发送</el-button></el-col>
+                                        <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" icon="el-icon-s-comment" ><@spring.message code="home.pane1.card2.dst.send"/></el-button></el-col>
                                     </el-row>
                                 </el-form-item>
 
@@ -160,8 +159,7 @@
                                                     <el-button size="mini" type="text" @click="visible3 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
                                                     <el-button type="primary" size="mini" @click="kickPlayer()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                 </div>
-                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card2.dst.kickOut"/></el-button>
-                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-position">踢出</el-button>
+                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.kickOut"/></el-button>
                                             </el-popover>
                                         </el-col>
                                     </el-row>
@@ -194,8 +192,7 @@
                                                     <el-button size="mini" type="text" @click="visible5 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
                                                     <el-button type="primary" size="mini" @click="regenerate()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                 </div>
-                                                <el-button slot="reference" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card2.dst.reset"/></el-button>
-                                                <el-button slot="reference" icon="el-icon-refresh">重置</el-button>
+                                                <el-button slot="reference" icon="el-icon-refresh"><@spring.message code="home.pane1.card2.dst.reset"/></el-button>
                                             </el-popover>
                                         </el-col>
                                     </el-row>
