@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -23,6 +24,11 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class ShellService {
+
+    /**
+     * 最大睡眠时间 10秒
+     */
+    public static final int MAX_SLEEP_SECOND = 10;
 
     /**
      * 获取地面状态
@@ -152,14 +158,68 @@ public class ShellService {
     }
 
     /**
+     * 关闭地面服务 将执行保存保证
+     */
+    public void shutdownMaster(){
+        String shell = "screen -S \""+DstConstant.SCREEN_WORK_MASTER_NAME+"\" -p 0 -X stuff \"c_shutdown(true)\\n\"";
+        ShellUtil.execShellBin(shell);
+    }
+
+    /**
+     * 关闭洞穴服务 将执行保存保证
+     */
+    public void shutdownCaves(){
+        String shell = "screen -S \""+DstConstant.SCREEN_WORK_CAVES_NAME+"\" -p 0 -X stuff \"c_shutdown(true)\\n\"";
+        ShellUtil.execShellBin(shell);
+    }
+
+    /**
      * 更新游戏 需要停止地面和洞穴进程
      *
      * @return 执行信息
      */
     public List<String> updateGame() {
+        //优雅关闭
+        this.shutdownMaster();
+        this.shutdownCaves();
+        //检查地面与洞穴是否已经关闭，如果10秒之内还没有关闭就强制关闭
+        if (this.getMasterStatus()) {
+            //运行中 睡眠
+            int sleep = 1;
+            while (sleep <= MAX_SLEEP_SECOND) {
+                this.sleep(1);
+                if (this.getMasterStatus()) {
+                    break;
+                }
+                sleep++;
+            }
+        }
+        if (this.getCavesStatus()) {
+            //运行中 睡眠
+            int sleep = 1;
+            while (sleep <= MAX_SLEEP_SECOND) {
+                this.sleep(1);
+                if (this.getCavesStatus()) {
+                    break;
+                }
+                sleep++;
+            }
+        }
         this.stopMaster();
         this.stopCaves();
         return ShellUtil.runShell(DstConstant.UPDATE_GAME_CMD);
+    }
+
+    /**
+     * 睡眠
+     * @param seconds 秒
+     */
+    public void sleep(int seconds){
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
+            log.error("睡眠异常：",e);
+        }
     }
 
     /**
@@ -222,12 +282,12 @@ public class ShellService {
         masterBroadcast.append("\\\")\\n\"");
         //发送地面广播
         ShellUtil.execShellBin(masterBroadcast.toString());
-        StringBuilder CavesBroadcast = new StringBuilder();
+       /* StringBuilder CavesBroadcast = new StringBuilder();
         CavesBroadcast.append("screen -S \"DST_CAVES\" -p 0 -X stuff \"c_announce(\\\"");
         CavesBroadcast.append(message);
         CavesBroadcast.append("\\\")\\n\"");
         //发送洞穴广播
-        ShellUtil.execShellBin(CavesBroadcast.toString());
+        ShellUtil.execShellBin(CavesBroadcast.toString());*/
     }
 
     /**

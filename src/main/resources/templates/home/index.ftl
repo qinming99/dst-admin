@@ -144,6 +144,7 @@
                                             <el-input type="textarea" :rows="3" maxlength="50" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.content"/>" show-word-limit v-model="broadcastContent"></el-input>
                                         </el-col>
                                         <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" ><@spring.message code="home.pane1.card2.dst.send"/></el-button></el-col>
+                                        <el-col :span="5"> <el-button @click="sendBroadcast()" style="margin-left: 10px" icon="el-icon-s-comment" >发送</el-button></el-col>
                                     </el-row>
                                 </el-form-item>
 
@@ -160,6 +161,7 @@
                                                     <el-button type="primary" size="mini" @click="kickPlayer()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                 </div>
                                                 <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card2.dst.kickOut"/></el-button>
+                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-position">踢出</el-button>
                                             </el-popover>
                                         </el-col>
                                     </el-row>
@@ -193,6 +195,7 @@
                                                     <el-button type="primary" size="mini" @click="regenerate()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                 </div>
                                                 <el-button slot="reference" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card2.dst.reset"/></el-button>
+                                                <el-button slot="reference" icon="el-icon-refresh">重置</el-button>
                                             </el-popover>
                                         </el-col>
                                     </el-row>
@@ -293,7 +296,7 @@
                 get("/home/delRecord").then((data) => {
                     this.loading = false;
                     this.getSystemInfo();
-                    this.successMessage('<@spring.message code="home.pane1.card2.clean.success.message"/>');
+                    this.successMessage("清理成功");
                 })
             },
             //更新
@@ -354,6 +357,7 @@
                 }
             },
             kickPlayer(){
+                this.visible3 = false;
                 if (this.kickUserId) {
                     get("/home/kickPlayer", {userId: this.kickUserId}).then((data) => {
                         if (data) {
@@ -370,6 +374,7 @@
             },
             //重置世界
             regenerate(){
+                this.visible5 = false;
                 get("/home/regenerate").then((data) => {
                     if (data) {
                         this.warningMessage(data.message);
@@ -379,6 +384,7 @@
             },
             //回滚世界
             rollback(){
+                this.visible4 = false;
                 if (this.dayNum) {
                     get("/home/rollback", {dayNum: this.dayNum}).then((data) => {
                         if (data) {

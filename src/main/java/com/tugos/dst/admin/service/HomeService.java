@@ -75,7 +75,7 @@ public class HomeService {
 
 
     /**
-     * 停止服务器进程
+     * 停止服务器进程 优雅关闭
      *
      * @param type 0 停止所有 1 停止地面 2 停止洞穴
      */
@@ -91,16 +91,64 @@ public class HomeService {
         Objects.requireNonNull(typeEnum);
         switch (typeEnum) {
             case STOP_ALL:
-                //停止所有
+                //停止所有,优雅关闭，10秒还未关闭强制关闭
+                shellService.shutdownMaster();
+                shellService.shutdownCaves();
+                if (shellService.getMasterStatus()) {
+                    //运行中 睡眠
+                    int sleep = 1;
+                    while (sleep <= ShellService.MAX_SLEEP_SECOND) {
+                        shellService.sleep(1);
+                        if (shellService.getMasterStatus()) {
+                            break;
+                        }
+                        sleep++;
+                    }
+                }
+                if (shellService.getCavesStatus()) {
+                    //运行中 睡眠
+                    int sleep = 1;
+                    while (sleep <= ShellService.MAX_SLEEP_SECOND) {
+                        shellService.sleep(1);
+                        if (shellService.getCavesStatus()) {
+                            break;
+                        }
+                        sleep++;
+                    }
+                }
                 shellService.stopMaster();
                 shellService.stopCaves();
                 break;
             case STOP_MASTER:
-                //停止地面
+                //停止地面 优雅关闭，10秒还未关闭强制关闭
+                shellService.shutdownMaster();
+                if (shellService.getMasterStatus()) {
+                    //运行中 睡眠
+                    int sleep = 1;
+                    while (sleep <= ShellService.MAX_SLEEP_SECOND) {
+                        shellService.sleep(1);
+                        if (shellService.getMasterStatus()) {
+                            break;
+                        }
+                        sleep++;
+                    }
+                }
                 shellService.stopMaster();
                 break;
             case STOP_CAVES:
-                //停止洞穴
+                //停止洞穴 优雅关闭，10秒还未关闭强制关闭
+                shellService.shutdownCaves();
+                if (shellService.getCavesStatus()) {
+                    //运行中 睡眠
+                    int sleep = 1;
+                    while (sleep <= ShellService.MAX_SLEEP_SECOND) {
+                        shellService.sleep(1);
+                        if (shellService.getCavesStatus()) {
+                            break;
+                        }
+                        sleep++;
+                    }
+                }
                 shellService.stopCaves();
                 break;
             default:

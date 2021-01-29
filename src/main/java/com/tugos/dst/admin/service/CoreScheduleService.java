@@ -75,7 +75,9 @@ public class CoreScheduleService {
         String steamVersion = DstVersionUtils.getSteamVersion();
         String localVersion = DstVersionUtils.getLocalVersion();
         Boolean smartUpdate = DstConfigData.smartUpdate;
-        log.info("智能更新启动：steamVersion={},localVersion={},smartUpdate={}", steamVersion, localVersion, smartUpdate);
+        if (log.isDebugEnabled()){
+            log.debug("智能更新启动：steamVersion={},localVersion={},smartUpdate={}", steamVersion, localVersion, smartUpdate);
+        }
         if (StringUtils.isNoneBlank(steamVersion, localVersion) && smartUpdate) {
             long sv = Long.parseLong(steamVersion);
             long lv = Long.parseLong(localVersion);
@@ -128,7 +130,7 @@ public class CoreScheduleService {
         shellService.sendBroadcast("服务器将马上进行更新，你将与服务器断开连接");
         shellService.sendBroadcast("请稍后再进入房间");
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
