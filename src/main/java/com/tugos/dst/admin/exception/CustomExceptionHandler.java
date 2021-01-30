@@ -38,9 +38,9 @@ public class CustomExceptionHandler implements ErrorController {
     @RequestMapping(value = ERROR_PATH, produces = "text/html")
     public String errorPageHandler(Model model, HttpServletResponse response) {
         int status = response.getStatus();
-        String errorMsg = "好像出错了呢！";
+        String errorMsg = ResultCodeEnum.SYSTEM_ERR.getMessage();
         if (status == ERROR_START_404) {
-            errorMsg = "页面找不到了！好像是去火星了~";
+            errorMsg =  ResultCodeEnum.REQUEST_NOT_FOUND.getMessage();
         }
         model.addAttribute("statusCode", status);
         model.addAttribute("msg", errorMsg);
