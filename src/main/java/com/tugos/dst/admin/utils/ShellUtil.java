@@ -93,7 +93,7 @@ public class ShellUtil {
             input.close();
             errInput.close();
         } catch (Exception e) {
-            log.error("运行shell脚本失败:",e);
+            //log.error("运行shell脚本失败:",e);
         }
         log.debug("执行 {} ", shStr);
         log.debug("执行结果：{}  ", strList);

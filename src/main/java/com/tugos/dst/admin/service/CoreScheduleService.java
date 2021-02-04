@@ -41,6 +41,9 @@ public class CoreScheduleService {
     @Value("${dst.password:123456}")
     private String dstPassword;
 
+    @Value("${dst.nickname:管理员}")
+    private String nickname;
+
 
     private HomeService homeService;
 
@@ -206,6 +209,7 @@ public class CoreScheduleService {
             DstConfigData.SCHEDULE_BACKUP_MAP.put("18:00:00", 0);
             DstConfigData.USER_INFO.setUsername(dstUser);
             DstConfigData.USER_INFO.setPassword(dstPassword);
+            DstConfigData.USER_INFO.setNickname(nickname);
         }
         //释放脚本并授权
         copyAndChmod(DstConstant.INSTALL_DST);

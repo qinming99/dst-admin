@@ -5,12 +5,14 @@ import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.entity.User;
 import com.tugos.dst.admin.utils.DstConfigData;
 import com.tugos.dst.admin.vo.UpdatePwdVO;
+import com.tugos.dst.admin.vo.UpdateUserDetailVO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +33,11 @@ public class UserController {
      */
     @GetMapping("/detail")
     @RequiresAuthentication
-    public String detail() {
+    public String detail(Model model) {
+        UpdateUserDetailVO user = new UpdateUserDetailVO();
+        user.setUsername("root");
+        user.setNickname("尖角");
+        model.addAttribute("user", user);
         return "/system/user/detail";
     }
 
@@ -61,6 +67,22 @@ public class UserController {
         DstConfigData.USER_INFO.setPassword(vo.getNewPwd());
         //退出登录
         SecurityUtils.getSubject().logout();
+        return ResultVO.success("修改成功");
+    }
+
+    @PostMapping("/setNewUserDetail")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO setNewUserDetail(@RequestBody UpdateUserDetailVO vo) {
+        User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
+        if (StringUtils.isAnyBlank(vo.getNickname(),vo.getPicture(),vo.getUsername())){
+            return ResultVO.fail("信息不能为空");
+        }
+
+        DstConfigData.USER_INFO.setNickname(vo.getPicture());
+        DstConfigData.USER_INFO.setUsername(vo.getUsername());
+        DstConfigData.USER_INFO.setPicture(vo.getPicture());
+        //退出登录
         return ResultVO.success("修改成功");
     }
 
