@@ -2,7 +2,8 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>配置页</title>
+    <#import "../system/user/spring.ftl" as spring>
+    <title><@spring.message code="setting.config.title"/></title>
     <#include "../common/header.ftl"/>
 </head>
 <body>
@@ -10,11 +11,11 @@
 <div id="backup_index_app">
     <el-card>
         <div slot="header" class="clearfix">
-            <span>所有存档 总大小：{{formatFileSize(totalSize)}}</span>
-            <el-button @click="getBackupList()" style="margin-left: 20px">刷新</el-button>
-            <el-button style="margin-left: 20px" @click="drawer = true">上传存档</el-button>
+            <span><@spring.message code="setting.backup.all.archives.total.size"/>：{{formatFileSize(totalSize)}}</span>
+            <el-button @click="getBackupList()" style="margin-left: 20px"><@spring.message code="setting.backup.refresh"/></el-button>
+            <el-button style="margin-left: 20px" @click="drawer = true"><@spring.message code="setting.backup.upload.document"/></el-button>
         </div>
-        <el-drawer title="上传存档"
+        <el-drawer title="<@spring.message code="setting.backup.upload.document"/>"
                    :visible.sync="drawer"
                    :with-header="false" size="50%"
                    :before-close="handleClose">
@@ -29,23 +30,23 @@
                         accept=".tar"
                         :on-exceed="handleExceed"
                         :file-list="fileList">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">只能上传tar压缩文件,最大文件100MB,存档文件如何制作请查看向导</div>
+                    <el-button size="small" type="primary"><@spring.message code="setting.backup.upload.click"/></el-button>
+                    <div slot="tip" class="el-upload__tip"><@spring.message code="setting.backup.upload.desc"/></div>
                 </el-upload>
             </el-card>
 
         </el-drawer>
         <el-table :data="tableData"  stripe style="width: 100%">
-            <el-table-column prop="fileName" label="存档名称" ></el-table-column>
-            <el-table-column prop="fileSize" label="文件大小" >
+            <el-table-column prop="fileName" label="<@spring.message code="setting.backup.archive.name"/> "></el-table-column>
+            <el-table-column prop="fileSize" label="<@spring.message code="setting.backup.archive.file.size"/> " >
                 <template slot-scope="scope">{{formatFileSize(scope.row.fileSize)}}</template>
             </el-table-column>
             <el-table-column prop="createTime" label="创建时间" ></el-table-column>
             <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
-                    <el-button type="text" @click="rename(scope.row)" size="small">重命名</el-button>
-                    <el-button type="text" @click="download(scope.row)" size="small">下载</el-button>
-                    <el-button type="text" @click="deleteBackup(scope.row)" style="color:red" size="small">删除</el-button>
+                    <el-button type="text" @click="rename(scope.row)" size="small"><@spring.message code="setting.backup.rename"/></el-button>
+                    <el-button type="text" @click="download(scope.row)" size="small"><@spring.message code="setting.backup.download"/></el-button>
+                    <el-button type="text" @click="deleteBackup(scope.row)" style="color:red" size="small"><@spring.message code="setting.player.admin.delete"/></el-button>
                 </template>
             </el-table-column>
         </el-table>

@@ -2,7 +2,8 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>饥荒管理平台游戏日志查看</title>
+    <#import "user/spring.ftl" as spring>
+    <title><@spring.message code="setting.player.title"/></title>
     <#include "../common/header.ftl"/>
 </head>
 <style>
@@ -14,78 +15,78 @@
 
 <div id="sys_index">
     <el-tabs v-model="activeName">
-        <el-tab-pane label="定时任务设置" name="first">
+        <el-tab-pane label="<@spring.message code="setting.system.time.task"/>" name="first">
             <el-card class="card">
                 <div slot="header" class="clearfix">
-                    <span>定时生成存档备份任务</span>
+                    <span><@spring.message code="setting.system.time.task.desc"/></span>
                 </div>
                 <ul>
-                    <li v-for="item in scheduleVO.backupTimeList">执行时间：{{item.time}}, 执行状态：
+                    <li v-for="item in scheduleVO.backupTimeList"><@spring.message code="setting.system.task.execution.time"/>：{{item.time}}, <@spring.message code="setting.system.task.execution.status"/>：
                         <strong style="color: green" v-if="item.count > 0">
-                            已经执行</strong><strong style="color: orange" v-if="item.count === 0">
-                            未执行</strong>
+                            <@spring.message code="setting.system.task.execution.status.done"/></strong><strong style="color: orange" v-if="item.count === 0">
+                            <@spring.message code="setting.system.task.execution.status.not.performed"/></strong>
                     </li>
                 </ul>
                 <el-row style="margin: 5px">
                     <el-col :span="5">
-                        <el-button type="primary" @click="addBackupTime()">添加执行时间</el-button>
+                        <el-button type="primary" @click="addBackupTime()"><@spring.message code="setting.player.admin.add"/> <@spring.message code="setting.system.task.execution.time"/></el-button>
                     </el-col>
                 </el-row>
 
                 <tempate v-for="(item,key) in backupTimeList">
                     <el-row style="margin: 5px">
                         <el-col :span="5">
-                            <el-time-picker placeholder="选择执行时间" v-model="item.time" clearable></el-time-picker>
+                            <el-time-picker placeholder="<@spring.message code="home.pane1.card1.dst.please.choose"/> <@spring.message code="setting.system.task.execution.time"/>" v-model="item.time" clearable></el-time-picker>
                         </el-col>
-                        <el-button type="warning" style="margin-left: 5px" @click="delBackupTime(key)">删除</el-button>
+                        <el-button type="warning" style="margin-left: 5px" @click="delBackupTime(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
                     </el-row>
                 </tempate>
             </el-card>
 
             <el-card class="card">
                 <div slot="header" class="clearfix">
-                    <span>定时更新游戏任务</span>
-                    <span style="color: red;margin-left: 40px">更新时不启动：</span>
-                        <el-checkbox v-model="notStartMaster">地面</el-checkbox>
-                        <el-checkbox v-model="notStartCaves">洞穴</el-checkbox>
+                    <span><@spring.message code="setting.system.time.task.update.game"/></span>
+                    <span style="color: red;margin-left: 40px"><@spring.message code="setting.system.time.task.update.game.not.start"/>：</span>
+                        <el-checkbox v-model="notStartMaster"><@spring.message code="setting.system.ground"/></el-checkbox>
+                        <el-checkbox v-model="notStartCaves"><@spring.message code="setting.system.cave"/></el-checkbox>
 
-                    <span style="color: red;margin-left: 40px">智能更新：</span>
-                    <el-switch v-model="smartUpdate" active-text="开" inactive-text="关"></el-switch>
+                    <span style="color: red;margin-left: 40px"><@spring.message code="setting.system.smart.update"/>：</span>
+                    <el-switch v-model="smartUpdate" active-text="<@spring.message code="setting.system.open"/>" inactive-text="<@spring.message code="setting.system.close"/>"></el-switch>
                 </div>
                 <ul>
-                    <li v-for="item in scheduleVO.updateTimeList">执行时间：{{item.time}}, 执行状态：
+                    <li v-for="item in scheduleVO.updateTimeList"><@spring.message code="setting.system.task.execution.time"/>：{{item.time}}, <@spring.message code="setting.system.task.execution.status"/>：
                         <strong style="color: green" v-if="item.count > 0">
-                            已经执行</strong><strong style="color: orange" v-if="item.count === 0">
-                            未执行</strong>
+                            <@spring.message code="setting.system.task.execution.status.done"/></strong><strong style="color: orange" v-if="item.count === 0">
+                            <@spring.message code="setting.system.task.execution.status.not.performed"/></strong>
                     </li>
                 </ul>
                 <el-row style="margin: 5px">
                     <el-col :span="5">
-                        <el-button type="primary" @click="addUpdateTime()">添加执行时间</el-button>
+                        <el-button type="primary" @click="addUpdateTime()"><@spring.message code="setting.player.admin.add"/> <@spring.message code="setting.system.task.execution.time"/></el-button>
                     </el-col>
                 </el-row>
 
                 <tempate v-for="(item,key) in updateTimeList">
                     <el-row style="margin: 5px">
                         <el-col :span="5">
-                            <el-time-picker placeholder="选择执行时间" v-model="item.time" clearable></el-time-picker>
+                            <el-time-picker placeholder="<@spring.message code="home.pane1.card1.dst.please.choose"/> <@spring.message code="setting.system.task.execution.time"/>" v-model="item.time" clearable></el-time-picker>
                         </el-col>
-                        <el-button type="warning" style="margin-left: 5px" @click="delUpdateTime(key)">删除</el-button>
+                        <el-button type="warning" style="margin-left: 5px" @click="delUpdateTime(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
                     </el-row>
                 </tempate>
             </el-card>
 
             <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
-                <el-button type="primary" @click="saveSchedule()">保存</el-button>
+                <el-button type="primary" @click="saveSchedule()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
             </el-card>
         </el-tab-pane>
-        <el-tab-pane label="地面程序运行日志" name="second">
+        <el-tab-pane label="<@spring.message code="setting.system.ground.run.log"/>" name="second">
             <el-card class="card">
                 <el-row>
                     <el-col :span="5">
-                        <el-input placeholder="请输入需要拉取的日志行数" v-model="num1" type="number" clearable></el-input>
+                        <el-input placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num1" type="number" clearable></el-input>
                     </el-col>
-                    <el-button type="primary" @click="getDstLog(0,num1)">拉取</el-button>
+                    <el-button type="primary" @click="getDstLog(0,num1)"><@spring.message code="setting.system.pull"/></el-button>
                 </el-row>
             </el-card>
             <el-card class="card">
@@ -94,13 +95,13 @@
                 </ul>
             </el-card>
         </el-tab-pane>
-        <el-tab-pane label="洞穴程序运行日志" name="third">
+        <el-tab-pane label="<@spring.message code="setting.system.cave.run.log"/>" name="third">
             <el-card class="card">
                 <el-row>
                     <el-col :span="5">
-                        <el-input placeholder="请输入需要拉取的日志行数" v-model="num2" type="number" clearable></el-input>
+                        <el-input placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num2" type="number" clearable></el-input>
                     </el-col>
-                    <el-button type="primary" @click="getDstLog(1,num2)">拉取</el-button>
+                    <el-button type="primary" @click="getDstLog(1,num2)"><@spring.message code="setting.system.pull"/></el-button>
                 </el-row>
             </el-card>
             <el-card class="card">
@@ -109,13 +110,13 @@
                 </ul>
             </el-card>
         </el-tab-pane>
-        <el-tab-pane label="玩家聊天日志" name="fourth">
+        <el-tab-pane label="<@spring.message code="setting.system.player.chat.log"/>" name="fourth">
             <el-card class="card">
                 <el-row>
                     <el-col :span="5">
-                        <el-input placeholder="请输入需要拉取的日志行数" v-model="num3" type="number" clearable></el-input>
+                        <el-input placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num3" type="number" clearable></el-input>
                     </el-col>
-                    <el-button type="primary" @click="getDstLog(2,num3)">拉取</el-button>
+                    <el-button type="primary" @click="getDstLog(2,num3)"><@spring.message code="setting.system.pull"/></el-button>
                 </el-row>
             </el-card>
             <el-card class="card">
@@ -124,16 +125,16 @@
                 </ul>
             </el-card>
         </el-tab-pane>
-        <el-tab-pane label="实验室" name="fifth">
+        <el-tab-pane label="<@spring.message code="setting.system.laboratory"/>" name="fifth">
             <el-card class="card">
                 <div slot="header" class="clearfix">
-                    <span>智能更新</span>
+                    <span><@spring.message code="setting.system.smart.update"/></span>
                 </div>
                 <ul>
-                    <li>Klei饥荒最新版本号：
+                    <li>Klei <@spring.message code="setting.system.dst.latest.version"/>：
                         <strong style="color: green">{{versionMap.steamVersion}}</strong>
                     </li>
-                    <li>当前服务器的版本号：
+                    <li><@spring.message code="setting.system.dst.now.version"/>：
                         <strong style="color: green">{{versionMap.localVersion}}</strong>
                     </li>
                 </ul>

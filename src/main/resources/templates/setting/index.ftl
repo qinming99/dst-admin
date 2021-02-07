@@ -2,7 +2,8 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>配置页</title>
+    <#import "../system/user/spring.ftl" as spring>
+    <title><@spring.message code="setting.config.title"/></title>
     <#include "../common/header.ftl"/>
 </head>
 <body>
@@ -12,11 +13,11 @@
         <el-card>
             <div style="height: 500px">
                 <el-steps direction="vertical" :active="active">
-                    <el-step title="房间基本信息"></el-step>
-                    <el-step title="地面世界设置"></el-step>
-                    <el-step title="洞穴世界设置"></el-step>
-                    <el-step title="mod设置"></el-step>
-                    <el-step title="完成"></el-step>
+                    <el-step title="<@spring.message code="setting.room.basic.title"/>"></el-step>
+                    <el-step title="<@spring.message code="setting.ground.world.title"/>"></el-step>
+                    <el-step title="<@spring.message code="setting.cave.world.title"/>"></el-step>
+                    <el-step title="mod <@spring.message code="setting.word"/>"></el-step>
+                    <el-step title="<@spring.message code="setting.success"/>"></el-step>
                 </el-steps>
             </div>
         </el-card>
@@ -26,33 +27,33 @@
             <el-col style="margin-left: 10px">
                 <el-card v-if="active ===0">
                     <div slot="header" class="clearfix">
-                        <span>房间基本信息</span>
+                        <span><@spring.message code="setting.room.basic.title"/></span>
                     </div>
                     <el-form :model="model" ref="form1" label-width="100px" label-position="left">
                         <el-row>
                             <el-col :span="15">
-                                <el-form-item prop="region" label="服务器风格">
+                                <el-form-item prop="region" label="<@spring.message code="setting.room.server.style"/>">
                                     <el-radio-group v-model="model.clusterIntention">
-                                        <el-radio-button label="social">社交</el-radio-button>
+                                        <el-radio-button label="social"><@spring.message code="setting.room.server.style.social"/></el-radio-button>
                                     </el-radio-group>
                                     <el-radio-group v-model="model.clusterIntention">
-                                        <el-radio-button label="cooperative">合作</el-radio-button>
+                                        <el-radio-button label="cooperative"><@spring.message code="setting.room.server.style.cooperative"/></el-radio-button>
                                     </el-radio-group>
                                     <el-radio-group v-model="model.clusterIntention">
-                                        <el-radio-button label="competitive">竞争</el-radio-button>
+                                        <el-radio-button label="competitive"><@spring.message code="setting.room.server.style.competitive"/></el-radio-button>
                                     </el-radio-group>
                                     <el-radio-group v-model="model.clusterIntention">
-                                        <el-radio-button label="madness">疯狂</el-radio-button>
+                                        <el-radio-button label="madness"><@spring.message code="setting.room.server.style.madness"/></el-radio-button>
                                     </el-radio-group>
                                 </el-form-item>
                             </el-col>
                         </el-row>
 
                         <el-row>
-                            <el-col :span="15">
-                                <el-form-item prop="clusterName" label="房间名称"
-                                              :rules="[{ required: true, message: '请输入房间名称', trigger: 'blur' }]">
-                                    <el-input v-model="model.clusterName" placeholder="请输入房间名称" clearable
+                            <el-col :span="18">
+                                <el-form-item prop="clusterName" label-width="150px" label="<@spring.message code="setting.room.name"/>"
+                                              :rules="[{ required: true, message: '<@spring.message code="tips.setting.room"/>', trigger: 'blur' }]">
+                                    <el-input v-model="model.clusterName" placeholder="<@spring.message code="tips.setting.room"/>" clearable
                                               maxlength="100"
                                               show-word-limit></el-input>
                                 </el-form-item>
@@ -61,7 +62,7 @@
 
                         <el-row>
                             <el-col :span="15">
-                                <el-form-item prop="email" label="房间描述">
+                                <el-form-item prop="email" label-width="150px" label="<@spring.message code="setting.room.description"/>">
                                     <el-input v-model="model.clusterDescription" clearable maxlength="200" show-word-limit
                                               type="textarea" :rows="4"></el-input>
                                 </el-form-item>
@@ -70,11 +71,11 @@
 
                         <el-row>
                             <el-col :span="15">
-                                <el-form-item prop="region" label="游戏模式">
+                                <el-form-item prop="region" label="<@spring.message code="setting.game.mode"/>">
                                     <el-radio-group v-model="model.gameMode">
-                                        <el-radio-button label="survival">生存</el-radio-button>
-                                        <el-radio-button label="wilderness">荒野</el-radio-button>
-                                        <el-radio-button label="endless">无尽</el-radio-button>
+                                        <el-radio-button label="survival"><@spring.message code="setting.game.mode.survival"/></el-radio-button>
+                                        <el-radio-button label="wilderness"><@spring.message code="setting.game.mode.wilderness"/></el-radio-button>
+                                        <el-radio-button label="endless"><@spring.message code="setting.game.mode.endless"/></el-radio-button>
                                     </el-radio-group>
                                 </el-form-item>
                             </el-col>
@@ -83,14 +84,14 @@
                         <el-row>
                             <el-col :span="15">
                                 <el-form-item prop="ss" label="PVP">
-                                    <el-switch v-model="model.pvp" active-text="启动" inactive-text="关闭"></el-switch>
+                                    <el-switch v-model="model.pvp" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>"></el-switch>
                                 </el-form-item>
                             </el-col>
                         </el-row>
 
                         <el-row>
                             <el-col :span="15">
-                                <el-form-item prop="slider" label="最大玩家数量">
+                                <el-form-item prop="slider" label="<@spring.message code="setting.game.max.players"/>">
                                     <el-slider v-model="model.maxPlayers" :min="1" :max="max" show-input></el-slider>
                                 </el-form-item>
                             </el-col>
@@ -98,7 +99,7 @@
 
                         <el-row>
                             <el-col :span="15">
-                                <el-form-item prop="email" label="房间密码">
+                                <el-form-item prop="email" label-width="150px" label="<@spring.message code="setting.game。password"/>">
                                     <el-input v-model="model.clusterPassword" clearable maxlength="20"
                                               show-word-limit></el-input>
                                 </el-form-item>
@@ -107,9 +108,9 @@
 
                         <el-row>
                             <el-col :span="15">
-                                <el-form-item prop="token" label="令牌Token"
-                                              :rules="[{ required: true, message: '请输入令牌Token', trigger: 'blur' }]">
-                                    <el-input v-model="model.token" placeholder="请输入饥荒账户的令牌" :rows="3" clearable
+                                <el-form-item prop="token" label="<@spring.message code="setting.token.name"/>"
+                                              :rules="[{ required: true, message: '<@spring.message code="tips.setting.input"/> <@spring.message code="setting.token.name"/>', trigger: 'blur' }]">
+                                    <el-input v-model="model.token" placeholder="<@spring.message code="tips.setting.input"/> <@spring.message code="setting.account.token"/>" :rows="3" clearable
                                               maxlength="100" show-word-limit
                                               type="textarea"></el-input>
                                 </el-form-item>
@@ -119,86 +120,86 @@
                     </el-form>
 
                     <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
-                        示例
+                        <@spring.message code="setting.example"/>
                     </el-button>
                 </el-card>
 
                 <el-card v-if="active ===1" style="height: 500px;">
                     <div slot="header" class="clearfix">
-                        <span>地面世界设置</span>
+                        <span><@spring.message code="setting.ground.world.title"/></span>
                     </div>
                     <el-form :model="model" ref="form2" label-width="100px" label-position="left">
-                        <el-form-item label="地面设置">
-                            <el-input type="textarea" placeholder="请输入地面设置" :rows="15"
+                        <el-form-item label="<@spring.message code="setting.ground.title"/>">
+                            <el-input type="textarea" placeholder="<@spring.message code="tips.setting.input"/> <@spring.message code="setting.ground.title"/>" :rows="15"
                                       v-model="model.masterMapData"></el-input>
                         </el-form-item>
                     </el-form>
                     <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
-                        示例
+                        <@spring.message code="setting.example"/>
                     </el-button>
                 </el-card>
 
                 <el-card v-if="active ===2" style="height: 500px;">
                     <div slot="header" class="clearfix">
-                        <span>洞穴世界设置</span>
+                        <span><@spring.message code="setting.cave.world.title"/></span>
                     </div>
                     <el-form :model="model" ref="form3" label-width="100px" label-position="left">
-                        <el-form-item label="洞穴设置">
+                        <el-form-item label="<@spring.message code="setting.cave.title"/>">
                             <el-input type="textarea" :rows="15" v-model="model.cavesMapData"></el-input>
                         </el-form-item>
                     </el-form>
                     <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
-                        示例
+                        <@spring.message code="setting.example"/>
                     </el-button>
                 </el-card>
 
                 <el-card v-if="active ===3" style="height: 500px;">
                     <div slot="header" class="clearfix">
-                        <span>mod设置</span>
+                        <span>mod <@spring.message code="setting.word"/></span>
                     </div>
                     <el-form :model="model" ref="form4" label-width="100px" label-position="left">
-                        <el-form-item prop="ss" label="mod设置">
+                        <el-form-item prop="ss" label="mod <@spring.message code="setting.word"/>">
                             <el-input type="textarea" :rows="15" v-model="model.modData"></el-input>
                         </el-form-item>
                     </el-form>
                     <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
-                        示例
+                        <@spring.message code="setting.example"/>
                     </el-button>
                 </el-card>
 
-                <el-drawer title="示例" :visible.sync="drawer" :with-header="false" size="50%">
+                <el-drawer title="<@spring.message code="setting.example"/>" :visible.sync="drawer" :with-header="false" size="50%">
                     <el-card>
 
 
                         <el-row>
                             <el-col>
-                                <span>我的Token：{{myToken}}</span>
+                                <span><@spring.message code="setting.my"/> Token：{{myToken}}</span>
                                 <br/>
-                                <el-button style="margin: 10px" @click="copy(0)">复制</el-button>
+                                <el-button style="margin: 10px" @click="copy(0)"><@spring.message code="setting.copy"/></el-button>
                             </el-col>
                         </el-row>
 
                         <el-row>
                             <el-col>
-                                <span>我的地面设置：return {["desc"]="标准《饥荒》体验......</span>
+                                <span><@spring.message code="setting.my"/> <@spring.message code="setting.ground.title"/>：return {["desc"]="<@spring.message code="setting.standard.experience"/>......</span>
                                 <br/>
-                                <el-button style="margin: 10px" @click="copy(1)">复制</el-button>
+                                <el-button style="margin: 10px" @click="copy(1)"><@spring.message code="setting.copy"/></el-button>
                             </el-col>
                         </el-row>
 
                         <el-row>
                             <el-col>
-                                <span>我的洞穴设置：return {["desc"]="探查洞穴…… 一起......</span>
+                                <span><@spring.message code="setting.my"/> <@spring.message code="setting.cave.title"/>：return {["desc"]="<@spring.message code="setting.cave.desc"/>......</span>
                                 <br/>
-                                <el-button style="margin: 10px" @click="copy(2)">复制</el-button>
+                                <el-button style="margin: 10px" @click="copy(2)"><@spring.message code="setting.copy"/></el-button>
                             </el-col>
                         </el-row>
 
                         <el-row>
                             <el-col>
-                                <span>我的MOD设置：return {["workshop-1651623054"]......</span>
+                                <span><@spring.message code="setting.my"/> MOD <@spring.message code="setting.word"/>：return {["workshop-1651623054"]......</span>
                                 <br/>
-                                <el-button style="margin: 10px" @click="copy(3)">复制</el-button>
+                                <el-button style="margin: 10px" @click="copy(3)"><@spring.message code="setting.copy"/></el-button>
                             </el-col>
                         </el-row>
                     </el-card>
@@ -206,13 +207,13 @@
                 </el-drawer>
 
                 <el-card style="margin-top: 10px; position: sticky; bottom: 0;  z-index: 10;">
-                    <el-button v-show="active != 0" @click="previous()">上一步</el-button>
+                    <el-button v-show="active != 0" @click="previous()"><@spring.message code="setting.previous"/></el-button>
                     <el-button icon="el-icon-refresh-left" v-show="active === 0" @click="clearSetting()" type="warning">
-                        重置
+                        <@spring.message code="setting.reset"/>
                     </el-button>
-                    <el-button v-show="active != 3" type="primary" @click="next(active)">下一步</el-button>
-                    <el-button v-show="active == 3" type="primary" @click="save(1)">仅保存设置</el-button>
-                    <el-button v-show="active == 3" type="primary" @click="save(2)">生成新游戏</el-button>
+                    <el-button v-show="active != 3" type="primary" @click="next(active)"><@spring.message code="setting.next.step"/></el-button>
+                    <el-button v-show="active == 3" type="primary" @click="save(1)"><@spring.message code="setting.save.settings.only"/></el-button>
+                    <el-button v-show="active == 3" type="primary" @click="save(2)"><@spring.message code="setting.generate.a.new.game"/></el-button>
                 </el-card>
             </el-col>
         </el-row>

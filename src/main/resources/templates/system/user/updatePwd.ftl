@@ -2,7 +2,8 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>修改密码</title>
+    <#import "spring.ftl" as spring>
+    <title><@spring.message code="user.detail.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
@@ -22,31 +23,31 @@
 <body>
 
 <div id="update_pwd">
-    <el-form style="margin-top: 10px;" label-width="80px" :model="model">
+    <el-form style="margin-top: 10px;" label-width="150px" :model="model">
         <el-row>
             <el-col :span="18">
-                <el-form-item label="旧密码">
-                    <el-input v-model="model.oldPwd" show-password placeholder="请输入密码"></el-input>
+                <el-form-item label="<@spring.message code="user.update.password.old"/>">
+                    <el-input v-model="model.oldPwd" show-password placeholder="<@spring.message code="tips.user.update.password"/>"></el-input>
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="18">
-                <el-form-item label="新密码">
-                    <el-input v-model="model.newPwd" show-password placeholder="请输入密码"></el-input>
+                <el-form-item label="<@spring.message code="user.update.password.new"/>">
+                    <el-input v-model="model.newPwd" show-password placeholder="<@spring.message code="tips.user.update.password"/>"></el-input>
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="18">
-                <el-form-item label="确认密码">
-                    <el-input v-model="model.confirmPwd" show-password placeholder="请输入密码"></el-input>
+                <el-form-item label="<@spring.message code="user.update.password.confire"/>">
+                    <el-input v-model="model.confirmPwd" show-password placeholder="<@spring.message code="tips.user.update.password"/>"></el-input>
                 </el-form-item>
             </el-col>
         </el-row>
 
-        <el-button style="margin-left: 50%" class="close-popup">关闭</el-button>
-        <el-button @click="updatePwd()">保存</el-button>
+        <el-button style="margin-left: 50%" class="close-popup"><@spring.message code="home.pane1.card1.dst.active.off"/></el-button>
+        <el-button @click="updatePwd()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
 
     </el-form>
 

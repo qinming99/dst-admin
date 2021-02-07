@@ -35,8 +35,8 @@ public class UserController {
     @RequiresAuthentication
     public String detail(Model model) {
         UpdateUserDetailVO user = new UpdateUserDetailVO();
-        user.setUsername("root");
-        user.setNickname("尖角");
+        //user.setUsername("root");
+        //user.setNickname("尖角");
         model.addAttribute("user", user);
         return "/system/user/detail";
     }

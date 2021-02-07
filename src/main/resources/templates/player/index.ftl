@@ -2,7 +2,8 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>饥荒管理平台游戏日志查看</title>
+    <#import "../system/user/spring.ftl" as spring>
+    <title><@spring.message code="setting.player.title"/></title>
     <#include "../common/header.ftl"/>
 </head>
 <style>
@@ -14,23 +15,23 @@
 
 <div id="player_index">
     <el-tabs v-model="activeName">
-        <el-tab-pane label="管理员设置" name="first">
+        <el-tab-pane label="<@spring.message code="setting.player.admin"/>" name="first">
             <el-card class="card">
                 <div slot="header" class="clearfix">
-                    <span>游戏管理员（可以在游戏中管理玩家和重置世界）</span>
+                    <span><@spring.message code="setting.player.admin.desc"/></span>
                 </div>
                 <el-row style="margin: 5px">
                     <el-col :span="5">
-                        <el-button type="primary" @click="addAdmin()">添加</el-button>
+                        <el-button type="primary" @click="addAdmin()"><@spring.message code="setting.player.admin.add"/></el-button>
                     </el-col>
                 </el-row>
 
                 <tempate v-for="(item,key) in adminList">
                     <el-row style="margin: 5px">
                         <el-col :span="5">
-                            <el-input placeholder="输入玩家ID" v-model="adminList[key]" clearable></el-input>
+                            <el-input placeholder="<@spring.message code="setting.player.admin.input.id"/> ID" v-model="adminList[key]" clearable></el-input>
                         </el-col>
-                        <el-button type="warning" style="margin-left: 5px" @click="delAdmin(key)">删除</el-button>
+                        <el-button type="warning" style="margin-left: 5px" @click="delAdmin(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
                     </el-row>
                 </tempate>
 
@@ -38,28 +39,28 @@
 
 
             <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
-                <el-button type="primary" @click="saveAdminList()">保存</el-button>
+                <el-button type="primary" @click="saveAdminList()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
             </el-card>
 
         </el-tab-pane>
-        <el-tab-pane label="黑名单设置" name="third">
+        <el-tab-pane label="<@spring.message code="setting.player.admin.blacklist"/>" name="third">
 
             <el-card class="card">
                 <div slot="header" class="clearfix">
-                    <span>黑名单（该列表的玩家禁止进入房间）</span>
+                    <span><@spring.message code="setting.player.admin.blacklist.desc"/></span>
                 </div>
                 <el-row style="margin: 5px">
                     <el-col :span="5">
-                        <el-button type="primary" @click="addBlackList()">添加</el-button>
+                        <el-button type="primary" @click="addBlackList()"><@spring.message code="setting.player.admin.add"/></el-button>
                     </el-col>
                 </el-row>
 
                 <tempate v-for="(item,key) in blackList">
                     <el-row style="margin: 5px">
                         <el-col :span="5">
-                            <el-input placeholder="输入玩家ID" v-model="blackList[key]" clearable></el-input>
+                            <el-input placeholder="<@spring.message code="setting.player.admin.input.id"/> ID" v-model="blackList[key]" clearable></el-input>
                         </el-col>
-                        <el-button type="warning" style="margin-left: 5px" @click="delBlackList(key)">删除</el-button>
+                        <el-button type="warning" style="margin-left: 5px" @click="delBlackList(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
                     </el-row>
                 </tempate>
 
@@ -67,7 +68,7 @@
 
 
             <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
-                <el-button type="primary" @click="saveBlackList()">保存</el-button>
+                <el-button type="primary" @click="saveBlackList()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
             </el-card>
         </el-tab-pane>
 

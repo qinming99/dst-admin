@@ -24,21 +24,21 @@
     <el-form style="margin-top: 10px;" label-width="80px" :model="model">
         <el-row>
             <el-col :span="15">
-                <el-form-item label="用户名" >
+                <el-form-item label="<@spring.message code="user.name"/>" >
                     <el-input v-model="model.username" required="true">${user.username!}</el-input>
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="15">
-                <el-form-item label="昵称">
+                <el-form-item label="<@spring.message code="user.nickname"/>">
                     <el-input v-model="model.nickname" >${user.nickname!}</el-input>
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row>
             <el-col :span="15">
-                <el-form-item label="头像">
+                <el-form-item label="<@spring.message code="user.picture"/>">
                     <el-input v-model="model.picture">
 <#--                        <img class="layui-side-user-avatar open-popup" data-url='system/user/detail' data-size="680,464"-->
 <#--                                                           src="/system/user/picture?p=${user.picture!}" alt="头像">-->
@@ -47,10 +47,10 @@
             </el-col>
         </el-row>
 
-        <el-button style="margin-left: 12%" @click="closeWindows()">关闭</el-button>
+        <el-button style="margin-left: 12%" @click="closeWindows()"><@spring.message code="home.pane1.card1.dst.active.off"/></el-button>
         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
         &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-        <el-button  style="margin-bottom: 22%" @click="updateDetail()">保存</el-button>
+        <el-button  style="margin-bottom: 22%" @click="updateDetail()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
 
     </el-form>
 
