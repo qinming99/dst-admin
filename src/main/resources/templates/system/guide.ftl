@@ -123,6 +123,32 @@
                 </ul>
             </el-collapse-item>
 
+            <el-collapse-item title="如何判断饥荒服务器是否已经启动成功了？" name="8">
+                <div class="context">查看系统菜单日志模块</div>
+                出现了这段日志标示已经启动好了：
+                <div>
+                    [00:00:23]: Telling Client our new session identifier: 7F05AE7B95B7DE17
+                    <br/>
+                    [00:00:23]: [Steam] SteamGameServer_Init(8766, 10998, 27016)
+                    <br/>
+                    [00:00:23]: [Steam] SteamGameServer_Init success
+                    <br/>
+                    [00:00:23]: Sim paused
+                    <br/>
+                    [00:00:23]: Best lobby region is aws/EU (ping 194)
+                    <br/>
+                    [00:00:23]: Registering master server in EU lobby
+                    <br/>
+                    [00:00:25]: Gameserver logged on to Steam, assigned identity steamid:90142648372606983
+                    <br/>
+                    [00:00:33]: Registering master server in EU lobby
+                </div>
+            </el-collapse-item>
+
+            <el-collapse-item title="如何升级服务器或MOD？" name="9">
+                <div class="context">在控制台直接点击更新游戏，然后再启动就可以了</div>
+            </el-collapse-item>
+
         </el-collapse>
     </el-card>
 
