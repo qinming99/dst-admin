@@ -29,9 +29,9 @@
                     <div slot="header" class="clearfix">
                         <span><@spring.message code="setting.room.basic.title"/></span>
                     </div>
-                    <el-form :model="model" ref="form1" label-width="100px" label-position="left">
+                    <el-form :model="model" ref="form1" label-width="<#if lang == 'zh'>100px<#else >150px</#if>" label-position="left">
                         <el-row>
-                            <el-col :span="15">
+                            <el-col :span="<#if lang == 'zh'>15<#else >18</#if>">
                                 <el-form-item prop="region" label="<@spring.message code="setting.room.server.style"/>">
                                     <el-radio-group v-model="model.clusterIntention">
                                         <el-radio-button label="social"><@spring.message code="setting.room.server.style.social"/></el-radio-button>
@@ -50,8 +50,8 @@
                         </el-row>
 
                         <el-row>
-                            <el-col :span="18">
-                                <el-form-item prop="clusterName" label-width="150px" label="<@spring.message code="setting.room.name"/>"
+                            <el-col :span="15">
+                                <el-form-item prop="clusterName" label="<@spring.message code="setting.room.name"/>"
                                               :rules="[{ required: true, message: '<@spring.message code="tips.setting.room"/>', trigger: 'blur' }]">
                                     <el-input v-model="model.clusterName" placeholder="<@spring.message code="tips.setting.room"/>" clearable
                                               maxlength="100"
@@ -62,7 +62,7 @@
 
                         <el-row>
                             <el-col :span="15">
-                                <el-form-item prop="email" label-width="150px" label="<@spring.message code="setting.room.description"/>">
+                                <el-form-item prop="email" label="<@spring.message code="setting.room.description"/>">
                                     <el-input v-model="model.clusterDescription" clearable maxlength="200" show-word-limit
                                               type="textarea" :rows="4"></el-input>
                                 </el-form-item>
@@ -99,7 +99,7 @@
 
                         <el-row>
                             <el-col :span="15">
-                                <el-form-item prop="email" label-width="150px" label="<@spring.message code="setting.game。password"/>">
+                                <el-form-item prop="email"  label="<@spring.message code="setting.game.password"/>">
                                     <el-input v-model="model.clusterPassword" clearable maxlength="20"
                                               show-word-limit></el-input>
                                 </el-form-item>
@@ -128,7 +128,7 @@
                     <div slot="header" class="clearfix">
                         <span><@spring.message code="setting.ground.world.title"/></span>
                     </div>
-                    <el-form :model="model" ref="form2" label-width="100px" label-position="left">
+                    <el-form :model="model" ref="form2" label-width="130px" label-position="left">
                         <el-form-item label="<@spring.message code="setting.ground.title"/>">
                             <el-input type="textarea" placeholder="<@spring.message code="tips.setting.input"/> <@spring.message code="setting.ground.title"/>" :rows="15"
                                       v-model="model.masterMapData"></el-input>
@@ -143,7 +143,7 @@
                     <div slot="header" class="clearfix">
                         <span><@spring.message code="setting.cave.world.title"/></span>
                     </div>
-                    <el-form :model="model" ref="form3" label-width="100px" label-position="left">
+                    <el-form :model="model" ref="form3" label-width="130px" label-position="left">
                         <el-form-item label="<@spring.message code="setting.cave.title"/>">
                             <el-input type="textarea" :rows="15" v-model="model.cavesMapData"></el-input>
                         </el-form-item>
@@ -157,7 +157,7 @@
                     <div slot="header" class="clearfix">
                         <span>mod <@spring.message code="setting.word"/></span>
                     </div>
-                    <el-form :model="model" ref="form4" label-width="100px" label-position="left">
+                    <el-form :model="model" ref="form4" label-width="130px" label-position="left">
                         <el-form-item prop="ss" label="mod <@spring.message code="setting.word"/>">
                             <el-input type="textarea" :rows="15" v-model="model.modData"></el-input>
                         </el-form-item>

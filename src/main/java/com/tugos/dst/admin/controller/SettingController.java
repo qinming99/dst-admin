@@ -8,8 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 /**
  * @author qinming
@@ -25,8 +29,14 @@ public class SettingController {
 
     @GetMapping("/index")
     @RequiresAuthentication
-    public String index() {
+    public String index(HttpServletRequest request) {
         log.info("进入游戏设置页");
+        Locale locale = LocaleContextHolder.getLocale();
+        if (Locale.CHINA.getLanguage().equals(locale.getLanguage())) {
+            request.setAttribute("lang", "zh");
+        } else {
+            request.setAttribute("lang", "en");
+        }
         return "/setting/index";
     }
 
