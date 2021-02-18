@@ -16,7 +16,7 @@
                     <el-step title="<@spring.message code="setting.room.basic.title"/>"></el-step>
                     <el-step title="<@spring.message code="setting.ground.world.title"/>"></el-step>
                     <el-step title="<@spring.message code="setting.cave.world.title"/>"></el-step>
-                    <el-step title="mod <@spring.message code="setting.word"/>"></el-step>
+                    <el-step title="MOD <@spring.message code="setting.word"/>"></el-step>
                     <el-step title="<@spring.message code="setting.success"/>"></el-step>
                 </el-steps>
             </div>
@@ -155,10 +155,10 @@
 
                 <el-card v-if="active ===3" style="height: 500px;">
                     <div slot="header" class="clearfix">
-                        <span>mod <@spring.message code="setting.word"/></span>
+                        <span>MOD <@spring.message code="setting.word"/></span>
                     </div>
                     <el-form :model="model" ref="form4" label-width="130px" label-position="left">
-                        <el-form-item prop="ss" label="mod <@spring.message code="setting.word"/>">
+                        <el-form-item prop="ss" label="MOD <@spring.message code="setting.word"/>">
                             <el-input type="textarea" :rows="15" v-model="model.modData"></el-input>
                         </el-form-item>
                     </el-form>
