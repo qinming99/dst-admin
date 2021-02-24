@@ -69,14 +69,14 @@ java -jar dst-admin.jar
 ./dstStart.sh
 ```
 
-## preview 
+## Preview 
 
 ![img](https://github.com/qinming99/dst-admin/blob/master/images/image1.png)
 ![img](https://github.com/qinming99/dst-admin/blob/master/images/image2.png)
 ![img](https://github.com/qinming99/dst-admin/blob/master/images/yanshi.gif)
 
 
-## thanks~
+## Thanks~
 
 - <a href="https://www.jetbrains.com/?from=dst-admin"><img src="https://github.com/qinming99/dst-admin/blob/master/images/jet-logo.jpg" width="100px" alt="jetbrains">**Thanks for JetBrains affording free License**</a>
 
