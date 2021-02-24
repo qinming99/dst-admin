@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.google.common.collect.Lists;
+import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.enums.DstLogTypeEnum;
 import com.tugos.dst.admin.utils.DstConfigData;
 import com.tugos.dst.admin.utils.DstConstant;
@@ -49,7 +50,7 @@ public class SystemService {
         File file = new File(path);
         List<String> result = FileUtils.readLastNLine(file, rowNum);
         if (CollectionUtils.isEmpty(result)){
-            result = Lists.newArrayList("未找到日志，日志的路径为:"+path);
+            result = Lists.newArrayList(I18nResourcesConfig.getMessage("tip.log.not.exist")+":"+path);
         }
         return result;
     }

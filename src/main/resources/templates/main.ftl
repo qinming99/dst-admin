@@ -48,10 +48,10 @@
                 <a class="timo-header-nickname">${user.nickname!}</a>
                 <div class="layui-nav-child">
                     <div class="timo-nav-child-box">
-                        <div><a class="open-popup" data-title="<@spring.message code="main.logo.user.info"/>"
-                                data-url='system/user/detail' data-size="680,464">
-                                <i class="fa fa-user-o"></i><@spring.message code="main.logo.user.info"/></a>
-                        </div>
+<#--                        <div><a class="open-popup" data-title="<@spring.message code="main.logo.user.info"/>"-->
+<#--                                data-url='system/user/detail' data-size="680,464">-->
+<#--                                <i class="fa fa-user-o"></i><@spring.message code="main.logo.user.info"/></a>-->
+<#--                        </div>-->
                         <div><a class="open-popup" data-title="<@spring.message code="main.logo.editPwd"/>"
                                 data-url='system/user/updatePwd' data-size="456,296">
                                 <i class="fa fa-lock" style="font-size:17px;width:12px;"></i><@spring.message code="main.logo.editPwd"/></a>

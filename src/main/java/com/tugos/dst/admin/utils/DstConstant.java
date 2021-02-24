@@ -74,6 +74,11 @@ public final class DstConstant {
      */
     public static final String DEL_RECORD_CAVES_CMD = "rm -r ~/.klei/DoNotStarveTogether/MyDediServer/Caves/save";
 
+    /**
+     * 获取地面的玩家
+     */
+    public static final String MASTER_PLAYLIST_CMD = "screen -S \"DST_MASTER\" -p 0 -X stuff \"for i, v in ipairs(TheNet:GetClientTable()) do  print(string.format(\\\"playerlist %s [%d] %s %s %s\\\", %s, i-1, v.userid, v.name, v.prefab )) end$(printf \\\\r)\"\n";
+
     public static final String DST_MASTER = "Master";
 
     public static final String DST_CAVES = "Caves";

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="cn">
 <head>
-    <#import "../spring.ftl" as spring>
+    <#import "../system/user/spring.ftl" as spring>
     <meta charset="UTF-8">
     <title><@spring.message code="home.title"/></title>
     <#include "../common/header.ftl"/>
@@ -293,7 +293,7 @@
                 get("/home/delRecord").then((data) => {
                     this.loading = false;
                     this.getSystemInfo();
-                    this.successMessage("清理成功");
+                    this.successMessage('<@spring.message code="home.js.clear.success"/>');
                 })
             },
             //更新
@@ -333,7 +333,7 @@
                     })
                 } else {
                     this.$message({
-                        message: '请选择一个存档记录',
+                        message: '<@spring.message code="home.js.select.tar"/>',
                         type: 'warning'
                     });
                 }
@@ -344,11 +344,11 @@
                         if (data) {
                             this.warningMessage(data.message);
                         }
-                        this.successMessage("执行成功");
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     })
                 } else {
                     this.$message({
-                        message: '请填写公告内容',
+                        message: '<@spring.message code="home.js.input.send.content"/>',
                         type: 'warning'
                     });
                 }
@@ -360,11 +360,11 @@
                         if (data) {
                             this.warningMessage(data.message);
                         }
-                        this.successMessage("执行成功");
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     })
                 } else {
                     this.$message({
-                        message: '请填写玩家id',
+                        message: '<@spring.message code="home.js.input.playerId"/>',
                         type: 'warning'
                     });
                 }
@@ -376,7 +376,7 @@
                     if (data) {
                         this.warningMessage(data.message);
                     }
-                    this.successMessage("执行成功");
+                    this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                 })
             },
             //回滚世界
@@ -387,11 +387,11 @@
                         if (data) {
                             this.warningMessage(data.message);
                         }
-                        this.successMessage("执行成功");
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     })
                 } else {
                     this.$message({
-                        message: '请填写回滚天数',
+                        message: '<@spring.message code="home.js.input.rollback.days"/>',
                         type: 'warning'
                     });
                 }

@@ -130,8 +130,8 @@ public class CoreScheduleService {
     }
 
     private void onlyUpdateGame(){
-        shellService.sendBroadcast("服务器将马上进行更新，你将与服务器断开连接");
-        shellService.sendBroadcast("请稍后再进入房间");
+        shellService.sendBroadcast("服务器将马上进行更新，你将与服务器断开连接(The server will be updated immediately)");
+        shellService.sendBroadcast("请稍后再进入房间(Please enter the room later)");
         try {
             TimeUnit.SECONDS.sleep(20);
         } catch (InterruptedException e) {

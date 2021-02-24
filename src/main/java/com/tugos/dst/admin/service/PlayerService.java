@@ -1,6 +1,7 @@
 package com.tugos.dst.admin.service;
 
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class PlayerService {
     public ResultVO<String> saveAdminList(List<String> adminList) throws Exception {
         if (!this.checkConfigIsExists()) {
             String path = DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH;
-            return ResultVO.fail("游戏配置文件夹不存在:" + path);
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.player.config.not.exist")+":" + path);
         }
         String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_ADMIN_LIST_PATH;
         FileUtils.writeLineFile(path, adminList);
@@ -51,7 +52,7 @@ public class PlayerService {
     public ResultVO<String> saveBlackList(List<String> blackList) throws Exception {
         if (!this.checkConfigIsExists()) {
             String path = DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH;
-            return ResultVO.fail("游戏配置文件夹不存在:" + path);
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.player.config.not.exist")+":" + path);
         }
         String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_PLAYER_BLOCK_LIST_PATH;
         FileUtils.writeLineFile(path, blackList);

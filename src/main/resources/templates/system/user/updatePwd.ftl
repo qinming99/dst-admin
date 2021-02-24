@@ -40,7 +40,7 @@
         </el-row>
         <el-row>
             <el-col :span="18">
-                <el-form-item label="<@spring.message code="user.update.password.confire"/>">
+                <el-form-item label="<@spring.message code="user.update.password.confirm"/>">
                     <el-input v-model="model.confirmPwd" show-password placeholder="<@spring.message code="tips.user.update.password"/>"></el-input>
                 </el-form-item>
             </el-col>

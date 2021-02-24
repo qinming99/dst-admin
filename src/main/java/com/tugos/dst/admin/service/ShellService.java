@@ -94,7 +94,8 @@ public class ShellService {
         StringBuilder command = new StringBuilder();
         command.append("cd ~/.klei/DoNotStarveTogether ").append(" ; ");
         command.append("rm -rf MyDediServer/").append(" ;");
-        command.append("tar -zxvf ").append(fileName);
+        //使用tar -xvf 来解压
+        command.append("tar -xvf ").append(fileName);
         ShellUtil.runShell(command.toString());
     }
 

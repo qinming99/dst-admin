@@ -267,7 +267,7 @@
                     if (data) {
                         this.$message({message: data.message, type: 'success'});
                     } else {
-                        this.$message({message: '保存成功！', type: 'success'});
+                        this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
                         this.getScheduleList()
                     }
                 })

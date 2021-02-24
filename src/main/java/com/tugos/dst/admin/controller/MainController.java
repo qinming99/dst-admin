@@ -81,9 +81,7 @@ public class MainController {
     public ResultVO userInfo(User user) {
 
         // 复制保留无需修改的数据
-        ResultVO<URL> data = ResultVO.data(new URL("/userInfo"));
-        data.setMessage("保存成功");
-        return data;
+        return ResultVO.data(new URL("/userInfo"));
     }
 
     /**

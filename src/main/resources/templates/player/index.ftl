@@ -112,9 +112,9 @@
                 console.log(this.adminList)
                 post("/player/saveAdminList", this.adminList).then((data) => {
                     if (data) {
-                        this.$message({message: data.message, type: 'success'});
+                        this.$message({message: data.message, type: 'warning'});
                     } else {
-                        this.$message({message: '保存成功！', type: 'success'});
+                        this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
                         this.init();
                     }
                 })
@@ -129,9 +129,9 @@
                 console.log(this.blackList)
                 post("/player/saveBlackList", this.blackList).then((data) => {
                     if (data) {
-                        this.$message({message: data.message, type: 'success'});
+                        this.$message({message: data.message, type: 'warning'});
                     } else {
-                        this.$message({message: '保存成功！', type: 'success'});
+                        this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
                         this.init();
                     }
                 })

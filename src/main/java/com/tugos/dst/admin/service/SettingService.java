@@ -2,6 +2,7 @@ package com.tugos.dst.admin.service;
 
 
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.enums.SettingTypeEnum;
 import com.tugos.dst.admin.enums.StartTypeEnum;
 import com.tugos.dst.admin.utils.DstConstant;
@@ -13,6 +14,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -23,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author qinming
@@ -45,7 +48,7 @@ public class SettingService {
     public ResultVO<String> saveConfig(GameConfigVO vo) throws Exception {
         this.filterSensitiveWords(vo);
         if (!this.checkConfigIsExists()) {
-            return ResultVO.fail("游戏配置文件夹不存在");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.player.config.not.exist")+":" + DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH);
         }
         //创建地面和洞穴的ini配置文件
         this.createMasterServerIni();
@@ -330,7 +333,9 @@ public class SettingService {
         }
         list.add("cluster_name = " + vo.getClusterName());
         list.add("offline_cluster = false");
-        list.add("cluster_language = zh");
+        //根据环境设置语言
+        Locale locale = LocaleContextHolder.getLocale();
+        list.add("cluster_language = " + locale.getLanguage());
         list.add("");
         list.add("[MISC]");
         list.add("console_enabled = true");

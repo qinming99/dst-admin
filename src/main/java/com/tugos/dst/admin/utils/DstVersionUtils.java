@@ -40,7 +40,9 @@ public class DstVersionUtils {
             get.headerMap(headers, true);
             String body = get.execute().body();
             String verStr = StringUtils.substringBefore(StringUtils.substringAfter(body, "[Game Hotfix]"), "\"");
-            version = StringUtils.deleteWhitespace(verStr).replace("-", "");
+            String doubleVerStr = StringUtils.deleteWhitespace(verStr).replace("-", "");
+            String[] split = doubleVerStr.split("&");
+            version = split[1];
         } catch (Exception e) {
             e.printStackTrace();
         }

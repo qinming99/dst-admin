@@ -4,6 +4,7 @@ package com.tugos.dst.admin.service;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
 import com.tugos.dst.admin.vo.BackupFileVO;
@@ -155,7 +156,7 @@ public class BackupService {
         if (!dest.exists()) {
             file.transferTo(dest);
         }else {
-            return ResultVO.fail("文件已经存在了");
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.backup.file.exist"));
         }
         return ResultVO.success();
     }

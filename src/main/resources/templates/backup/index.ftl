@@ -41,8 +41,8 @@
             <el-table-column prop="fileSize" label="<@spring.message code="setting.backup.archive.file.size"/> " >
                 <template slot-scope="scope">{{formatFileSize(scope.row.fileSize)}}</template>
             </el-table-column>
-            <el-table-column prop="createTime" label="创建时间" ></el-table-column>
-            <el-table-column label="操作" width="200">
+            <el-table-column prop="createTime" label="<@spring.message code="backup.table.create.time"/>" ></el-table-column>
+            <el-table-column label="<@spring.message code="backup.table.operating"/>" width="200">
                 <template slot-scope="scope">
                     <el-button type="text" @click="rename(scope.row)" size="small"><@spring.message code="setting.backup.rename"/></el-button>
                     <el-button type="text" @click="download(scope.row)" size="small"><@spring.message code="setting.backup.download"/></el-button>
@@ -82,12 +82,12 @@
                 })
             },
             rename(val) {
-                this.$prompt('新名称', '修改名称', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
+                this.$prompt('<@spring.message code="backup.js.new.name"/>', '<@spring.message code="backup.js.update.name"/>', {
+                    confirmButtonText: '<@spring.message code="home.pane1.card1.dst.confirm"/>',
+                    cancelButtonText: '<@spring.message code="home.pane1.card1.dst.cancel"/>',
                 }).then(({value}) => {
                     get("/backup/rename", {fileName: val.fileName,newFileName:value}).then((data) => {
-                        this.successMessage("修改成功");
+                        this.successMessage('<@spring.message code="player.save.success"/>');
                         this.getBackupList();
                     })
                 }).catch(() => {
@@ -98,7 +98,7 @@
                 window.location.href="/backup/download?fileName="+val.fileName;
             },
             handleClose(done) {
-                this.$confirm('确认存档上传关闭？')
+                this.$confirm('<@spring.message code="backup.js.close.window"/>？')
                     .then(_ => {
                         done();
                     })
@@ -112,19 +112,19 @@
                 }
             },
             handleExceed(files, fileList) {
-                this.$message.warning('当前限制选择 3 个文件，本次选择了 '+files.length +' 个文件');
+                this.$message.warning('<@spring.message code="backup.js.select.limit"/> '+files.length);
             },
             beforeRemove(file, fileList) {
-                return this.$confirm('确定移除 '+file.name+' ？');
+                return this.$confirm('<@spring.message code="backup.js.confirm.remove"/> '+file.name+' ？');
             },
             deleteBackup(val){
-                this.$confirm('确认删除:'+val.fileName+', 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
+                this.$confirm('<@spring.message code="backup.js.confirm.del"/>:'+val.fileName+'?', '<@spring.message code="backup.js.tip"/>', {
+                    confirmButtonText: '<@spring.message code="home.pane1.card1.dst.confirm"/>',
+                    cancelButtonText: '<@spring.message code="home.pane1.card1.dst.cancel"/>',
                     type: 'warning'
                 }).then(() => {
                     get("/backup/deleteBackup", {fileName: val.fileName}).then((data) => {
-                        this.successMessage("删除成功");
+                        this.successMessage('<@spring.message code="backup.js.del.success"/>');
                         this.getBackupList();
                     })
                 }).catch(() => {
