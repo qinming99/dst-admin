@@ -27,10 +27,15 @@
         <el-collapse>
             <el-collapse-item title="9折腾讯云服务器出租!!!!" name="0">
                 <ul class="step">
-                    <li><strong>9折</strong>腾讯云服务器租赁，是在官网定价的折扣上<strong>折上折</strong>，
-                        <br/>例如11期间官方1核2GB需要88元/年，我这只需要80元/年，每人可以注册三个新用户，<strong>续费也是9折</strong>
-                        需要可以联系Q：2339732369<br/>你的支持是我前进的最好动力</li>
-                    <img width="800px" height="100px" src="/images/ad-tencent.jpg"/>
+                    <li>9折腾讯云服务器出租，是在官网定价的折扣上折上折
+                        <br/>有需要可以联系Q：2339732369
+                        <br/>同时支持企业级代理(支持包括腾讯云，阿里云)，折扣更低
+                        <br/>饥荒服务器我推荐使用星星海，性能提升30%
+                        <br/>详情点击查看：<el-link type="primary" target="_blank" style="font-size: 20px"
+                                        href="https://cloud.tencent.com/act/cps/redirect?redirect=1063&cps_key=3322a6d4629906a5b3c706ccb01913bd&from=console">
+                            https://curl.qcloud.com/UEtsthzh</el-link>
+                    </li>
+                    <img width="1040px" height="100px" src="/images/ad_xxh.jpg"/>
                 </ul>
             </el-collapse-item>
             <el-collapse-item title="如何获取Token令牌？" name="1">
