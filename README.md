@@ -3,6 +3,9 @@
 it is a web program written in Java language, which is powerful, 
 convenient and simple to use, and reduces the difficulty of server construction
 
+
+See the [中文文档](/README-zh.md) for Chinese readme.
+
 ## The following are features:
 1.  Start or close ground/cave at one-click
 2.  Server system resources monitor
