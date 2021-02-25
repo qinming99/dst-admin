@@ -1,5 +1,5 @@
-# dst-admin:Steam Don't Starve Together  management System
-> dst-admin is the Don't Starve Together management System, 
+# dst-admin:Steam Don't Starve Together Management System
+> dst-admin is the Don't Starve Together Management System, 
 it is a web program written in Java language, which is powerful, 
 convenient and simple to use, and reduces the difficulty of server construction
 
@@ -10,7 +10,7 @@ See the [中文文档](/README-zh.md) for Chinese readme.
 1.  Start or close ground/cave at one-click
 2.  Server system resources monitor
 3.  Don't Starve Together ground/cave/mod settings
-4.  save file management、recover、auto back up
+4.  Game Archive management,recover,auto backup
 5.  Support auto update game
 6.  Support Settings extra admin or players' blacklist
 7.  Support viewing game logs
