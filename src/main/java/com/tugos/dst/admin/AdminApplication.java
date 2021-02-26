@@ -22,6 +22,6 @@ public class AdminApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("dst-admin-饥荒管理平台-启动成功......");
+        log.info("dst-admin-饥荒管理平台-启动成功(Successfully started)......");
     }
 }
