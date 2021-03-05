@@ -40,19 +40,19 @@ if  showing "openjdk version "1.8.0_252"well, finish
 ###  Download the newest dst-admin 
 
 ```bash
-wget http://clouddn.tugos.cn/release/dst-admin-1.0.7.jar -O dst-admin.jar
+wget http://clouddn.tugos.cn/release/dst-admin-1.1.0.jar -O dst-admin.jar
 ```
 
 or
 
 ```bash
-curl -L https://github.com/qinming99/dst-admin/releases/download/v1.0.7/dst-admin-1.0.7.jar --output dst-admin.jar
+curl -L https://github.com/qinming99/dst-admin/releases/download/v1.1.0/dst-admin-1.1.0.jar --output dst-admin.jar
 ```
 
 or
 
 ```bash
-wget https://github.com/qinming99/dst-admin/releases/download/v1.0.7/dst-admin-1.0.7.jar  -O dst-admin.jar
+wget https://github.com/qinming99/dst-admin/releases/download/v1.1.0/dst-admin-1.1.0.jar  -O dst-admin.jar
 ```
 
 ###  Start dst-admin
