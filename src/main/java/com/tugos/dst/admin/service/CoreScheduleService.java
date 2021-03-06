@@ -176,7 +176,7 @@ public class CoreScheduleService {
                     long subTime = currentDateTime - execTime;
                     if (Range.open(0, upper).contains((int) subTime)){
                         log.info("定时备份游戏");
-                        String weekStr = DateUtil.thisDayOfWeekEnum().toChinese();
+                        String weekStr = DateUtil.thisDayOfWeekEnum().toString();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                         String format = sdf.format(new Date());
                         format += weekStr;
