@@ -233,7 +233,7 @@ public class HomeService {
             //未安装dst
             return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.backup.error"));
         }
-        String weekStr = DateUtil.thisDayOfWeekEnum().toChinese();
+        String weekStr = DateUtil.thisDayOfWeekEnum().toString();
         String fileName;
         if (StringUtils.isNotBlank(name)) {
             fileName = name + ".tar";

@@ -2,6 +2,7 @@ package com.tugos.dst.admin.utils;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @date 2021-01-09 12:14:53
  * <p> 获取游戏版本号工具 </p>
  */
+@Slf4j
 public class DstVersionUtils {
 
     /**
@@ -30,7 +32,7 @@ public class DstVersionUtils {
         try {
             String url = "https://steamcommunity-a.akamaihd.net/news/newsforapp/v0002/?appid=322330&count=3&maxlength=300&format=vdf";
             HttpRequest get = HttpUtil.createGet(url);
-            get.timeout(10000);
+            get.timeout(30000);
             HashMap<String, String> headers = new HashMap<>();
             headers.put("user-agent", "Valve/Steam HTTP Client 1.0 (0)");
             headers.put("Host", "steamcommunity-a.akamaihd.net");
@@ -44,7 +46,7 @@ public class DstVersionUtils {
             String[] split = doubleVerStr.split("&");
             version = split[1];
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("从steam获取最新的饥荒版本号失败：",e);
         }
         return version;
     }
