@@ -75,18 +75,19 @@ public class CoreScheduleService {
      */
     @Scheduled(fixedDelay = 1000 * 60 * 30, initialDelay = 1000 * 60 * 30)
     public void smartUpdateGame() {
-        String steamVersion = DstVersionUtils.getSteamVersion();
-        String localVersion = DstVersionUtils.getLocalVersion();
         Boolean smartUpdate = DstConfigData.smartUpdate;
-        if (log.isDebugEnabled()){
-            log.debug("智能更新启动：steamVersion={},localVersion={},smartUpdate={}", steamVersion, localVersion, smartUpdate);
-        }
-        if (StringUtils.isNoneBlank(steamVersion, localVersion) && smartUpdate) {
-            long sv = Long.parseLong(steamVersion);
-            long lv = Long.parseLong(localVersion);
-            if (sv > lv) {
-                log.info("智能更新进行...");
-                onlyUpdateGame();
+        if (smartUpdate) {
+            String steamVersion = DstVersionUtils.getSteamVersion();
+            String localVersion = DstVersionUtils.getLocalVersion();
+            if (StringUtils.isNoneBlank(steamVersion, localVersion)) {
+                long sv = Long.parseLong(steamVersion);
+                long lv = Long.parseLong(localVersion);
+                if (sv > lv) {
+                    log.info("智能更新进行...");
+                    onlyUpdateGame();
+                }
+            } else {
+                log.info("拿不到最新的版本号：steamVersion={},localVersion={}", steamVersion, localVersion);
             }
         }
     }

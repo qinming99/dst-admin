@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <head>
     <#import "spring.ftl" as spring>
-    <#include "common/header.ftl"/>
     <title><@spring.message code="dst.admin.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <meta charset="utf-8">
@@ -14,6 +13,9 @@
     <link rel="stylesheet" href="/css/main.css" media="all">
     <script src="/lib/layui-v2.3.0/layui.js" charset="utf-8"></script>
     <script src="/js/main.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/ele/index.css"/>
+    <script src="/js/vue.js"></script>
+    <script src="/css/ele/index.js"></script>
 </head>
 <body class="layui-layout-login">
 <div class="login-bg">
