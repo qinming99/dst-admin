@@ -14,8 +14,8 @@
     <script src="/lib/layui-v2.3.0/layui.js" charset="utf-8"></script>
     <script src="/js/main.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/ele/index.css"/>
-    <script src="/js/vue.js"></script>
-    <script src="/css/ele/index.js"></script>
+    <script src="/js/vue.js" defer="defer"></script>
+    <script src="/css/ele/index.js" defer="defer"></script>
 </head>
 <body class="layui-layout-login">
 <div class="login-bg">

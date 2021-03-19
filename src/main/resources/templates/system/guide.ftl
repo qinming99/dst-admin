@@ -150,7 +150,7 @@
                 </div>
             </el-collapse-item>
 
-            <el-collapse-item title="如何升级服务器或MOD？" name="9">
+            <el-collapse-item title="如何更新游戏或MOD？" name="9">
                 <div class="context">在控制台直接点击更新游戏，然后再启动就可以了</div>
             </el-collapse-item>
 

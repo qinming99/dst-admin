@@ -46,7 +46,7 @@ public class DstVersionUtils {
             String[] split = doubleVerStr.split("&");
             version = split[1];
         } catch (Exception e) {
-            log.error("从steam获取最新的饥荒版本号失败：",e);
+            log.error("从steam获取最新的饥荒版本号失败："+e.getMessage());
         }
         return version;
     }
