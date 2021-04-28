@@ -17,12 +17,22 @@ public final class DstConstant {
     /**
      * 启动地面脚本的名称
      */
-    public static final String START_MASTER_SHELL_NAME = "overworld.sh";
+//    public static final String START_MASTER_SHELL_NAME = "overworld.sh";
 
     /**
      * 启动洞穴脚本的名称
      */
-    public static final String START_CAVES_SHELL_NAME = "cave.sh";
+//    public static final String START_CAVES_SHELL_NAME = "cave.sh";
+
+    /**
+     * 全局的地面进程、存档的名称
+     */
+    public static final String DST_MASTER = "Master";
+
+    /**
+     * 全局的洞穴进程、存档的名称
+     */
+    public static final String DST_CAVES = "Caves";
 
     /**
      * 地面的screen任务的名称 DST_MASTER
@@ -37,12 +47,12 @@ public final class DstConstant {
     /**
      * 启动地面进程命令 设置名称为 DST_MASTER
      */
-    public static final String START_MASTER_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"DST_MASTER\"  sh overworld.sh ;";
+    public static final String START_MASTER_CMD = "cd ~/dst/bin/ ; screen -d -m -S \""+SCREEN_WORK_MASTER_NAME+"\"  ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard "+DST_MASTER+"  ;";
 
     /**
      * 启动洞穴进程命令 设置名称为 DST_CAVES
      */
-    public static final String START_CAVES_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"DST_CAVES\"  sh cave.sh ;";
+    public static final String START_CAVES_CMD = "cd ~/dst/bin/ ; screen -d -m -S \""+SCREEN_WORK_CAVES_NAME+"\"  ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard "+DST_CAVES+" ;";
 
     /**
      * 检查目前所有的screen作业，并删除已经无法使用的screen作业
@@ -50,14 +60,24 @@ public final class DstConstant {
     public static final String CLEAR_SCREEN_CMD = "screen -wipe ";
 
     /**
+     * 查询地面进程号命令
+     */
+    public static final String FIND_MASTER_CMD = " ps -ef | grep -v grep |grep '"+DST_MASTER+"'|sed -n '1P'|awk '{print $2}' ";
+
+    /**
+     * 查询洞穴进程号命令
+     */
+    public static final String FIND_CAVES_CMD = " ps -ef | grep -v grep |grep '"+DST_CAVES+"'|sed -n '1P'|awk '{print $2}' ";
+
+    /**
      * 杀死地面进程命令
      */
-    public static final String STOP_MASTER_CMD = "ps -ef | grep -v grep |grep 'Master' |sed -n '1P'|awk '{print $2}' |xargs kill -9";
+    public static final String STOP_MASTER_CMD = "ps -ef | grep -v grep |grep '"+DST_MASTER+"' |sed -n '1P'|awk '{print $2}' |xargs kill -9";
 
     /**
      * 杀死洞穴进程命令
      */
-    public static final String STOP_CAVES_CMD = "ps -ef | grep -v grep |grep 'Caves' |sed -n '1P'|awk '{print $2}' |xargs kill -9";
+    public static final String STOP_CAVES_CMD = "ps -ef | grep -v grep |grep '"+DST_CAVES+"' |sed -n '1P'|awk '{print $2}' |xargs kill -9";
 
     /**
      * 更新游戏目录
@@ -67,21 +87,17 @@ public final class DstConstant {
     /**
      * 删除地面游戏记录
      */
-    public static final String DEL_RECORD_MASTER_CMD = "rm -r ~/.klei/DoNotStarveTogether/MyDediServer/Master/save";
+    public static final String DEL_RECORD_MASTER_CMD = "rm -r ~/.klei/DoNotStarveTogether/MyDediServer/"+DST_MASTER+"/save";
 
     /**
      * 删除地面游戏记录
      */
-    public static final String DEL_RECORD_CAVES_CMD = "rm -r ~/.klei/DoNotStarveTogether/MyDediServer/Caves/save";
+    public static final String DEL_RECORD_CAVES_CMD = "rm -r ~/.klei/DoNotStarveTogether/MyDediServer/"+DST_CAVES+"/save";
 
     /**
-     * 获取地面的玩家
+     * 饥荒的启动程序
      */
-    public static final String MASTER_PLAYLIST_CMD = "screen -S \"DST_MASTER\" -p 0 -X stuff \"for i, v in ipairs(TheNet:GetClientTable()) do  print(string.format(\\\"playerlist %s [%d] %s %s %s\\\", %s, i-1, v.userid, v.name, v.prefab )) end$(printf \\\\r)\"\n";
-
-    public static final String DST_MASTER = "Master";
-
-    public static final String DST_CAVES = "Caves";
+    public static final String DST_START_PROGRAM = "dontstarve_dedicated_server_nullrenderer";
 
     /**
      * 单斜杠
@@ -126,22 +142,22 @@ public final class DstConstant {
     /**
      * 地上mod保存地址
      */
-    public static final String DST_USER_GAME_MASTER_MOD_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/modoverrides.lua";
+    public static final String DST_USER_GAME_MASTER_MOD_PATH = ".klei/DoNotStarveTogether/MyDediServer/"+DST_MASTER+"/modoverrides.lua";
 
     /**
      * 洞穴mod保存位置
      */
-    public static final String DST_USER_GAME_CAVES_MOD_PATH = ".klei/DoNotStarveTogether/MyDediServer/Caves/modoverrides.lua";
+    public static final String DST_USER_GAME_CAVES_MOD_PATH = ".klei/DoNotStarveTogether/MyDediServer/"+DST_CAVES+"/modoverrides.lua";
 
     /**
      * 地面地图配置地址
      */
-    public static final String DST_USER_GAME_MASTER_MAP_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/leveldataoverride.lua";
+    public static final String DST_USER_GAME_MASTER_MAP_PATH = ".klei/DoNotStarveTogether/MyDediServer/"+DST_MASTER+"/leveldataoverride.lua";
 
     /**
      * 洞穴地图配置地址
      */
-    public static final String DST_USER_GAME_CAVES_MAP_PATH = ".klei/DoNotStarveTogether/MyDediServer/Caves/leveldataoverride.lua";
+    public static final String DST_USER_GAME_CAVES_MAP_PATH = ".klei/DoNotStarveTogether/MyDediServer/"+DST_CAVES+"/leveldataoverride.lua";
 
     /**
      * 游戏配置文件
@@ -151,17 +167,17 @@ public final class DstConstant {
     /**
      * 地面游戏运行日志位置
      */
-    public static final String DST_MASTER_SERVER_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/server_log.txt";
+    public static final String DST_MASTER_SERVER_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/"+DST_MASTER+"/server_log.txt";
 
     /**
      * 地面用户聊天信息
      */
-    public static final String DST_MASTER_SERVER_CHAT_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/Master/server_chat_log.txt";
+    public static final String DST_MASTER_SERVER_CHAT_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/"+DST_MASTER+"/server_chat_log.txt";
 
     /**
      * 洞穴游戏运行日志位置
      */
-    public static final String DST_CAVES_SERVER_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/Caves/server_log.txt";
+    public static final String DST_CAVES_SERVER_LOG_PATH = ".klei/DoNotStarveTogether/MyDediServer/"+DST_CAVES+"/server_log.txt";
 
     /**
      * 管理员存储位置

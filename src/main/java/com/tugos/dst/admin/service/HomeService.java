@@ -80,13 +80,6 @@ public class HomeService {
      * @param type 0 停止所有 1 停止地面 2 停止洞穴
      */
     public ResultVO<String> stop(Integer type) {
-        if (!this.checkIsInstallDst()) {
-            //未安装dst
-            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.start.error"));
-        }
-        if (!this.checkTokenIsExists()) {
-            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.stop.error"));
-        }
         StopTypeEnum typeEnum = StopTypeEnum.get(type);
         Objects.requireNonNull(typeEnum);
         switch (typeEnum) {
@@ -157,20 +150,18 @@ public class HomeService {
     }
 
     /**
-     * 校验服务器是否已经安装了dst，检查启动脚本是否存在
+     * 校验服务器是否已经安装了dst，检查启动程序dontstarve_dedicated_server_nullrenderer 是否存在
      *
      * @return true 安装了
      */
     private boolean checkIsInstallDst() {
         boolean flag = false;
-        String masterPath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.START_DST_BIN_PATH + DstConstant.SINGLE_SLASH + DstConstant.START_MASTER_SHELL_NAME;
-        String cavesPath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.START_DST_BIN_PATH + DstConstant.SINGLE_SLASH + DstConstant.START_CAVES_SHELL_NAME;
-        File masterFile = new File(masterPath);
-        File cavesFile = new File(cavesPath);
-        if (masterFile.exists() && cavesFile.exists()) {
+        String startProgram = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.START_DST_BIN_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_START_PROGRAM;
+        File masterFile = new File(startProgram);
+        if (masterFile.exists()) {
             flag = true;
         }else {
-            log.warn("未找到启动脚本：{}和{}",masterFile,cavesFile);
+            log.warn("未找到启动程序：{}",startProgram);
         }
         return flag;
     }

@@ -54,7 +54,7 @@ public class ShellService {
      * 获取地面程序进程号
      */
     public String getMasterProcessNum() {
-        List<String> result = ShellUtil.runShell(" ps -ef | grep -v grep |grep 'Master'|sed -n '1P'|awk '{print $2}' ");
+        List<String> result = ShellUtil.runShell(DstConstant.FIND_MASTER_CMD);
         if (CollectionUtils.isNotEmpty(result)) {
             return result.get(0);
         } else {
@@ -66,7 +66,7 @@ public class ShellService {
      * 获取洞穴程序进程号
      */
     public String getCavesProcessNum() {
-        List<String> result = ShellUtil.runShell(" ps -ef | grep -v grep |grep 'Caves'|sed -n '1P'|awk '{print $2}' ");
+        List<String> result = ShellUtil.runShell(DstConstant.FIND_CAVES_CMD);
         if (CollectionUtils.isNotEmpty(result)) {
             return result.get(0);
         } else {
@@ -278,7 +278,7 @@ public class ShellService {
      */
     public void sendBroadcast(String message) {
         StringBuilder masterBroadcast = new StringBuilder();
-        masterBroadcast.append("screen -S \"DST_MASTER\" -p 0 -X stuff \"c_announce(\\\"");
+        masterBroadcast.append("screen -S \""+ DstConstant.SCREEN_WORK_MASTER_NAME +"\" -p 0 -X stuff \"c_announce(\\\"");
         masterBroadcast.append(message);
         masterBroadcast.append("\\\")\\n\"");
         //发送地面广播

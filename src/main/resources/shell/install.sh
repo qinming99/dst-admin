@@ -14,12 +14,13 @@ tar -xvzf steamcmd_linux.tar.gz
 
 cp ~/steamcmd/linux32/libstdc++.so.6 ~/dst/bin/lib32/
 
-cd ~/dst/bin
-echo ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Master > overworld.sh
-echo ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Caves > cave.sh
-
-chmod +x overworld.sh
-chmod +x cave.sh
+#Abandon the use of script execution, and change to execute directly through java code
+#cd ~/dst/bin
+#echo ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Docker_M > overworld.sh
+#echo ./dontstarve_dedicated_server_nullrenderer -console -cluster MyDediServer -shard Docker_C > cave.sh
+#
+#chmod +x overworld.sh
+#chmod +x cave.sh
 
 mkdir -p ~/.klei/DoNotStarveTogether/MyDediServer
 
