@@ -20,26 +20,26 @@
                 <div slot="header" class="clearfix">
                     <span><@spring.message code="setting.system.time.task.desc"/></span>
                 </div>
-                <ul>
-                    <li v-for="item in scheduleVO.backupTimeList"><@spring.message code="setting.system.task.execution.time"/>：{{item.time}}, <@spring.message code="setting.system.task.execution.status"/>：
+                <div style="margin: 5px" v-for="item in scheduleVO.backupTimeList">
+                        <@spring.message code="setting.system.task.execution.time"/>：{{item.time}},
+
+                        <@spring.message code="setting.system.task.execution.status"/>：
                         <strong style="color: green" v-if="item.count > 0">
                             <@spring.message code="setting.system.task.execution.status.done"/></strong><strong style="color: orange" v-if="item.count === 0">
-                            <@spring.message code="setting.system.task.execution.status.not.performed"/></strong>
-                    </li>
-                </ul>
+                        <@spring.message code="setting.system.task.execution.status.not.performed"/></strong>
+                </div>
+
                 <el-row style="margin: 5px">
                     <el-col :span="5">
-                        <el-button type="primary" @click="addBackupTime()"><@spring.message code="setting.player.admin.add"/> <@spring.message code="setting.system.task.execution.time"/></el-button>
+                        <el-button :size="size" type="primary" @click="addBackupTime()"><@spring.message code="setting.player.admin.add"/> <@spring.message code="setting.system.task.execution.time"/></el-button>
                     </el-col>
                 </el-row>
 
                 <tempate v-for="(item,key) in backupTimeList">
-                    <el-row style="margin: 5px">
-                        <el-col :span="5">
-                            <el-time-picker placeholder="<@spring.message code="home.pane1.card1.dst.please.choose"/> <@spring.message code="setting.system.task.execution.time"/>" v-model="item.time" clearable></el-time-picker>
-                        </el-col>
-                        <el-button type="warning" style="margin-left: 5px" @click="delBackupTime(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
-                    </el-row>
+                    <div style="margin: 5px">
+                        <el-time-picker style="width:120px" :size="size" placeholder="<@spring.message code="home.pane1.card1.dst.please.choose"/> <@spring.message code="setting.system.task.execution.time"/>" v-model="item.time" clearable></el-time-picker>
+                        <el-button :size="size" type="warning" style="margin-left: 5px" @click="delBackupTime(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
+                    </div>
                 </tempate>
             </el-card>
 
@@ -53,41 +53,33 @@
                     <span style="color: red;margin-left: 40px"><@spring.message code="setting.system.smart.update"/>：</span>
                     <el-switch v-model="smartUpdate" active-text="<@spring.message code="setting.system.open"/>" inactive-text="<@spring.message code="setting.system.close"/>"></el-switch>
                 </div>
-                <ul>
-                    <li v-for="item in scheduleVO.updateTimeList"><@spring.message code="setting.system.task.execution.time"/>：{{item.time}}, <@spring.message code="setting.system.task.execution.status"/>：
+                    <div v-for="item in scheduleVO.updateTimeList"><@spring.message code="setting.system.task.execution.time"/>：{{item.time}}, <@spring.message code="setting.system.task.execution.status"/>：
                         <strong style="color: green" v-if="item.count > 0">
                             <@spring.message code="setting.system.task.execution.status.done"/></strong><strong style="color: orange" v-if="item.count === 0">
                             <@spring.message code="setting.system.task.execution.status.not.performed"/></strong>
-                    </li>
-                </ul>
+                    </div>
                 <el-row style="margin: 5px">
                     <el-col :span="5">
-                        <el-button type="primary" @click="addUpdateTime()"><@spring.message code="setting.player.admin.add"/> <@spring.message code="setting.system.task.execution.time"/></el-button>
+                        <el-button :size="size" type="primary" @click="addUpdateTime()"><@spring.message code="setting.player.admin.add"/> <@spring.message code="setting.system.task.execution.time"/></el-button>
                     </el-col>
                 </el-row>
 
                 <tempate v-for="(item,key) in updateTimeList">
-                    <el-row style="margin: 5px">
-                        <el-col :span="5">
-                            <el-time-picker placeholder="<@spring.message code="home.pane1.card1.dst.please.choose"/> <@spring.message code="setting.system.task.execution.time"/>" v-model="item.time" clearable></el-time-picker>
-                        </el-col>
-                        <el-button type="warning" style="margin-left: 5px" @click="delUpdateTime(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
-                    </el-row>
+                    <div style="margin: 5px">
+                        <el-time-picker :size="size" style="width:120px" placeholder="<@spring.message code="home.pane1.card1.dst.please.choose"/> <@spring.message code="setting.system.task.execution.time"/>" v-model="item.time" clearable></el-time-picker>
+                        <el-button :size="size" type="warning" style="margin-left: 5px" @click="delUpdateTime(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
+                    </div>
                 </tempate>
             </el-card>
 
             <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
-                <el-button type="primary" @click="saveSchedule()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
+                <el-button :size="size" type="primary" @click="saveSchedule()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
             </el-card>
         </el-tab-pane>
         <el-tab-pane label="<@spring.message code="setting.system.ground.run.log"/>" name="second">
             <el-card class="card">
-                <el-row>
-                    <el-col :span="5">
-                        <el-input placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num1" type="number" clearable></el-input>
-                    </el-col>
-                    <el-button type="primary" @click="getDstLog(0,num1)"><@spring.message code="setting.system.pull"/></el-button>
-                </el-row>
+                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num1" type="number" clearable></el-input>
+                    <el-button :size="size" type="primary" @click="getDstLog(0,num1)"><@spring.message code="setting.system.pull"/></el-button>
             </el-card>
             <el-card class="card">
                 <ul>
@@ -97,12 +89,8 @@
         </el-tab-pane>
         <el-tab-pane label="<@spring.message code="setting.system.cave.run.log"/>" name="third">
             <el-card class="card">
-                <el-row>
-                    <el-col :span="5">
-                        <el-input placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num2" type="number" clearable></el-input>
-                    </el-col>
-                    <el-button type="primary" @click="getDstLog(1,num2)"><@spring.message code="setting.system.pull"/></el-button>
-                </el-row>
+                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num2" type="number" clearable></el-input>
+                    <el-button :size="size" type="primary" @click="getDstLog(1,num2)"><@spring.message code="setting.system.pull"/></el-button>
             </el-card>
             <el-card class="card">
                 <ul>
@@ -112,12 +100,8 @@
         </el-tab-pane>
         <el-tab-pane label="<@spring.message code="setting.system.player.chat.log"/>" name="fourth">
             <el-card class="card">
-                <el-row>
-                    <el-col :span="5">
-                        <el-input placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num3" type="number" clearable></el-input>
-                    </el-col>
-                    <el-button type="primary" @click="getDstLog(2,num3)"><@spring.message code="setting.system.pull"/></el-button>
-                </el-row>
+                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num3" type="number" clearable></el-input>
+                    <el-button :size="size" type="primary" @click="getDstLog(2,num3)"><@spring.message code="setting.system.pull"/></el-button>
             </el-card>
             <el-card class="card">
                 <ul>
@@ -168,12 +152,33 @@
                 backupTimeList: [],
                 updateTimeList: [],
             },
+            labelPosition:'left',
+            size:'medium'
         },
         created() {
             this.getScheduleList();
             this.getVersion();
+            this.getLabelPosition()
         },
+        mounted(){
+         window.onresize = () => {
+                this.getLabelPosition()
+            }
+          },
         methods: {
+            getLabelPosition(){
+                let windowWidth = window.innerWidth
+                    console.log('getLabelPosition',windowWidth)
+                    if(windowWidth < 768){
+                    this.labelPosition = 'top'
+                    this.size= 'mini'
+                }
+                else {
+                    this.labelPosition = 'left'
+                    this.size = 'medium'
+                }
+
+            },
             getScheduleList() {
                 get("/system/getScheduleList").then((data) => {
                     this.scheduleVO = data;

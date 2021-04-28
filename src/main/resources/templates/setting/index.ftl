@@ -9,7 +9,7 @@
 <body>
 
 <div id="setting_index_app">
-    <div style="width: 20%;float:left;">
+    <div style="width: 20%;float:left;" v-if="labelPosition === 'left'">
         <el-card>
             <div style="height: 500px">
                 <el-steps direction="vertical" :active="active">
@@ -22,14 +22,14 @@
             </div>
         </el-card>
     </div>
-    <div style="width: 78%;float:left;">
+    <div  :style="labelPosition === 'left'? 'width: 78%;float:left;':'width:100%'">
         <el-row>
-            <el-col style="margin-left: 10px">
+            <el-col :style="labelPosition === 'left'? 'margin-left: 10px':''" >
                 <el-card v-if="active ===0">
                     <div slot="header" class="clearfix">
                         <span><@spring.message code="setting.room.basic.title"/></span>
                     </div>
-                    <el-form :model="model" ref="form1" label-width="<#if lang == 'zh'>100px<#else >150px</#if>" label-position="left">
+                    <el-form :size="size" :model="model" ref="form1" label-width="<#if lang == 'zh'>100px<#else >150px</#if>" :label-position="labelPosition">
                         <el-row>
                             <el-col :span="<#if lang == 'zh'>15<#else >18</#if>">
                                 <el-form-item prop="region" label="<@spring.message code="setting.room.server.style"/>">
@@ -92,7 +92,7 @@
                         <el-row>
                             <el-col :span="15">
                                 <el-form-item prop="slider" label="<@spring.message code="setting.game.max.players"/>">
-                                    <el-slider v-model="model.maxPlayers" :min="1" :max="max" show-input></el-slider>
+                                    <el-slider v-model="model.maxPlayers" :min="1" :max="max" :show-input="labelPosition === 'left'"></el-slider>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -119,7 +119,7 @@
 
                     </el-form>
 
-                    <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+                    <el-button :size="size" @click="drawer = true" type="primary" style="margin-left: 16px;">
                         <@spring.message code="setting.example"/>
                     </el-button>
                 </el-card>
@@ -128,13 +128,13 @@
                     <div slot="header" class="clearfix">
                         <span><@spring.message code="setting.ground.world.title"/></span>
                     </div>
-                    <el-form :model="model" ref="form2" label-width="130px" label-position="left">
+                    <el-form :size="size" :model="model" ref="form2" label-width="130px" :label-position="labelPosition">
                         <el-form-item label="<@spring.message code="setting.ground.title"/>">
                             <el-input type="textarea" placeholder="<@spring.message code="tips.setting.input"/> <@spring.message code="setting.ground.title"/>" :rows="15"
                                       v-model="model.masterMapData"></el-input>
                         </el-form-item>
                     </el-form>
-                    <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+                    <el-button :size="size" @click="drawer = true" type="primary" style="margin-left: 16px;">
                         <@spring.message code="setting.example"/>
                     </el-button>
                 </el-card>
@@ -143,12 +143,12 @@
                     <div slot="header" class="clearfix">
                         <span><@spring.message code="setting.cave.world.title"/></span>
                     </div>
-                    <el-form :model="model" ref="form3" label-width="130px" label-position="left">
+                    <el-form :size="size" :model="model" ref="form3" label-width="130px" :label-position="labelPosition">
                         <el-form-item label="<@spring.message code="setting.cave.title"/>">
                             <el-input type="textarea" :rows="15" v-model="model.cavesMapData"></el-input>
                         </el-form-item>
                     </el-form>
-                    <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+                    <el-button :size="size" @click="drawer = true" type="primary" style="margin-left: 16px;">
                         <@spring.message code="setting.example"/>
                     </el-button>
                 </el-card>
@@ -157,25 +157,23 @@
                     <div slot="header" class="clearfix">
                         <span>MOD <@spring.message code="setting.word"/></span>
                     </div>
-                    <el-form :model="model" ref="form4" label-width="130px" label-position="left">
+                    <el-form :size="size" :model="model" ref="form4" label-width="130px" :label-position="labelPosition">
                         <el-form-item prop="ss" label="MOD <@spring.message code="setting.word"/>">
                             <el-input type="textarea" :rows="15" v-model="model.modData"></el-input>
                         </el-form-item>
                     </el-form>
-                    <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+                    <el-button :size="size" @click="drawer = true" type="primary" style="margin-left: 16px;">
                         <@spring.message code="setting.example"/>
                     </el-button>
                 </el-card>
 
                 <el-drawer title="<@spring.message code="setting.example"/>" :visible.sync="drawer" :with-header="false" size="50%">
                     <el-card>
-
-
                         <el-row>
                             <el-col>
                                 <span><@spring.message code="setting.my"/> Token：{{myToken}}</span>
                                 <br/>
-                                <el-button style="margin: 10px" @click="copy(0)"><@spring.message code="setting.copy"/></el-button>
+                                <el-button :size="size" style="margin: 10px" @click="copy(0)"><@spring.message code="setting.copy"/></el-button>
                             </el-col>
                         </el-row>
 
@@ -183,7 +181,7 @@
                             <el-col>
                                 <span><@spring.message code="setting.my"/> <@spring.message code="setting.ground.title"/>：return {["desc"]="<@spring.message code="setting.standard.experience"/>......</span>
                                 <br/>
-                                <el-button style="margin: 10px" @click="copy(1)"><@spring.message code="setting.copy"/></el-button>
+                                <el-button :size="size" style="margin: 10px" @click="copy(1)"><@spring.message code="setting.copy"/></el-button>
                             </el-col>
                         </el-row>
 
@@ -191,7 +189,7 @@
                             <el-col>
                                 <span><@spring.message code="setting.my"/> <@spring.message code="setting.cave.title"/>：return {["desc"]="<@spring.message code="setting.cave.desc"/>......</span>
                                 <br/>
-                                <el-button style="margin: 10px" @click="copy(2)"><@spring.message code="setting.copy"/></el-button>
+                                <el-button :size="size" style="margin: 10px" @click="copy(2)"><@spring.message code="setting.copy"/></el-button>
                             </el-col>
                         </el-row>
 
@@ -199,7 +197,7 @@
                             <el-col>
                                 <span><@spring.message code="setting.my"/> MOD <@spring.message code="setting.word"/>：return {["workshop-1651623054"]......</span>
                                 <br/>
-                                <el-button style="margin: 10px" @click="copy(3)"><@spring.message code="setting.copy"/></el-button>
+                                <el-button :size="size" style="margin: 10px" @click="copy(3)"><@spring.message code="setting.copy"/></el-button>
                             </el-col>
                         </el-row>
                     </el-card>
@@ -207,13 +205,13 @@
                 </el-drawer>
 
                 <el-card style="margin-top: 10px; position: sticky; bottom: 0;  z-index: 10;">
-                    <el-button v-show="active != 0" @click="previous()"><@spring.message code="setting.previous"/></el-button>
-                    <el-button icon="el-icon-refresh-left" v-show="active === 0" @click="clearSetting()" type="warning">
+                    <el-button :size="size" v-show="active != 0" @click="previous()"><@spring.message code="setting.previous"/></el-button>
+                    <el-button :size="size" icon="el-icon-refresh-left" v-show="active === 0" @click="clearSetting()" type="warning">
                         <@spring.message code="setting.reset"/>
                     </el-button>
-                    <el-button v-show="active != 3" type="primary" @click="next(active)"><@spring.message code="setting.next.step"/></el-button>
-                    <el-button v-show="active == 3" type="primary" @click="save(1)"><@spring.message code="setting.save.settings.only"/></el-button>
-                    <el-button v-show="active == 3" type="primary" @click="save(2)"><@spring.message code="setting.generate.a.new.game"/></el-button>
+                    <el-button :size="size" v-show="active != 3" type="primary" @click="next(active)"><@spring.message code="setting.next.step"/></el-button>
+                    <el-button :size="size" v-show="active == 3" type="primary" @click="save(1)"><@spring.message code="setting.save.settings.only"/></el-button>
+                    <el-button :size="size" v-show="active == 3" type="primary" @click="save(2)"><@spring.message code="setting.generate.a.new.game"/></el-button>
                 </el-card>
             </el-col>
         </el-row>
@@ -479,12 +477,34 @@
                 modData: undefined,
                 type: 1,
             },
+            labelPosition:'left',
+            size:'medium'
         },
         created() {
             //拉取服务器信息
             this.getConfig();
+            this.getLabelPosition()
         },
+         mounted(){
+         window.onresize = () => {
+                this.getLabelPosition()
+            }
+          },
         methods: {
+            getLabelPosition(){
+                            let windowWidth = window.innerWidth
+
+            console.log('getLabelPosition',windowWidth)
+                if(windowWidth < 768){
+                this.labelPosition = 'top'
+                this.size= 'mini'
+                }
+                else {
+                this.labelPosition = 'left'
+                this.size = 'medium'
+                }
+
+            },
             copy(val) {
                 let tmpInput = document.createElement('textarea');
                 if (val === 0) {

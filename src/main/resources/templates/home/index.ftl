@@ -13,55 +13,47 @@
     <template>
         <el-tabs v-model="activeName">
             <el-tab-pane label="<@spring.message code="home.tab-pane1"/>" name="first">
-
                 <el-row v-loading="loading"
                         element-loading-text="<@spring.message code="home.loading-text"/>"
                         element-loading-spinner="el-icon-loading"
                         element-loading-background="rgba(0, 0, 0, 0.8)">
-                    <el-col :span="16">
+                    <el-col :sm="16" :xs="24">
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
                                 <span><@spring.message code="home.pane1.card1.title1"/></span>
                             </div>
-                            <el-form ref="form" label-position="left" label-width="150px">
-                                <el-row>
-                                    <el-col :span="6">
-                                        <el-form-item label="<@spring.message code="home.pane1.card1.dst.status"/>：">
-                                            <el-button v-if="masterStatus" icon="el-icon-video-play" type="primary"><@spring.message code="home.pane1.card1.dst.master.running"/>
-                                            </el-button>
-                                            <el-button v-if="!masterStatus" icon="el-icon-video-play" type="warning"><@spring.message code="home.pane1.card1.dst.master.not"/>
-                                            </el-button>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <el-form-item>
-                                            <el-button v-if="cavesStatus" icon="el-icon-video-play" type="primary">
-                                                <@spring.message code="home.pane1.card1.dst.caves.running"/></el-button>
-                                            <el-button v-if="!cavesStatus" icon="el-icon-video-play" type="warning">
-                                                <@spring.message code="home.pane1.card1.dst.caves.not"/>
-                                            </el-button>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
+                            <el-form :size="size"  ref="form" :label-position="labelPosition" label-width="150px">
+                                <el-form-item label="<@spring.message code="home.pane1.card1.dst.status"/>：">
+                                    <el-button v-if="masterStatus" icon="el-icon-video-play" type="primary"><@spring.message code="home.pane1.card1.dst.master.running"/>
+                                    </el-button>
+                                    <el-button    v-if="!masterStatus" icon="el-icon-video-play" type="warning"><@spring.message code="home.pane1.card1.dst.master.not"/>
+                                    </el-button>
+                                     <el-button  v-if="cavesStatus" icon="el-icon-video-play" type="primary">
+                                        <@spring.message code="home.pane1.card1.dst.caves.running"/></el-button>
+                                    <el-button   v-if="!cavesStatus" icon="el-icon-video-play" type="warning">
+                                        <@spring.message code="home.pane1.card1.dst.caves.not"/>
+                                    </el-button>
+                                </el-form-item>
+
                                 <el-form-item label="<@spring.message code="home.pane1.card1.dst.start.masterCaves"/>：">
-                                    <el-switch v-model="runStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>"
+                                    <el-switch  v-model="runStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>"
                                                inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
                                                @change="controlDst(runStatus,0)"></el-switch>
                                 </el-form-item>
                                 <el-form-item label="<@spring.message code="home.pane1.card1.dst.start.master"/>：">
-                                    <el-switch v-model="masterStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
+                                    <el-switch  v-model="masterStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
                                                @change="controlDst(masterStatus,1)"></el-switch>
                                 </el-form-item>
                                 <el-form-item label="<@spring.message code="home.pane1.card1.dst.start.caves"/>：">
-                                    <el-switch v-model="cavesStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
+                                    <el-switch  v-model="cavesStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
                                                @change="controlDst(cavesStatus,2)"></el-switch>
                                 </el-form-item>
                                 <el-form-item label="<@spring.message code="home.pane1.card1.dst.quickOperation"/>：">
-                                    <el-popover placement="top" width="200" v-model="visible2">
+                                    <el-popover  placement="top" width="200" v-model="visible2">
                                         <p><@spring.message code="home.pane1.card1.dst.search.suggestions"/></p>
                                         <div style="text-align: right; margin: 0">
-                                            <el-button size="mini" type="text" @click="visible2 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
-                                            <el-button type="primary" size="mini" @click="updateGame()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
+                                            <el-button  type="text" @click="visible2 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                            <el-button type="primary"  @click="updateGame()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                         </div>
                                         <el-button slot="reference" icon="el-icon-s-promotion"><@spring.message code="home.pane1.card1.dst.updateGame"/></el-button>
                                     </el-popover>
@@ -71,7 +63,7 @@
                                     <el-popover placement="top" width="200" v-model="visible">
                                         <p><@spring.message code="home.pane1.card1.dst.clean.suggestions"/></p>
                                         <div style="text-align: right; margin: 0">
-                                            <el-button size="mini" type="text" @click="visible = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                            <el-button type="text" @click="visible = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
                                             <el-button type="warning" size="mini" @click="clearGame()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                         </div>
                                         <el-button slot="reference" type="danger" icon="el-icon-delete"><@spring.message code="home.pane1.card1.dst.clean"/></el-button>
@@ -98,8 +90,8 @@
                             </el-form>
                         </el-card>
                     </el-col>
-                    <el-col :span="7">
-                        <el-card class="box-card" style="margin-left: 10px">
+                    <el-col :sm="8" :xs="24">
+                        <el-card class="box-card" :style="labelPosition === 'top' ? 'margin-top:10px' : 'margin-left: 10px'">
                             <div slot="header" class="clearfix">
                                 <span><@spring.message code="header.server.situation"/></span>
                             </div>
@@ -137,7 +129,7 @@
                             <div slot="header" class="clearfix">
                                 <span><@spring.message code="home.card.title2"/></span>
                             </div>
-                            <el-form ref="form" label-position="left" label-width="<#if lang == 'zh'>180px<#else >230px</#if>">
+                            <el-form :size="size" ref="form" :label-position="labelPosition" label-width="<#if lang == 'zh'>180px<#else >230px</#if>">
                                 <el-form-item label="<@spring.message code="home.pane1.card2.dst.send.announcement.notice"/>：" >
                                     <el-row>
                                         <el-col :span="10">
@@ -150,14 +142,14 @@
                                 <el-form-item label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：" >
                                     <el-row>
                                         <el-col :span="10">
-                                            <el-input  maxlength="15" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.player.id"/>" show-word-limit v-model="kickUserId"></el-input>
+                                            <el-input   maxlength="15" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.player.id"/>" show-word-limit v-model="kickUserId"></el-input>
                                         </el-col>
                                         <el-col :span="5">
                                             <el-popover placement="top" width="200" v-model="visible3">
                                                 <p><@spring.message code="home.pane1.card2.dst.please.confirm.kickOut.the.player"/>？</p>
                                                 <div style="text-align: right; margin: 0">
-                                                    <el-button size="mini" type="text" @click="visible3 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
-                                                    <el-button type="primary" size="mini" @click="kickPlayer()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
+                                                    <el-button  type="text" @click="visible3 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                                    <el-button type="primary"  @click="kickPlayer()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                 </div>
                                                 <el-button slot="reference" style="margin-left: 10px" icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.kickOut"/></el-button>
                                             </el-popover>
@@ -252,6 +244,8 @@
                 {color: '#e59980', percentage: 90},
                 {color: '#ff0000', percentage: 100},
             ],
+            labelPosition:'left',
+            size:'medium'
         },
         created() {
             //拉取服务器信息
@@ -259,11 +253,18 @@
             this.timer = setInterval(function () {
                 vue.getSystemInfo();
             }, 2000);
+            this.getLabelPosition()
         },
+        mounted(){
+         window.onresize = () => {
+                this.getLabelPosition()
+            }
+          },
         destroyed() {
             clearInterval(this.timer)
         },
         methods: {
+
             //启动饥荒服务
             controlDst(status, type) {
                 if (status) {
@@ -426,6 +427,20 @@
                     }
                 })
             },
+            getLabelPosition(){
+                            let windowWidth = window.innerWidth
+
+            console.log('getLabelPosition',windowWidth)
+                if(windowWidth < 768){
+                this.labelPosition = 'top'
+                this.size= 'mini'
+                }
+                else {
+                this.labelPosition = 'left'
+                this.size = 'medium'
+                }
+
+            }
         }
     });
 

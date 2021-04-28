@@ -79,7 +79,7 @@
                             if (data) {
                                 alert(data.message)
                             }else {
-                                alert('修改成功')
+                                alert('修改成功,请使用新的用户名登录:' + this.model.username)
                                 this.closeWindows();
                             }
                         })
