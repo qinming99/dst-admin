@@ -44,9 +44,13 @@ public class DstVersionUtils {
             String verStr = StringUtils.substringBefore(StringUtils.substringAfter(body, "[Game Hotfix]"), "\"");
             String doubleVerStr = StringUtils.deleteWhitespace(verStr).replace("-", "");
             String[] split = doubleVerStr.split("&");
-            version = split[1];
+            if (split.length >= 2) {
+                version = split[1];
+            } else {
+                version = split[0];
+            }
         } catch (Exception e) {
-            log.error("从steam获取最新的饥荒版本号失败："+e.getMessage());
+            log.error("从steam获取最新的饥荒版本号失败：", e);
         }
         return version;
     }
@@ -60,29 +64,19 @@ public class DstVersionUtils {
     public static String getLocalVersion() {
         String version = null;
         try {
-            String masterLogPath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_MASTER_SERVER_LOG_PATH;
-            String cavesLogPath = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_CAVES_SERVER_LOG_PATH;
-            String masterVersion = getVersion(masterLogPath);
-            String cavesVersion = getVersion(cavesLogPath);
-            if (StringUtils.isNoneEmpty(masterVersion, cavesLogPath)) {
-                long mv = Long.parseLong(masterVersion);
-                long cv = Long.parseLong(cavesVersion);
-                if (mv >= cv) {
-                    version = masterVersion;
-                } else {
-                    version = cavesVersion;
-                }
-            } else if (StringUtils.isNotBlank(masterLogPath)) {
-                version = masterVersion;
-            } else {
-                version = cavesVersion;
+            String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + "dst/version.txt";
+            List<String> list = FileUtils.readLineFile(path);
+            if (CollectionUtils.isNotEmpty(list)) {
+                version = list.get(0);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("获取本地游戏版本号失败：", e);
         }
         return version;
     }
 
+
+    @Deprecated
     public static String getVersion(String path) {
         String version = null;
         List<String> list = readAppointedLineNumber(new File(path), 10);
@@ -101,7 +95,8 @@ public class DstVersionUtils {
 
     /**
      * 读取指定行数
-     * @param file 文件路径
+     *
+     * @param file      文件路径
      * @param maxNumber 最大行数
      * @return 内容
      */
