@@ -160,7 +160,7 @@
                                 <el-form-item v-if="playerList.length > 0" label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：">
                                     <el-row>
                                         <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
-                                            <el-button style="margin-left: 10px"   @click="kickPlayer2(item)"
+                                            <el-button @click="kickPlayer2(item)"
                                                        icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.kickOut"/> : {{item}}
                                             </el-button>
                                         </el-col>
@@ -170,8 +170,8 @@
                                 <el-form-item label="<@spring.message code="home.pane1.card2.dst.rollback.rules"/>：">
                                     <el-row>
                                         <el-col :span="24">
-                                            <el-button icon="el-icon-refresh-left" v-for="item in 6" :key="item+'rollback'" @click="rollback(item)">
-                                                回滚{{item}}天
+                                            <el-button icon="el-icon-refresh-left" v-for="item in 5" :key="item+'rollback'" @click="rollback(item)">
+                                                <@spring.message code="home.pane1.card2.dst.rollback"/>:{{item}}<@spring.message code="home.pane1.card2.dst.rollback.unit"/>
                                             </el-button>
                                         </el-col>
                                     </el-row>
