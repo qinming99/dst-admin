@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -127,6 +128,14 @@ public class HomeController {
         log.info("发送公告："+message);
         shellService.sendBroadcast(message);
         return ResultVO.success();
+    }
+
+    @GetMapping("/getPlayerList")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<List<String>> getPlayerList() throws Exception{
+        List<String> playerList = shellService.getPlayerList();
+        return ResultVO.data(playerList);
     }
 
     @GetMapping("/kickPlayer")

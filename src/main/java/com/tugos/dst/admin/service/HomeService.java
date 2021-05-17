@@ -155,15 +155,14 @@ public class HomeService {
      * @return true 安装了
      */
     private boolean checkIsInstallDst() {
-        boolean flag = false;
         String startProgram = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.START_DST_BIN_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_START_PROGRAM;
         File masterFile = new File(startProgram);
         if (masterFile.exists()) {
-            flag = true;
+            return  true;
         }else {
             log.warn("未找到启动程序：{}",startProgram);
+            return false;
         }
-        return flag;
     }
 
     /**

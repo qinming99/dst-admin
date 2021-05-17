@@ -1,6 +1,7 @@
 package com.tugos.dst.admin.service;
 
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.enums.DstLogTypeEnum;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
 import com.tugos.dst.admin.utils.ModFileUtil;
@@ -8,6 +9,7 @@ import com.tugos.dst.admin.utils.ShellUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -29,6 +31,8 @@ public class ShellService {
      * 最大睡眠时间 10秒
      */
     public static final int MAX_SLEEP_SECOND = 10;
+
+    private SystemService systemService;
 
     /**
      * 获取地面状态
@@ -325,4 +329,40 @@ public class ShellService {
         ShellUtil.execShellBin(cavesCMD);
     }
 
+
+    /**
+     * 解析日志获取玩家信息
+     * [14:18:00]: playerlist 1621253438444 [0] KU_c1gvcIl4 [Host]
+     * [14:18:00]: playerlist 1621253438444 [1] KU_***** nickname wendy
+     * @return ku_** 昵称 角色
+     */
+    public List<String> getPlayerList() throws Exception{
+        String playerPrefix = "KU_";
+        String host = "[Host]";
+        String timeMillis = System.currentTimeMillis()+"";
+        String cmd = DstConstant.MASTER_PLAYLIST_CMD.replace("99999999",timeMillis);
+        ShellUtil.runShell(cmd);
+        //睡眠一秒
+        TimeUnit.SECONDS.sleep(1);
+        List<String> dstLog = systemService.getDstLog(DstLogTypeEnum.MASTER_LOG.type, 100);
+        List<String> playList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(dstLog)){
+            dstLog.forEach(e->{
+                if (e.contains(timeMillis)){
+                    if (e.contains(playerPrefix)){
+                        String tmp = e.substring(e.indexOf(playerPrefix));
+                        if (!tmp.contains(host)){
+                            playList.add(tmp);
+                        }
+                    }
+                }
+            });
+        }
+        return playList;
+    }
+
+    @Autowired
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
+    }
 }

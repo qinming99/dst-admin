@@ -13,7 +13,7 @@ import java.io.*;
  * <p> 无 </p>
  */
 @Slf4j
-public class SystemDataUtils {
+public class DBUtils {
 
     /**
      * 读取项目的数据

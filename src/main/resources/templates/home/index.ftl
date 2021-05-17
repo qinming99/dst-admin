@@ -157,20 +157,22 @@
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.rollback.rules"/>：" >
+                                <el-form-item v-if="playerList.length > 0" label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：">
                                     <el-row>
-                                        <el-col :span="10">
-                                            <el-input type="number"  maxlength="1" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.the.number.of.days"/>" show-word-limit v-model="dayNum"></el-input>
+                                        <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
+                                            <el-button style="margin-left: 10px"   @click="kickPlayer2(item)"
+                                                       icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.kickOut"/> : {{item}}
+                                            </el-button>
                                         </el-col>
-                                        <el-col :span="5">
-                                            <el-popover placement="top" width="200" v-model="visible4">
-                                                <p><@spring.message code="home.pane1.card2.dst.rollback.confirm"/>?</p>
-                                                <div style="text-align: right; margin: 0">
-                                                    <el-button size="mini" type="text" @click="visible4 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
-                                                    <el-button type="primary" size="mini" @click="rollback()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
-                                                </div>
-                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card2.dst.rollback"/></el-button>
-                                            </el-popover>
+                                    </el-row>
+                                </el-form-item>
+
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.rollback.rules"/>：">
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <el-button icon="el-icon-refresh-left" v-for="item in 6" :key="item+'rollback'" @click="rollback(item)">
+                                                回滚{{item}}天
+                                            </el-button>
                                         </el-col>
                                     </el-row>
                                 </el-form-item>
@@ -229,6 +231,7 @@
             menTotal: 0,
             timer: null,
             activeName:'first',
+            playerList:[],
             broadcastContent:null,//广播内容
             kickUserId:null,//踢出的玩家
             dayNum:null,//回滚天数
@@ -253,7 +256,8 @@
             this.timer = setInterval(function () {
                 vue.getSystemInfo();
             }, 2000);
-            this.getLabelPosition()
+            this.getLabelPosition();
+            this.getPlayerList();
         },
         mounted(){
          window.onresize = () => {
@@ -354,6 +358,13 @@
                     });
                 }
             },
+            getPlayerList(){
+                get("/home/getPlayerList").then((data) => {
+                    if (data) {
+                        this.playerList = data;
+                    }
+                })
+            },
             kickPlayer(){
                 this.visible3 = false;
                 if (this.kickUserId) {
@@ -370,6 +381,22 @@
                     });
                 }
             },
+            //踢出玩家
+            kickPlayer2(player){
+                let split = player.split(" ");
+                if (split.length === 3){
+                    get("/home/kickPlayer", {userId: split[0]}).then((data) => {
+                        if (data) {
+                            this.warningMessage(data.message);
+                        }
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
+                    })
+                }else {
+                    //解析的有问题
+                    this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
+                }
+                this.getPlayerList();
+            },
             //重置世界
             regenerate(){
                 this.visible5 = false;
@@ -381,21 +408,13 @@
                 })
             },
             //回滚世界
-            rollback(){
-                this.visible4 = false;
-                if (this.dayNum) {
-                    get("/home/rollback", {dayNum: this.dayNum}).then((data) => {
-                        if (data) {
-                            this.warningMessage(data.message);
-                        }
-                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
-                    })
-                } else {
-                    this.$message({
-                        message: '<@spring.message code="home.js.input.rollback.days"/>',
-                        type: 'warning'
-                    });
-                }
+            rollback(day){
+                get("/home/rollback", {dayNum: day}).then((data) => {
+                    if (data) {
+                        this.warningMessage(data.message);
+                    }
+                    this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
+                })
             },
             successMessage(message) {
                 this.$message({

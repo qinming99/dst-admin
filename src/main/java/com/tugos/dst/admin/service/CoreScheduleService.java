@@ -100,7 +100,7 @@ public class CoreScheduleService {
         this.backupGame();
         this.updateGame();
         //将数据存储到文件中
-        SystemDataUtils.saveDataToFile();
+        DBUtils.saveDataToFile();
     }
 
 
@@ -198,10 +198,10 @@ public class CoreScheduleService {
      */
     @PostConstruct
     public void initSystem() throws Exception {
-        String data = SystemDataUtils.readProjectData(DstConstant.DST_ADMIN_JSON);
+        String data = DBUtils.readProjectData(DstConstant.DST_ADMIN_JSON);
         if (StringUtils.isNotBlank(data)) {
             //本地有数据读取到缓存中
-            SystemDataUtils.readDataToCache(data);
+            DBUtils.readDataToCache(data);
         } else {
             //配置每天6点更新游戏
             DstConfigData.SCHEDULE_UPDATE_MAP.put("06:00:00", 0);
