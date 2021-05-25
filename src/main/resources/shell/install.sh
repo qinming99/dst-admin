@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo dpkg --add-architecture i386
 sudo apt-get update
 sudo apt-get install -y lib32gcc1
 sudo apt-get install -y libcurl4-gnutls-dev:i386
