@@ -4,12 +4,9 @@ package com.tugos.dst.admin.config.shiro.config;
 import com.tugos.dst.admin.config.shiro.AuthRealm;
 import com.tugos.dst.admin.config.shiro.UserAuthFilter;
 import com.tugos.dst.admin.config.shiro.config.properties.ShiroProjectProperties;
-import org.apache.shiro.codec.Base64;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -75,12 +72,10 @@ public class ShiroConfig {
 
     @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager(AuthRealm authRealm,
-                                                                  DefaultWebSessionManager sessionManager,
-                                                                  CookieRememberMeManager rememberMeManager) {
+                                                                  DefaultWebSessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(authRealm);
         securityManager.setSessionManager(sessionManager);
-        securityManager.setRememberMeManager(rememberMeManager);
         return securityManager;
     }
 
@@ -107,29 +102,6 @@ public class ShiroConfig {
         // 去掉登录页面地址栏jsessionid
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
-    }
-
-    /**
-     * rememberMe管理器
-     */
-    @Bean
-    public CookieRememberMeManager rememberMeManager(SimpleCookie rememberMeCookie) {
-        CookieRememberMeManager manager = new CookieRememberMeManager();
-        manager.setCipherKey(Base64.decode("WcfHGU25gNnTxTlmJMeSpw=="));
-        manager.setCookie(rememberMeCookie);
-        return manager;
-    }
-
-    /**
-     * 创建一个简单的Cookie对象
-     */
-    @Bean
-    public SimpleCookie rememberMeCookie(ShiroProjectProperties properties) {
-        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
-        simpleCookie.setHttpOnly(true);
-        // cookie记住登录信息时间，默认7天
-        simpleCookie.setMaxAge(properties.getRememberMeTimeout() * 24 * 60 * 60);
-        return simpleCookie;
     }
 
     /**

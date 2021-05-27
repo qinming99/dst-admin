@@ -35,6 +35,11 @@
                     </el-row>
                 </tempate>
 
+                <ul>
+                    <li><@spring.message code="setting.player.admin.tips"/></li>
+                    <li v-for="item in playerList" >{{item}}</li>
+                </ul>
+
             </el-card>
 
 
@@ -64,6 +69,11 @@
                     </el-row>
                 </tempate>
 
+                <ul>
+                    <li><@spring.message code="setting.player.admin.tips"/></li>
+                    <li v-for="item in playerList" >{{item}}</li>
+                </ul>
+
             </el-card>
 
 
@@ -85,6 +95,7 @@
             activeName: 'first',
             adminList:[],
             blackList:[],
+            playerList:[],
         },
         created() {
             this.init();
@@ -101,6 +112,7 @@
                         this.blackList = data;
                     }
                 })
+                this.getPlayerList();
             },
             addAdmin(){
                 this.adminList.push("");
@@ -116,6 +128,13 @@
                     } else {
                         this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
                         this.init();
+                    }
+                })
+            },
+            getPlayerList(){
+                get("/home/getPlayerList").then((data) => {
+                    if (data) {
+                        this.playerList = data;
                     }
                 })
             },
