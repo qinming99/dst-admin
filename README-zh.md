@@ -38,20 +38,9 @@ java -version
 ###  下载最新版dst-admin安装包
 
 ```bash
-wget http://clouddn.tugos.cn/release/dst-admin-1.1.0.jar -O dst-admin.jar
+wget http://clouddn.tugos.cn/release/dst-admin-1.2.0.jar -O dst-admin.jar
 ```
 
-或者
-
-```bash
-curl -L https://github.com/qinming99/dst-admin/releases/download/v1.1.0/dst-admin-1.1.0.jar --output dst-admin.jar
-```
-
-或者
-
-```bash
-wget https://github.com/qinming99/dst-admin/releases/download/v1.1.0/dst-admin-1.1.0.jar  -O dst-admin.jar
-```
 
 ###  启动dst-admin
 ```
