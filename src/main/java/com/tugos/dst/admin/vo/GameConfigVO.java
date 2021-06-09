@@ -21,7 +21,11 @@ public class GameConfigVO {
 
     private Boolean pvp;
 
+    private Boolean vote;
+
     private Integer maxPlayers;
+
+    private Integer whiteSlots;
 
     private String clusterPassword;
 

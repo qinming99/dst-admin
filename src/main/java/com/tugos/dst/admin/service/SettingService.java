@@ -125,10 +125,22 @@ public class SettingService {
                         gameConfigVO.setMaxPlayers(Integer.valueOf(split[1].trim()));
                     }
                 }
+                if (e.contains("whitelist_slots")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        gameConfigVO.setWhiteSlots(Integer.valueOf(split[1].trim()));
+                    }
+                }
                 if (e.contains("pvp")) {
                     String[] split = e.split("=");
                     if (StringUtils.isNotBlank(split[1])) {
                         gameConfigVO.setPvp(Boolean.valueOf(split[1].trim()));
+                    }
+                }
+                if (e.contains("vote_enabled")) {
+                    String[] split = e.split("=");
+                    if (StringUtils.isNotBlank(split[1])) {
+                        gameConfigVO.setVote(Boolean.valueOf(split[1].trim()));
                     }
                 }
                 if (e.contains("cluster_intention")) {
@@ -343,10 +355,12 @@ public class SettingService {
         list.add("max_players = " + vo.getMaxPlayers());
         list.add("pvp = " + vo.getPvp());
         list.add("pause_when_empty = true");
+        list.add("vote_enabled = "+vo.getVote());
         list.add("");
         list.add("");
         list.add("[NETWORK]");
         list.add("lan_only_cluster = false");
+        list.add("whitelist_slots = "+ vo.getWhiteSlots());
         list.add("cluster_intention = " + vo.getClusterIntention());
         String clusterPassword = vo.getClusterPassword();
         if (StringUtils.isNotBlank(clusterPassword)) {

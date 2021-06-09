@@ -34,6 +34,14 @@ public class PlayerService {
     }
 
     /**
+     * 读取玩家白名单列表
+     */
+    public List<String> getDstWhitelist() {
+        String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_PLAYER_WHITE_LIST_PATH;
+        return FileUtils.readLineFile(path);
+    }
+
+    /**
      * 保存管理员
      */
     public ResultVO<String> saveAdminList(List<String> adminList) throws Exception {
@@ -55,6 +63,19 @@ public class PlayerService {
             return ResultVO.fail(I18nResourcesConfig.getMessage("tip.player.config.not.exist")+":" + path);
         }
         String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_PLAYER_BLOCK_LIST_PATH;
+        FileUtils.writeLineFile(path, blackList);
+        return ResultVO.success();
+    }
+
+    /**
+     * 保存白名单
+     */
+    public ResultVO<String> saveWhiteList(List<String> blackList) throws Exception {
+        if (!this.checkConfigIsExists()) {
+            String path = DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH;
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.player.config.not.exist")+":" + path);
+        }
+        String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_PLAYER_WHITE_LIST_PATH;
         FileUtils.writeLineFile(path, blackList);
         return ResultVO.success();
     }
