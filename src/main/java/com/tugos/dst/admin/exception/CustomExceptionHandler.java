@@ -55,6 +55,7 @@ public class CustomExceptionHandler implements ErrorController {
     public ResultVO<String> errorApiHandler(HttpServletRequest request, HttpServletResponse response) {
         int status = response.getStatus();
         log.debug("处理用户请求异常状态码：{}", status);
+        response.setStatus(200);
         if (status == ERROR_START_404) {
             //404
             return ResultVO.fail(ResultCodeEnum.REQUEST_NOT_FOUND);

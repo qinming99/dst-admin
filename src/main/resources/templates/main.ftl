@@ -108,7 +108,6 @@
         <div class="layui-tab-content"></div>
     </div>
 </div>
-<script src="/js/login.js" charset="utf-8"></script>
 <script src="/js/plugins/jquery-3.3.1.min.js"></script>
 <script>
 

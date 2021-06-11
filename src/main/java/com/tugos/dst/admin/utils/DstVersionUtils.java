@@ -50,7 +50,7 @@ public class DstVersionUtils {
                 version = split[0];
             }
         } catch (Exception e) {
-            log.error("从steam获取最新的饥荒版本号失败：", e);
+            log.error("从steam获取最新的饥荒版本号失败：{}", e.getMessage());
         }
         return version;
     }
