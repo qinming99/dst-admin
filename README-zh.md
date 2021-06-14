@@ -66,7 +66,8 @@ java -jar dst-admin.jar
 ![img](https://github.com/qinming99/dst-admin/blob/master/images/yanshi.gif)
 ## 饥荒交流群
 
-QQ群： **1005887957**
+QQ群： **1005887957(被屏蔽?)**
+![img](https://github.com/qinming99/dst-admin/blob/master/images/qq_class.png)
 
 
 ## END
