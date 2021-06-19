@@ -1,6 +1,7 @@
 package com.tugos.dst.admin.controller;
 
 
+import cn.hutool.json.JSONUtil;
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.service.BackupService;
@@ -59,12 +60,16 @@ public class BackupController {
         return backupService.upload(file);
     }
 
-    @GetMapping("/deleteBackup")
+    @PostMapping("/deleteBackup")
     @ResponseBody
     @RequiresAuthentication
-    public ResultVO<String> deleteBackup(String fileName) {
-        log.info("删除备份:{}", fileName);
-        backupService.deleteBackup(fileName);
+    public ResultVO<String> deleteBackup(@RequestBody String[] fileNames) {
+        log.info("删除备份:{}", JSONUtil.toJsonStr(fileNames));
+        if (fileNames != null && fileNames.length > 0) {
+            for (String s : fileNames) {
+                backupService.deleteBackup(s);
+            }
+        }
         return ResultVO.success();
     }
 

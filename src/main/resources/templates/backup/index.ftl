@@ -13,6 +13,7 @@
         <div slot="header" class="clearfix">
             <span><@spring.message code="setting.backup.all.archives.total.size"/>：{{formatFileSize(totalSize)}}</span>
             <el-button @click="getBackupList()" style="margin-left: 20px"><@spring.message code="setting.backup.refresh"/></el-button>
+            <el-button @click="batchDelBackup()" style="margin-left: 20px"><@spring.message code="setting.backup.batch.del"/></el-button>
             <el-button style="margin-left: 20px" @click="drawer = true"><@spring.message code="setting.backup.upload.document"/></el-button>
         </div>
         <el-drawer title="<@spring.message code="setting.backup.upload.document"/>"
@@ -36,7 +37,8 @@
             </el-card>
 
         </el-drawer>
-        <el-table :data="tableData"  stripe style="width: 100%">
+        <el-table :data="tableData"  border @selection-change="handleSelectionChange"  style="width: 100%" >
+            <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="fileName" label="<@spring.message code="setting.backup.archive.name"/> "></el-table-column>
             <el-table-column prop="fileSize" label="<@spring.message code="setting.backup.archive.file.size"/> " >
                 <template slot-scope="scope">{{formatFileSize(scope.row.fileSize)}}</template>
@@ -64,11 +66,15 @@
             drawer: false,
             fileList: [],
             totalSize:0,
+            selectData:[],
         },
         created() {
             this.getBackupList();
         },
         methods: {
+            handleSelectionChange(val) {
+                this.selectData = val;
+            },
             getBackupList() {
                 get("/backup/getBackupList").then((data) => {
                     this.tableData = data ? data : [];
@@ -118,18 +124,41 @@
                 return this.$confirm('<@spring.message code="backup.js.confirm.remove"/> '+file.name+' ？');
             },
             deleteBackup(val){
+                let fileNames =[val.fileName];
                 this.$confirm('<@spring.message code="backup.js.confirm.del"/>:'+val.fileName+'?', '<@spring.message code="backup.js.tip"/>', {
                     confirmButtonText: '<@spring.message code="home.pane1.card1.dst.confirm"/>',
                     cancelButtonText: '<@spring.message code="home.pane1.card1.dst.cancel"/>',
                     type: 'warning'
                 }).then(() => {
-                    get("/backup/deleteBackup", {fileName: val.fileName}).then((data) => {
+                    post("/backup/deleteBackup", fileNames).then((data) => {
                         this.successMessage('<@spring.message code="backup.js.del.success"/>');
                         this.getBackupList();
                     })
                 }).catch(() => {
 
                 });
+            },
+            batchDelBackup(){
+                if (this.selectData.length <= 0) {
+                    this.warningMessage('<@spring.message code="backup.js.select.data"/>')
+                } else {
+                    let fileNames = [];
+                    this.selectData.forEach(e => {
+                        fileNames.push(e.fileName);
+                    })
+                    this.$confirm('<@spring.message code="backup.js.confirm.del"/>:'+'?', '<@spring.message code="backup.js.tip"/>', {
+                        confirmButtonText: '<@spring.message code="home.pane1.card1.dst.confirm"/>',
+                        cancelButtonText: '<@spring.message code="home.pane1.card1.dst.cancel"/>',
+                        type: 'warning'
+                    }).then(() => {
+                        post("/backup/deleteBackup", fileNames).then((data) => {
+                            this.successMessage('<@spring.message code="backup.js.del.success"/>');
+                            this.getBackupList();
+                        })
+                    }).catch(() => {
+
+                    });
+                }
             },
             formatFileSize(value) {
                 if (null == value || value == '') {
