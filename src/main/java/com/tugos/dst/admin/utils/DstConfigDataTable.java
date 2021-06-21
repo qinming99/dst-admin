@@ -43,4 +43,18 @@ public class DstConfigDataTable implements Serializable {
      */
     private Boolean smartUpdate;
 
+    /**
+     * 主端口号
+     */
+    private String masterPort;
+
+    /**
+     * 地面端口号
+     */
+    private String groundPort;
+
+    /**
+     * 洞穴端口号
+     */
+    private String cavesPort;
 }

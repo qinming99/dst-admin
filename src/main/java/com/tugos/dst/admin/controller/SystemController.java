@@ -2,6 +2,7 @@ package com.tugos.dst.admin.controller;
 
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.service.SystemService;
+import com.tugos.dst.admin.vo.GamePortVO;
 import com.tugos.dst.admin.vo.ScheduleVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -83,6 +84,25 @@ public class SystemController {
     public ResultVO<Map<String,String>> getVersion(){
         return ResultVO.data(systemService.getVersion());
     }
+
+
+    @GetMapping("/getGamePort")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<GamePortVO> getGamePort(){
+        return ResultVO.data(systemService.getGamePort());
+    }
+
+
+    @PostMapping("/saveGamePort")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<Map<String,String>> saveGamePort(@RequestBody GamePortVO gamePortVO){
+        systemService.saveGamePort(gamePortVO);
+        return ResultVO.success();
+    }
+
+
 
     @Autowired
     public void setSystemService(SystemService systemService) {

@@ -41,11 +41,26 @@ public class DstConfigData {
     public static Boolean smartUpdate;
 
     /**
+     * 主端口号
+     */
+    public static String masterPort;
+
+    /**
+     * 地面端口号
+     */
+    public static String groundPort;
+
+    /**
+     * 洞穴端口号
+     */
+    public static String cavesPort;
+
+    /**
      * 清理所有数据
      */
     public static void clearAllData(){
         SCHEDULE_UPDATE_MAP.clear();
-        SCHEDULE_BACKUP_MAP.clear();;
+        SCHEDULE_BACKUP_MAP.clear();
     }
 
 }

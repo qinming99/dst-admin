@@ -49,6 +49,15 @@ public class CoreScheduleService {
 
     private ShellService shellService;
 
+    @Value("${dst.master.port:10888}")
+    private String masterPort;
+
+    @Value("${dst.ground.port:10999}")
+    private String groundPort;
+
+    @Value("${dst.caves.port:10998}")
+    private String cavesPort;
+
     /**
      * 最大阈值 3分钟
      * 任务时间在当前时间的0到3分钟之间执行
@@ -211,6 +220,9 @@ public class CoreScheduleService {
             DstConfigData.USER_INFO.setUsername(dstUser);
             DstConfigData.USER_INFO.setPassword(dstPassword);
             DstConfigData.USER_INFO.setNickname(nickname);
+            DstConfigData.masterPort = masterPort;
+            DstConfigData.groundPort = groundPort;
+            DstConfigData.cavesPort = cavesPort;
         }
         //释放脚本并授权
         copyAndChmod(DstConstant.INSTALL_DST);

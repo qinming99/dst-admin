@@ -67,6 +67,9 @@ public class DBUtils {
                 DstConfigData.notStartMaster = table.getNotStartMaster();
                 DstConfigData.notStartCaves = table.getNotStartCaves();
                 DstConfigData.smartUpdate = table.getSmartUpdate();
+                DstConfigData.masterPort = table.getMasterPort();
+                DstConfigData.groundPort = table.getGroundPort();
+                DstConfigData.cavesPort = table.getCavesPort();
                 log.info("读取文件中的数据到缓存中成功：{}",data);
             }
         } catch (Exception e) {
@@ -87,6 +90,9 @@ public class DBUtils {
             table.setNotStartMaster(DstConfigData.notStartMaster);
             table.setNotStartCaves(DstConfigData.notStartCaves);
             table.setSmartUpdate(DstConfigData.smartUpdate);
+            table.setMasterPort(DstConfigData.masterPort);
+            table.setGroundPort(DstConfigData.groundPort);
+            table.setCavesPort(DstConfigData.cavesPort);
             String data = JSONUtil.toJsonStr(table);
             writeProjectData(DstConstant.DST_ADMIN_JSON, data);
         } catch (Exception e) {

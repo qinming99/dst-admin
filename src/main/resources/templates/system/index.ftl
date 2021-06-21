@@ -124,6 +124,40 @@
                 </ul>
             </el-card>
         </el-tab-pane>
+        <el-tab-pane label="<@spring.message code="setting.system.advanced.settings"/>" name="sixth">
+            <el-card class="card">
+                <div slot="header" class="clearfix">
+                    <span><@spring.message code="setting.system.advanced.tips"/></span>
+                </div>
+                <el-row style="margin: 5px">
+                    <el-col :span="3">
+                        <@spring.message code="setting.system.advanced.master.port"/>：
+                    </el-col>
+                    <el-col :span="5">
+                        <el-input type="number" v-model="gamePort.masterPort" placeholder="<@spring.message code="setting.system.advanced.master.tips"/>"/>
+                    </el-col>
+                </el-row>
+                <el-row style="margin: 5px">
+                    <el-col :span="3">
+                        <@spring.message code="setting.system.advanced.ground.port"/>：
+                    </el-col>
+                    <el-col :span="5">
+                        <el-input type="number" v-model="gamePort.groundPort" placeholder="<@spring.message code="setting.system.advanced.ground.tips"/>"/>
+                    </el-col>
+                </el-row>
+                <el-row style="margin: 5px">
+                    <el-col :span="3">
+                        <@spring.message code="setting.system.advanced.caves.port"/>：
+                    </el-col>
+                    <el-col :span="5">
+                        <el-input type="number" v-model="gamePort.cavesPort" placeholder="<@spring.message code="setting.system.advanced.caves.tips"/>"/>
+                    </el-col>
+                </el-row>
+            </el-card>
+            <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
+                <el-button :size="size" type="primary" @click="saveGamePort()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
+            </el-card>
+        </el-tab-pane>
     </el-tabs>
 </div>
 
@@ -153,12 +187,14 @@
                 updateTimeList: [],
             },
             labelPosition:'left',
-            size:'medium'
+            size:'medium',
+            gamePort:{},
         },
         created() {
             this.getScheduleList();
             this.getVersion();
-            this.getLabelPosition()
+            this.getLabelPosition();
+            this.getGamePort();
         },
         mounted(){
          window.onresize = () => {
@@ -270,7 +306,7 @@
                 params.smartUpdate = this.smartUpdate;
                 post("/system/saveSchedule", params).then((data) => {
                     if (data) {
-                        this.$message({message: data.message, type: 'success'});
+                        this.$message({message: data.message, type: 'warning'});
                     } else {
                         this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
                         this.getScheduleList()
@@ -293,6 +329,21 @@
                     }
                 })
             },
+            getGamePort(){
+                get("/system/getGamePort").then((data) => {
+                    this.gamePort = data;
+                })
+            },
+            saveGamePort(){
+                post("/system/saveGamePort",this.gamePort).then((data) => {
+                    if (data) {
+                        this.$message({message: data.message, type: 'warning'});
+                    } else {
+                        this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
+                        this.getGamePort()
+                    }
+                })
+            }
 
         }
     });

@@ -6,10 +6,8 @@ import cn.hutool.core.date.DateUtil;
 import com.google.common.collect.Lists;
 import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.enums.DstLogTypeEnum;
-import com.tugos.dst.admin.utils.DstConfigData;
-import com.tugos.dst.admin.utils.DstConstant;
-import com.tugos.dst.admin.utils.DstVersionUtils;
-import com.tugos.dst.admin.utils.FileUtils;
+import com.tugos.dst.admin.utils.*;
+import com.tugos.dst.admin.vo.GamePortVO;
 import com.tugos.dst.admin.vo.ScheduleVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -143,5 +141,21 @@ public class SystemService {
         map.put("steamVersion",steamVersion);
         map.put("localVersion",localVersion);
         return map;
+    }
+
+
+    public GamePortVO getGamePort(){
+        GamePortVO gamePortVO = new GamePortVO();
+        gamePortVO.setMasterPort(DstConfigData.masterPort);
+        gamePortVO.setGroundPort(DstConfigData.groundPort);
+        gamePortVO.setCavesPort(DstConfigData.cavesPort);
+        return gamePortVO;
+    }
+
+    public void saveGamePort(GamePortVO gamePortVO) {
+        DstConfigData.masterPort = gamePortVO.getMasterPort();
+        DstConfigData.groundPort = gamePortVO.getGroundPort();
+        DstConfigData.cavesPort = gamePortVO.getCavesPort();
+        DBUtils.saveDataToFile();
     }
 }
