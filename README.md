@@ -40,7 +40,7 @@ if  showing "openjdk version "1.8.0_252"well, finish
 ###  Download the newest dst-admin 
 
 ```bash
-wget http://clouddn.tugos.cn/release/dst-admin-1.2.0.jar -O dst-admin.jar
+wget http://clouddn.tugos.cn/release/dst-admin-1.3.0.jar -O dst-admin.jar
 ```
 
 
