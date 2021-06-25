@@ -1,9 +1,8 @@
-package cn.tugos.dcs.admin.exception;
+package com.tugos.dst.admin.exception;
 
 
 import com.tugos.dst.admin.common.ResultCodeEnum;
 import com.tugos.dst.admin.common.ResultVO;
-import com.tugos.dst.admin.exception.ResultException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.IncorrectCredentialsException;

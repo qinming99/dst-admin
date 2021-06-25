@@ -1,11 +1,13 @@
-package com.tugos.dst.admin.config.shiro.config.properties;
+package com.tugos.dst.admin.config.shiro;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * 项目-shiro会话配置项
+ * @author qinming
+ * @date 2020-5-16
+ * <p> shiro配置 </p>
  */
 @Data
 @Component

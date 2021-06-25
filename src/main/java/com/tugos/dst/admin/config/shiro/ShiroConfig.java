@@ -1,9 +1,6 @@
-package com.tugos.dst.admin.config.shiro.config;
+package com.tugos.dst.admin.config.shiro;
 
 
-import com.tugos.dst.admin.config.shiro.AuthRealm;
-import com.tugos.dst.admin.config.shiro.UserAuthFilter;
-import com.tugos.dst.admin.config.shiro.config.properties.ShiroProjectProperties;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -16,7 +13,11 @@ import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-
+/**
+ * @author qinming
+ * @date 2020-5-16
+ * <p> shiro配置 </p>
+ */
 @Configuration
 public class ShiroConfig {
 
@@ -24,20 +25,9 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager, ShiroProjectProperties properties) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        /**
-         * 添加自定义拦截器，重写user认证方式，处理session超时问题
-         */
         HashMap<String, Filter> myFilters = new HashMap<>(16);
         myFilters.put("userAuth", new UserAuthFilter());
         shiroFilterFactoryBean.setFilters(myFilters);
-        /**
-         *  过滤规则（注意优先级）
-         *  —anon 无需认证(登录)可访问
-         * 	—authc 必须认证才可访问
-         * 	—perms[标识] 拥有资源权限才可访问
-         * 	—role 拥有角色权限才可访问
-         * 	—user 认证和自动登录可访问
-         */
         LinkedHashMap<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/login", "anon");
         filterMap.put("/logout", "anon");
@@ -59,14 +49,12 @@ public class ShiroConfig {
         }
         // 拦截根目录下所有路径，需要放行的路径必须在之前添加
         filterMap.put("/**", "userAuth");
-
         // 设置过滤规则
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         // 设置登录页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 未授权错误页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/noAuth");
-
         return shiroFilterFactoryBean;
     }
 
