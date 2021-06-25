@@ -68,7 +68,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <div class="layui-side-user">
-                <img class="layui-side-user-avatar open-popup" data-url='system/user/detail' data-size="680,464"
+                <img class="layui-side-user-avatar" data-size="680,464"
                      src="/system/user/picture?p=${user.picture!}" alt="头像">
                 <div>
                     <p class="layui-side-user-name">${user.nickname!}</p>
