@@ -27,7 +27,7 @@
         <el-collapse>
             <el-collapse-item title="饥荒服务器推荐" name="0">
                 <ul class="step">
-                        <br/>饥荒服务器推荐使用星星海，CPU主频较高更加适合饥荒，提供9折优惠，如果需要购买服务器可以联系我Q：2339732369
+                        <br/>饥荒服务器推荐使用星星海，CPU主频较高适合饥荒
                         <br/>详情点击查看：<el-link type="primary" target="_blank" style="font-size: 20px"
                                         href="https://cloud.tencent.com/act/cps/redirect?redirect=1063&cps_key=3322a6d4629906a5b3c706ccb01913bd&from=console">
                             https://curl.qcloud.com/UEtsthzh</el-link>
