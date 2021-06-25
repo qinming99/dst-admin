@@ -6,6 +6,7 @@ import com.tugos.dst.admin.entity.Menu;
 import com.tugos.dst.admin.entity.User;
 import com.tugos.dst.admin.utils.URL;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -57,6 +59,13 @@ public class MainController {
         treeMenu.put("3", menu3);
         treeMenu.put("4", menu4);
         treeMenu.put("5", menu5);
+
+        Locale locale = LocaleContextHolder.getLocale();
+        if (Locale.CHINA.getLanguage().equals(locale.getLanguage())) {
+            Menu menu6 = Menu.builder().id(5L).icon("layui-icon layui-icon-about").sort(6).
+                    children(new HashMap<>()).title("关于").type(1).url("/system/about").build();
+            treeMenu.put("6", menu6);
+        }
         model.addAttribute("treeMenu", treeMenu);
         return "main";
     }

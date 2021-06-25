@@ -50,6 +50,11 @@ public class SystemController {
         }
     }
 
+    @GetMapping("/about")
+    public String toAbout() {
+        return "/system/about";
+    }
+
     @GetMapping("/getDstLog")
     @ResponseBody
     @RequiresAuthentication
