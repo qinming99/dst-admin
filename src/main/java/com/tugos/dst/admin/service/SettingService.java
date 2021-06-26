@@ -45,6 +45,15 @@ public class SettingService {
     @Value("${dst.max.snapshots:6}")
     private String maxSnapshots;
 
+    @Value("${dst.master.port:10888}")
+    private String masterPort;
+
+    @Value("${dst.ground.port:10999}")
+    private String groundPort;
+
+    @Value("${dst.caves.port:10998}")
+    private String cavesPort;
+
     /**
      * 保存戏设置 如果type为2 会启动新游戏
      *
@@ -228,7 +237,9 @@ public class SettingService {
         log.info("生成地面 server.ini文件,{}", finalPath);
         List<String> ini = new ArrayList<>();
         ini.add("[NETWORK]");
-        ini.add("server_port = " + DstConfigData.groundPort);
+        String groundPort = StringUtils.isNotBlank(DstConfigData.groundPort) ?
+                DstConfigData.groundPort : this.groundPort;
+        ini.add("server_port = " + groundPort);
         ini.add("");
         ini.add("");
         ini.add("[SHARD]");
@@ -263,7 +274,9 @@ public class SettingService {
         log.info("生成洞穴 server.ini文件,{}", finalPath);
         List<String> ini = new ArrayList<>();
         ini.add("[NETWORK]");
-        ini.add("server_port = " + DstConfigData.cavesPort);
+        String cavesPort = StringUtils.isNotBlank(DstConfigData.cavesPort) ?
+                DstConfigData.cavesPort : this.cavesPort;
+        ini.add("server_port = " + cavesPort);
         ini.add("");
         ini.add("");
         ini.add("[SHARD]");
@@ -376,7 +389,9 @@ public class SettingService {
         list.add("shard_enabled = true");
         list.add("bind_ip = 127.0.0.1");
         list.add("master_ip = 127.0.0.1");
-        list.add("master_port = " + DstConfigData.masterPort);
+        String masterPort = StringUtils.isNotBlank(DstConfigData.masterPort) ?
+                DstConfigData.masterPort : this.masterPort;
+        list.add("master_port = " + masterPort);
         list.add("cluster_key = defaultPass");
 
         StringBuffer sb = new StringBuffer();
