@@ -48,7 +48,7 @@
             </el-card>
 
         </el-tab-pane>
-        <el-tab-pane label="<@spring.message code="setting.player.admin.blacklist"/>" name="third">
+        <el-tab-pane label="<@spring.message code="setting.player.admin.blacklist"/>" name="second">
 
             <el-card class="card">
                 <div slot="header" class="clearfix">
@@ -81,6 +81,39 @@
                 <el-button type="primary" @click="saveBlackList()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
             </el-card>
         </el-tab-pane>
+        <el-tab-pane label="<@spring.message code="setting.player.admin.whitelist"/>" name="third">
+
+            <el-card class="card">
+                <div slot="header" class="clearfix">
+                    <span><@spring.message code="setting.player.admin.whitelist.desc"/></span>
+                </div>
+                <el-row style="margin: 5px">
+                    <el-col :span="5">
+                        <el-button type="primary" @click="addWhiteList()"><@spring.message code="setting.player.admin.add"/></el-button>
+                    </el-col>
+                </el-row>
+
+                <tempate v-for="(item,key) in whiteList">
+                    <el-row style="margin: 5px">
+                        <el-col :span="5">
+                            <el-input placeholder="<@spring.message code="setting.player.admin.input.id"/> ID" v-model="whiteList[key]" clearable></el-input>
+                        </el-col>
+                        <el-button type="warning" style="margin-left: 5px" @click="delWhiteList(key)"><@spring.message code="setting.player.admin.delete"/></el-button>
+                    </el-row>
+                </tempate>
+
+                <ul>
+                    <li><@spring.message code="setting.player.admin.tips"/></li>
+                    <li v-for="item in playerList" >{{item}}</li>
+                </ul>
+
+            </el-card>
+
+
+            <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
+                <el-button type="primary" @click="saveWhiteList()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
+            </el-card>
+        </el-tab-pane>
 
     </el-tabs>
 </div>
@@ -95,6 +128,7 @@
             activeName: 'first',
             adminList:[],
             blackList:[],
+            whiteList:[],
             playerList:[],
         },
         created() {
@@ -110,6 +144,11 @@
                 get("/player/getDstBlacklist").then((data) => {
                     if (data) {
                         this.blackList = data;
+                    }
+                })
+                get("/player/getDstWhitelist").then((data) => {
+                    if (data) {
+                        this.whiteList = data;
                     }
                 })
                 this.getPlayerList();
@@ -139,14 +178,31 @@
                 })
             },
             addBlackList(){
-              this.blackList.push("");
+                this.blackList.push("");
             },
             delBlackList(index){
                 this.blackList.splice(index,1);
             },
+            addWhiteList(){
+                this.whiteList.push("");
+            },
+            delWhiteList(index){
+                this.whiteList.splice(index,1);
+            },
             saveBlackList(){
                 console.log(this.blackList)
                 post("/player/saveBlackList", this.blackList).then((data) => {
+                    if (data) {
+                        this.$message({message: data.message, type: 'warning'});
+                    } else {
+                        this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
+                        this.init();
+                    }
+                })
+            },
+            saveWhiteList(){
+                console.log(this.blackList)
+                post("/player/saveWhiteList", this.whiteList).then((data) => {
                     if (data) {
                         this.$message({message: data.message, type: 'warning'});
                     } else {

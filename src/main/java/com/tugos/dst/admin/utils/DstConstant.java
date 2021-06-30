@@ -195,6 +195,11 @@ public final class DstConstant {
     public static final String DST_PLAYER_BLOCK_LIST_PATH = ".klei/DoNotStarveTogether/MyDediServer/blocklist.txt";
 
     /**
+     * 黑名单存储位置
+     */
+    public static final String DST_PLAYER_WHITE_LIST_PATH = ".klei/DoNotStarveTogether/MyDediServer/whitelist.txt";
+
+    /**
      * 游戏mod设置
      */
     public static final String DST_MOD_SETTING_PATH = "dst/mods/dedicated_server_mods_setup.lua";
