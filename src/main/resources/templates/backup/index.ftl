@@ -19,7 +19,8 @@
         <el-drawer title="<@spring.message code="setting.backup.upload.document"/>"
                    :visible.sync="drawer"
                    :with-header="false" size="50%"
-                   :before-close="handleClose">
+<#--                   :before-close="handleClose"-->
+        >
             <el-card>
                 <el-upload
                         class="upload-demo"
