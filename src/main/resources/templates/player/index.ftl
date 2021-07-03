@@ -15,7 +15,6 @@
 
 <div id="player_index">
     <el-tabs v-model="activeName">
-        <el-tab-pane label="<@spring.message code="setting.player.admin"/>" name="first">
             <el-card class="card">
                 <div slot="header" class="clearfix">
                     <span><@spring.message code="setting.player.admin.desc"/></span>
@@ -42,13 +41,6 @@
 
             </el-card>
 
-
-            <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
-                <el-button type="primary" @click="saveAdminList()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
-            </el-card>
-
-        </el-tab-pane>
-        <el-tab-pane label="<@spring.message code="setting.player.admin.blacklist"/>" name="third">
 
             <el-card class="card">
                 <div slot="header" class="clearfix">
@@ -78,9 +70,9 @@
 
 
             <el-card style="margin: 10px; position: sticky; bottom: 0;  z-index: 10;">
-                <el-button type="primary" @click="saveBlackList()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
+                <el-button type="primary" @click="saveAdminAndBlackList()"><@spring.message code="home.pane1.card1.dst.active.save"/></el-button>
+                <el-button type="primary" @click="saveAndRestart()"><@spring.message code="home.pane1.card1.save.restart"/></el-button>
             </el-card>
-        </el-tab-pane>
 
     </el-tabs>
 </div>
@@ -120,15 +112,28 @@
             delAdmin(index){
                 this.adminList.splice(index,1);
             },
-            saveAdminList(){
-                console.log(this.adminList)
-                post("/player/saveAdminList", this.adminList).then((data) => {
+            //保存并重启
+            saveAndRestart() {
+                this.saveAdminAndBlackList();
+                this.restart();
+            },
+            saveAdminAndBlackList() {
+                let param = {};
+                param.adminList = this.adminList;
+                param.blackList = this.blackList;
+                post("/player/saveAdminAndBlackList", param).then((data) => {
                     if (data) {
                         this.$message({message: data.message, type: 'warning'});
                     } else {
                         this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
                         this.init();
                     }
+                })
+            },
+            restart(){
+                get("/home/stop", {type: 0}).then((data) => {
+                })
+                get("/home/start", {type: 0}).then((data) => {
                 })
             },
             getPlayerList(){
@@ -144,17 +149,6 @@
             delBlackList(index){
                 this.blackList.splice(index,1);
             },
-            saveBlackList(){
-                console.log(this.blackList)
-                post("/player/saveBlackList", this.blackList).then((data) => {
-                    if (data) {
-                        this.$message({message: data.message, type: 'warning'});
-                    } else {
-                        this.$message({message: '<@spring.message code="player.save.success"/>', type: 'success'});
-                        this.init();
-                    }
-                })
-            }
         }
     });
 
