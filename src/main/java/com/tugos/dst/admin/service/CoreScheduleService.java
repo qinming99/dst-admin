@@ -85,7 +85,7 @@ public class CoreScheduleService {
     @Scheduled(fixedDelay = 1000 * 60 * 30, initialDelay = 1000 * 60 * 30)
     public void smartUpdateGame() {
         Boolean smartUpdate = DstConfigData.smartUpdate;
-        if (smartUpdate) {
+        if (smartUpdate != null && smartUpdate) {
             String steamVersion = DstVersionUtils.getSteamVersion();
             String localVersion = DstVersionUtils.getLocalVersion();
             if (StringUtils.isNoneBlank(steamVersion, localVersion)) {
