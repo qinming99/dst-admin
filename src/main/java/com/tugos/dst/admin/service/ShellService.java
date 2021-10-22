@@ -190,24 +190,22 @@ public class ShellService {
         //检查地面与洞穴是否已经关闭，如果10秒之内还没有关闭就强制关闭
         if (this.getMasterStatus()) {
             //运行中 睡眠
-            int sleep = 1;
-            while (sleep <= MAX_SLEEP_SECOND) {
-                this.sleep(1);
-                if (this.getMasterStatus()) {
+            for (int i = 0; this.getMasterStatus(); i++) {
+                if (i == MAX_SLEEP_SECOND) {
                     break;
+                } else {
+                    this.sleep(1);
                 }
-                sleep++;
             }
         }
         if (this.getCavesStatus()) {
             //运行中 睡眠
-            int sleep = 1;
-            while (sleep <= MAX_SLEEP_SECOND) {
-                this.sleep(1);
-                if (this.getCavesStatus()) {
+            for (int i = 0; this.getCavesStatus(); i++) {
+                if (i == MAX_SLEEP_SECOND) {
                     break;
+                } else {
+                    this.sleep(1);
                 }
-                sleep++;
             }
         }
         this.stopMaster();
