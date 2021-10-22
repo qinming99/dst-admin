@@ -163,9 +163,45 @@ public class ShellService {
     }
 
     /**
+     * 优雅关闭地面服务
+     */
+    public void elegantShutdownMaster(){
+        this.shutdownMaster();
+        if (this.getMasterStatus()) {
+            //运行中 睡眠
+            for (int i = 0; this.getMasterStatus(); i++) {
+                if (i == MAX_SLEEP_SECOND) {
+                    break;
+                } else {
+                    this.sleep(1);
+                }
+            }
+        }
+        this.stopMaster();
+    }
+
+    /**
+     * 优雅关闭洞穴服务
+     */
+    public void elegantShutdownCaves(){
+        this.shutdownCaves();
+        if (this.getCavesStatus()) {
+            //运行中 睡眠
+            for (int i = 0; this.getCavesStatus(); i++) {
+                if (i == MAX_SLEEP_SECOND) {
+                    break;
+                } else {
+                    this.sleep(1);
+                }
+            }
+        }
+        this.stopCaves();
+    }
+
+    /**
      * 关闭地面服务 将执行保存保证
      */
-    public void shutdownMaster(){
+    private void shutdownMaster(){
         String shell = "screen -S \""+DstConstant.SCREEN_WORK_MASTER_NAME+"\" -p 0 -X stuff \"c_shutdown(true)\\n\"";
         ShellUtil.execShellBin(shell);
     }
@@ -173,7 +209,7 @@ public class ShellService {
     /**
      * 关闭洞穴服务 将执行保存保证
      */
-    public void shutdownCaves(){
+    private void shutdownCaves(){
         String shell = "screen -S \""+DstConstant.SCREEN_WORK_CAVES_NAME+"\" -p 0 -X stuff \"c_shutdown(true)\\n\"";
         ShellUtil.execShellBin(shell);
     }
@@ -185,31 +221,8 @@ public class ShellService {
      */
     public List<String> updateGame() {
         //优雅关闭
-        this.shutdownMaster();
-        this.shutdownCaves();
-        //检查地面与洞穴是否已经关闭，如果10秒之内还没有关闭就强制关闭
-        if (this.getMasterStatus()) {
-            //运行中 睡眠
-            for (int i = 0; this.getMasterStatus(); i++) {
-                if (i == MAX_SLEEP_SECOND) {
-                    break;
-                } else {
-                    this.sleep(1);
-                }
-            }
-        }
-        if (this.getCavesStatus()) {
-            //运行中 睡眠
-            for (int i = 0; this.getCavesStatus(); i++) {
-                if (i == MAX_SLEEP_SECOND) {
-                    break;
-                } else {
-                    this.sleep(1);
-                }
-            }
-        }
-        this.stopMaster();
-        this.stopCaves();
+        this.elegantShutdownMaster();
+        this.elegantShutdownCaves();
         return ShellUtil.runShell(DstConstant.UPDATE_GAME_CMD);
     }
 
