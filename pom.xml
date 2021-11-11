@@ -21,7 +21,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <!--shiro权限管理框架版本：component.shiro-->
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.7.0</shiro.version>
     </properties>
 
     <dependencies>
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>28.0-jre</version>
+            <version>29.0-jre</version>
         </dependency>
 
 <!--        <dependency>-->
