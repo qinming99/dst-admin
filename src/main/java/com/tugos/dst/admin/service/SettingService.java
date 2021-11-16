@@ -82,6 +82,9 @@ public class SettingService {
             homeService.delRecord();
             homeService.start(StartTypeEnum.START_ALL.type);
         }
+        if (SettingTypeEnum.SAVE_RESTART.type.equals(vo.getType())){
+            homeService.start(StartTypeEnum.START_ALL.type);
+        }
         return ResultVO.success();
     }
 

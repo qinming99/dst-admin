@@ -211,6 +211,7 @@
                     </el-button>
                     <el-button :size="size" v-show="active != 3" type="primary" @click="next(active)"><@spring.message code="setting.next.step"/></el-button>
                     <el-button :size="size" v-show="active == 3" type="primary" @click="save(1)"><@spring.message code="setting.save.settings.only"/></el-button>
+                    <el-button :size="size" v-show="active == 3" type="primary" @click="save(3)"><@spring.message code="setting.save.settings.restart"/></el-button>
                     <el-button :size="size" v-show="active == 3" type="primary" @click="save(2)"><@spring.message code="setting.generate.a.new.game"/></el-button>
                 </el-card>
             </el-col>

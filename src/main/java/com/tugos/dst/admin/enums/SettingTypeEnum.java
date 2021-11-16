@@ -11,7 +11,8 @@ public enum SettingTypeEnum {
      * 类型 0 仅保存
      */
     SAVE(1, "仅保存"),
-    START_GAME(2, "启动新游戏");
+    START_GAME(2, "启动新游戏"),
+    SAVE_RESTART(3, "保存并重启");
 
     public final Integer type;
     public final String desc;

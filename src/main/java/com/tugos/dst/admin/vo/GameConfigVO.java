@@ -33,7 +33,7 @@ public class GameConfigVO {
 
     private String modData;
     /**
-     * 1 进保存 2 启动新游戏
+     * 1 进保存 2 启动新游戏 3 保存并重启
      */
     private Integer type;
 
