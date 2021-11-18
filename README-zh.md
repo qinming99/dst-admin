@@ -59,6 +59,14 @@ java -jar dst-admin.jar
 ./dstStart.sh
 ```
 
+### 一键式部署
+```
+wget http://clouddn.tugos.cn/startDst.sh
+chmod +x ./startDst.sh
+./startDst.sh
+     
+```
+
 ## 预览图
 
 ![img](https://github.com/qinming99/dst-admin/blob/master/images/image1.png)
