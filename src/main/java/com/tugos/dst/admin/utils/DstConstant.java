@@ -115,6 +115,11 @@ public final class DstConstant {
     public static final String BACKUP_FILE_EXTENSION = ".tar";
 
     /**
+     * 备份的存档文件的扩展名
+     */
+    public static final String BACKUP_FILE_EXTENSION_NON_POINT = ".tar";
+
+    /**
      * 游戏文档
      */
     public static final String DST_DOC_PATH = ".klei/DoNotStarveTogether";

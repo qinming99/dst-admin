@@ -123,8 +123,8 @@
                     </li>
                 </ul>
             </el-card>
-        </el-tab-pane>
-        <el-tab-pane label="<@spring.message code="setting.system.advanced.settings"/>" name="sixth">
+<#--        </el-tab-pane>-->
+<#--        <el-tab-pane label="<@spring.message code="setting.system.advanced.settings"/>" name="sixth">-->
             <el-card class="card">
                 <div slot="header" class="clearfix">
                     <span><@spring.message code="setting.system.advanced.tips"/></span>
@@ -169,9 +169,9 @@
         el: '#sys_index',
         data: {
             activeName: 'first',
-            num1: 100,
-            num2: 100,
-            num3: 100,
+            num1: 20,
+            num2: 20,
+            num3: 20,
             masterLog: [],
             cavesLog: [],
             chatLog: [],

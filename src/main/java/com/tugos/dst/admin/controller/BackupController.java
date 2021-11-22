@@ -1,10 +1,12 @@
 package com.tugos.dst.admin.controller;
 
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.json.JSONUtil;
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.service.BackupService;
+import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.vo.BackupFileVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -53,8 +55,8 @@ public class BackupController {
     @RequiresAuthentication
     @ResponseBody
     public ResultVO<String> upload(@RequestParam("file") MultipartFile file) throws Exception {
-        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
-        if (!"tar".equalsIgnoreCase(suffix)) {
+        String suffix = FileUtil.extName(file.getOriginalFilename());
+        if (!DstConstant.BACKUP_FILE_EXTENSION_NON_POINT.equalsIgnoreCase(suffix)) {
             return ResultVO.fail(I18nResourcesConfig.getMessage("tip.backup.tarfile"));
         }
         return backupService.upload(file);

@@ -161,6 +161,11 @@
                     <br/>注意中途更换MOD，可能引起游戏崩溃
                 </div>
             </el-collapse-item>
+            <el-collapse-item title="什么是智能更新？" name="12">
+                <div class="context">饥荒管理后台会根据<strong>Klei 饥荒最新版本号
+                    </strong>和<strong>当前服务器的版本号</strong>进行比对，发现klei的版本号大于当前服务器的版本号时进行更新，由于获取的klei版本号存在一定的问题，有可能导致更新失败
+                </div>
+            </el-collapse-item>
 
         </el-collapse>
     </el-card>
