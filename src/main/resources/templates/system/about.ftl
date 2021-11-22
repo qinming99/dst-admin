@@ -24,7 +24,7 @@
         <div slot="header" class="clearfix">
             <span>关于dst-admin</span>
         </div>
-        <h3>当前版本号-V1.3.0</h3>
+        <h3>当前版本号-V1.3.1</h3>
         <h3>Copyright © 2020-2021 Qinming. All rights reserved.</h3>
         <h3>服务器搭建教程：
             <el-link type="primary" target="_blank"
