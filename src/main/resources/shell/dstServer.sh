@@ -18,7 +18,7 @@ settingSwap() {
 
 installAdmin() {
   if [[ ! -f ${server_name}'.jar' ]]; then
-    wget http://clouddn.tugos.cn/release/dst-admin-1.3.0.jar -O dst-admin.jar
+    wget http://clouddn.tugos.cn/release/dst-admin-1.3.1.jar -O dst-admin.jar
   else
     echo -e "dst-admin.jar 已下载"
   fi
