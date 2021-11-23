@@ -2,7 +2,7 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>饥荒管理平台向导</title>
+    <title>饥荒管理平台帮助文档</title>
     <#include "../common/header.ftl"/>
 </head>
 <style>
@@ -22,7 +22,7 @@
 <div id="guide_page">
     <el-card>
         <div slot="header" class="clearfix">
-            <span>饥荒联机版管理平台使用向导</span>
+            <span>饥荒联机版管理平台使用帮助文档</span>
         </div>
         <el-collapse>
             <el-collapse-item title="饥荒服务器推荐" name="0">
@@ -115,7 +115,7 @@
                         <img src="/images/step7-1.png"/>
                     </li>
                     <li>可以下载一个饥荒管理平台生成的存档备份对照来制作</li>
-                    <li>找到本地的存档，本地的存档存储位置请查看"如何获取地面设置"向导 </li>
+                    <li>找到本地的存档，本地的存档存储位置请查看"如何获取地面设置"帮助文档 </li>
                     <li>将地面master文件夹和洞穴caves文件夹复制到新的文件夹中</li>
                     <li>将文件夹名称改为<strong>MyDediServer</strong></li>
                     <li>在将<strong>MyDediServer</strong>文件夹压缩为<strong>tar格式</strong>(如何制作tar格式的压缩包请百度)</li>
