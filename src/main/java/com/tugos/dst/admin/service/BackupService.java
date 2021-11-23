@@ -117,34 +117,36 @@ public class BackupService {
      * @throws Exception 异常
      */
     public void download(String fileName, HttpServletResponse response) throws Exception {
-        String filepath = DstConstant.ROOT_PATH + "/" + DstConstant.DST_DOC_PATH;
-        filepath += "/" + fileName;
-        File file = new File(filepath);
-        if (file.exists()) {
-            //文件存在
-            response.setHeader("content-type", "application/octet-stream");
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
-            byte[] buffer = new byte[1024];
-            try (FileInputStream fis = new FileInputStream(file);
-                 BufferedInputStream bis = new BufferedInputStream(fis);
-                 OutputStream os = response.getOutputStream()) {
-                int i = bis.read(buffer);
-                while (i != -1) {
-                    os.write(buffer, 0, i);
-                    i = bis.read(buffer);
+        if (StringUtils.isNotBlank(fileName) && fileName.contains(DstConstant.BACKUP_FILE_EXTENSION)) {
+            String filepath = DstConstant.ROOT_PATH + "/" + DstConstant.DST_DOC_PATH;
+            filepath += "/" + fileName;
+            File file = new File(filepath);
+            if (file.exists()) {
+                //文件存在
+                response.setHeader("content-type", "application/octet-stream");
+                response.setContentType("application/octet-stream");
+                response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+                byte[] buffer = new byte[1024];
+                try (FileInputStream fis = new FileInputStream(file);
+                     BufferedInputStream bis = new BufferedInputStream(fis);
+                     OutputStream os = response.getOutputStream()) {
+                    int i = bis.read(buffer);
+                    while (i != -1) {
+                        os.write(buffer, 0, i);
+                        i = bis.read(buffer);
+                    }
+                    os.flush();
+                } catch (Exception e) {
+                    log.error("下载文件失败：", e);
                 }
-                os.flush();
-            } catch (Exception e) {
-                log.error("下载文件失败：", e);
+                return;
             }
-        } else {
-            //返回空文件
-            response.setHeader("content-type", "application/octet-stream");
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("文件不存在.txt", "UTF-8"));
-            response.getOutputStream().flush();
         }
+        //返回空文件
+        response.setHeader("content-type", "application/octet-stream");
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("文件不存在.txt", "UTF-8"));
+        response.getOutputStream().flush();
     }
 
     /**
