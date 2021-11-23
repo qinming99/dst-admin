@@ -117,7 +117,7 @@ public final class DstConstant {
     /**
      * 备份的存档文件的扩展名
      */
-    public static final String BACKUP_FILE_EXTENSION_NON_POINT = ".tar";
+    public static final String BACKUP_FILE_EXTENSION_NON_POINT = "tar";
 
     /**
      * 游戏文档
