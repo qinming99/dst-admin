@@ -120,6 +120,11 @@ public final class DstConstant {
     public static final String BACKUP_FILE_EXTENSION_NON_POINT = "tar";
 
     /**
+     * 不允许下载文件路径中存在改字符
+     */
+    public static final String BACKUP_ERROR_PATH = "../";
+
+    /**
      * 游戏文档
      */
     public static final String DST_DOC_PATH = ".klei/DoNotStarveTogether";
