@@ -34,4 +34,4 @@ EXPOSE 10999/udp
 RUN chmod 755 install.sh \
     && ./install.sh
 
-CMD ["nohup","java", "-jar", "-Xms250m", "-Xmx250m", "dst-admin.jar", "&"]
+CMD ["nohup","java", "-jar", "-Xms256m", "-Xmx256m", "dst-admin.jar", "&"]
