@@ -3,6 +3,7 @@ package com.tugos.dst.admin.exception;
 
 import com.tugos.dst.admin.common.ResultCodeEnum;
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.utils.SafeLoginCheckUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,9 +40,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IncorrectCredentialsException.class)
     @ResponseBody
-    public ResultVO<String> handleIncorrectCredentialsException(IncorrectCredentialsException e) {
+    public ResultVO<String> handleIncorrectCredentialsException(HttpServletRequest request, IncorrectCredentialsException e) {
         log.error("shiro 账号或密码错误：{}", e.getMessage());
-        return ResultVO.fail(ResultCodeEnum.NOT_EXIST_USER_OR_ERROR_PWD);
+        SafeLoginCheckUtils.loginErrorRecode(request);
+        return ResultVO.fail(String.format(ResultCodeEnum.NOT_EXIST_USER_OR_ERROR_PWD.getMessage(),
+                SafeLoginCheckUtils.getRemainingTimes(request)));
     }
 
     /**

@@ -27,7 +27,8 @@ public enum ResultCodeEnum implements ResultInterface {
     USER_NAME_PWD_NULL(11000, "用户名和密码不能为空"),
     USER_CAPTCHA_ERROR(11001, "验证码错误"),
     NO_PERMISSIONS(11002, "权限不足！"),
-    NOT_EXIST_USER_OR_ERROR_PWD(11005, "该用户不存在或密码错误"),
+    NOT_EXIST_USER_OR_ERROR_PWD(11005, "用户不存在或密码错误,你还有%s次机会重试"),
+    USER_HAS_FREEZE(11006, "用户已被冻结，请稍后重试"),
 
     //系统相关
     PARAM_ERR(12000,"请求参数异常"),
