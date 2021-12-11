@@ -53,7 +53,7 @@ public final class SafeLoginCheckUtils {
      *
      * @param request 请求
      */
-    public static void loginErrorRecode(HttpServletRequest request) {
+    public static void loginErrorRecord(HttpServletRequest request) {
         String ip = IpUtils.getIpAddr(request);
         if (LOGIN_ERROR_MAP.containsKey(ip)) {
             LoginErrorVO loginErrorVO = LOGIN_ERROR_MAP.get(ip);
@@ -81,6 +81,15 @@ public final class SafeLoginCheckUtils {
             return MAX_ERROR_TIMES - LOGIN_ERROR_MAP.get(ip).getCount().intValue();
         }
         return MAX_ERROR_TIMES - 1;
+    }
+
+    /**
+     * 清理错误信息
+     * @param request 请求
+     */
+    public static void cleanErrorRecord(HttpServletRequest request) {
+        String ip = IpUtils.getIpAddr(request);
+        LOGIN_ERROR_MAP.remove(ip);
     }
 
 

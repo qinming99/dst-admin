@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResultVO<String> handleIncorrectCredentialsException(HttpServletRequest request, IncorrectCredentialsException e) {
         log.error("shiro 账号或密码错误：{}", e.getMessage());
-        SafeLoginCheckUtils.loginErrorRecode(request);
+        SafeLoginCheckUtils.loginErrorRecord(request);
         return ResultVO.fail(String.format(ResultCodeEnum.NOT_EXIST_USER_OR_ERROR_PWD.getMessage(),
                 SafeLoginCheckUtils.getRemainingTimes(request)));
     }

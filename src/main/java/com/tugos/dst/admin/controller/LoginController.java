@@ -49,6 +49,7 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         subject.login(token);
+        SafeLoginCheckUtils.cleanErrorRecord(request);
         //登录成功，跳转至首页
         ResultVO<URL> data = ResultVO.data(new URL("/"));
         data.setMessage(I18nResourcesConfig.getMessage("tip.login.success"));
