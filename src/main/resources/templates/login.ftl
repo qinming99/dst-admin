@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <#import "spring.ftl" as spring>
+    <meta name="robots" content="noindex,nofollow">
     <title><@spring.message code="dst.admin.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <meta charset="utf-8">
