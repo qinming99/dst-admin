@@ -165,6 +165,22 @@ public class HomeController {
         return ResultVO.success();
     }
 
+    @GetMapping("/masterConsole")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<String> masterConsole(@RequestParam String command) {
+        shellService.masterConsole(command);
+        return ResultVO.success();
+    }
+
+    @GetMapping("/cavesConsole")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<String> cavesConsole(@RequestParam String command) {
+        shellService.cavesConsole(command);
+        return ResultVO.success();
+    }
+
 
     @Autowired
     public void setHomeService(HomeService homeService) {

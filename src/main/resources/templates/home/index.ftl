@@ -139,6 +139,24 @@
                                     </el-row>
                                 </el-form-item>
 
+                                <el-form-item label="地面控制台：" >
+                                    <el-row>
+                                        <el-col :span="10">
+                                            <el-input type="textarea" :rows="3" maxlength="500" placeholder="<@spring.message code="home.pane1.card2.dst.master.console"/>" show-word-limit v-model="masterCommand"></el-input>
+                                        </el-col>
+                                        <el-col :span="5"> <el-button @click="masterConsole()" style="margin-left: 10px" icon="el-icon-s-comment" ><@spring.message code="home.pane1.card2.dst.console.exec"/></el-button></el-col>
+                                    </el-row>
+                                </el-form-item>
+
+                                <el-form-item label="洞穴控制台：" >
+                                    <el-row>
+                                        <el-col :span="10">
+                                            <el-input type="textarea" :rows="3" maxlength="500" placeholder="<@spring.message code="home.pane1.card2.dst.caves.console"/>" show-word-limit v-model="cavesCommand"></el-input>
+                                        </el-col>
+                                        <el-col :span="5"> <el-button @click="cavesConsole()" style="margin-left: 10px" icon="el-icon-s-comment" ><@spring.message code="home.pane1.card2.dst.console.exec"/></el-button></el-col>
+                                    </el-row>
+                                </el-form-item>
+
                                 <el-form-item label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：" >
                                     <el-row>
                                         <el-col :span="10">
@@ -235,6 +253,8 @@
             broadcastContent:null,//广播内容
             kickUserId:null,//踢出的玩家
             dayNum:null,//回滚天数
+            masterCommand:null,//地面命令
+            cavesCommand:null,//洞穴命令
             colors: [
                 {color: '#00ff00', percentage: 10},
                 {color: '#669900', percentage: 20},
@@ -415,6 +435,36 @@
                     }
                     this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                 })
+            },
+            masterConsole(){
+                if (this.masterCommand) {
+                    get("/home/masterConsole", {command: this.masterCommand}).then((data) => {
+                        if (data) {
+                            this.warningMessage(data.message);
+                        }
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
+                    })
+                } else {
+                    this.$message({
+                        message: '<@spring.message code="home.js.tip.input.code"/>',
+                        type: 'warning'
+                    });
+                }
+            },
+            cavesConsole(){
+                if (this.cavesCommand) {
+                    get("/home/cavesConsole", {command: this.cavesCommand}).then((data) => {
+                        if (data) {
+                            this.warningMessage(data.message);
+                        }
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
+                    })
+                } else {
+                    this.$message({
+                        message: '<@spring.message code="home.js.tip.input.code"/>',
+                        type: 'warning'
+                    });
+                }
             },
             successMessage(message) {
                 this.$message({

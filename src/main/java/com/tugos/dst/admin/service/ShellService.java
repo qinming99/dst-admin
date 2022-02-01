@@ -372,6 +372,26 @@ public class ShellService {
         return playList;
     }
 
+    /**
+     * 地面控制台
+     *
+     * @param command 命令
+     */
+    public void masterConsole(String command) {
+        String cmd = "screen -S \"" + DstConstant.SCREEN_WORK_MASTER_NAME + "\" -p 0 -X stuff \"" + command + "\\n\"";
+        ShellUtil.execShellBin(cmd);
+    }
+
+    /**
+     * 洞穴控制台
+     *
+     * @param command 命令
+     */
+    public void cavesConsole(String command) {
+        String cmd = "screen -S \"" + DstConstant.SCREEN_WORK_CAVES_NAME + "\" -p 0 -X stuff \"" + command + "\\n\"";
+        ShellUtil.execShellBin(cmd);
+    }
+
     @Autowired
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
