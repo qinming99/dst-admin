@@ -438,7 +438,7 @@
             },
             masterConsole(){
                 if (this.masterCommand) {
-                    get("/home/masterConsole", {command: this.masterCommand}).then((data) => {
+                    post("/home/masterConsole", {command: this.masterCommand}).then((data) => {
                         if (data) {
                             this.warningMessage(data.message);
                         }
@@ -453,7 +453,7 @@
             },
             cavesConsole(){
                 if (this.cavesCommand) {
-                    get("/home/cavesConsole", {command: this.cavesCommand}).then((data) => {
+                    post("/home/cavesConsole", {command: this.cavesCommand}).then((data) => {
                         if (data) {
                             this.warningMessage(data.message);
                         }

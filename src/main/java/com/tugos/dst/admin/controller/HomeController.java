@@ -10,10 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -165,7 +162,7 @@ public class HomeController {
         return ResultVO.success();
     }
 
-    @GetMapping("/masterConsole")
+    @PostMapping("/masterConsole")
     @ResponseBody
     @RequiresAuthentication
     public ResultVO<String> masterConsole(@RequestParam String command) {
@@ -173,7 +170,7 @@ public class HomeController {
         return ResultVO.success();
     }
 
-    @GetMapping("/cavesConsole")
+    @PostMapping("/cavesConsole")
     @ResponseBody
     @RequiresAuthentication
     public ResultVO<String> cavesConsole(@RequestParam String command) {
