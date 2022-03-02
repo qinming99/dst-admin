@@ -36,7 +36,7 @@
 
                 <ul>
                     <li><@spring.message code="setting.player.admin.tips"/></li>
-                    <li v-for="item in playerList" >{{item}}</li>
+                    <li style="margin-top: 10px" v-for="(item,key) in playerList">{{item}} <el-button type="primary" @click="addAdmin2(key)">><@spring.message code="setting.player.admin.delete"/></el-button></li>
                 </ul>
 
             </el-card>
@@ -63,7 +63,7 @@
 
                 <ul>
                     <li><@spring.message code="setting.player.admin.tips"/></li>
-                    <li v-for="item in playerList" >{{item}}</li>
+                    <li style="margin-top: 10px" v-for="(item,key) in playerList">{{item}} <el-button type="primary" @click="addBlackList2(key)"><@spring.message code="setting.player.admin.add"/></el-button></li>
                 </ul>
 
             </el-card>
@@ -109,6 +109,11 @@
             addAdmin(){
                 this.adminList.push("");
             },
+            addAdmin2(index) {
+                let item = this.playerList[index];
+                this.adminList.push(item.split(' ')[0]);
+                this.playerList.splice(index, 1)
+            },
             delAdmin(index){
                 this.adminList.splice(index,1);
             },
@@ -145,6 +150,11 @@
             },
             addBlackList(){
               this.blackList.push("");
+            },
+            addBlackList2(index) {
+                let item = this.playerList[index];
+                this.blackList.push(item.split(' ')[0]);
+                this.playerList.splice(index, 1)
             },
             delBlackList(index){
                 this.blackList.splice(index,1);
