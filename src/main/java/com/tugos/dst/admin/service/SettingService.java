@@ -1,8 +1,8 @@
 package com.tugos.dst.admin.service;
 
 
+import cn.hutool.core.io.FileUtil;
 import com.tugos.dst.admin.common.ResultVO;
-import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.enums.SettingTypeEnum;
 import com.tugos.dst.admin.enums.StartTypeEnum;
 import com.tugos.dst.admin.utils.DstConfigData;
@@ -61,9 +61,8 @@ public class SettingService {
      */
     public ResultVO<String> saveConfig(GameConfigVO vo) throws Exception {
         this.filterSensitiveWords(vo);
-        if (!this.checkConfigIsExists()) {
-            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.player.config.not.exist") + ":" + DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH);
-        }
+        //创建存档目录
+        FileUtil.mkdir(DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH);
         //创建地面和洞穴的ini配置文件
         this.createMasterServerIni();
         this.createCavesServerIni();
@@ -247,6 +246,8 @@ public class SettingService {
         ini.add("");
         ini.add("[SHARD]");
         ini.add("is_master = true");
+        ini.add("name = Master");
+        ini.add("id = 10000");
         ini.add("");
         ini.add("");
         ini.add("[ACCOUNT]");

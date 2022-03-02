@@ -24,7 +24,7 @@
         <div slot="header" class="clearfix">
             <span>饥荒联机版管理平台使用帮助文档</span>
         </div>
-        <el-collapse>
+        <el-collapse accordion>
             <el-collapse-item title="饥荒服务器推荐" name="0">
                 <ul class="step">
                         <br/>饥荒服务器推荐使用星星海，CPU主频较高适合饥荒
