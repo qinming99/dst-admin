@@ -36,7 +36,7 @@
 
                 <ul>
                     <li><@spring.message code="setting.player.admin.tips"/></li>
-                    <li style="margin-top: 10px" v-for="(item,key) in playerList">{{item}} <el-button type="primary" @click="addAdmin2(key)">><@spring.message code="setting.player.admin.delete"/></el-button></li>
+                    <li style="margin-top: 10px" v-for="(item,key) in playerList">{{item}} <el-button type="primary" @click="addAdmin2(key)"><@spring.message code="setting.player.admin.add"/></el-button></li>
                 </ul>
 
             </el-card>
