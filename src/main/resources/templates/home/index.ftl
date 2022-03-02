@@ -402,19 +402,14 @@
                 }
             },
             //踢出玩家
-            kickPlayer2(player){
+            kickPlayer2(player) {
                 let split = player.split(" ");
-                if (split.length === 3){
-                    get("/home/kickPlayer", {userId: split[0]}).then((data) => {
-                        if (data) {
-                            this.warningMessage(data.message);
-                        }
-                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
-                    })
-                }else {
-                    //解析的有问题
+                get("/home/kickPlayer", {userId: split[0]}).then((data) => {
+                    if (data) {
+                        this.warningMessage(data.message);
+                    }
                     this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
-                }
+                })
                 this.getPlayerList();
             },
             //重置世界
