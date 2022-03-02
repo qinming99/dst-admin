@@ -11,7 +11,7 @@
 
     <groupId>com.tugos.dst</groupId>
     <artifactId>dst-admin</artifactId>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
     <name>dst-admin</name>
     <description>Demo project for Spring Boot</description>
 
