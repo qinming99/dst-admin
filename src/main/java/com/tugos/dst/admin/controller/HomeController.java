@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author qinming
@@ -111,7 +112,7 @@ public class HomeController {
     @GetMapping("/delRecord")
     @RequiresAuthentication
     @ResponseBody
-    public ResultVO<String> delRecord() throws Exception{
+    public ResultVO<String> delRecord() throws Exception {
         log.info("清理游戏记录");
         homeService.delRecord();
         Thread.sleep(2000);
@@ -121,8 +122,8 @@ public class HomeController {
     @GetMapping("/sendBroadcast")
     @RequiresAuthentication
     @ResponseBody
-    public ResultVO<String> sendBroadcast(@RequestParam String message){
-        log.info("发送公告："+message);
+    public ResultVO<String> sendBroadcast(@RequestParam String message) {
+        log.info("发送公告：" + message);
         shellService.sendBroadcast(message);
         return ResultVO.success();
     }
@@ -130,7 +131,7 @@ public class HomeController {
     @GetMapping("/getPlayerList")
     @RequiresAuthentication
     @ResponseBody
-    public ResultVO<List<String>> getPlayerList() throws Exception{
+    public ResultVO<List<String>> getPlayerList() throws Exception {
         List<String> playerList = shellService.getPlayerList();
         return ResultVO.data(playerList);
     }
@@ -138,8 +139,8 @@ public class HomeController {
     @GetMapping("/kickPlayer")
     @RequiresAuthentication
     @ResponseBody
-    public ResultVO<String> kickPlayer(@RequestParam String userId){
-        log.info("踢出玩家："+userId);
+    public ResultVO<String> kickPlayer(@RequestParam String userId) {
+        log.info("踢出玩家：" + userId);
         shellService.kickPlayer(userId);
         return ResultVO.success();
     }
@@ -147,8 +148,8 @@ public class HomeController {
     @GetMapping("/rollback")
     @RequiresAuthentication
     @ResponseBody
-    public ResultVO<String> rollback(@RequestParam Integer dayNum){
-        log.info("回滚指定的天数："+dayNum);
+    public ResultVO<String> rollback(@RequestParam Integer dayNum) {
+        log.info("回滚指定的天数：" + dayNum);
         shellService.rollback(dayNum);
         return ResultVO.success();
     }
@@ -156,7 +157,7 @@ public class HomeController {
     @GetMapping("/regenerate")
     @RequiresAuthentication
     @ResponseBody
-    public ResultVO<String> regenerate(){
+    public ResultVO<String> regenerate() {
         log.info("重置世界...");
         shellService.regenerate();
         return ResultVO.success();
@@ -165,16 +166,16 @@ public class HomeController {
     @PostMapping("/masterConsole")
     @ResponseBody
     @RequiresAuthentication
-    public ResultVO<String> masterConsole(@RequestParam String command) {
-        shellService.masterConsole(command);
+    public ResultVO<String> masterConsole(@RequestBody Map<String, String> param) {
+        shellService.masterConsole(param.get("command"));
         return ResultVO.success();
     }
 
     @PostMapping("/cavesConsole")
     @ResponseBody
     @RequiresAuthentication
-    public ResultVO<String> cavesConsole(@RequestParam String command) {
-        shellService.cavesConsole(command);
+    public ResultVO<String> cavesConsole(@RequestBody Map<String, String> param) {
+        shellService.cavesConsole(param.get("command"));
         return ResultVO.success();
     }
 

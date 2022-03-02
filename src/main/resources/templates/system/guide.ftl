@@ -152,7 +152,7 @@
             </el-collapse-item>
             <el-collapse-item title="搜索不到房间怎么办？" name="10">
                 <div class="context">可以使用直连方式进入房间，在游戏主页<strong>按~键</strong>，调出控制台，
-                    输入c_connect("ip",端口,"密码") ip为公网ip(注意引号是英语的),这里的端口是10999或者10998，密码为空就填写空串，如：c_connect("11.22.33.44",10998)
+                    输入c_connect("ip",端口,"密码") ip为公网ip(注意引号是英语的),这里的端口是10999或者10998，密码为空就填写空串，如：c_connect("11.22.33.44",10999)
                     <br/>服务器未升级到<strong>最新版本</strong>也搜索不到房间,请更新游戏
               </div>
             </el-collapse-item>

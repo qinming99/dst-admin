@@ -436,8 +436,9 @@
                     post("/home/masterConsole", {command: this.masterCommand}).then((data) => {
                         if (data) {
                             this.warningMessage(data.message);
+                        }else {
+                            this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                         }
-                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     })
                 } else {
                     this.$message({
@@ -451,8 +452,9 @@
                     post("/home/cavesConsole", {command: this.cavesCommand}).then((data) => {
                         if (data) {
                             this.warningMessage(data.message);
+                        }else {
+                            this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                         }
-                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     })
                 } else {
                     this.$message({
