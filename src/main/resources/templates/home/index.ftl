@@ -139,7 +139,7 @@
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="地面控制台：" >
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.master.console.label"/>：" >
                                     <el-row>
                                         <el-col :span="10">
                                             <el-input type="textarea" :rows="3" maxlength="500" placeholder="<@spring.message code="home.pane1.card2.dst.master.console"/>" show-word-limit v-model="masterCommand"></el-input>
@@ -148,7 +148,7 @@
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="洞穴控制台：" >
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.master.console.label"/>：" >
                                     <el-row>
                                         <el-col :span="10">
                                             <el-input type="textarea" :rows="3" maxlength="500" placeholder="<@spring.message code="home.pane1.card2.dst.caves.console"/>" show-word-limit v-model="cavesCommand"></el-input>
