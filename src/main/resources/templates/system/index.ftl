@@ -78,8 +78,17 @@
         </el-tab-pane>
         <el-tab-pane label="<@spring.message code="setting.system.ground.run.log"/>" name="second">
             <el-card class="card">
-                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num1" type="number" clearable></el-input>
-                    <el-button :size="size" type="primary" @click="getDstLog(0,num1)"><@spring.message code="setting.system.pull"/></el-button>
+                <el-row style="margin: 5px">
+                    <el-col :span="3">
+                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>"
+                                  v-model="num1" type="number" clearable></el-input>
+
+                    </el-col>
+                    <el-col :span="6">
+                        <el-button :size="size" type="primary"
+                                   @click="getDstLog(0,num1)"><@spring.message code="setting.system.pull"/></el-button>
+                    </el-col>
+                </el-row>
             </el-card>
             <el-card class="card">
                 <ul>
@@ -89,8 +98,16 @@
         </el-tab-pane>
         <el-tab-pane label="<@spring.message code="setting.system.cave.run.log"/>" name="third">
             <el-card class="card">
-                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num2" type="number" clearable></el-input>
-                    <el-button :size="size" type="primary" @click="getDstLog(1,num2)"><@spring.message code="setting.system.pull"/></el-button>
+                <el-row style="margin: 5px">
+                    <el-col :span="3">
+                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>"
+                                  v-model="num2" type="number" clearable></el-input>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-button :size="size" type="primary"
+                                   @click="getDstLog(1,num2)"><@spring.message code="setting.system.pull"/></el-button>
+                    </el-col>
+                </el-row>
             </el-card>
             <el-card class="card">
                 <ul>
@@ -100,8 +117,16 @@
         </el-tab-pane>
         <el-tab-pane label="<@spring.message code="setting.system.player.chat.log"/>" name="fourth">
             <el-card class="card">
-                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>" v-model="num3" type="number" clearable></el-input>
-                    <el-button :size="size" type="primary" @click="getDstLog(2,num3)"><@spring.message code="setting.system.pull"/></el-button>
+                <el-row style="margin: 5px">
+                    <el-col :span="3">
+                        <el-input :size="size" placeholder="<@spring.message code="setting.system.run.log.desc"/>"
+                                  v-model="num3" type="number" clearable></el-input>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-button :size="size" type="primary"
+                                   @click="getDstLog(2,num3)"><@spring.message code="setting.system.pull"/></el-button>
+                    </el-col>
+                </el-row>
             </el-card>
             <el-card class="card">
                 <ul>
