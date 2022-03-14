@@ -23,6 +23,7 @@
 
 ## docker版本部署请参考：[点击查看](https://github.com/qinming99/dst-admin/blob/master/file/README.md)
 
+## 多层专业版购买 [点击查看](http://download.tugos.cn/img/taobao_ad.jpg)
 
 ## 快速开始
 ###  在Ubuntu服务器中安装jdk1.8 
@@ -38,7 +39,7 @@ java -version
 ###  下载最新版dst-admin安装包
 
 ```bash
-wget http://clouddn.tugos.cn/release/dst-admin-1.3.1.jar -O dst-admin.jar
+wget http://clouddn.tugos.cn/release/dst-admin-1.4.0.jar -O dst-admin.jar
 ```
 
 
