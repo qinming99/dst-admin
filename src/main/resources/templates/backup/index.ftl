@@ -63,11 +63,11 @@
     new Vue({
         el: '#backup_index_app',
         data: {
-            tableData: {},
+            tableData: [],
             drawer: false,
             fileList: [],
-            totalSize:0,
-            selectData:[],
+            totalSize: 0,
+            selectData: [],
         },
         created() {
             this.getBackupList();
