@@ -80,7 +80,7 @@ public class DstVersionUtils {
             //活动类型
             Integer eventType = event.getInt("event_type");
             //获取发布时间
-            LocalDateTime localDateTime = LocalDateTimeUtil.ofUTC(event.getJSONObject("announcement_body").getLong("posttime") * 1000);
+            LocalDateTime localDateTime = LocalDateTimeUtil.of(event.getJSONObject("announcement_body").getLong("posttime") * 1000);
             if (eventType == 14 || eventType == 12) {
                 gameVersionTime = localDateTime;
             }
