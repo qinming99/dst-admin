@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -107,6 +108,9 @@ public class DstVersionUtils {
             }
         } catch (Exception e) {
             log.error("获取本地游戏版本号失败：", e);
+        }
+        if (lastUpdateTime == null){
+            lastUpdateTime = LocalDateTimeUtil.of(new Date());
         }
         return lastUpdateTime + "    " + "版本:" + version;
     }
