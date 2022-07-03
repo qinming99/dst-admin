@@ -1,15 +1,22 @@
 package com.tugos.dst.admin.utils;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.jni.Local;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +28,10 @@ import java.util.List;
  */
 @Slf4j
 public class DstVersionUtils {
+
+    public static LocalDateTime gameVersionTime;
+
+    public static LocalDateTime lastUpdateTime;
 
     /**
      * 获取steam中dst的最新版本号
@@ -55,6 +66,29 @@ public class DstVersionUtils {
         return version;
     }
 
+    public static String getSteamVersionWithTitle() {
+        String versionWithTitle = null;
+        try {
+            String info = HttpUtil.get("https://store.steampowered.com/events/ajaxgetadjacentpartnerevents/?appid=322330&count_before=0&count_after=3&lang_list=6_0");
+            JSONObject gameNewsInfo = JSONUtil.parseObj(info);
+            JSONObject events = gameNewsInfo.getJSONObject("events");
+            //活动名称
+            String eventName = events.getStr("event_name");
+            //活动类型
+            Integer eventType = events.getInt("event_type");
+            //获取发布时间
+            LocalDateTime localDateTime = LocalDateTimeUtil.ofUTC(events.getJSONObject("announcement_body").getInt("posttime"));
+            if (eventType == 14 || eventType == 12) {
+                gameVersionTime = localDateTime;
+            }
+            String postTime = LocalDateTimeUtil.format(localDateTime, DatePattern.NORM_DATETIME_PATTERN);
+            versionWithTitle = postTime + "    " + eventName;
+        } catch (Exception e) {
+            log.error("从steam获取最新的饥荒版本号失败：{}", e.getMessage());
+        }
+        return versionWithTitle;
+    }
+
     /**
      * 获取本地的版本号
      * 同时根据地面日志和洞穴日志获取版本号，返回最新版本号
@@ -72,7 +106,7 @@ public class DstVersionUtils {
         } catch (Exception e) {
             log.error("获取本地游戏版本号失败：", e);
         }
-        return version;
+        return lastUpdateTime + "    " + "版本:" + version;
     }
 
 
