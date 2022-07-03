@@ -5,6 +5,7 @@ import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSON;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -71,13 +72,14 @@ public class DstVersionUtils {
         try {
             String info = HttpUtil.get("https://store.steampowered.com/events/ajaxgetadjacentpartnerevents/?appid=322330&count_before=0&count_after=3&lang_list=6_0");
             JSONObject gameNewsInfo = JSONUtil.parseObj(info);
-            JSONObject events = gameNewsInfo.getJSONObject("events");
+            JSONArray events = gameNewsInfo.getJSONArray("events");
+            JSONObject event = events.getJSONObject(0);
             //活动名称
-            String eventName = events.getStr("event_name");
+            String eventName = event.getStr("event_name");
             //活动类型
-            Integer eventType = events.getInt("event_type");
+            Integer eventType = event.getInt("event_type");
             //获取发布时间
-            LocalDateTime localDateTime = LocalDateTimeUtil.ofUTC(events.getJSONObject("announcement_body").getInt("posttime"));
+            LocalDateTime localDateTime = LocalDateTimeUtil.ofUTC(event.getJSONObject("announcement_body").getLong("posttime") * 1000);
             if (eventType == 14 || eventType == 12) {
                 gameVersionTime = localDateTime;
             }
