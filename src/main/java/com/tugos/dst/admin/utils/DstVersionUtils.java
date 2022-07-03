@@ -85,7 +85,7 @@ public class DstVersionUtils {
                 gameVersionTime = localDateTime;
             }
             String postTime = LocalDateTimeUtil.format(localDateTime, DatePattern.NORM_DATETIME_PATTERN);
-            versionWithTitle = postTime + "&nbsp&nbsp&nbsp&nbsp" + eventName;
+            versionWithTitle = postTime + "||" + eventName;
         } catch (Exception e) {
             log.error("从steam获取最新的饥荒版本号失败：{}", e.getMessage());
         }
@@ -112,7 +112,7 @@ public class DstVersionUtils {
         if (lastUpdateTime == null){
             lastUpdateTime = LocalDateTimeUtil.of(new Date());
         }
-        return LocalDateTimeUtil.format(lastUpdateTime, DatePattern.NORM_DATETIME_PATTERN) + "&nbsp&nbsp&nbsp&nbsp" + "版本:" + version;
+        return LocalDateTimeUtil.format(lastUpdateTime, DatePattern.NORM_DATETIME_PATTERN) + "||" + "版本:" + version;
     }
 
 
