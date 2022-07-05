@@ -70,7 +70,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.3.2</version>
+            <version>5.8.3</version>
         </dependency>
 
         <dependency>
@@ -87,14 +87,8 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
+            <version>31.1-jre</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.codehaus.groovy</groupId>-->
-<!--            <artifactId>groovy</artifactId>-->
-<!--            <version>2.4.5</version>-->
-<!--        </dependency>-->
 
     </dependencies>
 
