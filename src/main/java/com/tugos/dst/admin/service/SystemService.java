@@ -135,7 +135,7 @@ public class SystemService {
      * @return 版本号
      */
     public Map<String,String> getVersion() {
-        String steamVersion = DstVersionUtils.getSteamVersion();
+        String steamVersion = DstVersionUtils.getSteamVersionWithTitle();
         String localVersion = DstVersionUtils.getLocalVersion();
         Map<String,String> map = new HashMap<>(16);
         map.put("steamVersion",steamVersion);

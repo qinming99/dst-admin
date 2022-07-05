@@ -1,11 +1,9 @@
 package com.tugos.dst.admin.service;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.enums.DstLogTypeEnum;
-import com.tugos.dst.admin.utils.DstConstant;
-import com.tugos.dst.admin.utils.FileUtils;
-import com.tugos.dst.admin.utils.ModFileUtil;
-import com.tugos.dst.admin.utils.ShellUtil;
+import com.tugos.dst.admin.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -223,6 +222,8 @@ public class ShellService {
         //优雅关闭
         this.elegantShutdownMaster();
         this.elegantShutdownCaves();
+        //保存更新时间
+        DstVersionUtils.lastUpdateTime = LocalDateTimeUtil.of(new Date());
         return ShellUtil.runShell(DstConstant.UPDATE_GAME_CMD);
     }
 

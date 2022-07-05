@@ -4,6 +4,7 @@ package com.tugos.dst.admin.service;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import com.google.common.collect.Range;
 import com.tugos.dst.admin.enums.StartTypeEnum;
 import com.tugos.dst.admin.utils.*;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -85,18 +87,18 @@ public class CoreScheduleService {
     @Scheduled(fixedDelay = 1000 * 60 * 30, initialDelay = 1000 * 60 * 30)
     public void smartUpdateGame() {
         Boolean smartUpdate = DstConfigData.smartUpdate;
+        //获取一次游戏版本
+        DstVersionUtils.getSteamVersionWithTitle();
         if (smartUpdate != null && smartUpdate) {
-            String steamVersion = DstVersionUtils.getSteamVersion();
-            String localVersion = DstVersionUtils.getLocalVersion();
-            if (StringUtils.isNoneBlank(steamVersion, localVersion)) {
-                long sv = Long.parseLong(steamVersion);
-                long lv = Long.parseLong(localVersion);
-                if (sv > lv) {
+            LocalDateTime gameVersionTime = DstVersionUtils.gameVersionTime;
+            LocalDateTime lastUpdateTime = DstVersionUtils.lastUpdateTime;
+            if (gameVersionTime != null && lastUpdateTime != null) {
+                if (lastUpdateTime.isAfter(gameVersionTime)) {
                     log.info("智能更新进行...");
                     onlyUpdateGame();
                 }
             } else {
-                log.info("拿不到最新的版本号：steamVersion={},localVersion={}", steamVersion, localVersion);
+                log.info("拿不到最新的版本号：steamVersion={},localVersion={}", gameVersionTime, lastUpdateTime);
             }
         }
     }
@@ -165,6 +167,7 @@ public class CoreScheduleService {
         if (notStartMaster && notStartCaves) {
             //都不启动
         }
+        DstVersionUtils.lastUpdateTime = LocalDateTimeUtil.of(new Date());
     }
 
 
