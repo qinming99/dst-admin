@@ -35,39 +35,23 @@ public class DstVersionUtils {
 
     public static LocalDateTime lastUpdateTime;
 
+    public static String getSteamVersionByCdn() {
+        String info = HttpUtil.get("https://steamcommunity-a.akamaihd.net/news/newsforapp/v0002/?appid=322330&count=1&maxlength=1&format=json");
+        JSONObject appNews = JSONUtil.parseObj(info);
+        JSONArray newsItems = appNews.getJSONArray("newsitems");
+        JSONObject news = newsItems.getJSONObject(0);
+        String eventName = news.getStr("title");
+        LocalDateTime localDateTime = LocalDateTimeUtil.of(news.getLong("date") * 1000);
+        gameVersionTime = localDateTime;
+        String postTime = LocalDateTimeUtil.format(localDateTime, DatePattern.NORM_DATETIME_PATTERN);
+        return postTime + "||" + eventName;
+    }
+
     /**
      * 获取steam中dst的最新版本号
      *
      * @return 版本号
      */
-    public static String getSteamVersion() {
-        String version = null;
-        try {
-            String url = "https://steamcommunity-a.akamaihd.net/news/newsforapp/v0002/?appid=322330&count=3&maxlength=300&format=vdf";
-            HttpRequest get = HttpUtil.createGet(url);
-            get.timeout(30000);
-            HashMap<String, String> headers = new HashMap<>();
-            headers.put("user-agent", "Valve/Steam HTTP Client 1.0 (0)");
-            headers.put("Host", "steamcommunity-a.akamaihd.net");
-            headers.put("Accept", "text/html,*/*;q=0.9");
-            headers.put("accept-encoding", "gzip,identity,*;q=0");
-            headers.put("accept-charset", "ISO-8859-1,utf-8,*;q=0.7");
-            get.headerMap(headers, true);
-            String body = get.execute().body();
-            String verStr = StringUtils.substringBefore(StringUtils.substringAfter(body, "[Game Hotfix]"), "\"");
-            String doubleVerStr = StringUtils.deleteWhitespace(verStr).replace("-", "");
-            String[] split = doubleVerStr.split("&");
-            if (split.length >= 2) {
-                version = split[1];
-            } else {
-                version = split[0];
-            }
-        } catch (Exception e) {
-            log.error("从steam获取最新的饥荒版本号失败：{}", e.getMessage());
-        }
-        return version;
-    }
-
     public static String getSteamVersionWithTitle() {
         String versionWithTitle = null;
         try {
@@ -87,7 +71,9 @@ public class DstVersionUtils {
             String postTime = LocalDateTimeUtil.format(localDateTime, DatePattern.NORM_DATETIME_PATTERN);
             versionWithTitle = postTime + "||" + eventName;
         } catch (Exception e) {
-            log.error("从steam获取最新的饥荒版本号失败：{}", e.getMessage());
+            log.error("从steam官方接口获取最新的饥荒版本号失败：{}", e.getMessage());
+            //如果获取失败就去cdn获取英文更新日志
+            versionWithTitle = getSteamVersionByCdn();
         }
         return versionWithTitle;
     }
