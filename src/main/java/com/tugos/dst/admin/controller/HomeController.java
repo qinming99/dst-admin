@@ -4,6 +4,7 @@ package com.tugos.dst.admin.controller;
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.service.HomeService;
 import com.tugos.dst.admin.service.ShellService;
+import com.tugos.dst.admin.utils.DstVersionUtils;
 import com.tugos.dst.admin.vo.DstServerInfoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -85,7 +86,11 @@ public class HomeController {
     @ResponseBody
     public ResultVO<String> updateGame() {
         log.info("更新游戏");
-        return homeService.updateGame();
+        if (DstVersionUtils.isBeta){
+            return homeService.updateBetaGame();
+        }else {
+            return homeService.updateGame();
+        }
     }
 
 
@@ -97,6 +102,15 @@ public class HomeController {
         ResultVO<String> resultVO = homeService.backup(name);
         Thread.sleep(2000);
         return resultVO;
+    }
+
+    @GetMapping("/changeToBeta")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<String> changeToBeta(){
+        log.info("切换到Beta游戏版本");
+        DstVersionUtils.isBeta = true;
+        return homeService.changeToBeta();
     }
 
     @GetMapping("/restore")

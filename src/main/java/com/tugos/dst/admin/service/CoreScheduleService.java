@@ -149,7 +149,11 @@ public class CoreScheduleService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        homeService.updateGame();
+        if (DstVersionUtils.isBeta){
+            homeService.updateBetaGame();
+        }else {
+            homeService.updateGame();
+        }
         boolean notStartMaster = DstConfigData.notStartMaster != null ? DstConfigData.notStartMaster : false;
         boolean notStartCaves = DstConfigData.notStartCaves != null ? DstConfigData.notStartCaves : false;
         if (!notStartMaster && !notStartCaves) {
@@ -193,6 +197,9 @@ public class CoreScheduleService {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                         String format = sdf.format(new Date());
                         format += weekStr;
+                        if (DstVersionUtils.isBeta){
+                            format += "_beta";
+                        }
                         String fileName = format + "_sys.tar";
                         shellService.createBackup(fileName);
                         DstConfigData.SCHEDULE_BACKUP_MAP.put(time,1);

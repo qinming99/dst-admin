@@ -35,6 +35,8 @@ public class DstVersionUtils {
 
     public static LocalDateTime lastUpdateTime;
 
+    public static Boolean isBeta;
+
     /**
      * 获取steam中dst的最新版本号
      *
@@ -112,7 +114,11 @@ public class DstVersionUtils {
         if (lastUpdateTime == null){
             lastUpdateTime = LocalDateTimeUtil.of(new Date());
         }
-        return LocalDateTimeUtil.format(lastUpdateTime, DatePattern.NORM_DATETIME_PATTERN) + "||" + "版本:" + version;
+        String versionWithTitle = LocalDateTimeUtil.format(lastUpdateTime, DatePattern.NORM_DATETIME_PATTERN) + "||" + "版本:" + version;
+        if (isBeta){
+            versionWithTitle += "[Beta]";
+        }
+        return versionWithTitle;
     }
 
 

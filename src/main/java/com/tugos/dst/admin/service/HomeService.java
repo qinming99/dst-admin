@@ -8,6 +8,7 @@ import com.tugos.dst.admin.entity.Server;
 import com.tugos.dst.admin.enums.StartTypeEnum;
 import com.tugos.dst.admin.enums.StopTypeEnum;
 import com.tugos.dst.admin.utils.DstConstant;
+import com.tugos.dst.admin.utils.DstVersionUtils;
 import com.tugos.dst.admin.vo.BackupFileVO;
 import com.tugos.dst.admin.vo.DstServerInfoVO;
 import lombok.extern.slf4j.Slf4j;
@@ -149,6 +150,7 @@ public class HomeService {
             list.forEach(e-> backupList.add(e.getFileName()));
         }
         data.setBackupList(backupList);
+        data.setIsBeta(DstVersionUtils.isBeta);
         return data;
     }
 
@@ -162,6 +164,32 @@ public class HomeService {
             return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.start.error"));
         }
         shellService.updateGame();
+        return ResultVO.success();
+    }
+
+    /**
+     * 测试服更新游戏
+     */
+    public ResultVO<String> updateBetaGame() {
+        if (!this.checkIsInstallDst()) {
+            //未安装dst
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.start.error"));
+        }
+        shellService.updateBetaGame();
+        return ResultVO.success();
+    }
+
+    /**
+     * 将游戏切换到Beta版本
+     *
+     * @return 执行信息
+     */
+    public ResultVO<String> changeToBeta() {
+        if (!this.checkIsInstallDst()) {
+            //未安装dst
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.start.error"));
+        }
+        shellService.updateBetaGame();
         return ResultVO.success();
     }
 

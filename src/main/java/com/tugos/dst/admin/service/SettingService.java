@@ -79,7 +79,7 @@ public class SettingService {
         if (SettingTypeEnum.START_GAME.type.equals(vo.getType())) {
             //启动新游戏
             homeService.delRecord();
-            homeService.start(StartTypeEnum.START_ALL.type);
+            homeService.start(StartTypeEnum.START_ALL.type);/**/
         }
         if (SettingTypeEnum.SAVE_RESTART.type.equals(vo.getType())){
             homeService.start(StartTypeEnum.START_ALL.type);
