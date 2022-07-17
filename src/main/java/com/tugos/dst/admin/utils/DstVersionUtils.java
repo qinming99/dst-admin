@@ -88,9 +88,6 @@ public class DstVersionUtils {
             }
             String postTime = LocalDateTimeUtil.format(localDateTime, DatePattern.NORM_DATETIME_PATTERN);
             versionWithTitle = postTime + "||" + eventName;
-            if (isBeta){
-                versionWithTitle += "[Beta]";
-            }
         } catch (Exception e) {
             log.error("从steam获取最新的饥荒版本号失败：{}", e.getMessage());
         }
@@ -117,7 +114,11 @@ public class DstVersionUtils {
         if (lastUpdateTime == null){
             lastUpdateTime = LocalDateTimeUtil.of(new Date());
         }
-        return LocalDateTimeUtil.format(lastUpdateTime, DatePattern.NORM_DATETIME_PATTERN) + "||" + "版本:" + version;
+        String versionWithTitle = LocalDateTimeUtil.format(lastUpdateTime, DatePattern.NORM_DATETIME_PATTERN) + "||" + "版本:" + version;
+        if (isBeta){
+            versionWithTitle += "[Beta]";
+        }
+        return versionWithTitle;
     }
 
 
