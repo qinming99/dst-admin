@@ -88,6 +88,9 @@ public class DstVersionUtils {
             }
             String postTime = LocalDateTimeUtil.format(localDateTime, DatePattern.NORM_DATETIME_PATTERN);
             versionWithTitle = postTime + "||" + eventName;
+            if (isBeta){
+                versionWithTitle += "[Beta]";
+            }
         } catch (Exception e) {
             log.error("从steam获取最新的饥荒版本号失败：{}", e.getMessage());
         }
