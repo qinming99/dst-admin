@@ -33,6 +33,10 @@
                                     <el-button   v-if="!cavesStatus" icon="el-icon-video-play" type="warning">
                                         <@spring.message code="home.pane1.card1.dst.caves.not"/>
                                     </el-button>
+                                    <el-button v-if="isBeta" icon="el-icon-video-play" type="primary"><@spring.message code="home.pane1.card1.dst.beta.not"/>
+                                    </el-button>
+                                    <el-button    v-if="!isBeta" icon="el-icon-video-play" type="primary"><@spring.message code="home.pane1.card1.dst.beta.running"/>
+                                    </el-button>
                                 </el-form-item>
 
                                 <el-form-item label="<@spring.message code="home.pane1.card1.dst.start.masterCaves"/>：">
@@ -58,6 +62,7 @@
                                         <el-button slot="reference" icon="el-icon-s-promotion"><@spring.message code="home.pane1.card1.dst.updateGame"/></el-button>
                                     </el-popover>
                                     <el-button icon="el-icon-refresh" @click="backupGame()"><@spring.message code="home.pane1.card1.dst.createBackup"/></el-button>
+                                    <el-button icon="el-icon-cpu" @click="changeToBeta()"><@spring.message code="home.pane1.card1.dst.changeToBeta"/></el-button>
                                 </el-form-item>
                                 <el-form-item  label="<@spring.message code="home.pane1.card1.dst.cleanGameArchive"/>：" >
                                     <el-popover placement="top" width="200" v-model="visible">
@@ -235,6 +240,7 @@
             runStatus: false,
             masterStatus: false,//地面状态
             cavesStatus: false,//洞穴状态
+            isBeta: false,
             backupName: null,//选择的备份文件名称
             backupList: [],
             visible: false,
@@ -337,6 +343,17 @@
             backupGame() {
                 this.loading = true;
                 get("/home/backup").then((data) => {
+                    this.loading = false;
+                    if (data) {
+                        this.warningMessage(data.message);
+                    }
+                    this.getSystemInfo();
+                })
+            },
+            //备份
+            changeToBeta() {
+                this.loading = true;
+                get("/home/changeToBeta").then((data) => {
                     this.loading = false;
                     if (data) {
                         this.warningMessage(data.message);
@@ -490,6 +507,7 @@
                         } else {
                             this.runStatus = false;
                         }
+                        this.isBeta = data.isBeta;
                     }
                 })
             },

@@ -85,6 +85,11 @@ public final class DstConstant {
     public static final String UPDATE_GAME_CMD = "cd ~/steamcmd ; ./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit";
 
     /**
+     * 切换Beta版本游戏
+     */
+    public static final String UPDATE_GAME_BETA_CMD = "cd ~/steamcmd ; ./steamcmd.sh +login anonymous  +force_install_dir ~/dst +app_update 343050 -beta updatebeta validate +quit";
+
+    /**
      * 删除地面游戏记录
      */
     public static final String DEL_RECORD_MASTER_CMD = "rm -r ~/.klei/DoNotStarveTogether/MyDediServer/"+DST_MASTER+"/save";

@@ -39,5 +39,9 @@ public class DstServerInfoVO {
      */
     private List<String> backupList;
 
+    /**
+     * 是否是测试版本服务器
+     */
+    private Boolean isBeta;
 
 }

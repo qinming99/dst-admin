@@ -228,6 +228,20 @@ public class ShellService {
     }
 
     /**
+     * 将游戏切换至beta版本
+     *
+     * @return 执行信息
+     */
+    public List<String> updateBetaGame(){
+        //优雅关闭
+        this.elegantShutdownMaster();
+        this.elegantShutdownCaves();
+        //保存更新时间
+        DstVersionUtils.lastUpdateTime = LocalDateTimeUtil.of(new Date());
+        return ShellUtil.runShell(DstConstant.UPDATE_GAME_BETA_CMD);
+    }
+
+    /**
      * 睡眠
      * @param seconds 秒
      */
