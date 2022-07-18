@@ -4,6 +4,7 @@ package com.tugos.dst.admin.controller;
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.service.HomeService;
 import com.tugos.dst.admin.service.ShellService;
+import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.DstVersionUtils;
 import com.tugos.dst.admin.vo.DstServerInfoVO;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Locale;
@@ -85,12 +87,11 @@ public class HomeController {
     @RequiresAuthentication
     @ResponseBody
     public ResultVO<String> updateGame() {
-        log.info("更新游戏");
-        if (DstVersionUtils.isBeta){
-            return homeService.updateBetaGame();
-        }else {
-            return homeService.updateGame();
-        }
+        log.info("切换到正式服");
+        DstVersionUtils.isBeta = false;
+        DstConstant dstConstant = new DstConstant();
+        dstConstant.init();
+        return homeService.updateGame();
     }
 
 
@@ -107,9 +108,11 @@ public class HomeController {
     @GetMapping("/changeToBeta")
     @RequiresAuthentication
     @ResponseBody
-    public ResultVO<String> changeToBeta(){
+    public ResultVO<String> changeToBeta() {
         log.info("切换到Beta游戏版本");
         DstVersionUtils.isBeta = true;
+        DstConstant dstConstant = new DstConstant();
+        dstConstant.init();
         return homeService.changeToBeta();
     }
 

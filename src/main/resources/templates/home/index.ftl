@@ -52,6 +52,7 @@
                                     <el-switch  v-model="cavesStatus" active-text="<@spring.message code="home.pane1.card1.dst.active.on"/>" inactive-text="<@spring.message code="home.pane1.card1.dst.active.off"/>" :width="50"
                                                @change="controlDst(cavesStatus,2)"></el-switch>
                                 </el-form-item>
+                                <el-form-item label="Tips: "><@spring.message code="home.pane1.card1.dst.change.tips"/></el-form-item>
                                 <el-form-item label="<@spring.message code="home.pane1.card1.dst.quickOperation"/>：">
                                     <el-popover  placement="top" width="200" v-model="visible2">
                                         <p><@spring.message code="home.pane1.card1.dst.search.suggestions"/></p>
@@ -62,7 +63,14 @@
                                         <el-button slot="reference" icon="el-icon-s-promotion"><@spring.message code="home.pane1.card1.dst.updateGame"/></el-button>
                                     </el-popover>
                                     <el-button icon="el-icon-refresh" @click="backupGame()"><@spring.message code="home.pane1.card1.dst.createBackup"/></el-button>
-                                    <el-button icon="el-icon-cpu" @click="changeToBeta()"><@spring.message code="home.pane1.card1.dst.changeToBeta"/></el-button>
+                                    <el-popover  placement="top" width="200" v-model="visible6">
+                                        <p><@spring.message code="home.pane1.card1.dst.changeToBeta.suggestions"/></p>
+                                        <div style="text-align: right; margin: 0">
+                                            <el-button  type="text" @click="visible6 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                            <el-button type="primary"  @click="changeToBeta()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
+                                        </div>
+                                        <el-button slot="reference" icon="el-icon-s-promotion"><@spring.message code="home.pane1.card1.dst.changeToBeta"/></el-button>
+                                    </el-popover>
                                 </el-form-item>
                                 <el-form-item  label="<@spring.message code="home.pane1.card1.dst.cleanGameArchive"/>：" >
                                     <el-popover placement="top" width="200" v-model="visible">
@@ -249,6 +257,7 @@
             visible3: false,
             visible4: false,
             visible5: false,
+            visible6: false,
             cpuInfo: 0,
             cpuNum: 0,
             menInfo: 0,
@@ -350,8 +359,9 @@
                     this.getSystemInfo();
                 })
             },
-            //备份
+            //切换到Beta版
             changeToBeta() {
+                this.visible6 = false;
                 this.loading = true;
                 get("/home/changeToBeta").then((data) => {
                     this.loading = false;
