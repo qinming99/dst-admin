@@ -14,7 +14,7 @@ public class DstConstant {
 
     private static final String BETA_PATH = "DoNotStarveTogetherBetaBranch";
 
-    public static String DST_PATH = ".klei/";
+    public static String DST_PATH;
 
     static {
         String fileName = "shell";
@@ -23,9 +23,9 @@ public class DstConstant {
         SHELL_FILE_NAME = fileName;
         ROOT_PATH = SystemUtils.getUserHome().getPath();
         if (DstVersionUtils.isBeta) {
-            DST_PATH += BETA_PATH;
+            DST_PATH = ".klei/" + BETA_PATH;
         } else {
-            DST_PATH += NORMAL_PATH;
+            DST_PATH = ".klei/" + NORMAL_PATH;
         }
     }
 
@@ -109,7 +109,7 @@ public class DstConstant {
     /**
      * 更新游戏目录
      */
-    public static final String UPDATE_GAME_CMD = "cd ~/steamcmd ; ./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 validate +quit";
+    public static final String UPDATE_GAME_CMD = "cd ~/steamcmd ; ./steamcmd.sh +login anonymous +force_install_dir ~/dst +app_update 343050 -beta public validate +quit";
 
     /**
      * 切换Beta版本游戏
