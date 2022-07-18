@@ -74,12 +74,12 @@ public class DstConstant {
     /**
      * 启动地面进程命令 设置名称为 DST_MASTER
      */
-    public static final String START_MASTER_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"" + SCREEN_WORK_MASTER_NAME + "\"  ./dontstarve_dedicated_server_nullrenderer -console " + "-persistent_storage_root ~/.klei -conf_dir" + NORMAL_PATH + " -cluster MyDediServer -shard " + DST_MASTER + "  ;";
+    public static final String START_MASTER_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"" + SCREEN_WORK_MASTER_NAME + "\"  ./dontstarve_dedicated_server_nullrenderer -console " + "-persistent_storage_root ~/.klei -conf_dir " + NORMAL_PATH + " -cluster MyDediServer -shard " + DST_MASTER + "  ;";
 
     /**
      * 启动洞穴进程命令 设置名称为 DST_CAVES
      */
-    public static final String START_CAVES_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"" + SCREEN_WORK_CAVES_NAME + "\"  ./dontstarve_dedicated_server_nullrenderer -console " + "-persistent_storage_root ~/.klei -conf_dir" + NORMAL_PATH + " -cluster MyDediServer -shard " + DST_CAVES + " ;";
+    public static final String START_CAVES_CMD = "cd ~/dst/bin/ ; screen -d -m -S \"" + SCREEN_WORK_CAVES_NAME + "\"  ./dontstarve_dedicated_server_nullrenderer -console " + "-persistent_storage_root ~/.klei -conf_dir " + NORMAL_PATH + " -cluster MyDediServer -shard " + DST_CAVES + " ;";
 
     /**
      * 检查目前所有的screen作业，并删除已经无法使用的screen作业
