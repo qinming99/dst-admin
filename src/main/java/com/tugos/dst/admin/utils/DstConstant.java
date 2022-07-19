@@ -10,9 +10,9 @@ import java.lang.reflect.Modifier;
  */
 public class DstConstant {
 
-    private static final String NORMAL_PATH = "DoNotStarveTogetherPublic";
+    private static final String NORMAL_PATH = "DoNotStarveTogether";
 
-    private static final String BETA_PATH = "DoNotStarveTogetherBetaBranch";
+    private static final String BETA_PATH = "DoNotStarveBetaBranch";
 
     public static String DST_PATH;
 
