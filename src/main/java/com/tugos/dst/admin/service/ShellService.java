@@ -83,7 +83,7 @@ public class ShellService {
      */
     public void createBackup(String fileName) {
         StringBuilder command = new StringBuilder();
-        command.append("cd $HOME/.klei/DoNotStarveTogether ").append(" ; ");
+        command.append("cd $HOME/").append(DstConstant.DST_PATH).append(" ").append(" ; ");
         command.append("tar zcvf ").append(fileName).append(" MyDediServer/");
         ShellUtil.runShell(command.toString());
     }
@@ -95,7 +95,7 @@ public class ShellService {
      */
     public void revertBackup(String fileName) {
         StringBuilder command = new StringBuilder();
-        command.append("cd ~/.klei/DoNotStarveTogether ").append(" ; ");
+        command.append("cd ~/").append(DstConstant.DST_PATH).append(" ").append(" ; ");
         command.append("rm -rf MyDediServer/").append(" ;");
         //使用tar -xvf 来解压
         command.append("tar -xvf ").append(fileName);
