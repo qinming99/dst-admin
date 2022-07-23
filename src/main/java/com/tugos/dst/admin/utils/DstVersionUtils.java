@@ -35,7 +35,7 @@ public class DstVersionUtils {
 
     public static LocalDateTime lastUpdateTime;
 
-    public static Boolean isBeta;
+    public static Boolean isBeta = false;
 
     /**
      * 获取steam中dst的最新版本号
