@@ -118,6 +118,10 @@ public final class DstConstant {
      * 备份的存档文件的扩展名
      */
     public static final String BACKUP_FILE_EXTENSION_NON_POINT = "tar";
+    /**
+     * 备份的存档文件的扩展名zip
+     */
+    public static final String BACKUP_FILE_EXTENSION_NON_POINT_ZIP = "zip";
 
     /**
      * 不允许下载文件路径中存在改字符
@@ -208,6 +212,11 @@ public final class DstConstant {
      * 游戏mod设置
      */
     public static final String DST_MOD_SETTING_PATH = "dst/mods/dedicated_server_mods_setup.lua";
+
+    /**
+     * master的session目录
+     */
+    public static final String DST_USER_GAME_MASTER_SESSION = DST_MASTER +"/save/session";
 
     /**
      * 脚本目录名称 shell

@@ -2,6 +2,7 @@ package com.tugos.dst.admin.controller;
 
 
 import com.tugos.dst.admin.common.ResultVO;
+import com.tugos.dst.admin.service.BackupService;
 import com.tugos.dst.admin.service.HomeService;
 import com.tugos.dst.admin.service.ShellService;
 import com.tugos.dst.admin.vo.DstServerInfoVO;
@@ -28,8 +29,8 @@ import java.util.Map;
 public class HomeController {
 
     private HomeService homeService;
-
     private ShellService shellService;
+    private BackupService backupService;
 
 
     /**
@@ -66,9 +67,7 @@ public class HomeController {
     @ResponseBody
     public ResultVO<String> start(@RequestParam Integer type) throws Exception {
         log.info("启动服务器，type={}", type);
-        ResultVO<String> resultVO = homeService.start(type);
-        Thread.sleep(2000);
-        return resultVO;
+        return homeService.start(type);
     }
 
 
@@ -94,9 +93,7 @@ public class HomeController {
     @ResponseBody
     public ResultVO<String> backup(@RequestParam(required = false) String name) throws Exception {
         log.info("备份游戏,{}", name);
-        ResultVO<String> resultVO = homeService.backup(name);
-        Thread.sleep(2000);
-        return resultVO;
+        return backupService.backup(name);
     }
 
     @GetMapping("/restore")
@@ -104,9 +101,7 @@ public class HomeController {
     @ResponseBody
     public ResultVO<String> restore(@RequestParam String name) throws Exception {
         log.info("恢复存档,{}", name);
-        ResultVO<String> resultVO = homeService.restore(name);
-        Thread.sleep(2000);
-        return resultVO;
+        return backupService.restore(name);
     }
 
     @GetMapping("/delRecord")
@@ -115,16 +110,17 @@ public class HomeController {
     public ResultVO<String> delRecord() throws Exception {
         log.info("清理游戏记录");
         homeService.delRecord();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         return ResultVO.success();
     }
 
     @GetMapping("/sendBroadcast")
     @RequiresAuthentication
     @ResponseBody
-    public ResultVO<String> sendBroadcast(@RequestParam String message) {
+    public ResultVO<String> sendBroadcast(@RequestParam String message) throws Exception {
         log.info("发送公告：" + message);
         shellService.sendBroadcast(message);
+        Thread.sleep(1000);
         return ResultVO.success();
     }
 
@@ -188,5 +184,10 @@ public class HomeController {
     @Autowired
     public void setShellService(ShellService shellService) {
         this.shellService = shellService;
+    }
+
+    @Autowired
+    public void setBackupService(BackupService backupService) {
+        this.backupService = backupService;
     }
 }

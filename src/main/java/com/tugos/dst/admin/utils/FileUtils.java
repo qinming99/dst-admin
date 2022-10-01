@@ -239,4 +239,54 @@ public class FileUtils {
         return result;
     }
 
+    /**
+     * 找到存档真实的路径
+     * @param file 存档
+     * @return 存档真实路径
+     */
+    public static String findMasterPath(File file) {
+        if (file == null) {
+            return null;
+        }
+        String resultPath = null;
+        if (file.listFiles() != null && file.listFiles().length > 0) {
+            for (File listFile : file.listFiles()) {
+                if (listFile.getAbsolutePath().contains("__MACOSX")) {
+                    continue;
+                }
+                if (listFile.isDirectory() && listFile.getAbsolutePath().contains("Master")) {
+                    resultPath = listFile.getParent();
+                    break;
+                } else {
+                    if (listFile.listFiles() != null && listFile.listFiles().length > 0) {
+                        for (File file1 : listFile.listFiles()) {
+                            if (file1.isDirectory() && file1.getAbsolutePath().contains("Master")) {
+                                resultPath = file1.getParent();
+                                break;
+                            } else {
+                                if (file1.listFiles() != null && file1.listFiles().length > 0) {
+                                    for (File file2 : file1.listFiles()) {
+                                        if (file2.isDirectory() && file2.getAbsolutePath().contains("Master")) {
+                                            resultPath = file2.getParent();
+                                            break;
+                                        } else {
+                                            if (file2.listFiles() != null && file2.listFiles().length > 0) {
+                                                for (File file3 : file2.listFiles()) {
+                                                    if (file3.isDirectory() && file3.getAbsolutePath().contains("Master")) {
+                                                        resultPath = file3.getParent();
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return resultPath;
+    }
 }

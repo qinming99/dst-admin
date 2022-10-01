@@ -82,6 +82,7 @@ public class ShellService {
     /**
      * 备份游戏存档
      */
+    @Deprecated
     public void createBackup(String fileName) {
         StringBuilder command = new StringBuilder();
         command.append("cd $HOME/.klei/DoNotStarveTogether ").append(" ; ");

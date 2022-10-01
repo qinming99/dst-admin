@@ -56,7 +56,8 @@ public class BackupController {
     @ResponseBody
     public ResultVO<String> upload(@RequestParam("file") MultipartFile file) throws Exception {
         String suffix = FileUtil.extName(file.getOriginalFilename());
-        if (!DstConstant.BACKUP_FILE_EXTENSION_NON_POINT.equalsIgnoreCase(suffix)) {
+        if (!DstConstant.BACKUP_FILE_EXTENSION_NON_POINT.equalsIgnoreCase(suffix) &&
+                !DstConstant.BACKUP_FILE_EXTENSION_NON_POINT_ZIP.equalsIgnoreCase(suffix)) {
             return ResultVO.fail(I18nResourcesConfig.getMessage("tip.backup.tarfile"));
         }
         return backupService.upload(file);
@@ -80,8 +81,7 @@ public class BackupController {
     @RequiresAuthentication
     public ResultVO<String> rename(String fileName, String newFileName) {
         log.info("重命名备份:{},新文件名:{}", fileName, newFileName);
-        backupService.rename(fileName, newFileName);
-        return ResultVO.success();
+        return backupService.rename(fileName, newFileName);
     }
 
     @Autowired

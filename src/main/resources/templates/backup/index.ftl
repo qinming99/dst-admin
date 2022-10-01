@@ -29,7 +29,7 @@
                         :on-success="handleSuccess"
                         multiple
                         :limit="3"
-                        accept=".tar"
+                        accept=".tar,.zip"
                         :on-exceed="handleExceed"
                         :file-list="fileList">
                     <el-button size="small" type="primary"><@spring.message code="setting.backup.upload.click"/></el-button>
@@ -94,8 +94,12 @@
                     cancelButtonText: '<@spring.message code="home.pane1.card1.dst.cancel"/>',
                 }).then(({value}) => {
                     get("/backup/rename", {fileName: val.fileName,newFileName:value}).then((data) => {
-                        this.successMessage('<@spring.message code="player.save.success"/>');
                         this.getBackupList();
+                        if (data){
+                            this.warningMessage(data.message);
+                        }else {
+                            this.successMessage('<@spring.message code="player.save.success"/>');
+                        }
                     })
                 }).catch(() => {
 

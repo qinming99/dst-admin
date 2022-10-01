@@ -170,6 +170,7 @@ public class HomeService {
      * @param name 存档名称
      * @return 信息
      */
+    @Deprecated
     public ResultVO<String> backup(String name) {
         if (!this.checkGameFileIsExists()) {
             //未安装dst
@@ -204,6 +205,7 @@ public class HomeService {
      * 恢复存档 需要暂停游戏，清空之前的记录
      * @param name 备份的文件名称全称
      */
+    @Deprecated
     public ResultVO<String> restore(String name) {
         if (!this.checkBackupIsExists(name)) {
             //未安装dst

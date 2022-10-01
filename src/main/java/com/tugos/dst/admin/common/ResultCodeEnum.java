@@ -32,6 +32,13 @@ public enum ResultCodeEnum implements ResultInterface {
 
     //系统相关
     PARAM_ERR(12000,"请求参数异常"),
+
+    //业务相关
+    BACKUP_UNZIP_ERROR(50001, "解压存档文件失败，该文件非zip文件，建议更换压缩软件"),
+    BACKUP_CONTENT_ERROR(50002, "存档内容不完整，请检查是否包含Mater和Caves文件夹"),
+    BACKUP_COPY_ERROR(50003, "解压存档文件时复制存档失败，请联系管理员"),
+    BACKUP_ZIP_ERROR(50004, "备份存档失败"),
+    BACKUP_MAX_SIZE_ERROR(50005, "总存档大小不能超过2G"),
     ;
 
     final int code;
