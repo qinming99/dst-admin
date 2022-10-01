@@ -86,7 +86,7 @@ public class CoreScheduleService {
     public void smartUpdateGame() {
         Boolean smartUpdate = DstConfigData.smartUpdate;
         if (smartUpdate != null && smartUpdate) {
-            String steamVersion = DstVersionUtils.getSteamVersion();
+            String steamVersion = DstVersionUtils.getSteamVersionV3();
             String localVersion = DstVersionUtils.getLocalVersion();
             if (StringUtils.isNoneBlank(steamVersion, localVersion)) {
                 long sv = Long.parseLong(steamVersion);

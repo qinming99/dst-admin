@@ -22,11 +22,16 @@ import java.util.List;
 @Slf4j
 public class DstVersionUtils {
 
+    public static String getSteamVersionV3() {
+        return HttpUtil.get("http://ver.tugos.cn/getLocalVersion");
+    }
+
     /**
      * 获取steam中dst的最新版本号
      *
      * @return 版本号
      */
+    @Deprecated
     public static String getSteamVersion() {
         String version = null;
         try {
