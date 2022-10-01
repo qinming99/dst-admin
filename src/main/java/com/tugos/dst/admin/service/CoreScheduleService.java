@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -46,8 +45,8 @@ public class CoreScheduleService {
 
 
     private HomeService homeService;
-
     private ShellService shellService;
+    private BackupService backupService;
 
     @Value("${dst.master.port:10888}")
     private String masterPort;
@@ -186,12 +185,7 @@ public class CoreScheduleService {
                     long subTime = currentDateTime - execTime;
                     if (Range.open(0, upper).contains((int) subTime)){
                         log.info("定时备份游戏");
-                        String weekStr = DateUtil.thisDayOfWeekEnum().toString();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                        String format = sdf.format(new Date());
-                        format += weekStr;
-                        String fileName = format + "_sys.tar";
-                        shellService.createBackup(fileName);
+                        backupService.backup(null);
                         DstConfigData.SCHEDULE_BACKUP_MAP.put(time,1);
                     }
                 }
@@ -247,5 +241,10 @@ public class CoreScheduleService {
     @Autowired
     public void setShellService(ShellService shellService) {
         this.shellService = shellService;
+    }
+
+    @Autowired
+    public void setBackupService(BackupService backupService) {
+        this.backupService = backupService;
     }
 }
