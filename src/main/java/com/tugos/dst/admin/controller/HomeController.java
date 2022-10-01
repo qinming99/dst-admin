@@ -175,6 +175,15 @@ public class HomeController {
         return ResultVO.success();
     }
 
+    @GetMapping("/playerOperate")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<String> playerOperate(@RequestParam String userId, @RequestParam String type) throws Exception {
+        log.info("执行高级针对玩家的操作：type={},userId={}", type, userId);
+        shellService.playerOperate(type, userId);
+        return ResultVO.success();
+    }
+
 
     @Autowired
     public void setHomeService(HomeService homeService) {

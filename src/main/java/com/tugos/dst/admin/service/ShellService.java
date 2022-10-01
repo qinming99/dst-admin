@@ -393,6 +393,31 @@ public class ShellService {
         ShellUtil.execShellBin(cmd);
     }
 
+    /**
+     * @param type   操作类型 0 复活 1 杀死 2 更换角色
+     * @param userId 玩家id
+     */
+    public void playerOperate(String type, String userId) {
+        String command = "";
+        switch (type) {
+            case "0":
+                //复活
+                command = "UserToPlayer('%s'):PushEvent('respawnfromghost')";
+                break;
+            case "1":
+                //杀死
+                command = "UserToPlayer('%s'):PushEvent('death')";
+                break;
+            case "2":
+                //更换角色
+                command = "c_despawn('%s')";
+                break;
+            default:
+        }
+        masterConsole(String.format(command, userId));
+        cavesConsole(String.format(command, userId));
+    }
+
     @Autowired
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;

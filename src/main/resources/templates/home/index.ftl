@@ -157,29 +157,44 @@
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：" >
-                                    <el-row>
-                                        <el-col :span="10">
-                                            <el-input   maxlength="15" placeholder="<@spring.message code="home.pane1.card2.dst.please.enter.player.id"/>" show-word-limit v-model="kickUserId"></el-input>
-                                        </el-col>
-                                        <el-col :span="5">
-                                            <el-popover placement="top" width="200" v-model="visible3">
-                                                <p><@spring.message code="home.pane1.card2.dst.please.confirm.kickOut.the.player"/>？</p>
-                                                <div style="text-align: right; margin: 0">
-                                                    <el-button  type="text" @click="visible3 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
-                                                    <el-button type="primary"  @click="kickPlayer()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
-                                                </div>
-                                                <el-button slot="reference" style="margin-left: 10px" icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.kickOut"/></el-button>
-                                            </el-popover>
-                                        </el-col>
-                                    </el-row>
-                                </el-form-item>
-
-                                <el-form-item v-if="playerList.length > 0" label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.kickOut.the.player"/>：">
                                     <el-row>
                                         <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
                                             <el-button @click="kickPlayer2(item)"
                                                        icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.kickOut"/> : {{item}}
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
+                                </el-form-item>
+
+                                <el-form-item label="复活玩家：">
+                                    <el-row>
+                                        <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
+                                            <el-button @click="playerOperate(0,item)"
+                                                       icon="el-icon-position">复活 : {{item}}
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
+                                </el-form-item>
+
+                                <el-form-item label="杀死玩家：">
+                                    <el-row>
+                                        <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
+                                            <el-button @click="playerOperate(1,item)"
+                                                       icon="el-icon-position">杀死 : {{item}}
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
+                                </el-form-item>
+
+                                <el-form-item label="玩家更换角色：">
+                                    <el-tooltip class="item" effect="dark" content="更换角色之后地图和科技需重新解锁哦，身上物品也会全部丢失" placement="bottom">
+                                        <i class="el-icon-info"></i>
+                                    </el-tooltip>
+                                    <el-row>
+                                        <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
+                                            <el-button @click="playerOperate(2,item)"
+                                                       icon="el-icon-position">更换 : {{item}}
                                             </el-button>
                                         </el-col>
                                     </el-row>
@@ -405,6 +420,20 @@
             kickPlayer2(player) {
                 let split = player.split(" ");
                 get("/home/kickPlayer", {userId: split[0]}).then((data) => {
+                    if (data) {
+                        this.warningMessage(data.message);
+                    }
+                    this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
+                })
+                this.getPlayerList();
+            },
+            //针对玩家的高级操作
+            playerOperate(type, player) {
+                let split = player.split(" ");
+                this.loading = true;
+                let params = {userId: split[0], type: type};
+                get("/web/home/playerOperate", params).then((data) => {
+                    this.loading = false;
                     if (data) {
                         this.warningMessage(data.message);
                     }
