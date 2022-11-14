@@ -259,7 +259,7 @@ public class DstConstant {
     /**
      * 系统根目录mac:/Users/qinming , ubuntu: /home/ubuntu ,游戏将按照在该目录下
      */
-    public static final String ROOT_PATH;
+    public static String ROOT_PATH;
 
     /**
      * 反射获取static变量并初始化

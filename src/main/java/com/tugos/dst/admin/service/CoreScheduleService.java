@@ -93,7 +93,7 @@ public class CoreScheduleService {
             LocalDateTime gameVersionTime = DstVersionUtils.gameVersionTime;
             LocalDateTime lastUpdateTime = DstVersionUtils.lastUpdateTime;
             if (gameVersionTime != null && lastUpdateTime != null) {
-                if (lastUpdateTime.isAfter(gameVersionTime)) {
+                if (gameVersionTime.isAfter(lastUpdateTime)) {
                     log.info("智能更新进行...");
                     onlyUpdateGame();
                 }
