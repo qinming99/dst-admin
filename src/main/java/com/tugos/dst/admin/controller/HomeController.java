@@ -184,6 +184,24 @@ public class HomeController {
         return ResultVO.success();
     }
 
+    @GetMapping("/delMyDediServer")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<String> delMyDediServer() {
+        log.info("删除MyDediServer目录");
+        homeService.delMyDediServer();
+        return ResultVO.success();
+    }
+
+    @GetMapping("/delCavesRecord")
+    @RequiresAuthentication
+    @ResponseBody
+    public ResultVO<String> onlyDelSave() {
+        log.info("删除地面存档记录");
+        homeService.onlyDelSave();
+        return ResultVO.success();
+    }
+
 
     @Autowired
     public void setHomeService(HomeService homeService) {

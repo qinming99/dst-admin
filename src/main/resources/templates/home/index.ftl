@@ -87,6 +87,36 @@
                                         <el-button slot="reference" icon="el-icon-refresh-left"><@spring.message code="home.pane1.card1.dst.restore"/></el-button>
                                     </el-popover>
                                 </el-form-item>
+                                <el-collapse accordion>
+                                    <el-collapse-item title="其他功能" name="other_op">
+                                        <el-form-item label="清理游戏存档：">
+                                            <el-tooltip class="item" effect="dark"
+                                                        content="仅清理洞穴的游戏存档，清理前建议创建存档备份" placement="bottom">
+                                                <el-popover placement="top" width="200" v-model="visible6">
+                                                    <p>确认清理吗？清理之后将停止服务器,删除洞穴游戏进度哦！</p>
+                                                    <div style="text-align: right; margin: 0">
+                                                        <el-button type="text" @click="visible6 = false">取消</el-button>
+                                                        <el-button type="primary" @click="delCavesRecord()">确定</el-button>
+                                                    </div>
+                                                    <el-button slot="reference" type="warning" icon="el-icon-delete">仅清理洞穴</el-button>
+                                                </el-popover>
+                                            </el-tooltip>
+                                        </el-form-item>
+                                        <el-form-item label="删除存档文件夹：">
+                                            <el-tooltip class="item" effect="dark"
+                                                        content="删除解压出来的存档文件夹，删除之后，当前存档就没有了，删除前建议创建存档备份" placement="bottom">
+                                                <el-popover placement="top" width="200" v-model="visible7">
+                                                    <p>确认删除解压出来的存档文件夹吗？</p>
+                                                    <div style="text-align: right; margin: 0">
+                                                        <el-button type="text" @click="visible7 = false">取消</el-button>
+                                                        <el-button type="primary" @click="delMyDediServer()">确定</el-button>
+                                                    </div>
+                                                    <el-button slot="reference" type="danger" icon="el-icon-delete">删除存档文件夹</el-button>
+                                                </el-popover>
+                                            </el-tooltip>
+                                        </el-form-item>
+                                    </el-collapse-item>
+                                </el-collapse>
                             </el-form>
                         </el-card>
                     </el-col>
@@ -258,6 +288,8 @@
             visible3: false,
             visible4: false,
             visible5: false,
+            visible6: false,
+            visible7: false,
             cpuInfo: 0,
             cpuNum: 0,
             menInfo: 0,
@@ -377,6 +409,32 @@
                         type: 'warning'
                     });
                 }
+            },
+            //清理洞穴
+            delCavesRecord() {
+                this.visible6 = false;//隐藏
+                this.loading = true;
+                get("/home/delCavesRecord").then((data) => {
+                    this.loading = false;
+                    if (data) {
+                        this.warningMessage(data.message);
+                    } else {
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
+                    }
+                })
+            },
+            //清理存档
+            delMyDediServer() {
+                this.visible7 = false;//隐藏
+                this.loading = true;
+                get("/home/delMyDediServer").then((data) => {
+                    this.loading = false;
+                    if (data) {
+                        this.warningMessage(data.message);
+                    } else {
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
+                    }
+                })
             },
             sendBroadcast(){
                 if (this.broadcastContent) {

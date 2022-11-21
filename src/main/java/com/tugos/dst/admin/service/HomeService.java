@@ -2,6 +2,7 @@ package com.tugos.dst.admin.service;
 
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.config.I18nResourcesConfig;
 import com.tugos.dst.admin.entity.Server;
@@ -239,6 +240,22 @@ public class HomeService {
     public void delRecord() {
         shellService.delCavesRecord();
         shellService.delMasterRecord();
+    }
+
+    /**
+     * 删除MyDediServer目录
+     */
+    public void delMyDediServer() {
+        String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_USER_GAME_CONFG_PATH;
+        log.warn("删除MyDediServer目录:{}",path);
+        FileUtil.del(path);
+    }
+
+    /**
+     * 删除指定世界的存档
+     */
+    public void onlyDelSave() {
+        shellService.delCavesRecord();
     }
 
     @Autowired
