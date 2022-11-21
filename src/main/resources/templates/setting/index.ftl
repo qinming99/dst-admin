@@ -30,24 +30,6 @@
                         <span><@spring.message code="setting.room.basic.title"/></span>
                     </div>
                     <el-form :size="size" :model="model" ref="form1" label-width="<#if lang == 'zh'>100px<#else >150px</#if>" :label-position="labelPosition">
-                        <el-row>
-                            <el-col :span="<#if lang == 'zh'>15<#else >18</#if>">
-                                <el-form-item prop="region" label="<@spring.message code="setting.room.server.style"/>">
-                                    <el-radio-group v-model="model.clusterIntention">
-                                        <el-radio-button label="social"><@spring.message code="setting.room.server.style.social"/></el-radio-button>
-                                    </el-radio-group>
-                                    <el-radio-group v-model="model.clusterIntention">
-                                        <el-radio-button label="cooperative"><@spring.message code="setting.room.server.style.cooperative"/></el-radio-button>
-                                    </el-radio-group>
-                                    <el-radio-group v-model="model.clusterIntention">
-                                        <el-radio-button label="competitive"><@spring.message code="setting.room.server.style.competitive"/></el-radio-button>
-                                    </el-radio-group>
-                                    <el-radio-group v-model="model.clusterIntention">
-                                        <el-radio-button label="madness"><@spring.message code="setting.room.server.style.madness"/></el-radio-button>
-                                    </el-radio-group>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
 
                         <el-row>
                             <el-col :span="15">
@@ -74,8 +56,6 @@
                                 <el-form-item prop="region" label="<@spring.message code="setting.game.mode"/>">
                                     <el-radio-group v-model="model.gameMode">
                                         <el-radio-button label="survival"><@spring.message code="setting.game.mode.survival"/></el-radio-button>
-                                        <el-radio-button label="wilderness"><@spring.message code="setting.game.mode.wilderness"/></el-radio-button>
-                                        <el-radio-button label="endless"><@spring.message code="setting.game.mode.endless"/></el-radio-button>
                                     </el-radio-group>
                                 </el-form-item>
                             </el-col>
