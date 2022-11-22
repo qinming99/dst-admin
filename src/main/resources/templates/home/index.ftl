@@ -17,7 +17,7 @@
                         element-loading-text="<@spring.message code="home.loading-text"/>"
                         element-loading-spinner="el-icon-loading"
                         element-loading-background="rgba(0, 0, 0, 0.8)">
-                    <el-col :sm="16" :xs="24">
+                    <el-col :sm="12" :xs="24">
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
                                 <span><@spring.message code="home.pane1.card1.title1"/></span>
@@ -120,29 +120,18 @@
                             </el-form>
                         </el-card>
                     </el-col>
-                    <el-col :sm="8" :xs="24">
+                    <el-col :sm="12" :xs="24">
                         <el-card class="box-card" :style="labelPosition === 'top' ? 'margin-top:10px' : 'margin-left: 10px'">
                             <div slot="header" class="clearfix">
-                                <span><@spring.message code="header.server.situation"/></span>
+                                <span>存档信息</span>
                             </div>
-                            <el-row>
-                                <el-col>
-                                    <el-progress type="dashboard" :stroke-width="10" :percentage="cpuInfo"
-                                                 :color="colors"></el-progress>
-                                    <div>
-                                        <span><@spring.message code="header.server.cpu.cores.num"/>：{{cpuNum}} , <@spring.message code="header.server.usage.rate"/>：{{cpuInfo}}%</span>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row style="margin-top: 20px">
-                                <el-col>
-                                    <el-progress type="dashboard" :stroke-width="10" :percentage="menInfo"
-                                                 :color="colors"></el-progress>
-                                    <div>
-                                        <span><@spring.message code="header.server.memory"/>：{{menTotal}}GB , <@spring.message code="header.server.usage.rate"/>：{{menInfo}}%</span>
-                                    </div>
-                                </el-col>
-                            </el-row>
+                            <h5>房间名称：{{gameArchive.clusterName}} </h5>
+                            <h5>游戏模式：{{transformGameMode(gameArchive.gameMode)}} </h5>
+                            <h5>最大玩家数量：{{gameArchive.maxPlayers}} </h5>
+                            <h5>房间密码：{{gameArchive.clusterPassword}} </h5>
+                            <h5>存档天数：{{gameArchive.playDay}} 天 </h5>
+                            <h5>存档季节：{{gameArchive.season}} </h5>
+                            <h5>MOD数量：{{gameArchive.totalModNum}} </h5>
                         </el-card>
                     </el-col>
                 </el-row>
@@ -154,7 +143,7 @@
                         element-loading-text="<@spring.message code="home.loading-text"/>"
                         element-loading-spinner="el-icon-loading"
                         element-loading-background="rgba(0, 0, 0, 0.8)">
-                    <el-col :span="23">
+                    <el-col :sm="16" :xs="24">
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
                                 <span><@spring.message code="home.card.title2"/></span>
@@ -233,8 +222,31 @@
                                 <el-form-item label="<@spring.message code="home.pane1.card2.dst.rollback.rules"/>：">
                                     <el-row>
                                         <el-col :span="24">
-                                            <el-button icon="el-icon-refresh-left" v-for="item in 5" :key="item+'rollback'" @click="rollback(item)">
-                                                <@spring.message code="home.pane1.card2.dst.rollback"/>:{{item}}<@spring.message code="home.pane1.card2.dst.rollback.unit"/>
+                                            <el-button icon="el-icon-refresh-left" @click="rollback(1)">
+                                                <@spring.message code="home.pane1.card2.dst.rollback"/>1<@spring.message code="home.pane1.card2.dst.rollback.unit"/>
+                                            </el-button>
+                                            <el-button icon="el-icon-refresh-left" @click="rollback(2)">
+                                                <@spring.message code="home.pane1.card2.dst.rollback"/>2<@spring.message code="home.pane1.card2.dst.rollback.unit"/>
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row style="margin-top: 10px">
+                                        <el-col :span="24">
+                                            <el-button icon="el-icon-refresh-left" @click="rollback(3)">
+                                                <@spring.message code="home.pane1.card2.dst.rollback"/>3<@spring.message code="home.pane1.card2.dst.rollback.unit"/>
+                                            </el-button>
+                                            <el-button icon="el-icon-refresh-left" @click="rollback(4)">
+                                                <@spring.message code="home.pane1.card2.dst.rollback"/>4<@spring.message code="home.pane1.card2.dst.rollback.unit"/>
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row style="margin-top: 10px">
+                                        <el-col :span="24">
+                                            <el-button icon="el-icon-refresh-left" @click="rollback(5)">
+                                                <@spring.message code="home.pane1.card2.dst.rollback"/>5<@spring.message code="home.pane1.card2.dst.rollback.unit"/>
+                                            </el-button>
+                                            <el-button icon="el-icon-refresh-left" @click="rollback(6)">
+                                                <@spring.message code="home.pane1.card2.dst.rollback"/>6<@spring.message code="home.pane1.card2.dst.rollback.unit"/>
                                             </el-button>
                                         </el-col>
                                     </el-row>
@@ -257,6 +269,31 @@
 
                             </el-form>
 
+                        </el-card>
+                    </el-col>
+                    <el-col :sm="8" :xs="24">
+                        <el-card class="box-card" :style="labelPosition === 'top' ? 'margin-top:10px' : 'margin-left: 10px'">
+                            <div slot="header" class="clearfix">
+                                <span><@spring.message code="header.server.situation"/></span>
+                            </div>
+                            <el-row>
+                                <el-col>
+                                    <el-progress type="dashboard" :stroke-width="10" :percentage="cpuInfo"
+                                                 :color="colors"></el-progress>
+                                    <div>
+                                        <span><@spring.message code="header.server.cpu.cores.num"/>：{{cpuNum}} , <@spring.message code="header.server.usage.rate"/>：{{cpuInfo}}%</span>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row style="margin-top: 20px">
+                                <el-col>
+                                    <el-progress type="dashboard" :stroke-width="10" :percentage="menInfo"
+                                                 :color="colors"></el-progress>
+                                    <div>
+                                        <span><@spring.message code="header.server.memory"/>：{{menTotal}}GB , <@spring.message code="header.server.usage.rate"/>：{{menInfo}}%</span>
+                                    </div>
+                                </el-col>
+                            </el-row>
                         </el-card>
                     </el-col>
                 </el-row>
@@ -290,6 +327,7 @@
             visible5: false,
             visible6: false,
             visible7: false,
+            gameArchive:{},
             cpuInfo: 0,
             cpuNum: 0,
             menInfo: 0,
@@ -325,6 +363,7 @@
             }, 2000);
             this.getLabelPosition();
             this.getPlayerList();
+            this.getGameArchive();
         },
         mounted(){
          window.onresize = () => {
@@ -561,6 +600,26 @@
                     message: message,
                     type: 'warning'
                 });
+            },
+            transformGameMode(gameMode) {
+                switch (gameMode) {
+                    case 'endless':
+                        return "无尽(建议设置'死亡重置倒计时'为禁用,防止服务器被重置)";
+                    case 'survival':
+                        return "默认(建议设置'死亡重置倒计时'为禁用,防止服务器被重置)";
+                    case 'wilderness':
+                        return "荒野(建议设置'死亡重置倒计时'为禁用,防止服务器被重置)";
+                    default:
+                        return "未知";
+                }
+            },
+            //存档信息
+            getGameArchive(){
+                get("/home/getGameArchive").then((data) => {
+                    if (data){
+                        this.gameArchive = data;
+                    }
+                })
             },
             getSystemInfo() {
                 get("/home/getSystemInfo").then((data) => {

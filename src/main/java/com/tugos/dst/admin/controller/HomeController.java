@@ -6,6 +6,7 @@ import com.tugos.dst.admin.service.BackupService;
 import com.tugos.dst.admin.service.HomeService;
 import com.tugos.dst.admin.service.ShellService;
 import com.tugos.dst.admin.vo.DstServerInfoVO;
+import com.tugos.dst.admin.vo.GameArchiveVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -201,6 +202,14 @@ public class HomeController {
         homeService.onlyDelSave();
         return ResultVO.success();
     }
+
+    @GetMapping("/getGameArchive")
+    @ResponseBody
+    @RequiresAuthentication
+    public ResultVO<GameArchiveVO> getGameArchive() throws Exception {
+        return ResultVO.data(homeService.getGameArchive());
+    }
+
 
 
     @Autowired

@@ -9,20 +9,18 @@ import com.tugos.dst.admin.entity.Server;
 import com.tugos.dst.admin.enums.StartTypeEnum;
 import com.tugos.dst.admin.enums.StopTypeEnum;
 import com.tugos.dst.admin.utils.DstConstant;
-import com.tugos.dst.admin.vo.BackupFileVO;
-import com.tugos.dst.admin.vo.DstServerInfoVO;
+import com.tugos.dst.admin.utils.ModFileUtil;
+import com.tugos.dst.admin.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author qinming
@@ -34,8 +32,8 @@ import java.util.Objects;
 public class HomeService {
 
     private ShellService shellService;
-
     private BackupService backupService;
+    private SettingService settingService;
 
     /**
      * 启动服务器进程
@@ -258,6 +256,27 @@ public class HomeService {
         shellService.delCavesRecord();
     }
 
+    public GameArchiveVO getGameArchive() throws Exception {
+        GameArchiveVO gameArchiveVO = new GameArchiveVO();
+        GameConfigVO config = settingService.getConfig();
+        gameArchiveVO.setModContent(config.getModData());
+        BeanUtils.copyProperties(config, gameArchiveVO);
+        gameArchiveVO.setMaxPlayers(gameArchiveVO.getMaxPlayers());
+        GameSnapshotVO gameSnapshot = backupService.getGameSnapshot();
+        if (gameSnapshot != null) {
+            gameArchiveVO.setPlayDay(gameSnapshot.getPlayDay());
+            gameArchiveVO.setSeason(gameSnapshot.getSeasonChinese());
+        } else {
+            gameArchiveVO.setPlayDay("未知");
+            gameArchiveVO.setSeason("未知");
+        }
+        //填充MOD信息
+        List<String> modNoList = ModFileUtil.findModNo(config.getModData());
+        gameArchiveVO.setTotalModNum(modNoList.size());
+        gameArchiveVO.setModNos(modNoList);
+        return gameArchiveVO;
+    }
+
     @Autowired
     public void setShellService(ShellService shellService) {
         this.shellService = shellService;
@@ -266,5 +285,10 @@ public class HomeService {
     @Autowired
     public void setBackupService(BackupService backupService) {
         this.backupService = backupService;
+    }
+
+    @Autowired
+    public void setSettingService(SettingService settingService) {
+        this.settingService = settingService;
     }
 }

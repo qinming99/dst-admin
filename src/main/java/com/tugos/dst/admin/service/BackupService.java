@@ -452,7 +452,9 @@ public class BackupService {
      * @throws Exception 异常
      */
     public void download(String fileName, HttpServletResponse response) throws Exception {
-        if (StringUtils.isNotBlank(fileName) && !fileName.contains(DstConstant.BACKUP_ERROR_PATH) && fileName.contains(DstConstant.BACKUP_FILE_EXTENSION)) {
+        String extName = FileUtil.extName(fileName);
+        if (StringUtils.isNotBlank(fileName) && !fileName.contains(DstConstant.BACKUP_ERROR_PATH) && StringUtils.equalsAnyIgnoreCase(extName,
+                DstConstant.BACKUP_FILE_EXTENSION_NON_POINT,DstConstant.BACKUP_FILE_EXTENSION_NON_POINT_ZIP)) {
             String filepath = DstConstant.ROOT_PATH + "/" + DstConstant.DST_DOC_PATH;
             filepath += "/" + fileName;
             File file = new File(filepath);
