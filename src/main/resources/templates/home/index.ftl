@@ -17,7 +17,7 @@
                         element-loading-text="<@spring.message code="home.loading-text"/>"
                         element-loading-spinner="el-icon-loading"
                         element-loading-background="rgba(0, 0, 0, 0.8)">
-                    <el-col :sm="12" :xs="24">
+                    <el-col :sm="16" :xs="24">
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
                                 <span><@spring.message code="home.pane1.card1.title1"/></span>
@@ -88,30 +88,30 @@
                                     </el-popover>
                                 </el-form-item>
                                 <el-collapse accordion>
-                                    <el-collapse-item title="其他功能" name="other_op">
-                                        <el-form-item label="清理游戏存档：">
+                                    <el-collapse-item title="<@spring.message code="home.pane1.card1.dst.other.fun"/>" name="other_op">
+                                        <el-form-item label="<@spring.message code="home.pane1.card1.dst.other.clear.save"/>：">
                                             <el-tooltip class="item" effect="dark"
-                                                        content="仅清理洞穴的游戏存档，清理前建议创建存档备份" placement="bottom">
+                                                        content="<@spring.message code="home.pane1.card1.dst.other.tips"/>" placement="bottom">
                                                 <el-popover placement="top" width="200" v-model="visible6">
-                                                    <p>确认清理吗？清理之后将停止服务器,删除洞穴游戏进度哦！</p>
+                                                    <p><@spring.message code="home.pane1.card1.dst.other.tips.confirm"/></p>
                                                     <div style="text-align: right; margin: 0">
-                                                        <el-button type="text" @click="visible6 = false">取消</el-button>
-                                                        <el-button type="primary" @click="delCavesRecord()">确定</el-button>
+                                                        <el-button type="text" @click="visible6 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                                        <el-button type="primary" @click="delCavesRecord()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                     </div>
-                                                    <el-button slot="reference" type="warning" icon="el-icon-delete">仅清理洞穴</el-button>
+                                                    <el-button slot="reference" type="warning" icon="el-icon-delete"><@spring.message code="home.pane1.card1.dst.other.only.clean"/></el-button>
                                                 </el-popover>
                                             </el-tooltip>
                                         </el-form-item>
-                                        <el-form-item label="删除存档文件夹：">
+                                        <el-form-item label="<@spring.message code="home.pane1.card1.dst.other.del.folder"/>：">
                                             <el-tooltip class="item" effect="dark"
-                                                        content="删除解压出来的存档文件夹，删除之后，当前存档就没有了，删除前建议创建存档备份" placement="bottom">
+                                                        content="<@spring.message code="home.pane1.card1.dst.other.del.tips"/>" placement="bottom">
                                                 <el-popover placement="top" width="200" v-model="visible7">
-                                                    <p>确认删除解压出来的存档文件夹吗？</p>
+                                                    <p><@spring.message code="home.pane1.card1.dst.other.del.tips.confirm"/>？</p>
                                                     <div style="text-align: right; margin: 0">
-                                                        <el-button type="text" @click="visible7 = false">取消</el-button>
-                                                        <el-button type="primary" @click="delMyDediServer()">确定</el-button>
+                                                        <el-button type="text" @click="visible7 = false"><@spring.message code="home.pane1.card1.dst.cancel"/></el-button>
+                                                        <el-button type="primary" @click="delMyDediServer()"><@spring.message code="home.pane1.card1.dst.confirm"/></el-button>
                                                     </div>
-                                                    <el-button slot="reference" type="danger" icon="el-icon-delete">删除存档文件夹</el-button>
+                                                    <el-button slot="reference" type="danger" icon="el-icon-delete"><@spring.message code="home.pane1.card1.dst.other.del"/></el-button>
                                                 </el-popover>
                                             </el-tooltip>
                                         </el-form-item>
@@ -120,7 +120,7 @@
                             </el-form>
                         </el-card>
                     </el-col>
-                    <el-col :sm="12" :xs="24">
+                    <el-col :sm="8" :xs="24">
                         <el-card class="box-card" :style="labelPosition === 'top' ? 'margin-top:10px' : 'margin-left: 10px'">
                             <div slot="header" class="clearfix">
                                 <span><@spring.message code="home.pane1.card3.archive.info"/></span>
@@ -186,34 +186,34 @@
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="复活玩家：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.revive"/>：">
                                     <el-row>
                                         <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
                                             <el-button @click="playerOperate(0,item)"
-                                                       icon="el-icon-position">复活 : {{item}}
+                                                       icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.revive"/> : {{item}}
                                             </el-button>
                                         </el-col>
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="杀死玩家：">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.kill"/>：">
                                     <el-row>
                                         <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
                                             <el-button @click="playerOperate(1,item)"
-                                                       icon="el-icon-position">杀死 : {{item}}
+                                                       icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.kill"/> : {{item}}
                                             </el-button>
                                         </el-col>
                                     </el-row>
                                 </el-form-item>
 
-                                <el-form-item label="玩家更换角色：">
-                                    <el-tooltip class="item" effect="dark" content="更换角色之后地图和科技需重新解锁哦，身上物品也会全部丢失" placement="bottom">
+                                <el-form-item label="<@spring.message code="home.pane1.card2.dst.change.roles"/>：">
+                                    <el-tooltip class="item" effect="dark" content="<@spring.message code="home.pane1.card2.dst.change.roles.tips"/>" placement="bottom">
                                         <i class="el-icon-info"></i>
                                     </el-tooltip>
                                     <el-row>
                                         <el-col :span="15" v-for="item in playerList" style="padding-top: 5px">
                                             <el-button @click="playerOperate(2,item)"
-                                                       icon="el-icon-position">更换 : {{item}}
+                                                       icon="el-icon-position"><@spring.message code="home.pane1.card2.dst.change"/> : {{item}}
                                             </el-button>
                                         </el-col>
                                     </el-row>

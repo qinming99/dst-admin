@@ -267,8 +267,14 @@ public class HomeService {
     public GameArchiveVO getGameArchive() throws Exception {
         GameArchiveVO gameArchiveVO = new GameArchiveVO();
         GameConfigVO config = settingService.getConfig();
-        gameArchiveVO.setModContent(config.getModData());
-        BeanUtils.copyProperties(config, gameArchiveVO);
+        if (config != null) {
+            gameArchiveVO.setModContent(config.getModData());
+            BeanUtils.copyProperties(config, gameArchiveVO);
+            //填充MOD信息
+            List<String> modNoList = ModFileUtil.findModNo(config.getModData());
+            gameArchiveVO.setTotalModNum(modNoList.size());
+            gameArchiveVO.setModNos(modNoList);
+        }
         gameArchiveVO.setMaxPlayers(gameArchiveVO.getMaxPlayers());
         GameSnapshotVO gameSnapshot = backupService.getGameSnapshot();
         if (gameSnapshot != null) {
@@ -278,10 +284,6 @@ public class HomeService {
             gameArchiveVO.setPlayDay(I18nResourcesConfig.getMessage("tip.game.Archive.unknown.season"));
             gameArchiveVO.setSeason(I18nResourcesConfig.getMessage("tip.game.Archive.unknown.playDay"));
         }
-        //填充MOD信息
-        List<String> modNoList = ModFileUtil.findModNo(config.getModData());
-        gameArchiveVO.setTotalModNum(modNoList.size());
-        gameArchiveVO.setModNos(modNoList);
         return gameArchiveVO;
     }
 
