@@ -158,7 +158,6 @@
             <!--打包时跳过单元测试-->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>

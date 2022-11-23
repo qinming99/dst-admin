@@ -174,7 +174,7 @@ public class BackupService {
             String newFilePath = basePath + DstConstant.SINGLE_SLASH + newFileName + suffix;
             File newFile = new File(newFilePath);
             if (newFile.exists()) {
-                return ResultVO.fail("相同名称文件已经存在");
+                return ResultVO.fail(ResultCodeEnum.BACKUP_RENAME_SAME);
             }
             File file = new File(filePath);
             if (file.exists()) {
@@ -183,11 +183,11 @@ public class BackupService {
                 if (renameTo) {
                     return ResultVO.success();
                 } else {
-                    return ResultVO.fail("重命名失败");
+                    return ResultVO.fail(ResultCodeEnum.BACKUP_RENAME_ERROR);
                 }
             }
         }
-        return ResultVO.fail("重命名失败");
+        return ResultVO.fail(ResultCodeEnum.BACKUP_RENAME_ERROR);
     }
 
     /**
@@ -213,9 +213,9 @@ public class BackupService {
         if (StringUtils.isNotBlank(name)) {
             fileName = name + ".zip";
         } else {
-            String serverName = "未知房间";
-            String playDate = "未知天数";
-            String season = "未知季节";
+            String serverName = I18nResourcesConfig.getMessage("tip.game.Archive.unknown.room");
+            String playDate = I18nResourcesConfig.getMessage("tip.game.Archive.unknown.playDay");
+            String season = I18nResourcesConfig.getMessage("tip.game.Archive.unknown.season");
             String filePath = DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_USER_CLUSTER_INI_NAME;
             File file = new File(filePath);
             if (file.exists()) {
@@ -234,7 +234,7 @@ public class BackupService {
             BackupService backupService = new BackupService();
             GameSnapshotVO gameSnapshot = backupService.getGameSnapshot();
             if (gameSnapshot != null) {
-                playDate = gameSnapshot.getPlayDay() + "天";
+                playDate = gameSnapshot.getPlayDay() + I18nResourcesConfig.getMessage("tip.game.Archive.days");
                 season = gameSnapshot.getSeasonChinese();
             }
             fileName = String.format("%s_%s_%s_%s.zip", DateUtil.format(new Date(), "yyyyMMddHHmmss"), serverName, playDate, season);
@@ -265,13 +265,14 @@ public class BackupService {
     }
 
 
-    public String fileNameFilter(String fileName){
+    public String fileNameFilter(String fileName) {
         fileName = StringUtils.deleteWhitespace(fileName);
         fileName = RegExUtils.replaceAll(fileName, "[/\\\\:*?|]", "");
         fileName = RegExUtils.replaceAll(fileName, "[\"<>]", "");
         fileName = RegExUtils.replaceAll(fileName, "[^\\u0000-\\uFFFF]", "");
         return fileName;
     }
+
     /**
      * 获取快照信息
      */
@@ -349,8 +350,8 @@ public class BackupService {
         content = content.replace("\"", "");
         content = content.replace("[", "");
         content = content.replace("]", "");
-        gameSnapshotVO.setPlayDay("未知");
-        gameSnapshotVO.setSeason("未知");
+        gameSnapshotVO.setPlayDay(I18nResourcesConfig.getMessage("tip.game.Archive.unknown.playDay"));
+        gameSnapshotVO.setSeason(I18nResourcesConfig.getMessage("tip.game.Archive.unknown.season"));
         ArrayList<String> cyclesList = ReUtil.findAll("cycles=[1-9]\\d*", content, 0, new ArrayList<>());
         ArrayList<String> seasonList = ReUtil.findAll("season=\\w*", content, 0, new ArrayList<>());
         if (CollectionUtils.isNotEmpty(cyclesList)) {
@@ -454,7 +455,7 @@ public class BackupService {
     public void download(String fileName, HttpServletResponse response) throws Exception {
         String extName = FileUtil.extName(fileName);
         if (StringUtils.isNotBlank(fileName) && !fileName.contains(DstConstant.BACKUP_ERROR_PATH) && StringUtils.equalsAnyIgnoreCase(extName,
-                DstConstant.BACKUP_FILE_EXTENSION_NON_POINT,DstConstant.BACKUP_FILE_EXTENSION_NON_POINT_ZIP)) {
+                DstConstant.BACKUP_FILE_EXTENSION_NON_POINT, DstConstant.BACKUP_FILE_EXTENSION_NON_POINT_ZIP)) {
             String filepath = DstConstant.ROOT_PATH + "/" + DstConstant.DST_DOC_PATH;
             filepath += "/" + fileName;
             File file = new File(filepath);

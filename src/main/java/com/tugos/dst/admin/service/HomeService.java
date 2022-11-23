@@ -20,7 +20,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author qinming
@@ -109,15 +112,16 @@ public class HomeService {
         String startProgram = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.START_DST_BIN_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_START_PROGRAM;
         File masterFile = new File(startProgram);
         if (masterFile.exists()) {
-            return  true;
-        }else {
-            log.warn("未找到启动程序：{}",startProgram);
+            return true;
+        } else {
+            log.warn("未找到启动程序：{}", startProgram);
             return false;
         }
     }
 
     /**
      * 判断token时候存在
+     *
      * @return true存在
      */
     private boolean checkTokenIsExists() {
@@ -144,8 +148,8 @@ public class HomeService {
         //备份的文件
         List<String> backupList = new ArrayList<>();
         List<BackupFileVO> list = backupService.getBackupFileInfo();
-        if (CollectionUtils.isNotEmpty(list)){
-            list.forEach(e-> backupList.add(e.getFileName()));
+        if (CollectionUtils.isNotEmpty(list)) {
+            list.forEach(e -> backupList.add(e.getFileName()));
         }
         data.setBackupList(backupList);
         return data;
@@ -166,6 +170,7 @@ public class HomeService {
 
     /**
      * 备份游戏存档
+     *
      * @param name 存档名称
      * @return 信息
      */
@@ -192,6 +197,7 @@ public class HomeService {
 
     /**
      * 校验游戏存档文件是否存在
+     *
      * @return true 存在
      */
     private boolean checkGameFileIsExists() {
@@ -202,13 +208,14 @@ public class HomeService {
 
     /**
      * 恢复存档 需要暂停游戏，清空之前的记录
+     *
      * @param name 备份的文件名称全称
      */
     @Deprecated
     public ResultVO<String> restore(String name) {
         if (!this.checkBackupIsExists(name)) {
             //未安装dst
-            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.backup.error2")+name);
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.backup.error2") + name);
         }
         //清空在恢复
         this.delRecord();
@@ -219,12 +226,13 @@ public class HomeService {
 
     /**
      * 校验存档文件是否存在
+     *
      * @param name 文件名称 全称
      * @return true 存在
      */
-    private boolean checkBackupIsExists(String name){
+    private boolean checkBackupIsExists(String name) {
         boolean flag = false;
-        if (StringUtils.isNotBlank(name)){
+        if (StringUtils.isNotBlank(name)) {
             String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_DOC_PATH;
             File file = new File(path);
             flag = file.exists();
@@ -245,7 +253,7 @@ public class HomeService {
      */
     public void delMyDediServer() {
         String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_USER_GAME_CONFG_PATH;
-        log.warn("删除MyDediServer目录:{}",path);
+        log.warn("删除MyDediServer目录:{}", path);
         FileUtil.del(path);
     }
 
@@ -267,8 +275,8 @@ public class HomeService {
             gameArchiveVO.setPlayDay(gameSnapshot.getPlayDay());
             gameArchiveVO.setSeason(gameSnapshot.getSeasonChinese());
         } else {
-            gameArchiveVO.setPlayDay("未知");
-            gameArchiveVO.setSeason("未知");
+            gameArchiveVO.setPlayDay(I18nResourcesConfig.getMessage("tip.game.Archive.unknown.season"));
+            gameArchiveVO.setSeason(I18nResourcesConfig.getMessage("tip.game.Archive.unknown.playDay"));
         }
         //填充MOD信息
         List<String> modNoList = ModFileUtil.findModNo(config.getModData());

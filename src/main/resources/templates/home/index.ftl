@@ -123,15 +123,15 @@
                     <el-col :sm="12" :xs="24">
                         <el-card class="box-card" :style="labelPosition === 'top' ? 'margin-top:10px' : 'margin-left: 10px'">
                             <div slot="header" class="clearfix">
-                                <span>存档信息</span>
+                                <span><@spring.message code="home.pane1.card3.archive.info"/></span>
                             </div>
-                            <h5>房间名称：{{gameArchive.clusterName}} </h5>
-                            <h5>游戏模式：{{transformGameMode(gameArchive.gameMode)}} </h5>
-                            <h5>最大玩家数量：{{gameArchive.maxPlayers}} </h5>
-                            <h5>房间密码：{{gameArchive.clusterPassword}} </h5>
-                            <h5>存档天数：{{gameArchive.playDay}} 天 </h5>
-                            <h5>存档季节：{{gameArchive.season}} </h5>
-                            <h5>MOD数量：{{gameArchive.totalModNum}} </h5>
+                            <h5><@spring.message code="setting.room.name"/>：{{gameArchive.clusterName}} </h5>
+                            <h5><@spring.message code="setting.game.mode"/>：{{transformGameMode(gameArchive.gameMode)}} </h5>
+                            <h5><@spring.message code="setting.game.max.players"/>：{{gameArchive.maxPlayers}} </h5>
+                            <h5><@spring.message code="setting.game.password"/>：{{gameArchive.clusterPassword}} </h5>
+                            <h5><@spring.message code="home.pane1.card3.archive.day"/>：{{gameArchive.playDay}} </h5>
+                            <h5><@spring.message code="home.pane1.card3.archive.season"/>：{{gameArchive.season}} </h5>
+                            <h5><@spring.message code="home.pane1.card3.mod.num"/>：{{gameArchive.totalModNum}} </h5>
                         </el-card>
                     </el-col>
                 </el-row>
@@ -604,13 +604,13 @@
             transformGameMode(gameMode) {
                 switch (gameMode) {
                     case 'endless':
-                        return "无尽(建议设置'死亡重置倒计时'为禁用,防止服务器被重置)";
+                        return "<@spring.message code='setting.game.mode.endless'/>";
                     case 'survival':
-                        return "默认(建议设置'死亡重置倒计时'为禁用,防止服务器被重置)";
+                        return "<@spring.message code='setting.game.mode.survival'/>";
                     case 'wilderness':
-                        return "荒野(建议设置'死亡重置倒计时'为禁用,防止服务器被重置)";
+                        return "<@spring.message code='setting.game.mode.wilderness'/>";
                     default:
-                        return "未知";
+                        return gameMode;
                 }
             },
             //存档信息

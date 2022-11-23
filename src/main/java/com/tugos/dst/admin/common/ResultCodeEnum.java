@@ -39,6 +39,9 @@ public enum ResultCodeEnum implements ResultInterface {
     BACKUP_COPY_ERROR(50003, "解压存档文件时复制存档失败，请联系管理员"),
     BACKUP_ZIP_ERROR(50004, "备份存档失败"),
     BACKUP_MAX_SIZE_ERROR(50005, "总存档大小不能超过2G"),
+
+    BACKUP_RENAME_SAME(50006, "相同名称文件已经存在"),
+    BACKUP_RENAME_ERROR(50007, "重命名失败"),
     ;
 
     final int code;
