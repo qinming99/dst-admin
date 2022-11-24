@@ -21,8 +21,8 @@
 
 <div id="about_page">
     <el-card>
-        <h3>关于dst-admin 当前版本号：V1.4.0</h3>
-        <h3>Copyright © 2020-2022 Qinming. All rights reserved.</h3>
+        <h3>关于dst-admin 当前版本号：V1.5.0</h3>
+        <h3>Copyright © 2020-2023 Qinming. All rights reserved.</h3>
         <h3>服务器搭建教程：
             <el-link type="primary" target="_blank"
                      href="https://blog.csdn.net/qq_33505611/article/details/109107216">
@@ -34,10 +34,7 @@
                 https://github.com/qinming99/dst-admin
             </el-link>
         </h3>
-        <h3>捐助：</h3>
-            <span>让作者持续提供更好的功能与服务。也可以来作者淘宝店支持一下</span>
-        <br/>
-        <img width="500px" src="/images/code.png"/>
+        <span>如果需要租成品服务器，可以去小店支持一下，用户的支持是我持续维护的动力</span>
         <br/>
         <img width="500px" src="http://download.tugos.cn/img/taobao_ad.jpg"/>
     </el-card>

@@ -29,8 +29,8 @@
                 <ul class="step">
                         <br/>饥荒服务器推荐使用星星海，CPU主频较高适合饥荒
                         <br/>详情点击查看：<el-link type="primary" target="_blank" style="font-size: 20px"
-                                        href="https://cloud.tencent.com/act/cps/redirect?redirect=1063&cps_key=3322a6d4629906a5b3c706ccb01913bd&from=console">
-                            https://curl.qcloud.com/UEtsthzh</el-link>
+                                        href="https://cloud.tencent.com/act/cps/redirect?redirect=2446&cps_key=3322a6d4629906a5b3c706ccb01913bd&from=console">
+                        https://url.cn/WAMgjsWV</el-link>
                     </li>
                     <img width="1040px" height="100px" src="/images/ad_xxh.jpg"/>
                 </ul>
@@ -108,8 +108,17 @@
                     <li><strong>自动备份</strong>可以在留存跟多的存档，必要时恢复存档</li>
                 </ul>
             </el-collapse-item>
-            <el-collapse-item title="如何将本地存档制作成服务器能用的存档？" name="7">
-                <div class="context">当前平台只支持tar格式的存档文件</div>
+            <el-collapse-item title="如何将本地存档制作成服务器能用的存档？zip格式教程" name="7">
+                <ul class="step">
+                    <li>
+                        <img src="/images/step7-1.png"/>
+                    </li>
+                    <li>找到存档文件夹，如：Cluster_数字 这种就是存档文件夹，如果是云存档，请将他转换为本地存档</li>
+                    <li>选择一个要用的存档<strong>Cluster文件夹</strong>，压缩为zip格式，然后上传到后台，解压出来，在启动</li>
+                    <li>存档包必须包含 地面master文件夹和洞穴caves文件夹</li>
+                </ul>
+            </el-collapse-item>
+            <el-collapse-item title="如何将本地存档制作成服务器能用的存档？tar格式教程" name="13">
                 <ul class="step">
                     <li>内容：
                         <img src="/images/step7-1.png"/>
