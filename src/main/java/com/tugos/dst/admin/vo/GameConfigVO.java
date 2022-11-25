@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 public class GameConfigVO {
 
+    @Deprecated
     private String clusterIntention;
 
     private String clusterName;

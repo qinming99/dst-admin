@@ -8,11 +8,13 @@ import com.tugos.dst.admin.enums.StartTypeEnum;
 import com.tugos.dst.admin.utils.DstConfigData;
 import com.tugos.dst.admin.utils.DstConstant;
 import com.tugos.dst.admin.utils.FileUtils;
+import com.tugos.dst.admin.utils.StrUtils;
 import com.tugos.dst.admin.utils.filter.SensitiveFilter;
 import com.tugos.dst.admin.vo.GameConfigVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.ini4j.Wini;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -23,10 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * @author qinming
@@ -67,7 +66,8 @@ public class SettingService {
         this.createMasterServerIni();
         this.createCavesServerIni();
         //创建房间配置
-        this.createCluster(vo);
+        //this.createCluster(vo);
+        this.createClusterV2(vo);
         //创建token配置
         this.createToken(vo.getToken().trim());
         //创建地面世界设置
@@ -361,7 +361,7 @@ public class SettingService {
         list.add("");
         list.add("[NETWORK]");
         list.add("lan_only_cluster = false");
-        list.add("cluster_intention = " + vo.getClusterIntention());
+        //list.add("cluster_intention = " + vo.getClusterIntention());
         String clusterPassword = vo.getClusterPassword();
         if (StringUtils.isNotBlank(clusterPassword)) {
             //密码存在
@@ -401,6 +401,76 @@ public class SettingService {
         StringBuffer sb = new StringBuffer();
         list.forEach(e -> sb.append(e).append("\n"));
         FileUtils.writeFile(filePath, sb.toString());
+    }
+
+    /**
+     * 新的生成游戏配置，不会覆盖不支持编辑的配置
+     * @param vo 配置
+     * @throws Exception 异常
+     */
+    public void createClusterV2(GameConfigVO vo) throws Exception {
+        String filePath = DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH +
+                DstConstant.SINGLE_SLASH + DstConstant.DST_USER_CLUSTER_INI_NAME;
+        log.info("生成游戏配置文件 cluster.ini文件,{}", filePath);
+
+        if (!FileUtil.exist(filePath)) {
+            FileUtil.writeString("", new File(filePath), "utf-8");
+        }
+        Wini ini = new Wini(new File(filePath));
+        Map<String, String> GAMEPLAY = ini.get("GAMEPLAY");
+        if (GAMEPLAY == null) {
+            ini.add("GAMEPLAY", "game_mode", StrUtils.ofNULL(vo.getGameMode()));
+            ini.add("GAMEPLAY", "max_players", StrUtils.ofNULL(vo.getMaxPlayers(), "6"));
+            ini.add("GAMEPLAY", "pvp", StrUtils.ofNULL(vo.getPvp(), "false"));
+            ini.add("GAMEPLAY", "pause_when_empty", "true");
+        } else {
+            GAMEPLAY.put("game_mode", StrUtils.ofNULL(vo.getGameMode()));
+            GAMEPLAY.put("max_players", StrUtils.ofNULL(vo.getMaxPlayers(), "6"));
+            GAMEPLAY.put("pvp", StrUtils.ofNULL(vo.getPvp(), "false"));
+            //GAMEPLAY.put("pause_when_empty", "true");
+        }
+
+        Map<String, String> NETWORK = ini.get("NETWORK");
+        if (NETWORK == null) {
+            ini.add("NETWORK", "lan_only_cluster", "false");
+            ini.add("NETWORK", "cluster_password", StrUtils.ofNULL(vo.getClusterPassword()).trim());
+            ini.add("NETWORK", "cluster_description", StrUtils.ofNULL(vo.getClusterDescription()));
+            ini.add("NETWORK", "cluster_name", StrUtils.ofNULL(vo.getClusterName()));
+            ini.add("NETWORK", "offline_cluster", "false");
+            ini.add("NETWORK", "cluster_language", LocaleContextHolder.getLocale().getLanguage());
+        } else {
+            //NETWORK.put("lan_only_cluster", "false");
+            NETWORK.put("cluster_password", StrUtils.ofNULL(vo.getClusterPassword()).trim());
+            NETWORK.put("cluster_description", StrUtils.ofNULL(vo.getClusterDescription()));
+            NETWORK.put("cluster_name", StrUtils.ofNULL(vo.getClusterName()));
+            //NETWORK.put("offline_cluster", "false");
+            NETWORK.put("cluster_language", LocaleContextHolder.getLocale().getLanguage());
+        }
+
+        Map<String, String> MISC = ini.get("MISC");
+        if (MISC == null) {
+            ini.add("MISC", "console_enabled", "true");
+            ini.add("MISC", "max_snapshots", maxSnapshots);
+        } else {
+            //MISC.put("console_enabled", "true");
+            MISC.put("max_snapshots", maxSnapshots);
+        }
+
+        Map<String, String> SHARD = ini.get("SHARD");
+        if (SHARD == null) {
+            ini.add("SHARD", "shard_enabled", "true");
+            ini.add("SHARD", "bind_ip", "127.0.0.1");
+            ini.add("SHARD", "master_ip", "127.0.0.1");
+            ini.add("SHARD", "master_port", StrUtils.ofNULL(DstConfigData.masterPort, this.masterPort));
+            ini.add("SHARD", "cluster_key", "defaultPass");
+        } else {
+            //SHARD.put("shard_enabled",  "127.0.0.1");
+            //SHARD.put("bind_ip",  "127.0.0.1");
+            //SHARD.put("master_ip",  "127.0.0.1");
+            SHARD.put("master_port", StrUtils.ofNULL(DstConfigData.masterPort, this.masterPort));
+            //SHARD.put("cluster_key", "defaultPass");
+        }
+        ini.store();
     }
 
     /**

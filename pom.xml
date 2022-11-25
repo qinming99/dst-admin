@@ -34,6 +34,8 @@
         <tomcat.version>9.0.65</tomcat.version>
         <!-- jackson版本 -->
         <jackson.version>2.12.7</jackson.version>
+        <!-- ini4j版本 -->
+        <ini4j.version>0.5.4</ini4j.version>
     </properties>
 
     <dependencies>
@@ -137,6 +139,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <!-- 解析ini文件 -->
+        <dependency>
+            <groupId>org.ini4j</groupId>
+            <artifactId>ini4j</artifactId>
+            <version>${ini4j.version}</version>
         </dependency>
     </dependencies>
 
