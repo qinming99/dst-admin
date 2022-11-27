@@ -33,7 +33,7 @@
         <!-- Tomcat版本 -->
         <tomcat.version>9.0.65</tomcat.version>
         <!-- jackson版本 -->
-        <jackson.version>2.12.7</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <!-- ini4j版本 -->
         <ini4j.version>0.5.4</ini4j.version>
     </properties>
