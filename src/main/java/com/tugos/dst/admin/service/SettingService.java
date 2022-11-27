@@ -63,8 +63,10 @@ public class SettingService {
         //创建存档目录
         FileUtil.mkdir(DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH);
         //创建地面和洞穴的ini配置文件
-        this.createMasterServerIni();
-        this.createCavesServerIni();
+        //this.createMasterServerIni();
+        this.createMasterServerIniV2();
+        //this.createCavesServerIni();
+        this.createCavesServerIniV2();
         //创建房间配置
         //this.createCluster(vo);
         this.createClusterV2(vo);
@@ -104,9 +106,6 @@ public class SettingService {
      * @return token配置不存在是返回null
      */
     public GameConfigVO getConfig() throws Exception {
-        if (!this.checkTokenIsExists()) {
-            return null;
-        }
         GameConfigVO gameConfigVO = new GameConfigVO();
         String token = this.getToken();
         gameConfigVO.setToken(token);
@@ -174,6 +173,7 @@ public class SettingService {
      *
      * @return true 存在
      */
+    @Deprecated
     private boolean checkTokenIsExists() {
         String filePath = DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH +
                 DstConstant.SINGLE_SLASH + DstConstant.DST_USER_CLUSTER_TOKEN;
@@ -255,6 +255,47 @@ public class SettingService {
         FileUtils.writeLineFile(finalPath, ini);
     }
 
+    /**
+     * 生成地面 server.ini
+     */
+    public void createMasterServerIniV2() throws Exception {
+        String basePath = DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH +
+                DstConstant.SINGLE_SLASH + DstConstant.DST_MASTER;
+        //创建地面设置的文件夹
+        FileUtils.mkdirs(basePath);
+        String finalPath = basePath + DstConstant.SINGLE_SLASH + DstConstant.DST_USER_SERVER_INI_NAME;
+        log.info("生成地面 server.ini文件,{}", finalPath);
+        if (!FileUtil.exist(finalPath)) {
+            FileUtil.writeString("", new File(finalPath), "utf-8");
+        }
+        Wini ini = new Wini(new File(finalPath));
+
+        Map<String, String> network = ini.get("NETWORK");
+        if (network == null) {
+            ini.add("NETWORK", "server_port", StrUtils.ofNULL(DstConfigData.groundPort, this.groundPort));
+        } else {
+            network.put("server_port", StrUtils.ofNULL(DstConfigData.groundPort, this.groundPort));
+        }
+
+        Map<String, String> shard = ini.get("SHARD");
+        if (shard == null) {
+            ini.add("SHARD", "is_master", "true");
+            ini.add("SHARD", "name", "Master");
+            ini.add("SHARD", "id", "10000");
+        } else {
+            //shard.put("is_master", "true");
+            //shard.put("name", "Master");
+            //shard.put("id", "10000");
+        }
+
+        Map<String, String> account = ini.get("ACCOUNT");
+        if (account == null) {
+            ini.add("ACCOUNT", "encode_user_path", "true");
+        } else {
+            //account.put("encode_user_path", "true");
+        }
+        ini.store();
+    }
 
     /**
      * 生成洞穴 server.ini 端口号：10999
@@ -297,6 +338,59 @@ public class SettingService {
         ini.add("authentication_port = 8766");
         ini.add("master_server_port = 27016");
         FileUtils.writeLineFile(finalPath, ini);
+    }
+
+
+
+    /**
+     * 生成洞穴 server.ini
+     */
+    public void createCavesServerIniV2() throws Exception {
+        String basePath = DstConstant.ROOT_PATH + DstConstant.DST_USER_GAME_CONFG_PATH + "/" + DstConstant.DST_CAVES;
+        //创建洞穴设置的文件夹
+        FileUtils.mkdirs(basePath);
+        String finalPath = basePath + DstConstant.SINGLE_SLASH + DstConstant.DST_USER_SERVER_INI_NAME;
+        log.info("生成洞穴 server.ini文件,{}", finalPath);
+
+        if (!FileUtil.exist(finalPath)) {
+            FileUtil.writeString("", new File(finalPath), "utf-8");
+        }
+        Wini ini = new Wini(new File(finalPath));
+
+        Map<String, String> network = ini.get("NETWORK");
+        if (network == null) {
+            ini.add("NETWORK", "server_port", StrUtils.ofNULL(DstConfigData.cavesPort, this.cavesPort));
+        } else {
+            network.put("server_port", StrUtils.ofNULL(DstConfigData.cavesPort, this.cavesPort));
+        }
+
+        Map<String, String> shard = ini.get("SHARD");
+        if (shard == null) {
+            ini.add("SHARD", "is_master", "false");
+            ini.add("SHARD", "name", "Caves");
+            ini.add("SHARD", "id", "10010");
+        } else {
+            //shard.put("is_master", "false");
+            //shard.put("name", "Caves");
+            //shard.put("id", "10010");
+        }
+
+        Map<String, String> account = ini.get("ACCOUNT");
+        if (account == null) {
+            ini.add("ACCOUNT", "encode_user_path", "true");
+        } else {
+            //account.put("encode_user_path", "true");
+        }
+
+        Map<String, String> steam = ini.get("STEAM");
+        if (steam == null) {
+            ini.add("STEAM", "authentication_port", "8766");
+            ini.add("STEAM", "master_server_port", "27016");
+        } else {
+            //steam.put("authentication_port", "8766");
+            //steam.put("master_server_port", "27016");
+        }
+        ini.store();
     }
 
 
@@ -417,21 +511,21 @@ public class SettingService {
             FileUtil.writeString("", new File(filePath), "utf-8");
         }
         Wini ini = new Wini(new File(filePath));
-        Map<String, String> GAMEPLAY = ini.get("GAMEPLAY");
-        if (GAMEPLAY == null) {
+        Map<String, String> gameplay = ini.get("GAMEPLAY");
+        if (gameplay == null) {
             ini.add("GAMEPLAY", "game_mode", StrUtils.ofNULL(vo.getGameMode()));
             ini.add("GAMEPLAY", "max_players", StrUtils.ofNULL(vo.getMaxPlayers(), "6"));
             ini.add("GAMEPLAY", "pvp", StrUtils.ofNULL(vo.getPvp(), "false"));
             ini.add("GAMEPLAY", "pause_when_empty", "true");
         } else {
-            GAMEPLAY.put("game_mode", StrUtils.ofNULL(vo.getGameMode()));
-            GAMEPLAY.put("max_players", StrUtils.ofNULL(vo.getMaxPlayers(), "6"));
-            GAMEPLAY.put("pvp", StrUtils.ofNULL(vo.getPvp(), "false"));
-            //GAMEPLAY.put("pause_when_empty", "true");
+            gameplay.put("game_mode", StrUtils.ofNULL(vo.getGameMode()));
+            gameplay.put("max_players", StrUtils.ofNULL(vo.getMaxPlayers(), "6"));
+            gameplay.put("pvp", StrUtils.ofNULL(vo.getPvp(), "false"));
+            //gameplay.put("pause_when_empty", "true");
         }
 
-        Map<String, String> NETWORK = ini.get("NETWORK");
-        if (NETWORK == null) {
+        Map<String, String> network = ini.get("NETWORK");
+        if (network == null) {
             ini.add("NETWORK", "lan_only_cluster", "false");
             ini.add("NETWORK", "cluster_password", StrUtils.ofNULL(vo.getClusterPassword()).trim());
             ini.add("NETWORK", "cluster_description", StrUtils.ofNULL(vo.getClusterDescription()));
@@ -439,36 +533,36 @@ public class SettingService {
             ini.add("NETWORK", "offline_cluster", "false");
             ini.add("NETWORK", "cluster_language", LocaleContextHolder.getLocale().getLanguage());
         } else {
-            //NETWORK.put("lan_only_cluster", "false");
-            NETWORK.put("cluster_password", StrUtils.ofNULL(vo.getClusterPassword()).trim());
-            NETWORK.put("cluster_description", StrUtils.ofNULL(vo.getClusterDescription()));
-            NETWORK.put("cluster_name", StrUtils.ofNULL(vo.getClusterName()));
-            //NETWORK.put("offline_cluster", "false");
-            NETWORK.put("cluster_language", LocaleContextHolder.getLocale().getLanguage());
+            //network.put("lan_only_cluster", "false");
+            network.put("cluster_password", StrUtils.ofNULL(vo.getClusterPassword()).trim());
+            network.put("cluster_description", StrUtils.ofNULL(vo.getClusterDescription()));
+            network.put("cluster_name", StrUtils.ofNULL(vo.getClusterName()));
+            //network.put("offline_cluster", "false");
+            network.put("cluster_language", LocaleContextHolder.getLocale().getLanguage());
         }
 
-        Map<String, String> MISC = ini.get("MISC");
-        if (MISC == null) {
+        Map<String, String> misc = ini.get("MISC");
+        if (misc == null) {
             ini.add("MISC", "console_enabled", "true");
             ini.add("MISC", "max_snapshots", maxSnapshots);
         } else {
-            //MISC.put("console_enabled", "true");
-            MISC.put("max_snapshots", maxSnapshots);
+            //misc.put("console_enabled", "true");
+            misc.put("max_snapshots", maxSnapshots);
         }
 
-        Map<String, String> SHARD = ini.get("SHARD");
-        if (SHARD == null) {
+        Map<String, String> shard = ini.get("SHARD");
+        if (shard == null) {
             ini.add("SHARD", "shard_enabled", "true");
             ini.add("SHARD", "bind_ip", "127.0.0.1");
             ini.add("SHARD", "master_ip", "127.0.0.1");
             ini.add("SHARD", "master_port", StrUtils.ofNULL(DstConfigData.masterPort, this.masterPort));
             ini.add("SHARD", "cluster_key", "defaultPass");
         } else {
-            //SHARD.put("shard_enabled",  "127.0.0.1");
-            //SHARD.put("bind_ip",  "127.0.0.1");
-            //SHARD.put("master_ip",  "127.0.0.1");
-            SHARD.put("master_port", StrUtils.ofNULL(DstConfigData.masterPort, this.masterPort));
-            //SHARD.put("cluster_key", "defaultPass");
+            //shard.put("shard_enabled",  "127.0.0.1");
+            //shard.put("bind_ip",  "127.0.0.1");
+            //shard.put("master_ip",  "127.0.0.1");
+            shard.put("master_port", StrUtils.ofNULL(DstConfigData.masterPort, this.masterPort));
+            //shard.put("cluster_key", "defaultPass");
         }
         ini.store();
     }
