@@ -529,7 +529,7 @@
                 let split = player.split(" ");
                 this.loading = true;
                 let params = {userId: split[0], type: type};
-                get("/web/home/playerOperate", params).then((data) => {
+                get("/home/playerOperate", params).then((data) => {
                     this.loading = false;
                     if (data) {
                         this.warningMessage(data.message);
