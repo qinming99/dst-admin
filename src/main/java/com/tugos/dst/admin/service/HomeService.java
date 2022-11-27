@@ -75,6 +75,13 @@ public class HomeService {
         return ResultVO.success();
     }
 
+    /**
+     * 直接停止服务
+     */
+    public void stopServer(){
+        shellService.stopMaster();
+        shellService.stopCaves();
+    }
 
     /**
      * 停止服务器进程 优雅关闭
@@ -252,6 +259,7 @@ public class HomeService {
      * 删除MyDediServer目录
      */
     public void delMyDediServer() {
+        this.stopServer();
         String path = DstConstant.ROOT_PATH + DstConstant.SINGLE_SLASH + DstConstant.DST_USER_GAME_CONFG_PATH;
         log.warn("删除MyDediServer目录:{}", path);
         FileUtil.del(path);
@@ -264,6 +272,10 @@ public class HomeService {
         shellService.delCavesRecord();
     }
 
+    /**
+     * 解析存档信息 包括天数，季节等信息
+     * @return 存档信息
+     */
     public GameArchiveVO getGameArchive() throws Exception {
         GameArchiveVO gameArchiveVO = new GameArchiveVO();
         GameConfigVO config = settingService.getConfig();

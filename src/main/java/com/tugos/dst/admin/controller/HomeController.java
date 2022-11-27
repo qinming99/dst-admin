@@ -102,6 +102,7 @@ public class HomeController {
     @ResponseBody
     public ResultVO<String> restore(@RequestParam String name) throws Exception {
         log.info("恢复存档,{}", name);
+        homeService.stopServer();
         return backupService.restore(name);
     }
 
