@@ -182,8 +182,7 @@ public class HomeController {
     @ResponseBody
     public ResultVO<String> playerOperate(@RequestParam String userId, @RequestParam String type) throws Exception {
         log.info("执行高级针对玩家的操作：type={},userId={}", type, userId);
-        shellService.playerOperate(type, userId);
-        return ResultVO.success();
+        return shellService.playerOperate(type, userId);
     }
 
     @GetMapping("/delMyDediServer")

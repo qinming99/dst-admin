@@ -480,8 +480,9 @@
                     get("/home/sendBroadcast", {message: this.broadcastContent}).then((data) => {
                         if (data) {
                             this.warningMessage(data.message);
+                        } else {
+                            this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                         }
-                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     })
                 } else {
                     this.$message({
@@ -503,8 +504,9 @@
                     get("/home/kickPlayer", {userId: this.kickUserId}).then((data) => {
                         if (data) {
                             this.warningMessage(data.message);
+                        } else {
+                            this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                         }
-                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     })
                 } else {
                     this.$message({
@@ -519,8 +521,9 @@
                 get("/home/kickPlayer", {userId: split[0]}).then((data) => {
                     if (data) {
                         this.warningMessage(data.message);
+                    } else {
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     }
-                    this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                 })
                 this.getPlayerList();
             },
@@ -533,8 +536,9 @@
                     this.loading = false;
                     if (data) {
                         this.warningMessage(data.message);
+                    } else {
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     }
-                    this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                 })
                 this.getPlayerList();
             },
@@ -544,8 +548,9 @@
                 get("/home/regenerate").then((data) => {
                     if (data) {
                         this.warningMessage(data.message);
+                    } else {
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     }
-                    this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                 })
             },
             //回滚世界
@@ -553,8 +558,9 @@
                 get("/home/rollback", {dayNum: day}).then((data) => {
                     if (data) {
                         this.warningMessage(data.message);
+                    } else {
+                        this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                     }
-                    this.successMessage('<@spring.message code="home.js.execution.succeed"/>');
                 })
             },
             masterConsole(){

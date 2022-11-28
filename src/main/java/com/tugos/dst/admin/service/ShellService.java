@@ -397,7 +397,7 @@ public class ShellService {
      * @param type   操作类型 0 复活 1 杀死 2 更换角色
      * @param userId 玩家id
      */
-    public void playerOperate(String type, String userId) {
+    public ResultVO<String> playerOperate(String type, String userId) throws Exception {
         String command = "";
         switch (type) {
             case "0":
@@ -411,11 +411,21 @@ public class ShellService {
             case "2":
                 //更换角色
                 command = "c_despawn('%s')";
+                List<String> playerList = getPlayerList();
+                log.info("更换角色：{}", playerList);
+                for (String tmpUserId : playerList) {
+                    String tmp = StringUtils.trimToEmpty(tmpUserId);
+                    if (tmp.split(" ").length <= 2) {
+                        return ResultVO.fail("有玩家未选择角色，禁止再进行更换");
+                    }
+                }
                 break;
             default:
         }
+        log.info("执行命令：{}", String.format(command, userId));
         masterConsole(String.format(command, userId));
         cavesConsole(String.format(command, userId));
+        return ResultVO.success();
     }
 
     @Autowired
