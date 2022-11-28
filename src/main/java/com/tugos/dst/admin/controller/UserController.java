@@ -64,6 +64,10 @@ public class UserController {
         if (!vo.getNewPwd().equals(vo.getConfirmPwd())){
             return ResultVO.fail("两次密码不一致");
         }
+        int weakPsw = 6;
+        if (vo.getNewPwd().length() <= weakPsw) {
+            return ResultVO.fail("密码强度弱,长度必须大于6位");
+        }
         DstConfigData.USER_INFO.setPassword(vo.getNewPwd());
         //退出登录
         SecurityUtils.getSubject().logout();

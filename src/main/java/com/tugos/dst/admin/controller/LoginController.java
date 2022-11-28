@@ -39,7 +39,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public ResultVO<URL> login(HttpServletRequest request,String username, String password) {
+    public ResultVO<URL> login(HttpServletRequest request, String username, String password) {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             throw new ResultException(ResultCodeEnum.USER_NAME_PWD_NULL);
         }
@@ -52,7 +52,13 @@ public class LoginController {
         SafeLoginCheckUtils.cleanErrorRecord(request);
         //登录成功，跳转至首页
         ResultVO<URL> data = ResultVO.data(new URL("/"));
-        data.setMessage(I18nResourcesConfig.getMessage("tip.login.success"));
+        int weakPsw = 6;
+        if (StringUtils.isNotBlank(password) && password.length() <= weakPsw) {
+            //使用了弱密码
+            data.setMessage(I18nResourcesConfig.getMessage("tip.login.success.psw.weak"));
+        } else {
+            data.setMessage(I18nResourcesConfig.getMessage("tip.login.success"));
+        }
         return data;
     }
 
