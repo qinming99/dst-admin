@@ -42,6 +42,12 @@ public enum ResultCodeEnum implements ResultInterface {
 
     BACKUP_RENAME_SAME(50006, "相同名称文件已经存在"),
     BACKUP_RENAME_ERROR(50007, "重命名失败"),
+    OPERATE_CHANGE_PLAYER_ERROR(50008, "有玩家未选择角色，禁止再进行更换"),
+
+    UPDATE_PWD_ERROR1(51001, "密码不能为空"),
+    UPDATE_PWD_ERROR2(51002, "旧密码错误"),
+    UPDATE_PWD_ERROR3(51003, "两次密码不一致"),
+    UPDATE_PWD_ERROR4(51004, "密码强度弱,长度必须大于6位"),
     ;
 
     final int code;

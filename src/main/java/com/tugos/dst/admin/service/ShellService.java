@@ -1,5 +1,6 @@
 package com.tugos.dst.admin.service;
 
+import com.tugos.dst.admin.common.ResultCodeEnum;
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.enums.DstLogTypeEnum;
 import com.tugos.dst.admin.utils.DstConstant;
@@ -416,7 +417,7 @@ public class ShellService {
                 for (String tmpUserId : playerList) {
                     String tmp = StringUtils.trimToEmpty(tmpUserId);
                     if (tmp.split(" ").length <= 2) {
-                        return ResultVO.fail("有玩家未选择角色，禁止再进行更换");
+                        return ResultVO.fail(ResultCodeEnum.OPERATE_CHANGE_PLAYER_ERROR);
                     }
                 }
                 break;

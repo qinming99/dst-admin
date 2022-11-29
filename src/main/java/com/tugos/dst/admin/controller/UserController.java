@@ -1,6 +1,7 @@
 package com.tugos.dst.admin.controller;
 
 
+import com.tugos.dst.admin.common.ResultCodeEnum;
 import com.tugos.dst.admin.common.ResultVO;
 import com.tugos.dst.admin.entity.User;
 import com.tugos.dst.admin.utils.DstConfigData;
@@ -55,23 +56,23 @@ public class UserController {
     @ResponseBody
     public ResultVO setNewPwd(@RequestBody UpdatePwdVO vo) {
         User userInfo = (User) SecurityUtils.getSubject().getPrincipal();
-        if (StringUtils.isAnyBlank(vo.getOldPwd(),vo.getNewPwd(),vo.getConfirmPwd())){
-            return ResultVO.fail("密码不能为空");
+        if (StringUtils.isAnyBlank(vo.getOldPwd(), vo.getNewPwd(), vo.getConfirmPwd())) {
+            return ResultVO.fail(ResultCodeEnum.UPDATE_PWD_ERROR1);
         }
-        if (!userInfo.getPassword().equals(vo.getOldPwd())){
-            return ResultVO.fail("旧密码错误");
+        if (!userInfo.getPassword().equals(vo.getOldPwd())) {
+            return ResultVO.fail(ResultCodeEnum.UPDATE_PWD_ERROR2);
         }
-        if (!vo.getNewPwd().equals(vo.getConfirmPwd())){
-            return ResultVO.fail("两次密码不一致");
+        if (!vo.getNewPwd().equals(vo.getConfirmPwd())) {
+            return ResultVO.fail(ResultCodeEnum.UPDATE_PWD_ERROR3);
         }
         int weakPsw = 6;
         if (vo.getNewPwd().length() <= weakPsw) {
-            return ResultVO.fail("密码强度弱,长度必须大于6位");
+            return ResultVO.fail(ResultCodeEnum.UPDATE_PWD_ERROR4);
         }
         DstConfigData.USER_INFO.setPassword(vo.getNewPwd());
         //退出登录
         SecurityUtils.getSubject().logout();
-        return ResultVO.success("修改成功");
+        return ResultVO.success("success");
     }
 
     @PostMapping("/setNewUserDetail")

@@ -34,7 +34,10 @@
                 https://github.com/qinming99/dst-admin
             </el-link>
         </h3>
-        <span>如果需要租成品服务器，可以去小店支持一下，用户的支持是我持续维护的动力</span>
+        <h3>捐助：</h3>
+        <span>让作者持续提供更好的功能与服务。如果需要租成品服务器也可以来淘宝小店支持一下</span>
+        <br/>
+        <img width="500px" src="/images/code.png"/>
         <br/>
         <img width="500px" src="http://download.tugos.cn/img/taobao_ad.jpg"/>
     </el-card>
