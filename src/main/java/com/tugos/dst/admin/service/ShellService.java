@@ -414,11 +414,8 @@ public class ShellService {
                 command = "c_despawn('%s')";
                 List<String> playerList = getPlayerList();
                 log.info("更换角色：{}", playerList);
-                for (String tmpUserId : playerList) {
-                    String tmp = StringUtils.trimToEmpty(tmpUserId);
-                    if (tmp.split(" ").length <= 2) {
-                        return ResultVO.fail(ResultCodeEnum.OPERATE_CHANGE_PLAYER_ERROR);
-                    }
+                if (playerList.size() > 1) {
+                    return ResultVO.fail(ResultCodeEnum.OPERATE_CHANGE_PLAYER_ERROR);
                 }
                 break;
             default:

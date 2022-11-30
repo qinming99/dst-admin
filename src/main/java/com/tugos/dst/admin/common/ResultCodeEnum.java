@@ -42,7 +42,7 @@ public enum ResultCodeEnum implements ResultInterface {
 
     BACKUP_RENAME_SAME(50006, "相同名称文件已经存在"),
     BACKUP_RENAME_ERROR(50007, "重命名失败"),
-    OPERATE_CHANGE_PLAYER_ERROR(50008, "有玩家未选择角色，禁止再进行更换"),
+    OPERATE_CHANGE_PLAYER_ERROR(50008, "服务器内人数超过1人，禁止使用"),
 
     UPDATE_PWD_ERROR1(51001, "密码不能为空"),
     UPDATE_PWD_ERROR2(51002, "旧密码错误"),
