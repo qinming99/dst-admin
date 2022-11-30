@@ -47,10 +47,10 @@ public class SettingService {
     @Value("${dst.master.port:10888}")
     private String masterPort;
 
-    @Value("${dst.ground.port:10999}")
+    @Value("${dst.ground.port:10998}")
     private String groundPort;
 
-    @Value("${dst.caves.port:10998}")
+    @Value("${dst.caves.port:10999}")
     private String cavesPort;
 
     /**

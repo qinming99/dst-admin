@@ -44,9 +44,9 @@ import java.util.*;
 public class BackupService {
 
     /**
-     * 总存档大小最大2G
+     * 总存档大小最大4G
      */
-    @Value("${dcs.max.backup.size:2048}")
+    @Value("${dst.max.backup.size:4096}")
     private Integer maxBackupSize;
     private ShellService shellService;
 
