@@ -19,11 +19,11 @@
 ## 注意事项
 1.  服务默认监听端口8080
 2.  默认用户名/密码 admin/123456
-3.  饥荒监听端口**10888，10999，10998**（建议开放所有端口，避免一些问题）
+3.  饥荒监听端口**10888，10998，10999**（建议开放所有端口，避免一些问题）
 
 ## docker版本部署请参考：[点击查看](https://github.com/qinming99/dst-admin/blob/master/file/README.md)
 
-## 多层专业版购买 [点击查看](http://download.tugos.cn/img/taobao_ad.jpg)
+## 如果需要租赁成品服务器： [点击查看](http://download.tugos.cn/img/taobao_ad.jpg)
 
 ## 快速开始
 ###  在Ubuntu服务器中安装jdk1.8 
@@ -39,7 +39,7 @@ java -version
 ###  下载最新版dst-admin安装包
 
 ```bash
-wget http://clouddn.tugos.cn/release/dst-admin-1.4.0.jar -O dst-admin.jar
+wget http://clouddn.tugos.cn/release/dst-admin-1.5.0.jar -O dst-admin.jar
 ```
 
 

@@ -24,7 +24,7 @@ convenient and simple to use, and reduces the difficulty of server construction
 ## Matters need attention
 1.  Default server port 8080
 2.  Default user name/password admin/123456
-3.  Don't Starve Together monitoring port**10888，10999，10998**（It is suggested to open all port to avoid some matters.）
+3.  Don't Starve Together monitoring port**10888，10998，10999**（It is suggested to open all port to avoid some matters.）
 
 ## Fast beginning
 ###  Install jdk1.8 on Ubuntu server
@@ -40,7 +40,7 @@ if  showing "openjdk version "1.8.0_252"well, finish
 ###  Download the newest dst-admin 
 
 ```bash
-wget http://clouddn.tugos.cn/release/dst-admin-1.4.0.jar -O dst-admin.jar
+wget http://clouddn.tugos.cn/release/dst-admin-1.5.0.jar -O dst-admin.jar
 ```
 
 
