@@ -1,16 +1,21 @@
-FROM ubuntu:16.04
+FROM debian:stretch-slim
 
-RUN sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list \
-    && sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
+ENV LANG C.UTF-8
+RUN rm -f /etc/localtime \
+    && ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone
+
+RUN echo "" > /etc/apt/sources.list
+RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/debian/ stretch main contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-updates main contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-backports main contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/debian-security stretch/updates main contrib non-free" >> /etc/apt/sources.list
 
 VOLUME /root
 
 ADD dst-admin.jar dst-admin.jar
 ADD dst_admin_docker.sh dst_admin_docker.sh
 RUN chmod 755 dst_admin_docker.sh
-
-ENV LANG C.UTF-8
-ENV TZ=Asia/Shanghai
 
 RUN dpkg --add-architecture i386 \
     && apt-get update \
@@ -23,7 +28,9 @@ RUN dpkg --add-architecture i386 \
         wget \
         ca-certificates \
         openjdk-8-jre \
-        screen
+        screen \
+        sudo \
+    && apt-get clean
 
 EXPOSE 8080/tcp
 EXPOSE 10888/udp

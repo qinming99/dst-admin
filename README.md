@@ -61,6 +61,8 @@ java -jar dst-admin.jar
 ./dstStart.sh
 ```
 
+## Docker Support：[link](https://github.com/qinming99/dst-admin/blob/master/docker/README.md)
+
 ## Preview 
 
 ![img](https://github.com/qinming99/dst-admin/blob/master/images/image1.png)
