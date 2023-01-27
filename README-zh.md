@@ -21,7 +21,7 @@
 2.  默认用户名/密码 admin/123456
 3.  饥荒监听端口**10888，10998，10999**（建议开放所有端口，避免一些问题）
 
-## docker版本部署请参考：[点击查看](https://github.com/qinming99/dst-admin/blob/master/file/README.md)
+## docker版本部署请参考：[点击查看](https://github.com/qinming99/dst-admin/blob/master/docker/README-zh.md)
 
 ## 如果需要租赁成品服务器： [点击查看](http://download.tugos.cn/img/taobao_ad.jpg)
 

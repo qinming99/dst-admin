@@ -1,50 +1,50 @@
-# Docker 构建指南
+# Docker Support
 
 - author: [@dzzhyk](https://github.com/dzzhyk)
-- update: 2022-12-05 20:16:42
+- update: 2023-01-27 11:44:11
 
-**首先请确保服务器已经安装docker环境，且服务器架构amd64 (操作系统: Win|MacOS|Linux均可)**
+**Make sure install Docker env FIRST with arch type: amd64 (Win|MacOS|Linux)**
 
-## 1. 使用已有镜像
+[browse in dockerhub.com](https://hub.docker.com/r/dzzhyk/dst-admin)
 
-1. 容器首次启动时自动安装steamcmd、饥荒服务端并启动dst-admin
-2. 需要服务器开放8080、10888、10998-10999端口；开服完成后，访问8080端口进入后台管理界面
-3. 容器入口脚本为`dst_admin_docker.sh`，可以进入容器后自行修改
+## 1. Quick Start
 
-```shell script
-$ docker pull dzzhyk/dst-admin:latest
-$ docker run --name dst-admin -d -p8080:8080 -p10888:10888 -p10998-10999:10998-10999 dzzhyk/dst-admin:latest
-```
+1. Automatically install `steamcmd`, `Don't Starve server` and start `dst-admin` when the container starts for the first
+   time
+2. Ports 8080, 10888, and 1098-10999 must be enabled on the server. After the server is started, access port 8080 to go
+   to the background management page
+3. The container ENTRYPOINT is `dst_admin_docker.sh`. You can modify it after entering the container
 
-4. 容器启动日志、dst-admin日志
+   ```shell
+   $ docker pull dzzhyk/dst-admin:latest
+   $ docker run --name dst-admin -d -p8080:8080 -p10888:10888/udp -p10998-10999:10998-10999/udp dzzhyk/dst-admin:latest
+   ```
 
-```shell script
-$ docker logs dst-admin
-```
+4. Check `dst-admin` log
 
-5. 注意：如果你使用了某些Docker镜像源，那么可能latest拉取到的非最新版本，此时请手动尝试拉取新版：
+   ```shell
+   $ docker logs dst-admin
+   ```
 
-```shell script
-$ docker pull dzzhyk/dst-admin:v最新版本号
-```
+5. Restart container to check for updates for `steamcmd` and `Don't Starve server`
 
-## 2. 手动构建镜像
+   ```shell
+   $ docker restart dst-admin
+   ```
 
-这里以1.5.0为例
+## 2. Build images
 
-1. 打开终端terminal，cd进入docker目录，执行build_image.sh脚本
+1. Open terminal and change dictionary into `dst-admin/docker`，exec build_image.sh
 
-```shell script
-$ cd docker
-$ ./build_image.sh <Docker用户名> <dst-admin版本>
-# 例如: ./build_image.sh wolfgang 1.5.0
-```
+   ```shell
+   $ cd docker
+   $ ./build_image.sh <Docker username> <dst-admin version>
+   # For example: ./build_image.sh wolfgang 1.5.0
+   ```
 
-2. 构建完成后，查看并启动构建好的image:
+2. Check your own image:
 
-```shell script
-$ docker images
-$ docker run --name dst-admin -d -p8080:8080 -p10888:10888 -p10998-10999:10998-10999 wolfgang/dst-admin:v1.5.0
-```
-
-构建镜像速度依据构建机网络决定，默认docker源国内并不稳定，如遇网络错误、构建慢请尝试镜像源、科学上网。
+   ```shell
+   $ docker images
+   $ docker run --name dst-admin -d -p8080:8080 -p10888:10888/udp -p10998-10999:10998-10999/udp wolfgang/dst-admin:v1.5.0
+   ```
