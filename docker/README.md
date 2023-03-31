@@ -11,7 +11,7 @@
 
 1. Automatically install `steamcmd`, `Don't Starve server` and start `dst-admin` when the container starts for the first
    time
-2. Ports 8080, 10888, and 1098-10999 must be enabled on the server. After the server is started, access port 8080 to go
+2. Ports 8080, 10888, and 10998-10999 must be enabled on the server. After the server is started, access port 8080 to go
    to the background management page
 3. The container ENTRYPOINT is `dst_admin_docker.sh`. You can modify it after entering the container
 
