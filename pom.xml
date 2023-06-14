@@ -25,7 +25,7 @@
         <!-- hutool版本 -->
         <hutool.version>5.8.8</hutool.version>
         <!-- guava版本 -->
-        <guava.version>31.1-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
         <!-- lang3版本 -->
         <apache.commons.version>3.11</apache.commons.version>
         <!-- fastjson版本 -->
