@@ -13,6 +13,12 @@
 2. 需要服务器开放8080、10888、10998-10999端口；开服完成后，访问8080端口进入后台管理界面
 3. 容器入口脚本为`dst_admin_docker.sh`，可以进入容器后自行修改
 
+- 国内用户推荐：
+    ```shell
+    $ docker pull registry.cn-hangzhou.aliyuncs.com/dzzhyk/dst-admin:latest
+    $ docker run --name dst-admin -d -p8080:8080 -p10888:10888/udp -p10998-10999:10998-10999/udp registry.cn-hangzhou.aliyuncs.com/dzzhyk/dst-admin:latest
+    ```
+- 官方源：
     ```shell
     $ docker pull dzzhyk/dst-admin:latest
     $ docker run --name dst-admin -d -p8080:8080 -p10888:10888/udp -p10998-10999:10998-10999/udp dzzhyk/dst-admin:latest
