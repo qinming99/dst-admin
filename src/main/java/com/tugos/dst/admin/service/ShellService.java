@@ -229,6 +229,18 @@ public class ShellService {
     }
 
     /**
+     * 更新游戏Mods 需要停止地面和洞穴进程
+     *
+     * @return 执行信息
+     */
+    public List<String> updateGameMods() {
+        //优雅关闭
+        this.elegantShutdownMaster();
+        this.elegantShutdownCaves();
+        return ShellUtil.runShell(DstConstant.UPDATE_GAME_MOD_CMD);
+    }
+
+    /**
      * 睡眠
      * @param seconds 秒
      */
