@@ -428,7 +428,7 @@
                 })
             },
             updateGameMods(){
-                this.visible2 = false;//隐藏
+                this.visible3 = false;//隐藏
                 this.loading = true;
                 get("/home/updateGameMods").then((data) => {
                     this.loading = false;
