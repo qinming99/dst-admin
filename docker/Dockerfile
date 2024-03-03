@@ -42,13 +42,16 @@ RUN dpkg --add-architecture i386 \
         libxext6 \
         libxi6 \
         libxrender1 \
-        libxtst6
+        libxtst6 \
+        procps \
+        inetutils-ping
 
 
 # amd64 openjdk-8-jre-headless
 RUN wget http://snapshot.debian.org/archive/debian-security/20220210T090326Z/pool/updates/main/o/openjdk-8/openjdk-8-jre-headless_8u312-b07-1~deb9u1_amd64.deb
 RUN dpkg -i openjdk-8-jre-headless_8u312-b07-1~deb9u1_amd64.deb
 RUN apt-get clean
+RUN rm -rf openjdk-8-jre-headless_8u312-b07-1~deb9u1_amd64.deb
 
 EXPOSE 8080/tcp
 EXPOSE 10888/udp

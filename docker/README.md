@@ -1,7 +1,7 @@
 # Docker Support
 
 - author: [@dzzhyk](https://github.com/dzzhyk)
-- update: 2023-01-27 11:44:11
+- update: 2024-03-03 14:14:30
 
 **Make sure install Docker env FIRST with arch type: amd64 (Win|MacOS|Linux)**
 
