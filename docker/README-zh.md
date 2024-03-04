@@ -1,7 +1,7 @@
 # Docker 构建指南
 
 - author: [@dzzhyk](https://github.com/dzzhyk)
-- update: 2023-01-27 11:44:11
+- update: 2024-03-03 14:14:30
 
 **首先请确保服务器已经安装docker环境，且服务器架构amd64 (操作系统: Win|MacOS|Linux均可)**
 
@@ -30,7 +30,7 @@
     $ docker logs dst-admin
     ```
 
-5. 如果你使用了某些Docker镜像源，那么可能latest拉取到的非最新版本，推荐你用docker官方国内源 https://registry.docker-cn.com
+5. 如果你使用了某些Docker镜像源，那么可能latest拉取到的非最新版本，推荐你用docker官方源或者阿里云分流镜像
 
 6. 容器启动时会自动检查steamcmd和饥荒服务端更新，手动触发方式：
 
