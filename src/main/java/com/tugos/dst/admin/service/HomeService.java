@@ -176,6 +176,18 @@ public class HomeService {
     }
 
     /**
+     * 更新游戏Mods 需要停止地面和洞穴进程
+     */
+    public ResultVO<String> updateGameMods() {
+        if (!this.checkIsInstallDst()) {
+            //未安装dst
+            return ResultVO.fail(I18nResourcesConfig.getMessage("tip.home.start.error"));
+        }
+        shellService.updateGameMods();
+        return ResultVO.success();
+    }
+
+    /**
      * 备份游戏存档
      *
      * @param name 存档名称
